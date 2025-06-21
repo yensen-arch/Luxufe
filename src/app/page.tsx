@@ -3,6 +3,7 @@ import DiscoverLuxury from "@/components/DiscoverLuxury";
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import StartJourney from "@/components/StartJourney";
+import Voyages from "@/components/Voyages";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <StartJourney />
       <DiscoverLuxury />
       <CuratedForYou />
+      <Voyages />
     </main>
   );
 }
