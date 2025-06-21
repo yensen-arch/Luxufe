@@ -8,13 +8,12 @@ export default function DiscoverLuxury() {
         <div className="flex">
           {/* Left Content Panel */}
           <div className="w-4/6 bg-slate-800 flex items-center justify-center px-8 py-16 lg:px-16 min-h-screen">
-            <div className="max-w-lg text-white">
+            <div className="max-w-2xl text-white">
               <h1 className="text-4xl lg:text-5xl xl:text-6xl font-light leading-tight mb-8">
                 Unmatched care,<br />
                 effortless experiences
               </h1>
-              
-              <p className="text-base lg:text-lg leading-relaxed mb-12 text-gray-300">
+              <p className="text-base lg:text-lg leading-relaxed mb-12 ">
                 Luxury travel is defined by the peace of mind it brings. Where every detail is thoughtfully arranged, 
                 allowing you to focus solely on the journey ahead. From seamless transitions to exceptional customer 
                 care, every aspect of your trip is designed to provide an effortless and unforgettable experience.
