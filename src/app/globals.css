@@ -1,1 +1,29 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'Bellarina';
+  src: url('/fonts/Bellarina.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Arpona';
+  src: url('/fonts/Arpona-ExtraLight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@theme {
+  --font-family-bellarina: 'Bellarina', serif;
+  --font-family-arpona: 'Arpona', serif;
+}
+
+.font-bellarina {
+  font-family: var(--font-family-bellarina);
+}
+
+.font-arpona {
+  font-family: var(--font-family-arpona);
+}
+  
