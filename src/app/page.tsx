@@ -1,3 +1,4 @@
+import CuratedForYou from "@/components/CuratedForYou";
 import DiscoverLuxury from "@/components/DiscoverLuxury";
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
@@ -10,6 +11,7 @@ export default function Home() {
       <Hero />
       <StartJourney />
       <DiscoverLuxury />
+      <CuratedForYou />
     </main>
   );
 }
