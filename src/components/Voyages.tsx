@@ -108,9 +108,9 @@ export default function Voyages() {
                 unparalleled <span className="italic font-serif text-7xl font-bellarina absolute  top-15 right-25">{currentVoyage.titlePart2}</span>
               </h2>
 
-              <p className="text-gray-600 text-lg leading-relaxed mb-10 max-w-lg font-inter font-bold">{currentVoyage.description}</p>
+              <p className="text-lg leading-relaxed mb-10 max-w-lg font-inter font-bold">{currentVoyage.description}</p>
 
-              <button className="group inline-flex items-center gap-3 text-sm font-semibold tracking-widest border border-gray-400 px-8 py-4 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300">
+              <button className="group inline-flex items-center gap-3 text-sm font-semibold tracking-widest border border-gray-400 px-8 py-4 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 font-inter font-bold">
                 {currentVoyage.buttonText}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>

@@ -29,7 +29,7 @@ const testimonialsData = [
 
 const TestimonialCard = ({ quote, author, location, isActive }: { quote: string, author: string, location: string, isActive: boolean }) => {
   return (
-    <div className={`transition-all duration-500 p-8 ${isActive ? 'bg-white shadow-2xl scale-100' : 'bg-gray-50 scale-90'}`}>
+    <div className={`transition-all duration-500 p-8 font-inter font-bold ${isActive ? 'bg-white shadow-2xl scale-100' : 'bg-gray-50 scale-90'}`}>
       <div className="flex justify-center mb-4">
         {[...Array(5)].map((_, i) => (
           <Star key={i} className={`h-5 w-5 ${isActive ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} />
@@ -65,13 +65,13 @@ export default function Testimonials() {
 
 
   return (
-    <section className="py-24">
-      <div className="container mx-auto px-4">
+    <section className="py-30">
+      <div className="container px-4">
         <div className="flex flex-row justify-center items-center mb-16">
-          <h2 className="text-4xl lg:text-5xl w-1/2 font-light text-gray-900 leading-tight">
+          <h2 className="text-4xl font-arpona font-bold ml-auto lg:text-5xl w-1/2 text-gray-900 leading-tight">
              Journeys that speak for themselves
           </h2>
-          <p className=" text-gray-700 w-1/2  max-w-md">
+          <p className="w-1/2 pr-20 mr-auto max-w-md font-inter font-bold">
             At Luxufe, our clients’ experiences define us. But don’t take our word for it. Explore their experiences of effortless journeys, impeccable service, and unforgettable moments.
           </p>
         </div>
