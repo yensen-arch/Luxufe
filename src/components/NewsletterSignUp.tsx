@@ -8,29 +8,27 @@ export default function NewsletterSignUp() {
         <div className="max-w-5xl mx-auto bg-white p-8 sm:p-12 lg:p-16">
           <div className="flex flex-col lg:flex-row gap-12">
             <div className="lg:w-1/2">
-              <h3 className="text-3xl font-serif text-gray-600">Stay <span className="italic">inspired.</span></h3>
-              <h2 className="text-4xl font-serif text-gray-800 mt-2 mb-6">Travel seamlessly.</h2>
-              <p className="text-gray-600">
+              <h3 className="text-4xl font-arpona font-bold text-gray-600">Stay <span className="font-bellarina font-medium text-7xl">inspired.</span></h3>
+              <h2 className="text-4xl font-arpona font-bold text-gray-800 mt-2 mb-6">Travel seamlessly.</h2>
+              <p className="font-inter font-bold mb-10">
                 Join the Luxufe newsletter for exclusive travel insights, curated offers, and the latest in luxury experiences. Be the first to discover extraordinary journeys, tailored just for you.
               </p>
             </div>
             <div className="lg:w-1/2">
               <form>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                  <input type="text" placeholder="First Name*" className="w-full p-3 border border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none" />
-                  <input type="text" placeholder="Last Name*" className="w-full p-3 border border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none" />
+                  <input type="text" placeholder="First Name*" className="w-full p-3 text-sm border border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none font-inter font-bold" />
+                  <input type="text" placeholder="Last Name*" className="w-full p-3 text-sm border border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none font-inter font-bold" />
                 </div>
-                <div className="mb-4">
-                  <input type="email" placeholder="Email*" className="w-full p-3 border border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                  <input type="email" placeholder="Email*" className="w-full p-3 text-sm border border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none font-inter font-bold" />
+                  <input type="tel" placeholder="+1 (USA)" className="w-full p-3 text-sm border border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none font-inter font-bold" />
                 </div>
-                <div className="mb-4">
-                  <input type="tel" placeholder="+1 (USA)" className="w-full p-3 border border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none" />
-                </div>
-                <button type="submit" className="w-full bg-[#1a233a] text-white py-4 px-6 flex items-center justify-center gap-3 font-semibold tracking-widest hover:bg-gray-800 transition-colors">
+                <button type="submit" className="w-full bg-[#1a233a] text-white py-4 px-6 flex items-center justify-center gap-3 font-inter font-bold tracking-widest hover:bg-gray-800 transition-colors">
                   STAY INSPIRED <ArrowRight className="h-4 w-4" />
                 </button>
               </form>
-              <p className="text-xs text-gray-500 mt-4 text-center">
+              <p className="text-xs text-gray-500 mt-4 text-center font-inter font-bold">
                 By joining this newsletter, you are agreeing to the terms in our Privacy Policy
               </p>
             </div>
