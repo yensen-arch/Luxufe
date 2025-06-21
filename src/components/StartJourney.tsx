@@ -39,8 +39,8 @@ export default function StartJourney() {
     <section className="py-20 bg-white text-gray-800">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-light mb-6 text-gray-900">Start your journey, your way</h2>
-          <p className="max-w-2xl mx-auto text-lg leading-relaxed text-gray-700">
+          <h2 className="text-6xl  mb-10 text-gray-900 font-arpona">Start your journey, your way</h2>
+          <p className="max-w-2xl mx-auto text-lg leading-relaxed text-gray-700 font-inter font-bold">
             Travel is personal. We all have different wants, needs, and desires when we 
             consider where, when, and how you travel. Let Luxufe tailor your next travel 
             experience for you.
@@ -54,7 +54,7 @@ export default function StartJourney() {
         </div>
         
         <div className="text-center">
-          <button className="border border-gray-400 text-gray-700 px-8 py-3 text-sm font-medium tracking-wider hover:bg-gray-800 hover:text-white hover:border-gray-800 transition-all duration-300">
+          <button className="font-inter font-bold border-2 border-gray-400 text-gray-700 px-6 py-4 text-sm tracking-wider hover:bg-gray-800 hover:text-white hover:border-gray-800 transition-all duration-300">
             + MORE WAYS TO TRAVEL
           </button>
         </div>

@@ -14,9 +14,17 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-VariableFont_opsz,wght.ttf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+}
+
 @theme {
   --font-family-bellarina: 'Bellarina', serif;
   --font-family-arpona: 'Arpona', serif;
+  --font-family-inter: 'Inter', sans-serif;
 }
 
 .font-bellarina {
@@ -25,5 +33,9 @@
 
 .font-arpona {
   font-family: var(--font-family-arpona);
+}
+
+.font-inter {
+  font-family: var(--font-family-inter);
 }
   

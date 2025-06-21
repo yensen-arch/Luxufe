@@ -16,7 +16,7 @@ export default function Hero() {
           <br />
           Travel Experiences
         </h1>
-        <p className="mt-6 max-w-xl mx-auto">
+        <p className="mt-6 max-w-xl mx-auto font-inter font-bold">
           Time is your greatest luxury. At Luxufe, we go beyond travel, refining every
           unforgettable moment so that it is tailored to you.
         </p>
