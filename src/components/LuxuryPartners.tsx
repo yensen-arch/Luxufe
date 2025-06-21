@@ -5,16 +5,16 @@ import { ArrowRight } from 'lucide-react';
 
 const partnersData = {
   'HOTEL PARTNERS': [
-    { name: '&BEYOND', logoUrl: 'https://www.logoipsum.com/logo/logo-1.svg' },
-    { name: 'BELMOND', logoUrl: 'https://www.logoipsum.com/logo/logo-2.svg' },
-    { name: 'CAPELLA', logoUrl: 'https://www.logoipsum.com/logo/logo-3.svg' },
-    { name: 'Dorchester Collection', logoUrl: 'https://www.logoipsum.com/logo/logo-4.svg' },
-    { name: 'CAPELLA 2', logoUrl: 'https://www.logoipsum.com/logo/logo-5.svg' },
-    { name: 'Fairmont', logoUrl: 'https://www.logoipsum.com/logo/logo-6.svg' },
-    { name: 'One&Only', logoUrl: 'https://www.logoipsum.com/logo/logo-7.svg' },
-    { name: 'St. Regis', logoUrl: 'https://www.logoipsum.com/logo/logo-8.svg' },
-    { name: 'Oetker Collection', logoUrl: 'https://www.logoipsum.com/logo/logo-9.svg' },
-    { name: 'St. Regis 2', logoUrl: 'https://www.logoipsum.com/logo/logo-10.svg' },
+    { name: '&BEYOND', logoUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_mjJSw5TamVPloUqcsexkByMBgwdknm4uSa9nG8mQfyU6M=s160-c-k-c0x00ffffff-no-rj' },
+    { name: 'BELMOND', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvZW4vdGh1bWIv/MS8xYy9CZWxtb25k/X0xvZ28ucG5nLzUx/MnB4LUJlbG1vbmRf/TG9nby5wbmc' },
+    { name: 'CAPELLA', logoUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_mjJSw5TamVPloUqcsexkByMBgwdknm4uSa9nG8mQfyU6M=s160-c-k-c0x00ffffff-no-rj' },
+    { name: 'Dorchester Collection', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvZW4vdGh1bWIv/MS8xYy9CZWxtb25k/X0xvZ28ucG5nLzUx/MnB4LUJlbG1vbmRf/TG9nby5wbmc' },
+    { name: 'CAPELLA 2', logoUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_mjJSw5TamVPloUqcsexkByMBgwdknm4uSa9nG8mQfyU6M=s160-c-k-c0x00ffffff-no-rj' },
+    { name: 'Fairmont', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvZW4vdGh1bWIv/MS8xYy9CZWxtb25k/X0xvZ28ucG5nLzUx/MnB4LUJlbG1vbmRf/TG9nby5wbmc' },
+    { name: 'One&Only', logoUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_mjJSw5TamVPloUqcsexkByMBgwdknm4uSa9nG8mQfyU6M=s160-c-k-c0x00ffffff-no-rj' },
+    { name: 'St. Regis', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvZW4vdGh1bWIv/MS8xYy9CZWxtb25k/X0xvZ28ucG5nLzUx/MnB4LUJlbG1vbmRf/TG9nby5wbmc' },
+    { name: 'Oetker Collection', logoUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_mjJSw5TamVPloUqcsexkByMBgwdknm4uSa9nG8mQfyU6M=s160-c-k-c0x00ffffff-no-rj' },
+    { name: 'St. Regis 2', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvZW4vdGh1bWIv/MS8xYy9CZWxtb25k/X0xvZ28ucG5nLzUx/MnB4LUJlbG1vbmRf/TG9nby5wbmc' },
   ],
   'CRUISE LINE PARTNERS': [
     { name: 'Seabourn', logoUrl: 'https://www.logoipsum.com/logo/logo-11.svg' },
@@ -39,15 +39,15 @@ export default function LuxuryPartners() {
   return (
     <section className="bg-gray-50 py-24 text-gray-800">
       <div className="container mx-auto px-4 text-center">
-        <h3 className="text-3xl font-serif text-gray-600 italic mb-2">Excellence elevated</h3>
-        <h2 className="text-5xl font-serif mb-12">Our trusted, luxury partners</h2>
+        <h3 className="text-5xl font-bellarina font-medium text-gray-600 italic mb-6">Excellence elevated</h3>
+        <h2 className="text-5xl font-arpona font-bold my-12">Our trusted, luxury partners</h2>
         
         <div className="flex justify-center border-b border-gray-200 mb-12">
           {tabs.map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-3 text-sm font-semibold tracking-wider relative transition-colors ${
+              className={`px-6 py-3 text-sm font-inter font-bold tracking-wider relative transition-colors ${
                 activeTab === tab ? 'text-gray-900' : 'text-gray-500 hover:text-gray-800'
               }`}
             >
@@ -62,13 +62,13 @@ export default function LuxuryPartners() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-12 items-center justify-items-center">
           {partnersData[activeTab].map(partner => (
             <div key={partner.name} className="h-16 flex items-center justify-center">
-               <img src={partner.logoUrl} alt={partner.name} className="max-h-full max-w-full h-auto w-auto filter grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300" />
+               <img src={partner.logoUrl} alt={partner.name} className="max-h-full max-w-full h-auto w-auto  opacity-600 transition-all duration-900" />
             </div>
           ))}
         </div>
         
         <div className="text-center mt-20">
-          <button className="group flex items-center gap-3 text-sm font-semibold tracking-widest border border-gray-400 px-6 py-3 hover:bg-gray-800 hover:text-white transition-colors mx-auto">
+          <button className="group flex items-center gap-3 text-sm font-inter font-bold tracking-widest border border-gray-400 px-6 py-3 hover:bg-gray-800 hover:text-white transition-colors mx-auto">
             ELITE PARTNERS
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </button>
