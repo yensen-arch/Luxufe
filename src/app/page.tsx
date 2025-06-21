@@ -3,6 +3,7 @@ import DiscoverLuxury from "@/components/DiscoverLuxury";
 import ElevePerks from "@/components/ElevePerks";
 import ExclusiveOffers from "@/components/ExclusiveOffers";
 import Hero from "@/components/Hero";
+import Inspiration from "@/components/Inspiration";
 import LuxuryPartners from "@/components/LuxuryPartners";
 import Navbar from "@/components/Navbar";
 import StartJourney from "@/components/StartJourney";
@@ -22,6 +23,7 @@ export default function Home() {
       <LuxuryPartners />
       <ElevePerks />
       <ExclusiveOffers />
+      <Inspiration />
     </main>
   );
 }
