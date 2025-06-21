@@ -77,8 +77,8 @@ export default function CuratedForYou() {
         <button className="border border-gray-800 text-gray-800 px-6 py-3 hover:bg-gray-800 hover:text-white transition flex items-center gap-2">
           JOURNEYS & TOURS <ArrowRight className="h-4 w-4" />
         </button>
-        <button className="border border-gray-800 text-gray-800 px-6 py-3 hover:bg-gray-800 hover:text-white transition">
-          + MORE WAYS TO TRAVEL
+        <button className="border border-gray-800 text-gray-800 px-6 py-3 hover:bg-gray-800 hover:text-white transition flex items-center gap-2">
+          MORE WAYS TO TRAVEL <ArrowRight className="h-4 w-4" />
         </button>
       </div>
     </section>

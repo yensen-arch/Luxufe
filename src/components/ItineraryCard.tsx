@@ -54,7 +54,7 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
   }
 
   return (
-    <div className="relative flex-shrink-0 w-full sm:w-80 h-[450px] group overflow-hidden rounded-lg mx-2">
+    <div className="relative flex-shrink-0 w-full sm:w-80 h-[500px] group overflow-hidden mx-2">
       <div 
         className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
         style={{ backgroundImage: `url(${imageUrl})` }}
