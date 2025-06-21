@@ -1,6 +1,7 @@
 import CuratedForYou from "@/components/CuratedForYou";
 import DiscoverLuxury from "@/components/DiscoverLuxury";
 import Hero from "@/components/Hero";
+import LuxuryPartners from "@/components/LuxuryPartners";
 import Navbar from "@/components/Navbar";
 import StartJourney from "@/components/StartJourney";
 import Testimonials from "@/components/Testimonials";
@@ -16,6 +17,7 @@ export default function Home() {
       <CuratedForYou />
       <Voyages />
       <Testimonials />
+      <LuxuryPartners />
     </main>
   );
 }
