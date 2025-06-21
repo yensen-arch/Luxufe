@@ -60,7 +60,7 @@ export default function Voyages() {
         <div className="relative flex flex-col lg:flex-row items-center lg:justify-start min-h-[650px]">
           
           {/* Image Section */}
-          <div className="w-2/5 z-40 ml-20">
+          <div className="w-3/6 h-full z-40 ml-20">
             <div className="relative overflow-hidden shadow-2xl">
               <img
                 src={currentVoyage.imageUrl || "/placeholder.svg"}
@@ -102,13 +102,13 @@ export default function Voyages() {
                 <Anchor className="h-7 w-7 text-gray-600" />
               </div>
 
-              <h2 className="text-4xl ml-auto lg:text-5xl font-light leading-tight mb-8 text-gray-900">
+              <h2 className="text-4xl ml-auto lg:text-5xl font-light leading-tight mb-8 text-gray-900 font-arpona relative">
                 {currentVoyage.titlePart1}
                 <br />
-                unparalleled <span className="italic font-serif text-5xl lg:text-6xl">{currentVoyage.titlePart2}</span>
+                unparalleled <span className="italic font-serif text-7xl font-bellarina absolute  top-15 right-25">{currentVoyage.titlePart2}</span>
               </h2>
 
-              <p className="text-gray-600 text-lg leading-relaxed mb-10 max-w-lg">{currentVoyage.description}</p>
+              <p className="text-gray-600 text-lg leading-relaxed mb-10 max-w-lg font-inter font-bold">{currentVoyage.description}</p>
 
               <button className="group inline-flex items-center gap-3 text-sm font-semibold tracking-widest border border-gray-400 px-8 py-4 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300">
                 {currentVoyage.buttonText}
