@@ -40,7 +40,7 @@ export default function Voyages() {
     setTimeout(() => {
       setCurrentIndex((prevIndex) => (prevIndex === 0 ? voyageData.length - 1 : prevIndex - 1))
       setIsTransitioning(false)
-    }, 150)
+    }, 300)
   }
 
   const goToNext = () => {
@@ -49,36 +49,19 @@ export default function Voyages() {
     setTimeout(() => {
       setCurrentIndex((prevIndex) => (prevIndex === voyageData.length - 1 ? 0 : prevIndex + 1))
       setIsTransitioning(false)
-    }, 150)
+    }, 300)
   }
 
   const currentVoyage = voyageData[currentIndex]
 
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="relative flex items-center justify-between">
-          {/* Navigation Arrows - Left Side */}
-          <div className="absolute left-8 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-20">
-            <button
-              onClick={goToPrevious}
-              className="bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
-              disabled={isTransitioning}
-            >
-              <ArrowLeft className="h-5 w-5 text-gray-700 transition-transform group-hover:-translate-x-0.5" />
-            </button>
-            <button
-              onClick={goToNext}
-              className="bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
-              disabled={isTransitioning}
-            >
-              <ArrowRight className="h-5 w-5 text-gray-700 transition-transform group-hover:translate-x-0.5" />
-            </button>
-          </div>
-
+    <section className="py-24 overflow-hidden">
+      <div className="container mx-auto">
+        <div className="relative flex flex-col lg:flex-row items-center lg:justify-start min-h-[650px]">
+          
           {/* Image Section */}
-          <div className="w-3/5 pr-8">
-            <div className="relative overflow-hidden rounded-lg">
+          <div className="w-2/5 z-40 ml-20">
+            <div className="relative overflow-hidden shadow-2xl">
               <img
                 src={currentVoyage.imageUrl || "/placeholder.svg"}
                 alt={currentVoyage.titlePart1}
@@ -89,34 +72,49 @@ export default function Voyages() {
             </div>
           </div>
 
+          {/* Navigation Arrows */}
+          <div className="absolute left-15 top-1/2 -translate-y-1/2 flex flex-col gap-8 z-50 hidden lg:flex">
+            <button
+              onClick={goToPrevious}
+              className="bg-white rounded-full p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+              disabled={isTransitioning}
+            >
+              <ArrowLeft className="h-5 w-5 text-gray-700 transition-transform group-hover:-translate-x-0.5" />
+            </button>
+            <button
+              onClick={goToNext}
+              className="bg-white rounded-full p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+              disabled={isTransitioning}
+            >
+              <ArrowRight className="h-5 w-5 text-gray-700 transition-transform group-hover:translate-x-0.5" />
+            </button>
+          </div>
+
           {/* Content Section */}
-          <div className="w-2/5 pl-8">
+          <div className="bg-gray-100 w-6/8 mt-8 h-screen lg:mt-0 lg:absolute lg:right-0 p-12 z-20">
             <div
-              className={`transition-all duration-700 ease-in-out ${
+              className={`transition-all duration-700 ease-in-out  ${
                 isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
               }`}
             >
-              {/* Icon */}
+              <div className="w-1/2 ml-auto">
               <div className="inline-flex items-center justify-center w-16 h-16 border border-gray-300 rounded-full mb-8">
                 <Anchor className="h-7 w-7 text-gray-600" />
               </div>
 
-              {/* Title */}
-              <h2 className="text-4xl lg:text-5xl font-light leading-tight mb-8 text-gray-900">
+              <h2 className="text-4xl ml-auto lg:text-5xl font-light leading-tight mb-8 text-gray-900">
                 {currentVoyage.titlePart1}
                 <br />
-                <span className="block">unparalleled </span>
-                <span className="italic font-serif text-5xl lg:text-6xl">{currentVoyage.titlePart2}</span>
+                unparalleled <span className="italic font-serif text-5xl lg:text-6xl">{currentVoyage.titlePart2}</span>
               </h2>
 
-              {/* Description */}
               <p className="text-gray-600 text-lg leading-relaxed mb-10 max-w-lg">{currentVoyage.description}</p>
 
-              {/* Button */}
               <button className="group inline-flex items-center gap-3 text-sm font-semibold tracking-widest border border-gray-400 px-8 py-4 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300">
                 {currentVoyage.buttonText}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
+              </div>
             </div>
           </div>
         </div>
