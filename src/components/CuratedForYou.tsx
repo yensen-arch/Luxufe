@@ -34,22 +34,22 @@ export default function CuratedForYou() {
   return (
     <section className="py-20 my-40 bg-white text-gray-800">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-5xl font-serif">The world,</h2>
-        <h3 className="text-4xl font-serif text-gray-600 italic mb-6">curated for you</h3>
-        <p className="max-w-3xl mx-auto mb-12">
+        <h2 className="text-6xl">The world,</h2>
+        <h3 className="text-6xl mb-6">curated for you</h3>
+        <p className="max-w-xl text-black mx-auto my-12">
           From iconic landmarks to hidden retreats, Luxufe takes you beyond the expected. Discover travel experiences designed around your desires, where every journey is effortless and immersive.
         </p>
-        <div className="flex justify-center items-center gap-8 mb-16 text-gray-600">
-          <div className="flex items-center gap-2">
-            <Star className="h-4 w-4 text-yellow-500" />
+        <div className="flex justify-center items-center gap-0 mb-16 text-gray-600">
+          <div className="flex items-center gap-2 border-r-2 px-12 py-2 border-amber-400/50">
+            <Star className="h-4 w-4 text-slate-600" />
             <span>Personalised Itineraries</span>
           </div>
-          <div className="flex items-center gap-2">
-            <Star className="h-4 w-4 text-yellow-500" />
+          <div className="flex items-center gap-2 border-r-2 px-12 py-2 border-amber-400/50">
+            <Star className="h-4 w-4 text-slate-600" />
             <span>Insider secrets guaranteed</span>
           </div>
-          <div className="flex items-center gap-2">
-            <Star className="h-4 w-4 text-yellow-500" />
+          <div className="flex items-center gap-2 px-12 py-2">
+            <Star className="h-4 w-4 text-slate-600" />
             <span>World-class Service</span>
           </div>
         </div>
