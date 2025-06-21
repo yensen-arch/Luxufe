@@ -2,10 +2,12 @@ import CuratedForYou from "@/components/CuratedForYou";
 import DiscoverLuxury from "@/components/DiscoverLuxury";
 import ElevePerks from "@/components/ElevePerks";
 import ExclusiveOffers from "@/components/ExclusiveOffers";
+import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Inspiration from "@/components/Inspiration";
 import LuxuryPartners from "@/components/LuxuryPartners";
 import Navbar from "@/components/Navbar";
+import NewsletterSignUp from "@/components/NewsletterSignUp";
 import StartJourney from "@/components/StartJourney";
 import Testimonials from "@/components/Testimonials";
 import Voyages from "@/components/Voyages";
@@ -24,6 +26,8 @@ export default function Home() {
       <ElevePerks />
       <ExclusiveOffers />
       <Inspiration />
+      <NewsletterSignUp />
+      <Footer />
     </main>
   );
 }
