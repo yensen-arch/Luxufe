@@ -1,32 +1,133 @@
-import { ArrowRight, Mail, CalendarDays, Info } from 'lucide-react';
+import { ArrowRight, Facebook, Instagram, Twitter } from 'lucide-react';
+import React from 'react';
+
+const galleryImages = [
+    'https://picsum.photos/seed/footer1/400/300',
+    'https://picsum.photos/seed/footer2/400/300',
+    'https://picsum.photos/seed/footer3/400/300',
+    'https://picsum.photos/seed/footer4/400/300',
+    'https://picsum.photos/seed/footer5/400/300',
+];
+
+const mainLinks = {
+    EXPLORE: [
+        { text: 'Journeys & Itineraries', href: '#' },
+        { text: 'Hotels', href: '#' },
+        { text: 'Destinations', href: '#' },
+        { text: 'Experiences', href: '#' },
+        { text: 'Travel Partners', href: '#' },
+        { text: 'Tailored Travel', href: '#' },
+    ],
+    ABOUT: [
+        { text: 'About Rewards Program', href: '#' },
+        { text: 'About Luxufe', href: '#' },
+        { text: 'Before you travel', href: '#' },
+        { text: 'Offers & Promotions', href: '#' },
+        { text: 'Find the journey for you', href: '#' },
+        { text: 'Travel Journal / Blog', href: '#' },
+    ],
+    CONTACT: [
+        { text: 'Submit an enquiry', href: '#' },
+        { text: 'Book a call', href: '#' },
+        { text: 'Email us: info@luxufe.com', href: '#' },
+        { text: 'Call us: +12 34 567 8900', href: '#' },
+        { text: 'Subscribe to news', href: '#' },
+    ],
+};
+
+const megaLinks = {
+    Destinations: ['Africa', 'Alaska', 'Antarctica', 'Arctic Circle & Greenland', 'Asia', 'Australia & New Zealand', 'Caribbean Islands', 'Central America & Mexico', 'Egypt & The Middle East', 'Europe', 'Galapagos Islands', 'India and the Subcontinent', 'Mediterranean Sea', 'Northern Europe & British Isles'],
+    Cruises: ['Adventure/Exploration Cruises', 'Barge Cruises', 'Family Small Ship Cruises', 'Ocean Cruises', 'Polar Cruises', 'Rails to River Cruise', 'River Cruises'],
+    Airlines: ['Emirates', 'Singapore Airlines', 'Qatar Airways', 'British Airways', 'Lufthansa', 'Cathay Pacific', 'Etihad Airways'],
+    Jets: ['NetJets', 'Flexjet', 'Sentient Jet', 'Wheels Up', 'VistaJet', 'PrivateFly', 'Skyjet'],
+};
+
+const brands = [
+    'The Ritz-Carlton', 'Four Seasons Hotels and Resorts', 'St. Regis', 'Mandarin Oriental', 'Aman Resorts', 'The Red Carnation Hotel Collection', 'Waldorf Astoria',
+    'Rosewood Hotels & Resorts', 'Belmond', 'Waldorf Astoria Hotels & Resorts', 'Jumeirah Hotels & Resorts', 'Sofitel Luxury Hotels', 'The Langham Hotels and Resorts', 'Kimpton Hotels',
+    'InterContinental Hotels & Resorts', 'Hyatt Regency', 'The Luxury Collection', 'Occidental Hotels & Resorts', 'Fairmont Hotels & Resorts', 'Banyan Tree Hotels & Resorts', 'Casa Tua Hotel',
+    'Shangri-La Hotels and Resorts', 'Bvlgari Hotels & Resorts', 'Park Hyatt', 'Le Meridien', 'The Leading Hotels of the World', 'SLS Hotels', 'Six Senses Hotels Resorts Spas',
+    'Ritz Paris', 'The Savoy', 'COMO Hotels and Resorts', 'Capella Hotels and Resorts', 'Thompson Hotels', 'Ace Hotel', 'The NoMad Hotel',
+];
 
 export default function Footer() {
-  return (
-    <footer className="bg-[#cde4e3] text-gray-800 py-20">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-5xl font-serif mb-6">Contact Us</h2>
-        <p className="max-w-2xl mx-auto mb-10 text-gray-700">
-          Whether you need expert travel advice, personalised recommendations, or seamless support, don't hesitate to get in touch and let us craft your next effortless journey.
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-8 mb-12">
-          <a href="mailto:info@luxufe.com" className="flex items-center gap-2 hover:underline">
-            <Mail className="h-5 w-5" />
-            <span>info@luxufe.com</span>
-          </a>
-          <a href="#" className="flex items-center gap-2 hover:underline">
-            <CalendarDays className="h-5 w-5" />
-            <span>Book an appointment</span>
-          </a>
-          <a href="#" className="flex items-center gap-2 hover:underline">
-            <Info className="h-5 w-5" />
-            <span>FAQ & Info</span>
-          </a>
-        </div>
-        <button className="group bg-[#1a233a] text-white py-4 px-8 flex items-center justify-center gap-3 font-semibold tracking-widest hover:bg-gray-800 transition-colors mx-auto">
-          ENQUIRE WITH US
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-        </button>
-      </div>
-    </footer>
-  )
+    return (
+        <footer className="bg-[#1a233a] text-white">
+            <div className="grid grid-cols-5">
+                {galleryImages.map((src, i) => (
+                    <img key={i} src={src} alt={`Gallery image ${i + 1}`} className="w-full h-40 object-cover" />
+                ))}
+            </div>
+            <div className="container mx-auto px-8 pt-20 pb-16">
+                {/* Main Footer Section */}
+                <div className="grid lg:grid-cols-3 gap-16">
+                    <div className="lg:col-span-1">
+                        <h2 className="text-5xl font-bold mb-4">LUXUFE</h2>
+                        <p className="text-2xl font-serif text-gray-300">
+                            Seamless luxury travel, tailored to you - <em className="italic">effortless, personal, unforgettable.</em>
+                        </p>
+                        <div className="flex gap-4 mt-8">
+                            <a href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><Instagram className="h-5 w-5" /></a>
+                            <a href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><Facebook className="h-5 w-5" /></a>
+                            <a href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><Twitter className="h-5 w-5" /></a>
+                        </div>
+                    </div>
+                    <div className="lg:col-span-2 grid grid-cols-3 gap-8">
+                        {Object.entries(mainLinks).map(([title, links]) => (
+                            <div key={title}>
+                                <h3 className="font-semibold tracking-widest mb-4">{title}</h3>
+                                <ul className="space-y-3">
+                                    {links.map(link => (
+                                        <li key={link.text}><a href={link.href} className="text-gray-400 hover:text-white transition-colors">{link.text}</a></li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Mega Links Section */}
+                <div className="border-t border-b border-white/10 my-16 py-16">
+                    <div className="grid md:grid-cols-4 gap-8 mb-12">
+                        {Object.entries(megaLinks).map(([title, links]) => (
+                             <div key={title}>
+                                <h3 className="font-bold text-xl mb-6">{title}</h3>
+                                <ul className="space-y-3">
+                                    {links.map(link => (
+                                        <li key={link}><a href='#' className="text-gray-400 hover:text-white transition-colors">{link}</a></li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                     <h3 className="font-bold text-xl mb-6">Brands & Partners</h3>
+                     <div className="grid md:grid-cols-4 gap-x-8 gap-y-3">
+                        {brands.map(brand => (
+                             <a key={brand} href='#' className="text-gray-400 hover:text-white transition-colors">{brand}</a>
+                        ))}
+                     </div>
+                </div>
+
+                {/* Sub-Footer */}
+                <div className="text-center text-gray-400">
+                    <div className="grid grid-cols-8 gap-4 mb-8">
+                        {[...Array(8)].map((_, i) => (
+                           <div key={i} className="h-20 bg-white/5 rounded"></div>
+                        ))}
+                    </div>
+                    <div className="border-t border-white/10 pt-8 flex flex-wrap justify-between items-center text-sm">
+                        <p>&copy; COPYRIGHT. ALL RIGHTS RESERVED. LUXUFE 2025</p>
+                        <div className="flex gap-6">
+                            <a href="#" className="hover:text-white">PRIVACY POLICY</a>
+                            <a href="#" className="hover:text-white">TERMS OF USE</a>
+                            <a href="#" className="hover:text-white">RESERVATION TERMS</a>
+                            <a href="#" className="hover:text-white">REWARDS PROGRAM TERMS</a>
+                            <a href="#" className="hover:text-white">SITE CREDITS</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+    );
 } 
