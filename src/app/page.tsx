@@ -1,5 +1,7 @@
 import CuratedForYou from "@/components/CuratedForYou";
 import DiscoverLuxury from "@/components/DiscoverLuxury";
+import ElevePerks from "@/components/ElevePerks";
+import ExclusiveOffers from "@/components/ExclusiveOffers";
 import Hero from "@/components/Hero";
 import LuxuryPartners from "@/components/LuxuryPartners";
 import Navbar from "@/components/Navbar";
@@ -18,6 +20,8 @@ export default function Home() {
       <Voyages />
       <Testimonials />
       <LuxuryPartners />
+      <ElevePerks />
+      <ExclusiveOffers />
     </main>
   );
 }
