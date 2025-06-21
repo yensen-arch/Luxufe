@@ -1,40 +1,42 @@
+import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
 export default function DiscoverLuxury() {
   return (
-    <section className="bg-white">
-      <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col lg:flex-row">
-          <div className="lg:w-1/2 bg-[#1a233a] text-white flex items-center justify-center p-12 sm:p-16 md:p-24">
-            <div className="max-w-md">
-              <h2 className="text-4xl md:text-5xl font-serif leading-tight">
-                Unmatched care,<br/>
+    <section className="bg-white flex items-center ">
+      <div className="w-full max-w-none relative">
+        <div className="flex">
+          {/* Left Content Panel */}
+          <div className="w-4/6 bg-slate-800 flex items-center justify-center px-8 py-16 lg:px-16 min-h-screen">
+            <div className="max-w-lg text-white">
+              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-light leading-tight mb-8">
+                Unmatched care,<br />
                 effortless experiences
-              </h2>
-              <p className="mt-6 text-gray-300">
-                Luxury travel is defined by the peace of mind it brings. Where every detail is thoughtfully arranged, allowing you to focus solely on the journey ahead. From seamless transitions to exceptional customer care, every aspect of your trip is designed to provide an effortless and unforgettable experience.
+              </h1>
+              
+              <p className="text-base lg:text-lg leading-relaxed mb-12 text-gray-300">
+                Luxury travel is defined by the peace of mind it brings. Where every detail is thoughtfully arranged, 
+                allowing you to focus solely on the journey ahead. From seamless transitions to exceptional customer 
+                care, every aspect of your trip is designed to provide an effortless and unforgettable experience.
               </p>
-              <button className="mt-10 group flex items-center gap-3 text-sm font-semibold tracking-widest border border-white/40 px-6 py-3 hover:bg-white hover:text-[#1a233a] transition-colors">
+              
+              <button className="group flex items-center gap-3 border border-gray-400 px-8 py-4 text-sm font-medium tracking-wider hover:bg-white hover:text-slate-800 hover:border-white transition-all duration-300">
                 DISCOVER LUXURY
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
           </div>
-          <div className="lg:w-1/2">
-            <div className="h-[500px] lg:h-full w-full relative">
-              <img 
-                src="https://picsum.photos/seed/couple-joy/800/1000" 
-                alt="A happy older couple enjoying a trip in a city."
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute bottom-4 right-4 bg-black/70 text-white p-2 text-xs rounded-md">
-                <p>iStock</p>
-                <p>Credit: LeoPatrizi</p>
-              </div>
-            </div>
+          
+          {/* Right Image Panel - Offset and overlapping */}
+          <div className="absolute right-0 top-26 w-3/7 h-6/6 z-10 min-h-screen">
+            <img 
+              src="https://images.unsplash.com/photo-1609902726285-00668009f004?w=800&h=1000&fit=crop&crop=face"
+              alt="Happy older couple enjoying travel together"
+              className="w-full h-full object-cover shadow-2xl"
+            />
           </div>
         </div>
       </div>
     </section>
-  )
-} 
+  );
+}

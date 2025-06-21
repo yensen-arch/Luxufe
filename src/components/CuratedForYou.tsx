@@ -32,7 +32,7 @@ export default function CuratedForYou() {
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
 
   return (
-    <section className="py-20 bg-white text-gray-800">
+    <section className="py-20 my-40 bg-white text-gray-800">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-5xl font-serif">The world,</h2>
         <h3 className="text-4xl font-serif text-gray-600 italic mb-6">curated for you</h3>
