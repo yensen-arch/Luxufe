@@ -13,16 +13,17 @@ export default function DiscoverLuxury() {
                 Unmatched care,<br />
                 effortless experiences
               </h1>
-              <p className="text-base lg:text-lg leading-relaxed mb-12 ">
+              <div className='w-full ml-40'>
+              <p className=" w-5/7 mr-12 lg:text-lg my-12">
                 Luxury travel is defined by the peace of mind it brings. Where every detail is thoughtfully arranged, 
                 allowing you to focus solely on the journey ahead. From seamless transitions to exceptional customer 
                 care, every aspect of your trip is designed to provide an effortless and unforgettable experience.
               </p>
-              
-              <button className="group flex items-center gap-3 border border-gray-400 px-8 py-4 text-sm font-medium tracking-wider hover:bg-white hover:text-slate-800 hover:border-white transition-all duration-300">
+              <button className=" group flex items-center gap-3 border border-gray-400 px-8 py-4 text-sm font-medium tracking-wider hover:bg-white hover:text-slate-800 hover:border-white transition-all duration-300">
                 DISCOVER LUXURY
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
+              </div>
             </div>
           </div>
           
