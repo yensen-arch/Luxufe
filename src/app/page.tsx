@@ -1,7 +1,11 @@
+import Hero from "@/components/Hero";
+import Navbar from "@/components/Navbar";
+
 export default function Home() {
   return (
-    <div>
-      <h1 className="text-4xl font-bold">Luxufe</h1>
-    </div>
+    <main>
+      <Navbar />
+      <Hero />
+    </main>
   );
 }
