@@ -21,10 +21,10 @@ const BlogCard: React.FC<BlogCardProps> = ({ category, title, description, image
         </div>
 
         <div className="relative z-20">
-          <p className="text-xs font-semibold text-gray-500 tracking-widest uppercase">{category}</p>
-          <h3 className="text-xl font-serif text-gray-800 mt-2 mb-3 h-16">{title}</h3>
-          <p className="text-sm text-gray-600 leading-relaxed h-24 overflow-hidden">{description}</p>
-          <a href="#" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-gray-800 hover:underline">
+          <p className="text-xs text-gray-500 tracking-widest uppercase font-inter font-bold">{category}</p>
+          <h3 className="text-xl font-arpona font-medium text-gray-800 mt-2 mb-3 h-16">{title}</h3>
+          <p className="text-sm text-gray-600 leading-relaxed h-24 overflow-hidden font-inter font-bold mb-4">{description}</p>
+          <a href="#" className="mt-4 inline-flex items-center gap-2 text-sm font-inter font-bold text-gray-800 hover:underline">
             READ MORE <ArrowRight className="h-4 w-4" />
           </a>
         </div>

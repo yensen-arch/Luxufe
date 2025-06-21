@@ -43,12 +43,12 @@ export default function Inspiration() {
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           <div className="lg:w-1/3 text-center lg:text-left">
-            <h3 className="text-3xl font-serif text-gray-600 italic mb-2">Stories & insights</h3>
-            <h2 className="text-5xl font-serif text-gray-800 mb-6">Inspiration for the discerning traveller</h2>
-            <p className="text-gray-600 mb-10">
+            <h3 className="text-5xl font-bellarina font-medium text-gray-600 italic mb-2">Stories & insights</h3>
+            <h2 className="text-5xl font-arpona font-bold text-gray-800 mb-6">Inspiration for the discerning traveller</h2>
+            <p className="mb-10 font-inter font-bold">
               Explore expert insights, curated guides, and insider tips to elevate your travel experiences. Discover the world's finest destinations, luxury stays, and bespoke journeys, all designed to inspire your next adventure.
             </p>
-            <button className="group flex items-center gap-3 text-sm font-semibold tracking-widest border border-gray-400 px-6 py-3 hover:bg-gray-800 hover:text-white transition-colors mx-auto lg:mx-0">
+            <button className="group flex items-center gap-3 text-sm font-inter font-bold tracking-widest border border-gray-400 px-6 py-4 hover:bg-gray-800 hover:text-white transition-colors mx-auto lg:mx-0">
               FIND INSPIRATION
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </button>
