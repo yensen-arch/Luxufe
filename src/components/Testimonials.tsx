@@ -65,20 +65,17 @@ export default function Testimonials() {
 
 
   return (
-    <section className="bg-gray-50 py-24">
+    <section className="py-24">
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-          <div>
-            <h2 className="text-5xl font-serif text-gray-800">
-              Journeys that speak for themselves
-            </h2>
-          </div>
-          <div>
-            <p className="text-gray-600">
-              At Luxufe, our clients' experiences define us. But don't take our word for it. Explore their experiences of effortless journeys, impeccable service, and unforgettable moments.
-            </p>
-          </div>
+        <div className="flex flex-row justify-center items-center mb-16">
+          <h2 className="text-4xl lg:text-5xl w-1/2 font-light text-gray-900 leading-tight">
+             Journeys that speak for themselves
+          </h2>
+          <p className=" text-gray-700 w-1/2  max-w-md">
+            At Luxufe, our clients’ experiences define us. But don’t take our word for it. Explore their experiences of effortless journeys, impeccable service, and unforgettable moments.
+          </p>
         </div>
+
 
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
