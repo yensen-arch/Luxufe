@@ -10,7 +10,7 @@ export default function Hero() {
         <div className="absolute top-0 left-0 w-full h-full bg-black/30"></div>
       </div>
       <div className="relative z-10 p-4">
-        <p className="text-4xl italic mb-4 font-bellarina">Your travel, your way</p>
+        <p className="text-5xl italic mb-4 font-bellarina">Your travel, your way</p>
         <h1 className="text-6xl leading-tight font-arpona">
           Unforgettable Luxury
           <br />
