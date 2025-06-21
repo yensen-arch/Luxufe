@@ -21,7 +21,7 @@ export default function Hero() {
           unforgettable moment so that it is tailored to you.
         </p>
       </div>
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-full max-w-3xl px-4">
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 w-full max-w-4xl px-4">
         <ChatWidget />
       </div>
     </div>
