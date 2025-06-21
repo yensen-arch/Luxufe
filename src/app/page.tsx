@@ -1,3 +1,4 @@
+import ContactUs from "@/components/ContactUs";
 import CuratedForYou from "@/components/CuratedForYou";
 import DiscoverLuxury from "@/components/DiscoverLuxury";
 import ElevePerks from "@/components/ElevePerks";
@@ -27,6 +28,7 @@ export default function Home() {
       <ExclusiveOffers />
       <Inspiration />
       <NewsletterSignUp />
+      <ContactUs />
       <Footer />
     </main>
   );
