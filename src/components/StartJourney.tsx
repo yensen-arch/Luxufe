@@ -28,8 +28,8 @@ export default function StartJourney() {
     <section className="py-20 bg-white text-gray-800">
       <div className="container mx-auto px-4">
         <div className="text-center">
-          <h2 className="text-4xl font-serif mb-4">Start your journey, your way</h2>
-          <p className="max-w-2xl mx-auto mb-12">
+          <h2 className="text-5xl mb-4">Start your journey, your way</h2>
+          <p className="max-w-xl mx-auto mb-12 text-black">
             Travel is personal. We all have different wants, needs, and desires when we consider where, when, and how you travel. Let Luxufe tailor your next travel experience for you.
           </p>
         </div>
