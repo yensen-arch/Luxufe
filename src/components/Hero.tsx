@@ -11,12 +11,12 @@ export default function Hero() {
       </div>
       <div className="relative z-10 p-4">
         <p className="text-2xl italic mb-4 font-serif">Your travel, your way</p>
-        <h1 className="text-6xl md:text-8xl font-bold leading-tight">
+        <h1 className="text-6xl  leading-tight">
           Unforgettable Luxury
           <br />
           Travel Experiences
         </h1>
-        <p className="mt-6 max-w-2xl mx-auto">
+        <p className="mt-6 max-w-xl mx-auto">
           Time is your greatest luxury. At Luxufe, we go beyond travel, refining every
           unforgettable moment so that it is tailored to you.
         </p>
