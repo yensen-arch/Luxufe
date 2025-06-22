@@ -38,10 +38,9 @@ const perksData = [
 
 const BackgroundPattern = () => (
   <div
-    className="absolute inset-0 h-full w-full opacity-[0.03]"
+    className="absolute inset-0 h-full w-full opacity-[0.5]"
     style={{
-      backgroundImage: `url('/wallPapers/Luxufe_secondary_brand_pattern_blue.pdf')`,
-      backgroundRepeat: 'repeat',
+      backgroundImage: `url('https://res-console.cloudinary.com/dqh2tacov/thumbnails/v1/image/upload/v1750586718/THV4dWZlX3NlY29uZGFyeV9icmFuZF9wYXR0ZXJuX2JsdWVfbmxiamxt/drilldown')`,
     }}
   />
 );
@@ -55,7 +54,10 @@ export default function ElevePerks() {
   const currentPerk = perksData[currentIndex];
 
   return (
-    <section className="bg-[#1a233a] text-white h-[108vh]">
+    <section className="bg-[#1a233a] text-white h-[108vh] relative">
+      <div className="absolute inset-0 z-0">
+                <BackgroundPattern />
+            </div>
       <div className="flex flex-col lg:flex-row">
         <div className="w-4/7 relative h-[650px] mt-40">
         <div className="z-100  absolute top-0 -right-36 -translate-y-1/2 -translate-x-1/2 ">
@@ -74,8 +76,8 @@ export default function ElevePerks() {
               </button>
           </div>
         </div>
-        <div className="w-1/2 relative flex items-center justify-center">
-            <BackgroundPattern />
+        <div className="w-1/2 flex items-center justify-center">
+            
             <div className="relative max-w-md mt-25">
                 <h3 className="text-3xl font-arpona font-bold">Experience more with</h3>
                 <h2 className="text-6xl font-bellarina mb-6 ">{currentPerk.title} <span className="text-3xl font-arpona font-bold">by Luxufe</span>
