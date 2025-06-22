@@ -117,7 +117,7 @@ export default function CuratedForYou() {
         <div ref={emblaRef}>
           <div className="flex">
             {itineraries.map((item, index) => (
-              <div className="flex-[0_0_auto] min-w-0 pl-4" key={item.id}>
+              <div className="flex-[0_0_auto] min-w-0 " key={item.id}>
                 <ItineraryCard
                   {...item}
                   isExpanded={selectedCard === item.id}
