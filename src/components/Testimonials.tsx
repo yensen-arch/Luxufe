@@ -70,7 +70,7 @@ export default function Testimonials() {
 
   return (
     <section className="py-20">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 overflow-hidden">
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start mb-20 max-w-7xl mx-auto">
           <div className="lg:w-1/2 mb-8 lg:mb-0">
