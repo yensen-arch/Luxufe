@@ -6,15 +6,15 @@ export default function ContactUs() {
       <div className="container mx-auto px-8">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           
-          <div className="text-center md:text-left">
-            <h2 className="text-6xl font-arpona mb-6">Contact Us</h2>
-            <p className="max-w-lg mx-auto md:mx-0 text-gray-600 font-inter leading-relaxed">
+          <div className="text-center md:text-left mx-auto">
+            <h2 className="text-6xl font-arpona font-bold mb-6">Contact Us</h2>
+            <p className="max-w-lg mx-auto md:mx-0 font-inter font-bold leading-relaxed">
               Whether you need expert travel advice, personalised recommendations, or seamless support, don't hesitate to get in touch and let us craft your next effortless journey.
             </p>
           </div>
 
-          <div className="flex flex-col items-center md:items-start">
-            <div className="flex flex-col items-start gap-4 mb-8 font-inter">
+          <div className="flex flex-col items-center mx-auto w-full">
+            <div className="flex flex-row items-center justify-between mb-8 font-inter font-bold w-full">
               <a href="mailto:info@luxufe.com" className="flex items-center gap-3 hover:underline">
                 <Mail className="h-5 w-5" />
                 <span>info@luxufe.com</span>
@@ -28,7 +28,7 @@ export default function ContactUs() {
                 <span>FAQ & Info</span>
               </a>
             </div>
-            <button className="group bg-[#1a233a] text-white py-4 px-10 flex items-center justify-center gap-3 font-inter font-semibold tracking-widest hover:bg-opacity-90 transition-all">
+            <button className="w-full group bg-[#1a233a] text-white py-4 flex items-center justify-center gap-3 font-inter font-semibold tracking-widest hover:bg-opacity-90 transition-all">
               ENQUIRE WITH US
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </button>
