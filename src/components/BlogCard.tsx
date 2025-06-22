@@ -10,7 +10,7 @@ interface BlogCardProps {
 
 const BlogCard: React.FC<BlogCardProps> = ({ category, title, description, imageUrl }) => {
   return (
-    <div className="w-full max-w-xs mx-auto">
+    <div className="w-full max-w-xs mx-auto border border-gray-200 shadow-xl ">
       <img src={imageUrl} alt={title} className="w-full h-56 object-cover" />
       <div className="relative p-6 text-left">
         {/* SVG to create the curved top edge */}

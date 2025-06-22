@@ -57,7 +57,7 @@ export default function Inspiration() {
           </div>
           <div className="flex-1 relative">
             <div className="overflow-hidden" ref={emblaRef}>
-              <div className="flex -ml-4">
+              <div className="flex -ml-4 ">
                 {blogPosts.map((post, index) => (
                   <div className="w-2/4 flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_50%] pl-4" key={index}>
                     <BlogCard {...post} />
@@ -65,11 +65,11 @@ export default function Inspiration() {
                 ))}
               </div>
             </div>
-            <div className="absolute top-1/2 -translate-y-1/2 flex justify-between w-full px-4 lg:-px-4">
-              <button onClick={scrollPrev} className="bg-white/80 rounded-full p-3 shadow-md hover:bg-white transition -ml-8 z-10">
+            <div className="absolute top-1/2 -translate-y-1/2 flex justify-between w-full px-4 lg:-px-4 overflow-hidden z-90">
+              <button onClick={scrollPrev} className="bg-white/80 rounded-full p-3 shadow-md hover:bg-white transition -ml-8">
                 <ArrowLeft className="h-6 w-6 text-gray-800" />
               </button>
-              <button onClick={scrollNext} className="bg-white/80 rounded-full p-3 shadow-md hover:bg-white transition -mr-8 z-10">
+              <button onClick={scrollNext} className="bg-white/80 rounded-full p-3 shadow-md hover:bg-white transition -mr-8">
                 <ArrowRight className="h-6 w-6 text-gray-800" />
               </button>
             </div>
