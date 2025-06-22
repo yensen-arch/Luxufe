@@ -129,13 +129,13 @@ export default function CuratedForYou() {
         </div>
         <button
           onClick={scrollPrev}
-          className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/80 rounded-full p-3 shadow-md hover:bg-white z-10 transition-colors"
+          className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/80 rounded-full p-5 shadow-md hover:bg-white z-10 transition-colors"
         >
           <ArrowLeft className="h-6 w-6 text-gray-800" />
         </button>
         <button
           onClick={scrollNext}
-          className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 rounded-full p-3 shadow-md hover:bg-white z-10 transition-colors"
+          className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 rounded-full p-5 shadow-md hover:bg-white z-10 transition-colors"
         >
           <ArrowRight className="h-6 w-6 text-gray-800" />
         </button>
