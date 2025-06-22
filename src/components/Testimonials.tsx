@@ -29,23 +29,28 @@ const testimonialsData = [
 
 const TestimonialCard = ({ quote, author, location, isActive }: { quote: string, author: string, location: string, isActive: boolean }) => {
   return (
-    <div className={`transition-all duration-500 p-8 font-inter font-bold ${isActive ? 'bg-white shadow-2xl scale-100' : 'bg-gray-50 scale-90'}`}>
-      <div className="flex justify-center mb-4">
+    <div className={`transition-all duration-500 p-12 mx-4 ${isActive ? 'shadow-2xl' : 'shadow-xl'} min-h-[400px] flex flex-col justify-center`}>
+      <div className="flex justify-center mb-8">
         {[...Array(5)].map((_, i) => (
-          <Star key={i} className={`h-5 w-5 ${isActive ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} />
+          <Star key={i} className="h-6 w-6 mx-1 text-gray-300 fill-current" />
         ))}
       </div>
-      <blockquote className="text-center text-gray-600">
-        “{quote}”
+      <blockquote className={`text-center leading-relaxed mb-8 text-lg ${isActive ? 'text-gray-700' : 'text-gray-400'}`}>
+        "{quote}"
       </blockquote>
-      <p className="text-center font-semibold mt-6 text-gray-800">{author} - {location}</p>
+      <p className={`text-center font-medium ${isActive ? 'text-gray-800' : 'text-gray-500'}`}>
+        {author} - {location}
+      </p>
     </div>
   )
 }
 
-
 export default function Testimonials() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center' });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    loop: true, 
+    align: 'center',
+    containScroll: 'trimSnaps'
+  });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
@@ -63,42 +68,52 @@ export default function Testimonials() {
     };
   }, [emblaApi, updateSelectedIndex]);
 
-
   return (
-    <section className="py-30">
-      <div className="container px-4">
-        <div className="flex flex-row justify-center items-center mb-16">
-          <h2 className="text-4xl font-arpona font-bold ml-auto lg:text-5xl w-1/2 text-gray-900 leading-tight">
-             Journeys that speak for themselves
-          </h2>
-          <p className="w-1/2 pr-20 mr-auto max-w-md font-inter font-bold">
-            At Luxufe, our clients’ experiences define us. But don’t take our word for it. Explore their experiences of effortless journeys, impeccable service, and unforgettable moments.
-          </p>
-        </div>
-
-
-        <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex">
-            {testimonialsData.map((testimonial, index) => (
-              <div className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] min-w-0 pl-4" key={index}>
-                <TestimonialCard {...testimonial} isActive={index === selectedIndex} />
-              </div>
-            ))}
+    <section className="py-20">
+      <div className="container mx-auto px-4">
+        {/* Header Section */}
+        <div className="flex flex-col lg:flex-row justify-between items-start mb-20 max-w-7xl mx-auto">
+          <div className="lg:w-1/2 mb-8 lg:mb-0">
+            <h2 className="text-5xl lg:text-6xl font-light text-gray-900 leading-tight">
+              Journeys that speak for themselves
+            </h2>
+          </div>
+          <div className="lg:w-1/2 lg:pl-16">
+            <p className="text-lg text-gray-600 leading-relaxed">
+              At Luxufe, our clients' experiences define us. But don't take our word for it. Explore their experiences of effortless journeys, impeccable service, and unforgettable moments.
+            </p>
           </div>
         </div>
 
-        <div className="flex justify-center items-center gap-4 mt-12">
-           <span className="text-gray-400">{String(selectedIndex + 1).padStart(2, '0')}</span>
-           <div className="w-24 h-px bg-gray-300">
+        {/* Carousel Section */}
+        <div className="max-w-6xl mx-auto">
+          <div ref={emblaRef}>
+            <div className="flex">
+              {testimonialsData.map((testimonial, index) => (
+                <div className="flex-[0_0_100%] lg:flex-[0_0_50%] min-w-0" key={index}>
+                  <TestimonialCard {...testimonial} isActive={index === selectedIndex} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Progress Indicator */}
+          <div className="flex justify-center items-center gap-6 mt-16">
+            <span className="text-gray-400 text-lg font-light">
+              {String(selectedIndex + 1).padStart(2, '0')}
+            </span>
+            <div className="w-32 h-px bg-gray-300 relative">
               <div 
-                className="h-px bg-gray-800" 
+                className="h-px bg-gray-800 transition-all duration-300" 
                 style={{ width: `${((selectedIndex + 1) / scrollSnaps.length) * 100}%` }}
               />
-           </div>
-           <span className="text-gray-400">{String(scrollSnaps.length).padStart(2, '0')}</span>
+            </div>
+            <span className="text-gray-400 text-lg font-light">
+              {String(scrollSnaps.length).padStart(2, '0')}
+            </span>
+          </div>
         </div>
-
       </div>
     </section>
   );
-} 
+}
