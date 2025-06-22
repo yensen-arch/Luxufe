@@ -97,17 +97,17 @@ export default function CuratedForYou() {
           From iconic landmarks to hidden retreats, Luxufe takes you beyond the expected. Discover travel experiences
           designed around your desires, where every journey is effortless and immersive.
         </p>
-        <div className="flex justify-center items-center gap-0 mb-16 text-gray-600">
+        <div className="flex justify-center items-center gap-0 mb-16 text-gray-500 font-inter font-bold">
           <div className="flex items-center gap-2 border-r-2 px-12 py-2 border-amber-400/50">
-            <Star className="h-4 w-4 text-slate-600 font-inter font-bold" />
+            <Star className="h-4 w-4" />
             <span>Personalised Itineraries</span>
           </div>
           <div className="flex items-center gap-2 border-r-2 px-12 py-2 border-amber-400/50">
-            <Star className="h-4 w-4 text-slate-600 font-inter font-bold" />
+            <Star className="h-4 w-4" />
             <span>Insider secrets guaranteed</span>
           </div>
           <div className="flex items-center gap-2 px-12 py-2">
-            <Star className="h-4 w-4 text-slate-600 font-inter font-bold" />
+            <Star className="h-4 w-4" />
             <span>World-class Service</span>
           </div>
         </div>

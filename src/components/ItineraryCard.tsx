@@ -32,17 +32,17 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
         className="flex-shrink-0 w-full sm:w-96 bg-white shadow-xl overflow-hidden mx-2 cursor-pointer transform transition-all duration-500 ease-out"
         onClick={onClick}
       >
-        <div className="relative">
+        <div className="relative ">
           <div
             className="h-64 bg-cover bg-center transition-all duration-500"
             style={{ backgroundImage: `url(${imageUrl})` }}
           >
             <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-              <div className="flex items-center gap-2 bg-black/60 backdrop-blur-sm rounded-full px-3 py-1 text-xs text-white">
+              <div className="flex items-center gap-2 rounded-full px-3 py-1 text-xs text-white">
                 <MapPin className="h-3 w-3" />
                 <span className="font-medium">{location}</span>
               </div>
-              <div className="bg-black/60 backdrop-blur-sm rounded-full px-3 py-1 text-xs text-white font-medium">
+              <div className="rounded-full px-3 py-1 text-xs text-white font-medium">
                 {nights} Nights
               </div>
             </div>
@@ -83,15 +83,15 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
         style={{ backgroundImage: `url(${imageUrl})` }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent transition-opacity duration-300" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/70 transition-opacity duration-300" />
 
       <div className="relative z-10 p-6 flex flex-col h-full text-white text-left">
         <div className="flex justify-between items-start">
-          <div className="flex items-center gap-2 text-sm bg-black/40 backdrop-blur-sm rounded-full px-3 py-1">
+          <div className="flex items-center gap-2 text-sm rounded-full px-3 py-1">
             <MapPin className="h-4 w-4" />
             <span className="font-medium">{location}</span>
           </div>
-          <div className="text-sm bg-black/40 backdrop-blur-sm rounded-full px-3 py-1 font-medium">{nights} Nights</div>
+          <div className="text-sm rounded-full px-3 py-1 font-medium">{nights} Nights</div>
         </div>
 
         <div className="mt-auto space-y-3">

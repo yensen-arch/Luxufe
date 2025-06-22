@@ -21,7 +21,7 @@ const JourneyCard: React.FC<JourneyCardProps> = ({ category, title, description,
   return (
     <div className="relative h-[600px] w-full group overflow-hidden cursor-pointer">
       <div 
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 ease-in-out group-hover:scale-110"
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-500  group-hover:scale-110"
         style={{ backgroundImage: `url(${imageUrl})` }}
       />
       
@@ -36,7 +36,7 @@ const JourneyCard: React.FC<JourneyCardProps> = ({ category, title, description,
         <p className="text-sm font-semibold tracking-wider uppercase font-inter font-bold">{category}</p>
         <h3 className="text-2xl font-arpona mt-2">{title}</h3>
 
-        <div className="transition-all duration-1000 ease-in-out max-h-0 opacity-0 group-hover:max-h-48 group-hover:opacity-100 group-hover:mt-4">
+        <div className="transition-all duration-1000 max-h-0 opacity-0 group-hover:max-h-48 group-hover:opacity-100 group-hover:mt-4">
           {description && (
             <p className="text-sm leading-relaxed mb-4 font-inter font-bold">{description}</p>
           )}
