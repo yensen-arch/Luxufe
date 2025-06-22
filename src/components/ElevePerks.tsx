@@ -37,15 +37,14 @@ const perksData = [
 ];
 
 const BackgroundPattern = () => (
-    <svg width="100" height="100" className="absolute inset-0 h-full w-full opacity-[0.03]">
-      <defs>
-        <pattern id="elevePattern" patternUnits="userSpaceOnUse" width="100" height="100">
-            <path d="M 25 50 C 25 25, 75 25, 75 50 C 75 75, 25 75, 25 50 Z M 50 25 C 25 25, 25 75, 50 75 C 75 75, 75 25, 50 25" fill="none" stroke="white" strokeWidth="1" />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#elevePattern)" />
-    </svg>
-  );
+  <div
+    className="absolute inset-0 h-full w-full opacity-[0.03]"
+    style={{
+      backgroundImage: `url('/wallPapers/Luxufe_secondary_brand_pattern_blue.pdf')`,
+      backgroundRepeat: 'repeat',
+    }}
+  />
+);
 
 export default function ElevePerks() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -56,9 +55,12 @@ export default function ElevePerks() {
   const currentPerk = perksData[currentIndex];
 
   return (
-    <section className="bg-[#1a233a] text-white h-screen">
+    <section className="bg-[#1a233a] text-white h-[108vh]">
       <div className="flex flex-col lg:flex-row">
-        <div className="w-4/7 relative h-[650px] mt-25">
+        <div className="w-4/7 relative h-[650px] mt-40">
+        <div className="z-100  absolute top-0 -right-36 -translate-y-1/2 -translate-x-1/2 ">
+       <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[150px] h-auto" />
+      </div>
           <img src={currentPerk.imageUrl} alt={currentPerk.title} className="w-full h-full object-cover" />
           <div className="absolute top-6 left-6 text-sm font-mono">
             {String(currentIndex + 1).padStart(2, '0')} / {String(perksData.length).padStart(2, '0')}
@@ -74,7 +76,7 @@ export default function ElevePerks() {
         </div>
         <div className="w-1/2 relative flex items-center justify-center">
             <BackgroundPattern />
-            <div className="relative z-10 max-w-md mt-25">
+            <div className="relative max-w-md mt-25">
                 <h3 className="text-3xl font-arpona font-bold">Experience more with</h3>
                 <h2 className="text-6xl font-bellarina mb-6 ">{currentPerk.title} <span className="text-3xl font-arpona font-bold">by Luxufe</span>
                 </h2>
