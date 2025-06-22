@@ -39,10 +39,10 @@ export default function Inspiration() {
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
 
   return (
-    <section className="bg-gray-50 py-24 overflow-hidden">
+    <section className="py-24 overflow-hidden h-screen">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
-          <div className="lg:w-1/3 text-center lg:text-left">
+          <div className="w-3/4 bg-gray-50 text-center lg:text-left">
             <h3 className="text-5xl font-bellarina font-medium text-gray-600 italic mb-2">Stories & insights</h3>
             <h2 className="text-5xl font-arpona font-bold text-gray-800 mb-6">Inspiration for the discerning traveller</h2>
             <p className="mb-10 font-inter font-bold">
