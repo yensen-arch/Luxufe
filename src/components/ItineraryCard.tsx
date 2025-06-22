@@ -86,7 +86,7 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/70 transition-opacity duration-300" />
 
-      <div className="relative z-10 p-6 flex flex-col h-full text-white text-left">
+      <div className="relative z-10 p-6 flex flex-col h-full text-white text-center">
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-2 text-sm rounded-full px-3 py-1">
             <MapPin className="h-4 w-4" />
@@ -97,9 +97,9 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
 
         <div className="mt-auto space-y-3">
           <h3 className="text-2xl font-medium leading-tight font-arpona">Name of Itinerary here</h3>
-          <div className="flex items-center gap-3 text-sm">
+          <div className="flex items-center justify-center gap-3 text-sm">
             <Plane className="h-4 w-4 text-gray-300" />
-            <span className="font-inter">Flights Included</span>
+            <span className="font-bold font-inter">Flights Included</span>
           </div>
           {price && <p className="font-semibold text-lg font-inter">USD {price.toLocaleString()} per person</p>}
         </div>
