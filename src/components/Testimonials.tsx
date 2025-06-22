@@ -74,12 +74,12 @@ export default function Testimonials() {
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start mb-20 max-w-7xl mx-auto">
           <div className="lg:w-1/2 mb-8 lg:mb-0">
-            <h2 className="text-5xl lg:text-6xl font-light text-gray-900 leading-tight">
+            <h2 className="text-5xl lg:text-6xl font-light text-gray-900  font-arpona font-bold">
               Journeys that speak for themselves
             </h2>
           </div>
-          <div className="lg:w-1/2 lg:pl-16">
-            <p className="text-lg text-gray-600 leading-relaxed">
+          <div className="lg:w-3/8 lg:pl-16">
+            <p className="text-lg font-bold font-inter">
               At Luxufe, our clients' experiences define us. But don't take our word for it. Explore their experiences of effortless journeys, impeccable service, and unforgettable moments.
             </p>
           </div>
