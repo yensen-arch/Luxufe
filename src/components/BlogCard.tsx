@@ -16,7 +16,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ category, title, description, image
         {/* SVG to create the curved top edge */}
         <div className="absolute left-0 w-full h-16" style={{ top: '-4rem', zIndex: 10 }}>
           <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full">
-            <path d="M0,60 C30,-20, 70,120, 100,40 L100,100 L0,100 Z" fill="white" />
+            <path d="M0,60 C0,-80, 90,180, 100,40 L100,100 L0,100 Z" fill="white" />
           </svg>
         </div>
 
