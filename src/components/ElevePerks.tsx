@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight, Star } from 'lucide-react';
 
 const perksData = [
   {
-    title: "Elevé by Luxufe",
+    title: "Elevé",
     description: "Loyalty should feel as effortless as your travels. With Elevé by Luxufe, every journey brings exclusive benefits, personalised perks, and priority access to unforgettable experiences. Because the more you explore with us, the more rewarding it becomes.",
     imageUrl: "https://picsum.photos/seed/resort-pool/1000/1200",
     perks: [
@@ -75,18 +75,19 @@ export default function ElevePerks() {
         <div className="lg:w-1/2 relative flex items-center justify-center p-12 sm:p-16 md:p-24">
             <BackgroundPattern />
             <div className="relative z-10 max-w-md">
-                <h3 className="text-3xl font-serif">Experience more with</h3>
-                <h2 className="text-5xl font-serif italic mb-6">{currentPerk.title}</h2>
-                <p className="text-gray-300 mb-8">{currentPerk.description}</p>
-                <ul className="space-y-4">
+                <h3 className="text-3xl font-arpona font-bold">Experience more with</h3>
+                <h2 className="text-6xl font-bellarina mb-6 ">{currentPerk.title} <span className="text-3xl font-arpona font-bold">by Luxufe</span>
+                </h2>
+                <p className="mb-8 font-inter font-bold">{currentPerk.description}</p>
+                <ul className="space-y-4 font-inter font-bold text-green-200 opacity-60">
                     {currentPerk.perks.map((perk, index) => (
-                        <li key={index} className="flex items-center gap-4 border-b border-white/10 pb-4">
-                            <Star className="h-5 w-5 text-gray-400" />
+                        <li key={index} className="flex items-center gap-4 border-b border-white/40 pb-4">
+                            <Star className="h-5 w-5 " />
                             <span>{perk}</span>
                         </li>
                     ))}
                 </ul>
-                <button className="mt-10 group flex items-center gap-3 text-sm font-semibold tracking-widest border border-white/40 px-6 py-3 hover:bg-white hover:text-[#1a233a] transition-colors">
+                <button className="mt-10 group font-inter font-bold flex items-center gap-3 text-sm font-semibold tracking-widest border border-white/40 px-6 py-3 hover:bg-white hover:text-[#1a233a] transition-colors">
                     ELEVATE YOUR TRAVEL
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </button>
