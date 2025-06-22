@@ -90,7 +90,7 @@ export default function Testimonials() {
           <div ref={emblaRef}>
             <div className="flex">
               {testimonialsData.map((testimonial, index) => (
-                <div className="flex-[0_0_100%] lg:flex-[0_0_50%] min-w-0" key={index}>
+                <div className="flex-[0_0_100%] lg:flex-[0_0_50%] min-w-0 cursor-pointer" key={index}>
                   <TestimonialCard {...testimonial} isActive={index === selectedIndex} />
                 </div>
               ))}
