@@ -2,7 +2,7 @@ import { ArrowRight, Mail, CalendarDays, Info } from 'lucide-react';
 
 export default function ContactUs() {
   return (
-    <section className="bg-[#cde4e3] text-[#1a233a] py-24">
+    <section className="bg-[#a8d1cf] text-[#1a233a] py-24">
       <div className="container mx-auto px-8">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           

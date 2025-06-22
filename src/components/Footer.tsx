@@ -56,7 +56,7 @@ export default function Footer() {
         <footer className="bg-[#1a233a] text-white">
             <div className="grid grid-cols-5">
                 {galleryImages.map((src, i) => (
-                    <img key={i} src={src} alt={`Gallery image ${i + 1}`} className="w-full h-40 object-cover" />
+                    <img key={i} src={src} alt={`Gallery image ${i + 1}`} className="my-12 px-2 w-full h-60 object-cover" />
                 ))}
             </div>
             <div className="container mx-auto px-8 pt-20 pb-16">
@@ -79,7 +79,7 @@ export default function Footer() {
                                 <h3 className="font-semibold tracking-widest mb-4 font-arpona font-bold">{title}</h3>
                                 <ul className="space-y-3">
                                     {links.map(link => (
-                                        <li key={link.text}><a href={link.href} className="text-gray-400 hover:text-white transition-colors">{link.text}</a></li>
+                                        <li key={link.text}><a href={link.href} className="text-white transition-colors hover:text-gray-300">{link.text}</a></li>
                                     ))}
                                 </ul>
                             </div>
@@ -88,7 +88,7 @@ export default function Footer() {
                 </div>
 
                 {/* Mega Links Section */}
-                <div className="border-t border-b border-white/10 my-16 py-16">
+                <div className="border-y border-white/70 my-16 py-16">
                     <div className="grid md:grid-cols-4 gap-8 mb-12">
                         {Object.entries(megaLinks).map(([title, links]) => (
                              <div key={title}>
@@ -110,13 +110,13 @@ export default function Footer() {
                 </div>
 
                 {/* Sub-Footer */}
-                <div className="text-center text-gray-400">
+                <div className="text-center ">
                     <div className="grid grid-cols-8 gap-4 mb-8">
                         {[...Array(8)].map((_, i) => (
                            <div key={i} className="h-20 bg-white/5 rounded"></div>
                         ))}
                     </div>
-                    <div className="border-t border-white/10 pt-8 font-inter font-bold flex flex-wrap justify-between items-center text-sm">
+                    <div className="border-t border-white/70 pt-8 font-inter font-bold flex flex-wrap justify-between items-center text-sm">
                         <p>&copy; COPYRIGHT. ALL RIGHTS RESERVED. LUXUFE 2025</p>
                         <div className="flex gap-6">
                             <a href="#" className="hover:text-white">PRIVACY POLICY</a>
