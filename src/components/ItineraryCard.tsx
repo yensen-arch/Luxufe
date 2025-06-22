@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowRight, MapPin, Plane } from "lucide-react"
+import { ArrowRight, MapPin, Plane, Wallet } from "lucide-react"
 import type React from "react"
 
 interface ItineraryCardProps {
@@ -29,12 +29,12 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
   if (isExpanded) {
     return (
       <div
-        className="flex-shrink-0 w-full sm:w-96 bg-white shadow-xl overflow-hidden mx-2 cursor-pointer transform transition-all duration-500"
+        className="flex-shrink-0 h-[500px] sm:w-80 bg-white shadow-xl overflow-hidden mx-2 cursor-pointer transform transition-all duration-500 "
         onClick={onClick}
       >
         <div className="relative ">
           <div
-            className="h-64 bg-cover bg-center transition-all duration-500"
+            className="h-[180px] bg-cover bg-center transition-all duration-500"
             style={{ backgroundImage: `url(${imageUrl})` }}
           >
             <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
@@ -57,13 +57,14 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
           </p>
 
           <div className="space-y-3 flex items-center justify-center flex-col">
-            <div className="flex items-center gap-3 text-sm text-gray-700">
-              <Plane className="h-4 w-4 text-gray-600" />
-              <span className="font-medium font-inter">Flights Included</span>
+            <div className="flex items-center gap-3 text-sm">
+              <Plane className="h-4 w-4 " />
+              <span className="font-bold font-inter">Flights Included</span>
             </div>
-
-            <p className="text-sm font-semibold text-gray-900 font-inter">From USD {price?.toLocaleString()} per person</p>
-
+            <div className="flex items-center gap-3 text-sm">
+              <Wallet className="h-4 w-4" />
+              <p className="text-sm font-semibold font-inter">From USD {price?.toLocaleString()} per person</p>
+            </div>
             <button className="border-t-2 border-gray-300 w-full py-4 flex items-center justify-center font-inter font-bold text-sm text-gray-600 hover:text-gray-900 transition-colors gap-2 mt-4 group">
               MORE INFORMATION
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
