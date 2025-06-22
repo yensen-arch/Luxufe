@@ -56,10 +56,10 @@ export default function ElevePerks() {
   const currentPerk = perksData[currentIndex];
 
   return (
-    <section className="bg-[#1a233a] text-white">
+    <section className="bg-[#1a233a] text-white h-screen">
       <div className="flex flex-col lg:flex-row">
-        <div className="lg:w-1/2 relative">
-          <img src={currentPerk.imageUrl} alt={currentPerk.title} className="w-full h-[500px] lg:h-full object-cover" />
+        <div className="w-4/7 relative h-[650px] mt-25">
+          <img src={currentPerk.imageUrl} alt={currentPerk.title} className="w-full h-full object-cover" />
           <div className="absolute top-6 left-6 text-sm font-mono">
             {String(currentIndex + 1).padStart(2, '0')} / {String(perksData.length).padStart(2, '0')}
           </div>
@@ -72,13 +72,13 @@ export default function ElevePerks() {
               </button>
           </div>
         </div>
-        <div className="lg:w-1/2 relative flex items-center justify-center p-12 sm:p-16 md:p-24">
+        <div className="w-1/2 relative flex items-center justify-center">
             <BackgroundPattern />
-            <div className="relative z-10 max-w-md">
+            <div className="relative z-10 max-w-md mt-25">
                 <h3 className="text-3xl font-arpona font-bold">Experience more with</h3>
                 <h2 className="text-6xl font-bellarina mb-6 ">{currentPerk.title} <span className="text-3xl font-arpona font-bold">by Luxufe</span>
                 </h2>
-                <p className="mb-8 font-inter font-bold">{currentPerk.description}</p>
+                <p className="mb-8 font-inter font-bold w-4/5">{currentPerk.description}</p>
                 <ul className="space-y-4 font-inter font-bold text-green-200 opacity-60">
                     {currentPerk.perks.map((perk, index) => (
                         <li key={index} className="flex items-center gap-4 border-b border-white/40 pb-4">
