@@ -40,7 +40,7 @@ const BackgroundPattern = () => (
   <div
     className="absolute inset-0 h-full w-full opacity-[0.5]"
     style={{
-      backgroundImage: `url('https://res-console.cloudinary.com/dqh2tacov/thumbnails/v1/image/upload/v1750586718/THV4dWZlX3NlY29uZGFyeV9icmFuZF9wYXR0ZXJuX2JsdWVfbmxiamxt/drilldown')`,
+      backgroundImage: `url('https://res.cloudinary.com/dqh2tacov/image/upload/f_png/Luxufe_secondary_brand_pattern_blue_nlbjlm')`,
     }}
   />
 );
