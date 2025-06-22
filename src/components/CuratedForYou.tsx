@@ -113,7 +113,7 @@ export default function CuratedForYou() {
         </div>
       </div>
 
-      <div className="relative">
+      <div className="relative py-10">
         <div ref={emblaRef}>
           <div className="flex">
             {itineraries.map((item, index) => (
