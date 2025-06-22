@@ -40,9 +40,9 @@ export default function LuxuryPartners() {
     <section className="bg-gray-50 py-24 text-gray-800">
       <div className="container mx-auto px-4 text-center">
         <h3 className="text-5xl font-bellarina font-medium text-gray-600 italic mb-6">Excellence elevated</h3>
-        <h2 className="text-5xl font-arpona font-bold my-12">Our trusted, luxury partners</h2>
+        <h2 className="text-6xl font-arpona font-medium my-16">Our trusted, luxury partners</h2>
         
-        <div className="flex justify-center border-b border-gray-200 mb-12">
+        <div className="flex justify-center mb-12">
           {tabs.map(tab => (
             <button
               key={tab}
@@ -59,9 +59,9 @@ export default function LuxuryPartners() {
           ))}
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-12 items-center justify-items-center">
+        <div className="w-3/4 mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-24 items-center justify-items-center">
           {partnersData[activeTab].map(partner => (
-            <div key={partner.name} className="h-16 flex items-center justify-center">
+            <div key={partner.name} className="my-2 h-16 flex items-center justify-center">
                <img src={partner.logoUrl} alt={partner.name} className="max-h-full max-w-full h-auto w-auto  opacity-600 transition-all duration-900" />
             </div>
           ))}
