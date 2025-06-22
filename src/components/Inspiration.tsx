@@ -16,18 +16,6 @@ const blogPosts = [
     title: "A Culinary Journey Through Japan",
     description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.",
     imageUrl: "https://picsum.photos/seed/japan-food/800/600"
-  },
-  {
-    category: "HOTELS",
-    title: "Sleeping Under the Stars in the Sahara",
-    description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.",
-    imageUrl: "https://picsum.photos/seed/sahara-stars/800/600"
-  },
-  {
-    category: "JOURNEYS",
-    title: "The Ultimate Scottish Highlands Road Trip",
-    description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.",
-    imageUrl: "https://picsum.photos/seed/scotland-roadtrip/800/600"
   }
 ];
 
@@ -43,7 +31,7 @@ export default function Inspiration() {
   }, []);
 
   return (
-    <section className="my-24 lg:h-screen">
+    <section className="my-24 h-screen">
       <div className="container mx-auto h-full">
         <div className="grid grid-cols-12 h-full items-center relative">
           {/* Left Content Section */}
@@ -68,14 +56,14 @@ export default function Inspiration() {
           </div>
 
           {/* Right Carousel Section - Overlapping */}
-          <div className="col-span-12 lg:col-span-7 lg:col-start-6 lg:absolute lg:right-0 lg:top-0 lg:h-full flex items-center relative">
+          <div className="col-span-7 col-start-7 lg:absolute lg:right-0 lg:top-0 h-full flex items-center relative">
             <div className="overflow-hidden w-full">
               <div 
                 className="flex transition-transform duration-500 ease-in-out -ml-4"
-                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                style={{ transform: `translateX(-${currentIndex * 50}%)` }}
               >
                 {blogPosts.map((post, index) => (
-                  <div className="flex-[0_0_100%] sm:flex-[0_0_50%] pl-4" key={index}>
+                  <div className="flex-[0_0_70%]" key={index}>
                     <BlogCard {...post} />
                   </div>
                 ))}
