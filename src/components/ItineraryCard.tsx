@@ -77,7 +77,7 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
 
   return (
     <div
-      className="relative flex-shrink-0 w-full sm:w-80 h-[500px] group overflow-hidden mx-2 cursor-pointer transition-all duration-500 ease-out hover:scale-105"
+      className="relative flex-shrink-0 w-full sm:w-80 h-[500px] group overflow-hidden mx-2 cursor-pointer transition-all duration-500 ease-out hover:shadow-2xl"
       onClick={onClick}
     >
       <div
@@ -99,7 +99,7 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
           <h3 className="text-2xl font-medium leading-tight font-arpona">Name of Itinerary here</h3>
           <div className="flex items-center justify-center gap-3 text-sm">
             <Plane className="h-4 w-4 text-gray-300" />
-            <span className="font-bold font-inter">Flights Included</span>
+            <span className="font-bold font-inter ">Flights Included</span>
           </div>
           {price && <p className="font-semibold text-lg font-inter">USD {price.toLocaleString()} per person</p>}
         </div>

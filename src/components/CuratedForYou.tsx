@@ -84,7 +84,7 @@ export default function CuratedForYou() {
   }, [emblaApi, selectedCard])
 
   return (
-    <section className="py-20 my-40 bg-white text-gray-800 relative">
+    <section className="py-20 my-40 bg-white text-gray-800 relative overflow-hidden">
       <div className="absolute top-30 left-10 -translate-y-1/2 -translate-x-1/2 opacity-30">
         <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[300px] h-auto" />
       </div>
