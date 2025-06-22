@@ -12,11 +12,11 @@ const BlogCard: React.FC<BlogCardProps> = ({ category, title, description, image
   return (
     <div className="w-full bg-white border border-gray-200 shadow-xl">
       <img src={imageUrl} alt={title} className=" object-cover" />
-      <div className="relative p-6 text-left">
+      <div className="relative p-10 text-left">
         {/* SVG to create the curved top edge */}
         <div className="absolute left-0 w-full h-16" style={{ top: '-4rem', zIndex: 10 }}>
           <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full">
-            <path d="M0,100 C0,0 60,0 100,100 Z" fill="white" />
+            <path d="M0,60 C30,-20, 70,120, 100,40 L100,100 L0,100 Z" fill="white" />
           </svg>
         </div>
 
