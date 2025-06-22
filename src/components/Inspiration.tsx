@@ -59,7 +59,7 @@ export default function Inspiration() {
           <div className="col-span-7 col-start-7 lg:absolute lg:right-0 lg:top-0 h-full flex items-center relative">
             <div className="overflow-hidden w-full">
               <div 
-                className="flex transition-transform duration-500 ease-in-out -ml-4"
+                className="flex transition-transform duration-500 ease-in-out m-10 gap-10"
                 style={{ transform: `translateX(-${currentIndex * 50}%)` }}
               >
                 {blogPosts.map((post, index) => (
