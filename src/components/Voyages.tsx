@@ -102,10 +102,10 @@ export default function Voyages() {
                 <Anchor className="h-7 w-7 text-gray-600" />
               </div>
 
-              <h2 className="text-4xl ml-auto lg:text-5xl font-light leading-tight mb-8 text-gray-900 font-arpona relative">
+              <h2 className="text-4xl ml-auto lg:text-5xl font-light leading-tight mb-8 text-gray-900 font-arpona">
                 {currentVoyage.titlePart1}
                 <br />
-                unparalleled <span className="italic font-serif text-7xl font-bellarina absolute  top-15 right-25">{currentVoyage.titlePart2}</span>
+                unparalleled <span className="italic font-serif text-7xl font-bellarina ">{currentVoyage.titlePart2}</span>
               </h2>
 
               <p className="text-lg leading-relaxed mb-10 max-w-lg font-inter font-bold">{currentVoyage.description}</p>
