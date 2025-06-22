@@ -7,16 +7,16 @@ export default function NewsletterSignUp() {
       <div className="relative container mx-auto px-4">
         <div className="max-w-4xl mx-auto bg-white px-16 py-10">
           <div className="flex flex-col lg:flex-row gap-12">
-            <div className="lg:w-2/5">
-              <h3 className="text-4xl font-arpona font-bold text-gray-600">Stay <span className="font-bellarina font-medium text-7xl">inspired.</span></h3>
-              <h2 className="text-4xl font-arpona font-bold text-gray-800 mt-2 mb-6">Travel seamlessly.</h2>
-              <p className="font-inter  font-bold mb-10">
+            <div className="lg:w-2/5 my-auto">
+              <h3 className="text-3xl font-arpona font-bold text-gray-600">Stay <span className="font-bellarina font-medium text-7xl">inspired.</span></h3>
+              <h2 className="text-3xl font-arpona font-bold text-gray-800 mt-2 mb-6">Travel seamlessly.</h2>
+              <p className="font-inter font-bold">
                 Join the Luxufe newsletter for exclusive travel insights, curated offers, and the latest in luxury experiences. Be the first to discover extraordinary journeys, tailored just for you.
               </p>
             </div>
-            <div className="lg:w-3/5">
+            <div className="lg:w-3/5 my-auto">
               <form>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 justify-center items-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                   <input type="text" placeholder="First Name*" className="w-full p-3 text-sm border border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none font-inter font-bold" />
                   <input type="text" placeholder="Last Name*" className="w-full p-3 text-sm border border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none font-inter font-bold" />
                 </div>
