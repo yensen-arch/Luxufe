@@ -16,15 +16,15 @@ const BlogCard: React.FC<BlogCardProps> = ({ category, title, description, image
         {/* SVG to create the curved top edge */}
         <div className="absolute left-0 w-full h-16" style={{ top: '-4rem', zIndex: 10 }}>
           <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full">
-            <path d="M0,100 C40,0 60,0 100,100 Z" fill="white" />
+            <path d="M0,100 C0,0 60,0 100,100 Z" fill="white" />
           </svg>
         </div>
 
         <div className="relative z-20">
           <p className="text-xs text-gray-500 tracking-widest uppercase font-inter font-bold">{category}</p>
-          <h3 className="text-xl font-arpona font-medium text-gray-800 mt-2 mb-3 h-16">{title}</h3>
-          <p className="text-sm text-gray-600 leading-relaxed h-24 font-inter font-bold mb-4">{description}</p>
-          <a href="#" className="mt-4 inline-flex items-center gap-2 text-sm font-inter font-bold text-gray-800 hover:underline">
+          <h3 className="text-xl w-2/4 font-arpona font-bold text-gray-800 mt-2 mb-3 h-16">{title}</h3>
+          <p className="text-sm text-gray-600 w-3/4 leading-relaxed h-24 font-inter font-bold mb-4">{description}</p>
+          <a href="#" className="mt-4 text-xs inline-flex items-center gap-2 text-sm font-inter font-bold text-gray-800 hover:underline">
             READ MORE <ArrowRight className="h-4 w-4" />
           </a>
         </div>

@@ -43,7 +43,7 @@ export default function Inspiration() {
               <h2 className="text-5xl font-arpona font-bold text-gray-800 my-6">
                 Inspiration for the discerning traveller
               </h2>
-              <p className="mb-10 text-gray-600 lg:w-5/6 font-inter font-bold">
+              <p className="mb-10 lg:w-5/6 font-inter font-bold">
                 Explore expert insights, curated guides, and insider tips to elevate your travel experiences. 
                 Discover the world's finest destinations, luxury stays, and bespoke journeys, all designed to 
                 inspire your next adventure.
