@@ -1,6 +1,7 @@
 import Footer from "@/components/Landing/Footer";
 import Navbar from "@/components/Landing/Navbar";
 import Hero from "@/components/Journeys/Hero";
+import ItineraryOptions from "@/components/Journeys/ItineraryOptions";
 
 export default function Journeys() {
   return (
@@ -62,6 +63,7 @@ export default function Journeys() {
           </div>
         </div>
       </section>
+      <ItineraryOptions />
       <Footer />
     </main>
   );
