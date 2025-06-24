@@ -1,17 +1,17 @@
-import ContactUs from "@/components/ContactUs";
-import CuratedForYou from "@/components/CuratedForYou";
-import DiscoverLuxury from "@/components/DiscoverLuxury";
-import ElevePerks from "@/components/ElevePerks";
-import ExclusiveOffers from "@/components/ExclusiveOffers";
-import Footer from "@/components/Footer";
-import Hero from "@/components/Hero";
-import Inspiration from "@/components/Inspiration";
-import LuxuryPartners from "@/components/LuxuryPartners";
-import Navbar from "@/components/Navbar";
-import NewsletterSignUp from "@/components/NewsletterSignUp";
-import StartJourney from "@/components/StartJourney";
-import Testimonials from "@/components/Testimonials";
-import Voyages from "@/components/Voyages";
+import ContactUs from "@/components/Landing/ContactUs";
+import CuratedForYou from "@/components/Landing/CuratedForYou";
+import DiscoverLuxury from "@/components/Landing/DiscoverLuxury";
+import ElevePerks from "@/components/Landing/ElevePerks";
+import ExclusiveOffers from "@/components/Landing/ExclusiveOffers";
+import Footer from "@/components/Landing/Footer";
+import Hero from "@/components/Landing/Hero";
+import Inspiration from "@/components/Landing/Inspiration";
+import LuxuryPartners from "@/components/Landing/LuxuryPartners";
+import Navbar from "@/components/Landing/Navbar";
+import NewsletterSignUp from "@/components/Landing/NewsletterSignUp";
+import StartJourney from "@/components/Landing/StartJourney";
+import Testimonials from "@/components/Landing/Testimonials";
+import Voyages from "@/components/Landing/Voyages";
 
 export default function Home() {
   return (
