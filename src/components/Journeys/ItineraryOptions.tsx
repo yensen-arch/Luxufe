@@ -33,17 +33,17 @@ export default function ItineraryOptions() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <div className="w-full">
-      <h2 className="text-3xl font-arpona font-light text-gray-900 mb-6">Itinerary Options</h2>
+    <div className="w-full border-t border-l border-gray-300 py-12 px-12">
+      <h2 className="text-3xl font-arpona font-bold text-black mb-6">Itinerary Options</h2>
       {/* Tabs */}
-      <div className="flex border-b border-gray-200 mb-6">
+      <div className="flex">
         {departures.map((dep, idx) => (
           <button
             key={dep.label}
-            className={`px-8 py-4 text-lg font-inter font-bold tracking-widest uppercase focus:outline-none transition border-b-2 ${
+            className={`px-8 py-4 text-lg font-inter font-bold tracking-widest uppercase focus:outline-none transition ${
               selectedTab === idx
-                ? "border-gray-300 bg-white text-gray-900"
-                : "border-transparent bg-gray-50 text-gray-500 hover:text-gray-900"
+                ? "bg-gray-50 text-black font-bold text-xs"
+                : "border-transparent bg-white text-gray-500 hover:text-black font-bold text-xs"
             }`}
             onClick={() => setSelectedTab(idx)}
           >
@@ -52,7 +52,7 @@ export default function ItineraryOptions() {
         ))}
       </div>
       {/* Accordion */}
-      <div className="bg-gray-50 rounded shadow-sm divide-y divide-gray-300">
+      <div className="bg-gray-50 divide-y divide-gray-600">
         {itinerary.map((item, idx) => (
           <div key={idx} className="flex flex-col">
             <div
@@ -60,17 +60,17 @@ export default function ItineraryOptions() {
               onClick={() => setOpenIndex(idx === openIndex ? -1 : idx)}
             >
               <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-8 w-full">
-                <span className="text-md font-inter font-bold text-gray-500 min-w-[120px]">{item.day}</span>
-                <span className="text-3xl font-arpona text-gray-900">{item.title}</span>
-                {item.description && openIndex === idx && (
-                  <span className="block text-gray-700 text-base font-inter mt-4 md:mt-0 md:ml-8 max-w-2xl">{item.description}</span>
-                )}
+                <span className="text-sm font-inter font-bold text-gray-500 min-w-[120px]">{item.day}</span>
+                <div className="flex flex-col gap-2">
+                  <div className="text-2xl font-arpona text-black">{item.title}</div>
+                  <div className="text-black font-inter font-bold text-sm mt-4 md:mt-0 max-w-2xl">{item.description}</div>
+                </div>
               </div>
               <span className="ml-auto">
                 {openIndex === idx ? (
-                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="10" y1="10" x2="26" y2="26" stroke="#23263B" strokeWidth="2"/><line x1="26" y1="10" x2="10" y2="26" stroke="#23263B" strokeWidth="2"/></svg>
+                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="10" y1="10" x2="26" y2="26" stroke="black" strokeWidth="2"/><line x1="26" y1="10" x2="10" y2="26" stroke="black" strokeWidth="2"/></svg>
                 ) : (
-                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="18" y1="10" x2="18" y2="26" stroke="#23263B" strokeWidth="2"/><line x1="10" y1="18" x2="26" y2="18" stroke="#23263B" strokeWidth="2"/></svg>
+                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="18" y1="10" x2="18" y2="26" stroke="black" strokeWidth="2"/><line x1="10" y1="18" x2="26" y2="18" stroke="black" strokeWidth="2"/></svg>
                 )}
               </span>
             </div>
