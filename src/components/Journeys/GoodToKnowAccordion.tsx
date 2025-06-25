@@ -29,9 +29,9 @@ export default function GoodToKnowAccordion() {
   const [openIdx, setOpenIdx] = useState(0);
 
   return (
-    <div className="w-full border-t border-gray-200 pt-12 pb-20">
-      <h2 className="text-3xl md:text-4xl font-arpona font-light text-gray-900 mb-8">Good to know</h2>
-      <div className="divide-y divide-gray-300">
+    <div className="w-full border-t border-l border-gray-300 py-12 px-12">
+      <h2 className="text-3xl font-arpona font-bold text-gray-900 mb-8">Good to know</h2>
+      <div className="divide-y divide-gray-600">
         {ITEMS.map((item, idx) => (
           <div key={item.title}>
             <button
@@ -39,7 +39,7 @@ export default function GoodToKnowAccordion() {
               onClick={() => setOpenIdx(idx === openIdx ? -1 : idx)}
               aria-expanded={openIdx === idx}
             >
-              <span className="text-2xl md:text-2xl font-arpona text-gray-900">{item.title}</span>
+              <span className="text-xl font-arpona text-gray-900 font-bold">{item.title}</span>
               <span className="ml-4">
                 {openIdx === idx ? (
                   <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><line x1="10" y1="10" x2="30" y2="30" stroke="#23263B" strokeWidth="2"/><line x1="30" y1="10" x2="10" y2="30" stroke="#23263B" strokeWidth="2"/></svg>
@@ -49,7 +49,7 @@ export default function GoodToKnowAccordion() {
               </span>
             </button>
             {openIdx === idx && (
-              <div className="text-gray-700 text-base font-inter pl-1 pr-8 pb-8 leading-relaxed">
+              <div className="font-bold text-sm font-inter pl-1 pr-8 pb-8 leading-relaxed">
                 {item.content}
               </div>
             )}
