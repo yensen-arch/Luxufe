@@ -27,7 +27,7 @@ const cabins = [
 
 export default function AvailableCabins() {
   return (
-    <div className="flex-1 px-8">
+    <div className="flex-1 px-12 py-12 border-t border-l border-gray-300">
       <h2 className="text-3xl font-arpona font-bold text-gray-900 mb-8">Available Cabins for your selected dates</h2>
       <div className="grid grid-cols-2 gap-8">
         {cabins.map((cabin, idx) => (

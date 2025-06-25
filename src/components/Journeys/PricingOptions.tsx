@@ -25,28 +25,28 @@ export default function PricingOptions() {
   const dates = availableDates[String(selectedYear)][selectedMonth] || [];
 
   return (
-    <div className="p-8 border-r border-gray-200 min-w-[320px]">
-      <h2 className="text-3xl font-arpona font-light text-gray-900 mb-2">Pricing & Options</h2>
-      <div className="text-gray-700 mb-4">Select year & month. Unavailable dates are greyed out</div>
-      <div className="flex gap-4 mb-4">
+    <div className="p-8 border-t border-gray-300 min-w-[320px]">
+      <h2 className="text-3xl font-arpona font-bold text-gray-900 mb-2">Pricing & Options</h2>
+      <div className="text-gray-700 font-inter text-sm mb-4 font-bold">Select year & month. Unavailable dates are greyed out</div>
+      <div className="flex gap-4">
         {years.map((year) => (
           <button
             key={year}
-            className={`px-4 py-1 rounded font-inter font-bold text-lg ${selectedYear === year ? "bg-gray-100 text-gray-900" : "bg-white text-gray-400"}`}
+            className={`px-4 py-1 rounded font-inter font-bold text-lg ${selectedYear === year ? "bg-gray-50 text-gray-900" : "bg-white text-gray-400"}`}
             onClick={() => setSelectedYear(year)}
           >
             {year}
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-4 gap-2 mb-6">
+      <div className="grid grid-cols-4 gap-2 mb-6 bg-gray-50 p-4">
         {months.map((month) => {
           const isAvailable = monthsAvailable.includes(month);
           const isSelected = selectedMonth === month;
           return (
             <button
               key={month}
-              className={`px-3 py-1 rounded text-sm font-inter font-bold border ${isSelected ? "border-[#A5C8CE] bg-white text-gray-900" : isAvailable ? "border-gray-200 bg-gray-50 text-gray-700" : "border-gray-100 bg-gray-100 text-gray-400"}`}
+              className={`px-3 py-1 rounded-full text-xs font-inter font-bold border ${isSelected ? "border-black bg-blue-300 text-white" : isAvailable ? "border-black bg-gray-200 text-gray-700" : "border-gray-100 bg-gray-100 text-gray-400"}`}
               onClick={() => isAvailable && setSelectedMonth(month)}
               disabled={!isAvailable}
             >
