@@ -32,7 +32,7 @@ export default function PricingOptions() {
         {years.map((year) => (
           <button
             key={year}
-            className={`px-4 py-1 rounded font-inter font-bold text-lg ${selectedYear === year ? "bg-gray-50 text-gray-900" : "bg-white text-gray-400"}`}
+            className={`px-4 py-1 rounded font-inter font-bold text-lg ${selectedYear === year ? "bg-gray-50" : "bg-white"}`}
             onClick={() => setSelectedYear(year)}
           >
             {year}
@@ -46,7 +46,7 @@ export default function PricingOptions() {
           return (
             <button
               key={month}
-              className={`px-3 py-1 rounded-full text-xs font-inter font-bold border ${isSelected ? "border-black bg-blue-300 text-white" : isAvailable ? "border-black bg-gray-200 text-gray-700" : "border-gray-100 bg-gray-100 text-gray-400"}`}
+              className={`px-3 py-1 rounded-full text-xs font-inter font-bold border ${isSelected ? "border-black bg-[#A5C8CE] text-black" : isAvailable ? "border-black bg-gray-200 text-gray-700" : "border-gray-100 bg-gray-100 text-gray-400"}`}
               onClick={() => isAvailable && setSelectedMonth(month)}
               disabled={!isAvailable}
             >
@@ -63,7 +63,7 @@ export default function PricingOptions() {
           dates.map((date: string, idx: number) => (
             <button
               key={date}
-              className={`px-4 py-1 rounded-full border font-inter font-bold text-sm ${idx === 0 ? "bg-[#A5C8CE] text-white border-[#A5C8CE]" : "bg-gray-100 text-gray-500 border-gray-200"}`}
+              className={`px-4 py-1 rounded-full border font-inter font-bold text-sm ${idx === 0 ? "bg-[#A5C8CE] text-black border-black" : "bg-gray-100 text-gray-500 border-gray-400"}`}
             >
               {date}
             </button>
