@@ -1,6 +1,7 @@
 import PricingOptions from "./PricingOptions";
 import AvailableCabins from "./AvailableCabins";
 import VesselView from "./VesselView";
+import TripExtensions from "./TripExtensions";
 
 export default function PricingAndCabinsSection() {
   return (
@@ -12,6 +13,7 @@ export default function PricingAndCabinsSection() {
         <div className="md:w-2/3 w-full md:pl-8">
           <AvailableCabins />
           <VesselView />
+          <TripExtensions />
         </div>
       </div>
     </section>
