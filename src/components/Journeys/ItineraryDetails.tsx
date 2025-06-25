@@ -3,9 +3,9 @@ import ItineraryOptions from "./ItineraryOptions";
 export default function ItineraryDetails() {
   return (
     <section className="bg-white border-t border-l border-gray-300">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 py-12 px-12">
+      <div className="mx-auto flex flex-col md:flex-row  ">
         {/* Sidebar */}
-        <aside className="md:w-1/3 w-full md:pr-8 border-r border-gray-300 bg-gray-50 p-12">
+        <aside className="md:w-1/4 w-full md:pr-8 border-r border-gray-300 bg-gray-50 p-12">
           <h2 className="text-3xl border-b border-gray-300 font-arpona font-bold text-black mb-6">Delightful Douro</h2>
           <nav className="flex flex-col gap-4 mb-8 text-sm font-inter font-bold">
             <a href="#" className="hover:underline">Trip Overview</a>
@@ -25,7 +25,7 @@ export default function ItineraryDetails() {
           </div>
         </aside>
         {/* Main Content */}
-        <div className="md:w-2/3 w-full p-12 border-t border-l border-gray-300">
+        <div className="md:w-3/4 w-full p-12 border-t border-l border-gray-300">
           <h1 className="text-5xl font-arpona font-bold text-gray-900 mb-6">The soul of Portugal</h1>
           <p className="text-md font-inter font-bold mb-8">From windswept seaside meanderings to the astonishing beauty of the Douro Valley, this is a journey of contemplation and elegance. In Porto, board the luxurious Scenic Azure, which will transport you through the hidden gem that is the Douro Valley. Days will be spent immersed in the proud history and culture of a unique land that still retains many of its centuries-old traditions.</p>
           {/* Special Offer Box */}
