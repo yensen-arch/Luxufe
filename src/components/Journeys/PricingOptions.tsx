@@ -20,9 +20,22 @@ const availableDates: Record<string, Record<string, string[]>> = {
 export default function PricingOptions() {
   const [selectedYear, setSelectedYear] = useState(2025);
   const [selectedMonth, setSelectedMonth] = useState("NOV");
+  const [fadeKey, setFadeKey] = useState(0);
 
   const monthsAvailable = Object.keys(availableDates[String(selectedYear)] || {});
   const dates = availableDates[String(selectedYear)][selectedMonth] || [];
+
+  // When year or month changes, trigger fade animation for dates
+  const handleYear = (year: number) => {
+    setSelectedYear(year);
+    setFadeKey(fadeKey + 1);
+  };
+  const handleMonth = (month: string, isAvailable: boolean) => {
+    if (isAvailable) {
+      setSelectedMonth(month);
+      setFadeKey(fadeKey + 1);
+    }
+  };
 
   return (
     <div className="p-8 border-t border-gray-300 min-w-[320px]">
@@ -32,8 +45,8 @@ export default function PricingOptions() {
         {years.map((year) => (
           <button
             key={year}
-            className={`px-4 py-1 rounded font-inter font-bold text-lg ${selectedYear === year ? "bg-gray-50" : "bg-white"}`}
-            onClick={() => setSelectedYear(year)}
+            className={`px-4 py-1 rounded font-inter font-bold text-lg transition-colors duration-300 ${selectedYear === year ? "bg-gray-50" : "bg-white"}`}
+            onClick={() => handleYear(year)}
           >
             {year}
           </button>
@@ -46,8 +59,8 @@ export default function PricingOptions() {
           return (
             <button
               key={month}
-              className={`px-3 py-1 rounded-full text-xs font-inter font-bold border ${isSelected ? "border-black bg-[#A5C8CE] text-black" : isAvailable ? "border-black bg-gray-200 text-gray-700" : "border-gray-100 bg-gray-100 text-gray-400"}`}
-              onClick={() => isAvailable && setSelectedMonth(month)}
+              className={`px-3 py-1 rounded-full text-xs font-inter font-bold border transition-all duration-300 ${isSelected ? "border-black bg-[#A5C8CE] text-black" : isAvailable ? "border-black bg-gray-200 text-gray-700" : "border-gray-100 bg-gray-100 text-gray-400"}`}
+              onClick={() => handleMonth(month, isAvailable)}
               disabled={!isAvailable}
             >
               {month}
@@ -56,20 +69,29 @@ export default function PricingOptions() {
         })}
       </div>
       <div className="text-gray-700 mb-2">Available departure dates:</div>
-      <div className="flex gap-2 flex-wrap">
+      <div
+        key={fadeKey}
+        className="flex gap-2 flex-wrap transition-opacity duration-500 opacity-0 animate-fadein"
+        style={{ animation: 'fadein 0.5s forwards' }}
+      >
         {dates.length === 0 ? (
           <span className="text-gray-400 text-sm">No available dates</span>
         ) : (
           dates.map((date: string, idx: number) => (
             <button
               key={date}
-              className={`px-4 py-1 rounded-full border font-inter font-bold text-sm ${idx === 0 ? "bg-[#A5C8CE] text-black border-black" : "bg-gray-100 text-gray-500 border-gray-400"}`}
+              className={`px-4 py-1 rounded-full border font-inter font-bold text-sm transition-all duration-300 ${idx === 0 ? "bg-[#A5C8CE] text-black border-black" : "bg-gray-100 text-gray-500 border-gray-400"}`}
             >
               {date}
             </button>
           ))
         )}
       </div>
+      <style>{`
+        @keyframes fadein {
+          to { opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 } 
