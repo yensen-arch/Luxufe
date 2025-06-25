@@ -2,6 +2,7 @@ import PricingOptions from "./PricingOptions";
 import AvailableCabins from "./AvailableCabins";
 import VesselView from "./VesselView";
 import TripExtensions from "./TripExtensions";
+import GoodToKnowAccordion from "./GoodToKnowAccordion";
 
 export default function PricingAndCabinsSection() {
   return (
@@ -14,6 +15,7 @@ export default function PricingAndCabinsSection() {
           <AvailableCabins />
           <VesselView />
           <TripExtensions />
+          <GoodToKnowAccordion />
         </div>
       </div>
     </section>
