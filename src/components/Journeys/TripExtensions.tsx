@@ -43,7 +43,7 @@ const EXTENSIONS = {
 
 export default function TripExtensions() {
   const [tab, setTab] = useState("pre");
-  const extensions = EXTENSIONS[tab];
+  const extensions = EXTENSIONS[tab as keyof typeof EXTENSIONS];
 
   return (
     <div className="w-4/5 py-12 px-12">
@@ -68,7 +68,7 @@ export default function TripExtensions() {
         </div>
       <div className="bg-[#f5f6f7] px-6 py-4 rounded-md">
         <div className="grid grid-cols-2 gap-4">
-          {extensions.map((ext, idx) => (
+          {extensions.map((ext: any, idx: number) => (
             <div key={idx} className="bg-white rounded shadow overflow-hidden flex flex-col">
               <div className="relative">
               <div className="relative w-full h-56">
