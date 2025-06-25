@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { MapPin } from "lucide-react";
 
 const EXTENSION_TABS = [
   { label: "PRE-CRUISE EXTENSIONS", key: "pre" },
@@ -45,44 +46,48 @@ export default function TripExtensions() {
   const extensions = EXTENSIONS[tab];
 
   return (
-    <div className="w-full border-t border-gray-200 pt-12 pb-20">
+    <div className="w-full border-t border-l border-gray-300 py-12 px-12">
       <div className="mb-6">
-        <h2 className="text-3xl md:text-4xl font-arpona font-light text-gray-900 mb-2">Trip extensions</h2>
-        <div className="text-gray-700 mb-2 max-w-2xl">
+        <h2 className="text-3xl font-arpona font-bold text-gray-900 mb-2">Trip extensions</h2>
+        <div className="font-bold text-sm font-inter mb-2 max-w-2xl">
           Extension may not be offered on all departure dates—please check with our Reservations team for availability. Please see our {" "}
-          <a href="#" className="underline text-blue-700">Terms & Conditions</a> for additional considerations.
+          <a href="#" className="underline">Terms & Conditions</a> for additional considerations.
         </div>
       </div>
-      <div className="bg-gray-50 rounded-md p-8">
-        <div className="flex gap-2 mb-8">
+      {/* Tabs */}
+      <div className="flex gap-2">
           {EXTENSION_TABS.map((t) => (
             <button
               key={t.key}
-              className={`px-8 py-4 text-lg font-inter font-bold tracking-widest uppercase border-b-2 transition ${tab === t.key ? "border-gray-300 bg-white text-gray-900" : "border-transparent bg-gray-50 text-gray-500 hover:text-gray-900"}`}
+              className={`px-8 py-4 text-xs font-inter font-bold uppercase transition ${tab === t.key ? "bg-[#f5f6f7] text-gray-900" : " bg-white text-gray-500 hover:text-gray-900"}`}
               onClick={() => setTab(t.key)}
             >
               {t.label}
             </button>
           ))}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="bg-[#f5f6f7] px-6 py-4 rounded-md">
+        <div className="grid grid-cols-2 gap-4">
           {extensions.map((ext, idx) => (
             <div key={idx} className="bg-white rounded shadow overflow-hidden flex flex-col">
               <div className="relative">
-                <img src={ext.img} alt={ext.title} className="w-full h-56 object-cover" />
-                <div className="absolute top-3 left-3 bg-black/60 text-white text-xs font-inter px-3 py-1 rounded-full flex items-center gap-1">
-                  <span className="material-icons text-base">place</span> {ext.location}
+              <div className="relative w-full h-56">
+                <img src={ext.img} alt={ext.title} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent" />
+              </div>
+                <div className="absolute top-3 left-3 text-white font-bold text-xs font-inter px-3 py-1 flex items-center gap-1">
+                  <MapPin className="h-4 w-4" /> {ext.location}
                 </div>
-                <div className="absolute top-3 right-3 bg-black/60 text-white text-xs font-inter px-3 py-1 rounded-full">
+                <div className="absolute top-3 right-3 text-white text-xs font-inter px-3 py-1 ">
                   {ext.days} days
                 </div>
               </div>
               <div className="p-6 flex flex-col flex-1">
                 <div className="text-xl font-arpona font-bold text-gray-900 mb-1">{ext.title}</div>
-                <div className="text-gray-600 text-sm mb-2">{ext.price}</div>
-                <hr className="my-2" />
-                <div className="text-gray-700 text-sm mb-6 flex-1">{ext.desc}</div>
-                <button className="mt-auto px-6 py-3 border border-gray-300 rounded font-inter font-bold text-gray-900 flex items-center gap-2 hover:bg-gray-100 transition w-full justify-between">
+                <div className="text-gray-600 font-inter text-sm mb-2">{ext.price}</div>
+                <hr className="my-2 border-gray-300" />
+                <div className="text-gray-700 font-inter text-sm mb-6 flex-1">{ext.desc}</div>
+                <button className="mt-auto px-6 py-2 text-xs border border-gray-300 font-inter font-bold text-gray-900 flex items-center gap-2 hover:bg-gray-100 transition w-full justify-between">
                   INCLUSIONS & EXCLUSIONS <span className="text-xl">&rarr;</span>
                 </button>
               </div>
