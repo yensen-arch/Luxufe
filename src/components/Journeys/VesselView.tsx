@@ -24,7 +24,7 @@ export default function VesselView() {
   const next = () => changeImage(current === shipImages.length - 1 ? 0 : current + 1);
 
   return (
-    <div className="w-full border-t border-l border-gray-300 py-12 px-12">
+    <div className="w-4/5 py-12 px-12">
       <div className="flex items-center justify-between mb-6 px-2 md:px-0">
         <h2 className="text-3xl font-arpona font-bold text-gray-900">The Ship: Scenic Azure</h2>
         <button className="border border-gray-300 px-6 py-2 font-inter font-bold text-gray-900 flex items-center gap-2 hover:bg-gray-100 transition text-xs">

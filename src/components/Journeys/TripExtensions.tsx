@@ -46,7 +46,7 @@ export default function TripExtensions() {
   const extensions = EXTENSIONS[tab];
 
   return (
-    <div className="w-full border-t border-l border-gray-300 py-12 px-12">
+    <div className="w-4/5 py-12 px-12">
       <div className="mb-6">
         <h2 className="text-3xl font-arpona font-bold text-gray-900 mb-2">Trip extensions</h2>
         <div className="font-bold text-sm font-inter mb-2 max-w-2xl">
