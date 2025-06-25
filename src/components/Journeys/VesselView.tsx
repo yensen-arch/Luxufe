@@ -10,8 +10,18 @@ const deckPlanImg = "https://images.unsplash.com/photo-1631727498498-5dd093268ae
 
 export default function VesselView() {
   const [current, setCurrent] = useState(0);
-  const prev = () => setCurrent((c) => (c === 0 ? shipImages.length - 1 : c - 1));
-  const next = () => setCurrent((c) => (c === shipImages.length - 1 ? 0 : c + 1));
+  const [fade, setFade] = useState(true);
+
+  const changeImage = (nextIdx: number) => {
+    setFade(false);
+    setTimeout(() => {
+      setCurrent(nextIdx);
+      setFade(true);
+    }, 250);
+  };
+
+  const prev = () => changeImage(current === 0 ? shipImages.length - 1 : current - 1);
+  const next = () => changeImage(current === shipImages.length - 1 ? 0 : current + 1);
 
   return (
     <div className="w-full border-t border-gray-200 pt-12 pb-20">
@@ -32,7 +42,7 @@ export default function VesselView() {
         <img
           src={shipImages[current]}
           alt="Scenic Azure Ship"
-          className="w-full max-w-3xl h-[320px] object-cover"
+          className={`w-full max-w-3xl h-[320px] object-cover transition-opacity duration-500 ${fade ? 'opacity-100' : 'opacity-0'}`}
         />
         <button
           className="absolute -right-10 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full w-20 h-20 flex items-center justify-center text-3xl border-2 border-gray-200 hover:bg-gray-50 transition"
