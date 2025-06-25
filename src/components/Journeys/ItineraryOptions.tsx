@@ -39,7 +39,7 @@ export default function ItineraryOptions() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <div className="w-full border-t border-l border-gray-300 py-12 px-12">
+    <div className="w-full">
       <h2 className="text-3xl font-arpona font-bold text-black mb-6">Itinerary Options</h2>
       {/* Tabs */}
       <div className="flex">
