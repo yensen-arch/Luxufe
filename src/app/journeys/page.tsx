@@ -1,5 +1,5 @@
-import Footer from "@/components/Landing/Footer";
-import Navbar from "@/components/Landing/Navbar";
+import Footer from "@/components/common/Footer";
+import Navbar from "@/components/common/Navbar";
 import Hero from "@/components/Journeys/Hero";
 import ItineraryDetails from "@/components/Journeys/ItineraryDetails";
 import PricingAndCabinsSection from "@/components/Journeys/PricingAndCabinsSection";
