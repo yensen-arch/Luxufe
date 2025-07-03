@@ -99,25 +99,15 @@ export default function GuidingValues() {
             </div>
           </div>
           {/* Pagination Indicator */}
-          <div className="flex justify-center items-center gap-4 mt-24">
-            <span className="text-gray-400 text-xs font-light font-inter">
-              {String(selectedIndex + 1).padStart(2, '0')}
-            </span>
-            <span className="text-gray-400 text-xs font-light font-inter">
-              {String(selectedIndex + 2).padStart(2, '0')}
-            </span>
-            <div className="w-32 h-px bg-gray-300 relative">
-              <div
-                className="h-px bg-[#23263a] transition-all duration-300"
-                style={{ width: `${((selectedIndex + 1) / values.length) * 100}%` }}
-              />
-            </div>
-            <span className="text-gray-400 text-xs font-light font-inter">
-              {String(values.length-1).padStart(2, '0')}
-            </span>
-            <span className="text-gray-400 text-xs font-light font-inter">
-              {String(values.length).padStart(2, '0')}
-            </span>
+          <div className="flex justify-center items-center gap-2 mt-24 w-40 mx-auto">
+            {/* Left numbers */}
+            <span className={`text-xs font-inter ${selectedIndex === 0 ? 'text-[#23263a] font-bold' : 'text-gray-400 font-light'}`}>01</span>
+            <span className={`text-xs font-inter ${selectedIndex === 1 ? 'text-[#23263a] font-bold' : 'text-gray-400 font-light'}`}>02</span>
+            {/* Line */}
+            <div className="flex-1 h-px bg-gray-300 mx-2" />
+            {/* Right numbers */}
+            <span className="text-xs font-inter text-gray-400 font-light">03</span>
+            <span className="text-xs font-inter text-gray-400 font-light">04</span>
           </div>
         </div>
       </div>
