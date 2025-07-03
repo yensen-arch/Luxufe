@@ -18,7 +18,7 @@ const cards = [
     href: "#",
   },
   {
-    image: "https://images.unsplash.com/photo-1465156799763-2c087c332922?auto=format&fit=crop&w=600&q=80",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
     title: "Hotels",
     description:
       "Stay in handpicked luxury hotels offering exceptional service, world-class amenities, and breathtaking locations, from private retreats to iconic city landmarks.",
@@ -29,20 +29,20 @@ const cards = [
 
 export default function ExploreMore() {
   return (
-    <section className="py-24 bg-white relative overflow-hidden mt-40">
+    <section className="bg-white relative mt-80">
       <div className="absolute inset-0 z-0">
         <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=1400&q=80" alt="Peacock" className="w-full h-full object-cover" />
       </div>
-      <div className="relative -top-30 z-100 max-w-7xl mx-auto px-4">
+      <div className="relative -top-70 z-10 max-w-7xl mx-auto px-4">
         <h2 className="text-5xl font-arpona font-bold text-[#23263a] text-center mb-4 absolute md:static">Explore More</h2>
-        <p className="text-lg font-inter font-bold text-[#23263a] text-center mb-16">Discover more exclusive, luxury travel experiences, tailored to you</p>
+        <p className="text-md font-inter font-bold text-[#23263a] text-center mb-16">Discover more exclusive, luxury travel experiences, tailored to you</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {cards.map((card) => (
-            <div key={card.title} className="bg-white rounded-lg shadow-xl overflow-hidden flex flex-col h-full">
-              <img src={card.image} alt={card.title} className="w-full h-64 object-cover" />
+            <div key={card.title} className="bg-white overflow-hidden flex flex-col h-[90vh]">
+              <img src={card.image} alt={card.title} className="w-full h-110 object-cover" />
               <div className="p-8 flex flex-col flex-1">
                 <h3 className="text-2xl font-arpona font-bold text-[#23263a] mb-4">{card.title}</h3>
-                <p className="font-inter text-[#23263a] text-base font-normal mb-8 flex-1">{card.description}</p>
+                <p className="font-inter font-bold text-slate-500 text-base text-sm mb-8 flex-1">{card.description}</p>
                 <a href={card.href} className="font-inter font-bold text-sm tracking-wider flex items-center gap-2 text-[#23263a] hover:underline mt-auto">
                   {card.cta}
                   <span className="inline-block transform transition-transform group-hover:translate-x-1">→</span>
