@@ -9,6 +9,7 @@ import GuidingValues from "@/components/aboutUs/GuidingValues";
 import Wallpaper from "@/components/aboutUs/Wallpaper";
 import LuxuryStay from "@/components/aboutUs/LuxuryStay";
 import ArtOfEffortlessTravel from "@/components/aboutUs/ArtOfEffortlessTravel";
+import RecognizedForExcellence from "@/components/aboutUs/RecognizedForExcellence";
 import LuxufeStory from "@/components/beforeYouTravel/LuxufeStory";
 
 export default function About() {
@@ -17,10 +18,11 @@ export default function About() {
       <Navbar />
       <AboutHero />
       <ArtOfEffortlessTravel />
-      <LuxuryStay />
       <Wallpaper />
+      <LuxuryStay />
       <GuidingValues />
       <LuxufeStory />
+      <RecognizedForExcellence />
       <LuxuryPartners />
       <ElevePerks />
       <ContactUs />
