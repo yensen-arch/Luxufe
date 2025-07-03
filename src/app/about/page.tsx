@@ -9,6 +9,7 @@ import GuidingValues from "@/components/aboutUs/GuidingValues";
 import Wallpaper from "@/components/aboutUs/Wallpaper";
 import LuxuryStay from "@/components/aboutUs/LuxuryStay";
 import ArtOfEffortlessTravel from "@/components/aboutUs/ArtOfEffortlessTravel";
+import LuxufeStory from "@/components/beforeYouTravel/LuxufeStory";
 
 export default function About() {
   return (
@@ -19,6 +20,7 @@ export default function About() {
       <LuxuryStay />
       <Wallpaper />
       <GuidingValues />
+      <LuxufeStory />
       <LuxuryPartners />
       <ElevePerks />
       <ContactUs />
