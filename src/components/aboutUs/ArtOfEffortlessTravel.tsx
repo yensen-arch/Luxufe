@@ -19,7 +19,7 @@ export default function ArtOfEffortlessTravel() {
             <h2 className="text-4xl md:text-6xl font-arpona text-[#23263a] font-bold leading-tight mb-6">
               The Art of Effortless Travel
             </h2>
-            <p className="text-xl md:text-3xl font-inter text-[#23263a] font-bold leading-snug max-w-3xl mb-10">
+            <p className="text-xl md:text-3xl font-inter text-slate-700 font-bold leading-snug max-w-3xl mb-10">
               We believe that true luxury lies in the details, where every moment is seamlessly orchestrated and every journey is as effortless as it is extraordinary.
             </p>
           </div>

@@ -23,7 +23,7 @@ const mainLinks = {
     ABOUT: [
         { text: 'About Rewards Program', href: '#' },
         { text: 'About Luxufe', href: '/about' },
-        { text: 'Before you travel', href: '#' },
+        { text: 'Before you travel', href: '/before-you-travel' },
         { text: 'Offers & Promotions', href: '#' },
         { text: 'Find the journey for you', href: '#' },
         { text: 'Travel Journal / Blog', href: '#' },
