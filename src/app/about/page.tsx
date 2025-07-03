@@ -11,6 +11,7 @@ import LuxuryStay from "@/components/aboutUs/LuxuryStay";
 import ArtOfEffortlessTravel from "@/components/aboutUs/ArtOfEffortlessTravel";
 import RecognizedForExcellence from "@/components/aboutUs/RecognizedForExcellence";
 import LuxufeStory from "@/components/beforeYouTravel/LuxufeStory";
+import SpeakingJourneys from "@/components/aboutUs/SpeakingJourneys";
 
 export default function About() {
   return (
@@ -23,6 +24,7 @@ export default function About() {
       <GuidingValues />
       <LuxufeStory />
       <RecognizedForExcellence />
+      <SpeakingJourneys />
       <LuxuryPartners />
       <ElevePerks />
       <ContactUs />
