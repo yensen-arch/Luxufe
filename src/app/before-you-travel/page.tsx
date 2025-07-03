@@ -15,9 +15,9 @@ export default function BeforeYouTravel() {
       <BeforeYouTravelHero />
       <EssentialTravelInfo />
       <TravelAccordion />
-      <ExploreMore />
       <NewsletterSignUp />
       <Testimonials />
+      <ExploreMore />
       <ContactUs />
       <Footer />
     </main>

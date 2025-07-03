@@ -29,12 +29,12 @@ const cards = [
 
 export default function ExploreMore() {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-24 bg-white relative overflow-hidden mt-40">
       <div className="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=1400&q=80" alt="Peacock" className="w-full h-full object-cover opacity-60" />
+        <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=1400&q=80" alt="Peacock" className="w-full h-full object-cover" />
       </div>
-      <div className="relative z-10 max-w-7xl mx-auto px-4">
-        <h2 className="text-5xl font-arpona font-bold text-[#23263a] text-center mb-4">Explore More</h2>
+      <div className="relative -top-30 z-100 max-w-7xl mx-auto px-4">
+        <h2 className="text-5xl font-arpona font-bold text-[#23263a] text-center mb-4 absolute md:static">Explore More</h2>
         <p className="text-lg font-inter font-bold text-[#23263a] text-center mb-16">Discover more exclusive, luxury travel experiences, tailored to you</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {cards.map((card) => (
