@@ -75,7 +75,7 @@ export default function GuidingValues() {
     <section className="py-24 bg-[#fafbfc]">
       <div className="container mx-auto px-4 overflow-hidden">
         {/* Header */}
-        <div className="flex max-w-7xl mx-auto flex-col lg:flex-row justify-between items-start mb-24">
+        <div className="flex max-w-6xl mx-auto flex-col lg:flex-row justify-between items-start mb-24">
           <div className="lg:w-2/3 lg:mb-0">
             <h2 className="text-5xl lg:text-6xl font-arpona font-bold text-[#23263a] leading-tight">
               What Guides Every<br />Luxufe Journey?
