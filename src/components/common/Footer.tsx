@@ -1,5 +1,6 @@
 import { ArrowRight, Facebook, Instagram, Twitter } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const galleryImages = [
@@ -21,7 +22,7 @@ const mainLinks = {
     ],
     ABOUT: [
         { text: 'About Rewards Program', href: '#' },
-        { text: 'About Luxufe', href: '#' },
+        { text: 'About Luxufe', href: '/about' },
         { text: 'Before you travel', href: '#' },
         { text: 'Offers & Promotions', href: '#' },
         { text: 'Find the journey for you', href: '#' },
@@ -68,9 +69,9 @@ export default function Footer() {
                             Seamless luxury travel, tailored to you -<br/>effortless, personal, <span className="font-bellarina text-6xl font-medium">unforgettable.</span>
                         </p>
                         <div className="flex gap-4 mt-8">
-                            <a href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><Instagram className="h-5 w-5" /></a>
-                            <a href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><Facebook className="h-5 w-5" /></a>
-                            <a href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><Twitter className="h-5 w-5" /></a>
+                            <Link target='_blank' href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><Instagram className="h-5 w-5" /></Link>
+                            <Link target='_blank' href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><Facebook className="h-5 w-5" /></Link>
+                            <Link target='_blank' href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><Twitter className="h-5 w-5" /></Link>
                         </div>
                     </div>
                     <div className="lg:col-span-3 grid grid-cols-3 gap-8">
@@ -95,7 +96,7 @@ export default function Footer() {
                                 <h3 className="font-bold text-xl mb-6 font-arpona font-bold">{title}</h3>
                                 <ul className="space-y-3">
                                     {links.map(link => (
-                                        <li key={link}><a href='#' className="text-gray-400 hover:text-white transition-colors">{link}</a></li>
+                                       <li key={link}><Link href="#" className="text-gray-400 hover:text-white transition-colors">{link}</Link></li>
                                     ))}
                                 </ul>
                             </div>
@@ -104,7 +105,7 @@ export default function Footer() {
                      <h3 className="font-bold text-xl mb-6">Brands & Partners</h3>
                      <div className="grid md:grid-cols-4 gap-x-8 gap-y-3">
                         {brands.map(brand => (
-                             <a key={brand} href='#' className="text-gray-400 hover:text-white transition-colors font-inter font-bold">{brand}</a>
+                             <Link key={brand} href='#' className="text-gray-400 hover:text-white transition-colors font-inter font-bold">{brand}</Link>
                         ))}
                      </div>
                 </div>
@@ -119,11 +120,11 @@ export default function Footer() {
                     <div className="border-t border-white/70 pt-8 font-inter font-bold flex flex-wrap justify-between items-center text-sm">
                         <p>&copy; COPYRIGHT. ALL RIGHTS RESERVED. LUXUFE 2025</p>
                         <div className="flex gap-6">
-                            <a href="#" className="hover:text-white">PRIVACY POLICY</a>
-                            <a href="#" className="hover:text-white">TERMS OF USE</a>
-                            <a href="#" className="hover:text-white">RESERVATION TERMS</a>
-                            <a href="#" className="hover:text-white">REWARDS PROGRAM TERMS</a>
-                            <a href="#" className="hover:text-white">SITE CREDITS</a>
+                            <Link  href="#" className="hover:text-white">PRIVACY POLICY</Link>
+                            <Link href="#" className="hover:text-white">TERMS OF USE</Link>
+                            <Link href="#" className="hover:text-white">RESERVATION TERMS</Link>
+                            <Link href="#" className="hover:text-white">REWARDS PROGRAM TERMS</Link>
+                            <Link href="#" className="hover:text-white">SITE CREDITS</Link>
                         </div>
                     </div>
                 </div>
