@@ -8,12 +8,14 @@ import Footer from "@/components/common/Footer";
 import GuidingValues from "@/components/aboutUs/GuidingValues";
 import Wallpaper from "@/components/aboutUs/Wallpaper";
 import LuxuryStay from "@/components/aboutUs/LuxuryStay";
+import ArtOfEffortlessTravel from "@/components/aboutUs/ArtOfEffortlessTravel";
 
 export default function About() {
   return (
     <main>
       <Navbar />
       <AboutHero />
+      <ArtOfEffortlessTravel />
       <LuxuryStay />
       <Wallpaper />
       <GuidingValues />
