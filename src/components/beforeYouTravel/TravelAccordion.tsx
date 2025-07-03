@@ -35,7 +35,7 @@ const items = [
 ];
 
 export default function TravelAccordion() {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <section className="max-w-6xl mx-auto my-24">
@@ -44,8 +44,8 @@ export default function TravelAccordion() {
           <div key={item.title} className="relative overflow-hidden transition-all duration-500">
             {/* Toggle button */}
             <button
-              className="w-full flex justify-between items-center py-8 px-4 md:px-8 focus:outline-none group"
-              onClick={() => setOpenIndex(openIndex === idx ? -1 : idx)}
+              className="w-full flex justify-between items-center py-8 px-4 md:px-8 focus:outline-none group hover:cursor-pointer"
+              onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
               aria-expanded={openIndex === idx}
               aria-controls={`accordion-panel-${idx}`}
             >
