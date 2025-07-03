@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react';
 
 export default function NewsletterSignUp() {
   return (
-    <section className="relative py-20 bg-cover bg-center" style={{ backgroundImage: "url('https://picsum.photos/seed/home-bg/1920/1080')" }}>
+    <section className="relative py-55 bg-cover bg-center" style={{ backgroundImage: "url('https://picsum.photos/seed/home-bg/1920/1080')" }}>
       <div className="absolute inset-0 bg-black/10"></div>
       <div className="relative container mx-auto px-4">
         <div className="max-w-4xl mx-auto bg-white px-16 py-10">

@@ -3,7 +3,7 @@ import AboutHero from "@/components/aboutUs/AboutHero";
 import Navbar from "@/components/common/Navbar";
 import LuxuryPartners from "@/components/landing/LuxuryPartners";
 import ElevePerks from "@/components/landing/ElevePerks";
-import ContactUs from "@/components/landing/ContactUs";
+import ContactUs from "@/components/aboutUs/ContactUsAbout";
 import Footer from "@/components/common/Footer";
 import GuidingValues from "@/components/aboutUs/GuidingValues";
 import Wallpaper from "@/components/aboutUs/Wallpaper";

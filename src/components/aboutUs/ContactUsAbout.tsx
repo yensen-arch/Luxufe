@@ -8,7 +8,7 @@ export default function ContactUs() {
           
           {/* Left */}
           <div className="text-center md:text-left mx-auto">
-            <h2 className="text-6xl font-arpona font-bold mb-6">Contact Us</h2>
+            <h2 className="text-6xl font-arpona font-bold mb-6">Here for you</h2>
             <p className="max-w-md mx-auto md:mx-0 font-inter font-bold leading-relaxed">
               Whether you need expert travel advice, personalised recommendations, or seamless support, don't hesitate to get in touch and let us craft your next effortless journey.
             </p>
