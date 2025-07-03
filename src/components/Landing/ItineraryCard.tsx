@@ -31,8 +31,8 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
       className={`
         relative flex-shrink-0 group overflow-hidden mx-2 cursor-pointer transition-all duration-500 ease-out
         ${isExpanded 
-          ? 'h-[500px] sm:w-80 bg-white shadow-xl transform' 
-          : 'w-full sm:w-80 h-[500px] hover:shadow-2xl'
+          ? 'h-[550px] sm:w-86 bg-white shadow-xl transform' 
+          : 'w-full sm:w-86 h-[550px] hover:shadow-2xl'
         }
       `}
       onClick={onClick}

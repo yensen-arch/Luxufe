@@ -59,7 +59,7 @@ const itineraries = [
 ]
 
 export default function CuratedForYou() {
-  const [selectedCard, setSelectedCard] = useState("south-america")
+  const [selectedCard, setSelectedCard] = useState<string | null>(null)
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: "center",
