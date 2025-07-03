@@ -1,9 +1,12 @@
 import React from 'react'
+import AboutHero from "@/components/aboutUs/AboutHero";
+import Navbar from "@/components/common/Navbar";
 
-const About = () => {
+export default function About() {
   return (
-    <div>About</div>
-  )
+    <main>
+      <Navbar />
+      <AboutHero />
+    </main>
+  );
 }
-
-export default About
