@@ -8,6 +8,7 @@ import ExploreMore from '@/components/eleve/ExploreMore';
 import ElevePerks from '@/components/landing/ElevePerks';
 import BlogMasonryGrid from '@/components/storiesAndInsights/BlogMasonryGrid';
 import TravelChoice from '@/components/storiesAndInsights/TravelChoice';
+import EffortlessLuxury from '@/components/storiesAndInsights/EffortlessLuxury';
 
 export default function StoriesAndInsights() {
   return (
@@ -16,6 +17,7 @@ export default function StoriesAndInsights() {
       <HeroStories />
       <BlogMasonryGrid />
       <TravelChoice />
+      <EffortlessLuxury />
       <ElevePerks />
       <ExploreMore />
       <NewsletterSignUp />
