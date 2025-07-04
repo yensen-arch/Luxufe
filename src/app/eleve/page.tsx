@@ -8,6 +8,7 @@ import WhyJoinEleve from '@/components/eleve/WhyJoinEleve';
 import DiscoverLuxuryEleve from '@/components/eleve/DiscoverLuxuryEleve';
 import SpeakingJourneys from '@/components/eleve/SpeakingJourneys';
 import ElevateTravel from '@/components/eleve/ElevateTravel';
+import ExploreMore from '@/components/eleve/ExploreMore';
 
 const Eleve = () => {
   return (
@@ -20,6 +21,7 @@ const Eleve = () => {
       <SpeakingJourneys />
       <ElevateTravel />
       <NewsletterSignUp />
+      <ExploreMore />
       <Footer />
     </main>
   )
