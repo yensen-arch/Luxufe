@@ -6,12 +6,14 @@ import NewsletterSignUp from '@/components/landing/NewsletterSignUp';
 import ContactUs from '@/components/landing/ContactUs';
 import ExploreMore from '@/components/eleve/ExploreMore';
 import ElevePerks from '@/components/landing/ElevePerks';
+import BlogMasonryGrid from '@/components/storiesAndInsights/BlogMasonryGrid';
 
 export default function StoriesAndInsights() {
   return (
     <main>
       <Navbar />
       <HeroStories />
+      <BlogMasonryGrid />
       <ElevePerks />
       <ExploreMore />
       <NewsletterSignUp />
