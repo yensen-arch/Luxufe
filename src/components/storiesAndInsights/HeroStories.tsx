@@ -1,3 +1,5 @@
+import ExploreBar from '@/components/storiesAndInsights/ExploreBar';
+
 
 export default function HeroStories() {
   return (
@@ -18,6 +20,9 @@ export default function HeroStories() {
         <p className="mt-2 max-w-2xl mx-auto font-inter font-bold text-md md:text-md text-white/90">
           Discover expert insights, curated guides, and exclusive luxury travel tips designed to elevate every journey.
         </p>
+      </div>
+      <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 w-full px-4">
+        <ExploreBar />
       </div>
     </section>
   );
