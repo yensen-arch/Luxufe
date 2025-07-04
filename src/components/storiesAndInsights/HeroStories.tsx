@@ -1,7 +1,7 @@
 
 export default function HeroStories() {
   return (
-    <section className="relative h-screen w-full flex items-center justify-center text-white text-center">
+    <section className="relative h-screen w-full mb-40 flex items-center justify-center text-white text-center">
       {/* Background image */}
       <div
         className="absolute top-0 left-0 w-full h-full bg-cover bg-center"
@@ -15,7 +15,7 @@ export default function HeroStories() {
         <h1 className="text-5xl md:text-6xl font-arpona font-bold mb-8 leading-tight">
           Inspiration for the Discerning Traveler
         </h1>
-        <p className="mt-2 max-w-2xl mx-auto font-inter font-bold text-lg md:text-xl text-white/90">
+        <p className="mt-2 max-w-2xl mx-auto font-inter font-bold text-md md:text-md text-white/90">
           Discover expert insights, curated guides, and exclusive luxury travel tips designed to elevate every journey.
         </p>
       </div>
