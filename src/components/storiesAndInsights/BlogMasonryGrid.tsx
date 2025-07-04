@@ -60,8 +60,8 @@ function MasonryCard({ post, className = "" }: { post: typeof posts[0]; classNam
       <div className="absolute inset-0 flex flex-col justify-between p-6">
         <span className="uppercase text-xs font-inter tracking-widest text-white/80 mb-2">{post.category}</span>
         <div className="flex flex-col justify-end h-full">
-          <h3 className="text-white text-xl md:text-2xl font-arpona font-bold mb-4">{post.title}</h3>
-          <button className="bg-white text-black font-inter font-bold px-6 py-2 text-xs shadow hover:bg-gray-100 w-fit">READ MORE</button>
+          <h3 className="text-white w-2/3 text-xl md:text-2xl font-arpona font-bold mb-4">{post.title}</h3>
+          <button className="bg-white text-black font-inter font-bold px-4 py-2 text-xs shadow hover:bg-gray-100 w-fit">READ MORE</button>
         </div>
       </div>
     </div>
