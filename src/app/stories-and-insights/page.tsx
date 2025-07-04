@@ -7,6 +7,7 @@ import ContactUs from '@/components/landing/ContactUs';
 import ExploreMore from '@/components/eleve/ExploreMore';
 import ElevePerks from '@/components/landing/ElevePerks';
 import BlogMasonryGrid from '@/components/storiesAndInsights/BlogMasonryGrid';
+import TravelChoice from '@/components/storiesAndInsights/TravelChoice';
 
 export default function StoriesAndInsights() {
   return (
@@ -14,6 +15,7 @@ export default function StoriesAndInsights() {
       <Navbar />
       <HeroStories />
       <BlogMasonryGrid />
+      <TravelChoice />
       <ElevePerks />
       <ExploreMore />
       <NewsletterSignUp />
