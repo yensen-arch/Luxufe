@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react"
 export default function ElevateTravel() {
 
   return (
-    <section className="py-24 overflow-hidden">
+    <section className="py-40 overflow-hidden">
       <div className="container mx-auto">
         <div className="relative flex flex-col lg:flex-row items-center lg:justify-end min-h-[650px]">
           
@@ -31,7 +31,7 @@ export default function ElevateTravel() {
           </div>
 
           {/* Image Section */}
-          <div className="w-3/6 h-full z-40 mr-20">
+          <div className="w-3/7 h-full z-40 mr-20">
             <div className="relative overflow-hidden shadow-2xl">
               <img
                 src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
