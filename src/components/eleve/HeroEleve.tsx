@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function HeroEleve() {
+export default function HeroEleve({ onBecomeMember }: { onBecomeMember?: () => void }) {
   return (
     <section className="relative h-screen w-full flex items-center justify-center text-white text-center">
       {/* Background image */}
@@ -16,7 +16,10 @@ export default function HeroEleve() {
         <h1 className="text-5xl md:text-6xl font-arpona font-bold mb-8 leading-tight">
           Travel should feel as rewarding as the journeys themselves
         </h1>
-        <button className="mt-6 px-10 py-4 border border-slate-300 text-white font-inter font-bold bg-transparent hover:bg-white hover:text-black transition-all text-xs">
+        <button
+          className="mt-6 px-10 py-4 border border-slate-300 text-white font-inter font-bold bg-transparent hover:bg-white hover:text-black transition-all text-xs"
+          onClick={onBecomeMember || (() => {})}
+        >
           BECOME A MEMBER &rarr;
         </button>
       </div>

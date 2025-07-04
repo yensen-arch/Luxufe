@@ -60,7 +60,7 @@ const items = [
   },
 ];
 
-export default function WhyJoinEleve() {
+export default function WhyJoinEleve({ onBecomeMember }: { onBecomeMember?: () => void }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -108,7 +108,10 @@ export default function WhyJoinEleve() {
         ))}
       </div>
       {/* Button */}
-      <button className="mt-6 px-10 py-4 border border-slate-300 text-[#23263a] font-inter font-bold bg-transparent hover:bg-[#23263a] hover:text-white transition-all text-xs">
+      <button
+        className="mt-6 px-10 py-4 border border-slate-300 text-[#23263a] font-inter font-bold bg-transparent hover:bg-[#23263a] hover:text-white transition-all text-xs"
+        onClick={onBecomeMember || (() => {})}
+      >
         BECOME A MEMBER &rarr;
       </button>
     </section>
