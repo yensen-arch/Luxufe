@@ -90,22 +90,33 @@ export default function Footer() {
 
                 {/* Mega Links Section */}
                 <div className="border-y border-white/70 my-16 py-16">
-                    <div className="grid md:grid-cols-5 mb-12">
-                        {Object.entries(megaLinks).map(([title, links]) => (
-                            <div
-                                key={title}
-                                className={title === 'Destinations' ? 'col-span-2' : 'col-span-1'}
-                            >
-                                <h3 className="font-bold text-xl mb-6 font-arpona font-bold">{title}</h3>
-                                <ul className={title === 'Destinations' ? 'grid grid-cols-2 gap-2 text-sm' : 'space-y-2 text-sm'}>
-                                    {links.map(link => (
-                                        <li key={link}>
-                                            <Link href="#" className="text-gray-400 hover:text-white transition-colors">{link}</Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
+                    <div className="grid md:grid-cols-2 gap-8 mb-12">
+                        {/* Left: Destinations (2 columns) */}
+                        <div>
+                            <h3 className="font-bold text-xl mb-6 font-arpona font-bold">Destinations</h3>
+                            <ul className="grid grid-cols-2 gap-2 text-sm">
+                                {megaLinks.Destinations.map(link => (
+                                    <li key={link}>
+                                        <Link href="#" className="text-gray-400 hover:text-white transition-colors">{link}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        {/* Right: Cruises, Airlines, Jets (3 columns) */}
+                        <div className="grid grid-cols-3 gap-8">
+                            {['Cruises', 'Airlines', 'Jets'].map(title => (
+                                <div key={title}>
+                                    <h3 className="font-bold text-xl mb-6 font-arpona font-bold">{title}</h3>
+                                    <ul className="space-y-2 text-sm">
+                                        {megaLinks[title as keyof typeof megaLinks].map(link => (
+                                            <li key={link}>
+                                                <Link href="#" className="text-gray-400 hover:text-white transition-colors">{link}</Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                      <h3 className="font-bold text-xl mb-6">Brands & Partners</h3>
                      <div className="grid md:grid-cols-5 gap-y-2 text-sm">
