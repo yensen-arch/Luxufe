@@ -38,7 +38,7 @@ const mainLinks = {
 };
 
 const megaLinks = {
-    Destinations: ['Africa', 'Alaska', 'Antarctica', 'Galapagos Islands', 'India and the Subcontinent', 'Mediterranean Sea', 'Northern Europe & British Isles'],
+    Destinations: ['Africa', 'Alaska', 'Antarctica','Arctic Circle & Greenland','Asia','Australia & New Zealand','Caribbean & Bahamas','Central America & Mexico','Egypt & the Middle East','Europe','Galapagos Islands','India and the Subcontinent','Mediterranean Sea','Northern Europe & British Isles'],
     Cruises: ['Adventure/Exploration Cruises', 'Barge Cruises', 'Family Small Ship Cruises', 'Ocean Cruises', 'Polar Cruises', 'Rails to River Cruise', 'River Cruises'],
     Airlines: ['Emirates', 'Singapore Airlines', 'Qatar Airways', 'British Airways', 'Lufthansa', 'Cathay Pacific', 'Etihad Airways'],
     Jets: ['NetJets', 'Flexjet', 'Sentient Jet', 'Wheels Up', 'VistaJet', 'PrivateFly', 'Skyjet'],
@@ -90,20 +90,25 @@ export default function Footer() {
 
                 {/* Mega Links Section */}
                 <div className="border-y border-white/70 my-16 py-16">
-                    <div className="grid md:grid-cols-4 gap-8 mb-12">
+                    <div className="grid md:grid-cols-5 mb-12">
                         {Object.entries(megaLinks).map(([title, links]) => (
-                             <div key={title}>
+                            <div
+                                key={title}
+                                className={title === 'Destinations' ? 'col-span-2' : 'col-span-1'}
+                            >
                                 <h3 className="font-bold text-xl mb-6 font-arpona font-bold">{title}</h3>
-                                <ul className="space-y-3">
+                                <ul className={title === 'Destinations' ? 'grid grid-cols-2 gap-2 text-sm' : 'space-y-2 text-sm'}>
                                     {links.map(link => (
-                                       <li key={link}><Link href="#" className="text-gray-400 hover:text-white transition-colors">{link}</Link></li>
+                                        <li key={link}>
+                                            <Link href="#" className="text-gray-400 hover:text-white transition-colors">{link}</Link>
+                                        </li>
                                     ))}
                                 </ul>
                             </div>
                         ))}
                     </div>
                      <h3 className="font-bold text-xl mb-6">Brands & Partners</h3>
-                     <div className="grid md:grid-cols-4 gap-x-8 gap-y-3">
+                     <div className="grid md:grid-cols-5 gap-y-2 text-sm">
                         {brands.map(brand => (
                              <Link key={brand} href='#' className="text-gray-400 hover:text-white transition-colors font-inter font-bold">{brand}</Link>
                         ))}
