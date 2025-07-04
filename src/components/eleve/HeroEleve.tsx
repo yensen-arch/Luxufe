@@ -16,7 +16,7 @@ export default function HeroEleve() {
         <h1 className="text-5xl md:text-6xl font-arpona font-bold mb-8 leading-tight">
           Travel should feel as rewarding as the journeys themselves
         </h1>
-        <button className="mt-6 px-10 py-4 border border-slate-300 text-white font-inter font-bold bg-transparent hover:bg-white hover:text-black transition-all text-sm">
+        <button className="mt-6 px-10 py-4 border border-slate-300 text-white font-inter font-bold bg-transparent hover:bg-white hover:text-black transition-all text-xs">
           BECOME A MEMBER &rarr;
         </button>
       </div>
