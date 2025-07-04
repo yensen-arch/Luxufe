@@ -51,7 +51,7 @@ export default function BecomeMemberModal({ open, onClose }: { open: boolean; on
             className="absolute top-10 -right-3 text-gray-600 hover:text-gray-700"
             aria-label="Close"
           >
-            <X className="w-8 h-8" />
+            <X className="w-8 h-8 cursor-pointer" />
           </button>
           <form className="flex flex-col gap-4 mt-2">
             <div className="flex gap-4">
