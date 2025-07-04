@@ -26,7 +26,7 @@ const ITEMS = [
 ];
 
 export default function GoodToKnowAccordion() {
-  const [openIdx, setOpenIdx] = useState(0);
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
     <div className="w-4/5 py-12 px-12">
@@ -37,8 +37,8 @@ export default function GoodToKnowAccordion() {
           return (
             <div key={item.title}>
               <button
-                className="w-full flex items-center justify-between py-8 focus:outline-none text-left"
-                onClick={() => setOpenIdx(isOpen ? -1 : idx)}
+                className="w-full cursor-pointer flex items-center justify-between py-8 focus:outline-none text-left"
+                onClick={() => setOpenIdx(isOpen ? null : idx)}
                 aria-expanded={isOpen}
               >
                 <span className="text-xl font-arpona text-gray-900 font-bold">{item.title}</span>

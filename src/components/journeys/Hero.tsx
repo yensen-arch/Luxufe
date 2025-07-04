@@ -58,7 +58,7 @@ export default function Hero() {
               <div className="text-md font-inter font-bold ">Scenic Azure</div>
             </div>
           </div>
-          <button className="bg-[#A5C8CE] text-white text-lg font-semibold px-8 py-3 shadow hover:bg-[#8bb3b8] transition">Book this Journey</button>
+          <button className="bg-[#A5C8CE] text-white text-lg cursor-pointer font-arpona font-semibold px-8 py-3 shadow hover:bg-[#8bb3b8] transition">Book this Journey</button>
         </div>
       </section>
     </>
