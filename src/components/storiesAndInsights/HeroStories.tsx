@@ -3,7 +3,7 @@ import ExploreBar from '@/components/storiesAndInsights/ExploreBar';
 
 export default function HeroStories() {
   return (
-    <section className="relative h-screen w-full mb-40 flex items-center justify-center text-white text-center">
+    <section className="relative h-screen w-full mb-30 flex items-center justify-center text-white text-center">
       {/* Background image */}
       <div
         className="absolute top-0 left-0 w-full h-full bg-cover bg-center"
