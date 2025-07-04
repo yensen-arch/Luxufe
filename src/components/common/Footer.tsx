@@ -133,7 +133,7 @@ export default function Footer() {
                            <div key={i} className="h-20 bg-white/5 rounded"></div>
                         ))}
                     </div>
-                    <div className="border-t border-white/70 pt-8 font-inter font-bold flex flex-wrap justify-between items-center text-sm">
+                    <div className="border-t border-white/70 pt-8 font-inter font-bold flex flex-wrap justify-between items-center text-xs">
                         <p>&copy; COPYRIGHT. ALL RIGHTS RESERVED. LUXUFE 2025</p>
                         <div className="flex gap-6">
                             <Link  href="#" className="hover:text-white">PRIVACY POLICY</Link>
