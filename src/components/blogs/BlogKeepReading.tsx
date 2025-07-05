@@ -36,13 +36,18 @@ export default function BlogKeepReading() {
               />
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
-              {/* Content */}
-              <div className="absolute inset-0 flex flex-col justify-end p-8 z-20">
-                <span className="text-xs font-inter text-white mb-2 tracking-widest font-bold">{post.tag}</span>
-                <h3 className="text-2xl font-arpona font-bold text-white mb-8">{post.title}</h3>
+              {/* Category at top left */}
+              <span className="absolute top-6 left-6 text-xs font-inter text-white tracking-widest font-bold z-20">
+                {post.tag}
+              </span>
+              {/* Title and Button at bottom left */}
+              <div className="absolute left-6 bottom-6 z-20 flex flex-col items-start w-4/5">
+                <h3 className="text-xl w-2/3 font-arpona font-bold text-slate-300 mb-6 leading-snug">
+                  {post.title}
+                </h3>
                 <a
                   href={post.href}
-                  className="inline-block bg-white text-black font-inter font-bold text-xs px-6 py-3 rounded hover:bg-slate-100 transition"
+                  className="inline-block bg-white text-black font-inter font-bold text-xs px-6 py-3 hover:bg-slate-100 transition"
                 >
                   READ MORE
                 </a>
