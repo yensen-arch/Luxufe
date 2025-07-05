@@ -1,6 +1,7 @@
 import Navbar from '@/components/common/Navbar';
 import ExperienceMoreHero from '@/components/experienceMore/ExperienceMoreHero';
 import LatestGreatestFilter from '@/components/experienceMore/LatestGreatestFilter';
+import LatestGreatestGrid from '@/components/experienceMore/LatestGreatestGrid';
 import ContactUs from '@/components/landing/ContactUs';
 import Footer from '@/components/common/Footer';
 import ElevePerks from '@/components/landing/ElevePerks';
@@ -13,6 +14,7 @@ export default function ExperienceMore() {
       <Navbar />
       <ExperienceMoreHero />
       <LatestGreatestFilter />
+      <LatestGreatestGrid />
       <ElevePerks />
       <EffortlessLuxury />
       <NewsletterSignUp />
