@@ -2,6 +2,9 @@ import Navbar from '@/components/common/Navbar';
 import BlogSidebar from '@/components/blogs/BlogSidebar';
 import BlogContent from '@/components/blogs/BlogContent';
 import BlogHero from '@/components/blogs/BlogHero';
+import BlogKeepReading from '@/components/blogs/BlogKeepReading';
+import ContactUs from '@/components/landing/ContactUs';
+import Footer from '@/components/common/Footer';
 
 export default function Blog() {
   return (
@@ -20,6 +23,9 @@ export default function Blog() {
           <BlogContent />
         </div>
       </div>
+      <BlogKeepReading />
+      <ContactUs />
+      <Footer />
     </div>
   );
 }
