@@ -9,10 +9,10 @@ interface BlogHeroProps {
 
 export default function BlogHero({ title, tags, imageUrl, onBack }: BlogHeroProps) {
   return (
-    <section className="flex flex-col items-center w-full pt-24 pb-12">
+    <section className="flex flex-col items-center w-full pt-50 pb-12">
       {/* Back Link */}
       <button
-        className="mb-8 text-xs text-gray-400 font-inter flex items-center gap-2 hover:underline"
+        className="mb-8 text-xs text-gray-400 font-bold font-inter flex items-center gap-2 hover:underline"
         onClick={onBack}
         aria-label="Back to all"
       >
@@ -23,11 +23,11 @@ export default function BlogHero({ title, tags, imageUrl, onBack }: BlogHeroProp
         {title}
       </h1>
       {/* Tags */}
-      <div className="flex gap-2 mb-8">
+      <div className="flex gap-2 mb-12">
         {tags.map((tag, idx) => (
           <span
             key={idx}
-            className="px-4 py-1 border border-gray-300 rounded-full text-xs font-inter text-[#23263a] bg-white"
+            className="px-4 py-1 border border-gray-500 text-xs font-inter font-bold bg-white"
           >
             {tag}
           </span>
@@ -38,7 +38,7 @@ export default function BlogHero({ title, tags, imageUrl, onBack }: BlogHeroProp
         <img
           src={imageUrl}
           alt={title}
-          className="w-[80vw] max-w-5xl h-[450px] object-cover rounded"
+          className="w-[80vw] max-w-7xl h-[600px] object-cover"
         />
       </div>
     </section>
