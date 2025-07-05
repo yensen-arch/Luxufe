@@ -38,7 +38,7 @@ export default function BlogHero({ title, tags, imageUrl, onBack }: BlogHeroProp
         <img
           src={imageUrl}
           alt={title}
-          className="w-[80vw] max-w-7xl h-[600px] object-cover"
+          className="w-[80vw] h-[600px] object-cover"
         />
       </div>
     </section>

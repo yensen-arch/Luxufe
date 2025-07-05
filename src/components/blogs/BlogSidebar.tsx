@@ -3,28 +3,28 @@ import { Facebook, Instagram } from "lucide-react";
 
 export default function BlogSidebar() {
   return (
-    <aside className="flex flex-col items-start w-full max-w-xs px-4 pt-8">
+    <aside className="flex flex-col items-start w-full max-w-xs">
       {/* Author Card */}
       <div className="mb-6 w-full">
         <img
           src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80"
           alt="Author"
-          className="w-full h-40 object-cover rounded"
+          className="w-full h-40 object-cover"
         />
-        <p className="mt-4 text-sm text-slate-700 font-inter">
+        <p className="my-4 text-xs font-bold text-slate-700 font-inter">
           Hello, we are Luxufe -The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by.
         </p>
         <a href="#" className="mt-2 inline-flex items-center gap-2 text-xs font-inter text-slate-700 font-bold hover:underline">
           ABOUT US <span className="ml-1">&rarr;</span>
         </a>
       </div>
-      <hr className="w-full my-6 border-slate-200" />
+      <hr className="w-full my-6 border-slate-300" />
       {/* Explore Section */}
-      <h3 className="text-xl font-arpona text-slate-700 mb-4">Explore</h3>
-      <button className="w-full border border-slate-300 text-slate-700 py-3 mb-4 font-inter font-bold flex items-center justify-between px-6 text-sm rounded hover:bg-slate-50 transition">
+      <h3 className="text-xl font-arpona text-slate-700 mb-4 font-bold">Explore</h3>
+      <button className="w-full border border-slate-300 text-slate-700 py-3 mb-4 font-inter font-bold flex items-center justify-center px-6 text-xs  hover:bg-slate-50 transition">
         EXPLORE WITH US <span className="ml-2">&rarr;</span>
       </button>
-      <button className="w-full border border-slate-300 text-slate-700 py-3 mb-8 font-inter font-bold flex items-center justify-between px-6 text-sm rounded hover:bg-slate-50 transition">
+      <button className="w-full border border-slate-300 text-slate-700 py-3 mb-8 font-inter font-bold flex items-center justify-center px-6 text-xs  hover:bg-slate-50 transition">
         SIGN UP TO BE INSPIRED <span className="ml-2">&rarr;</span>
       </button>
       {/* Social Icons */}
