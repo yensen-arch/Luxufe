@@ -1,4 +1,6 @@
 import Navbar from '@/components/common/Navbar';
+import BlogSidebar from '@/components/blogs/BlogSidebar';
+import BlogContent from '@/components/blogs/BlogContent';
 import BlogHero from '@/components/blogs/BlogHero';
 
 export default function Blog() {
@@ -10,6 +12,14 @@ export default function Blog() {
         tags={["TRAVEL ADVICE", "TRAVEL ADVICE"]}
         imageUrl="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
       />
+      <div className="flex flex-col md:flex-row max-w-7xl mx-auto w-full pt-24 pb-12 px-4 gap-12">
+        <div className="w-full md:w-1/3 flex-shrink-0">
+          <BlogSidebar />
+        </div>
+        <div className="w-full md:w-2/3">
+          <BlogContent />
+        </div>
+      </div>
     </div>
   );
 }
