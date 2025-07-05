@@ -5,6 +5,7 @@ import BlogHero from '@/components/blogs/BlogHero';
 import BlogKeepReading from '@/components/blogs/BlogKeepReading';
 import ContactUs from '@/components/landing/ContactUs';
 import Footer from '@/components/common/Footer';
+import EffortlessLuxury from '@/components/blogs/EffortlessLuxury';
 
 export default function Blog() {
   return (
@@ -24,6 +25,7 @@ export default function Blog() {
         </div>
       </div>
       <BlogKeepReading />
+      <EffortlessLuxury />
       <ContactUs />
       <Footer />
     </div>
