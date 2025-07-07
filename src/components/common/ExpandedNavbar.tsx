@@ -47,17 +47,17 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
   return (
     <div
       className={`fixed left-0 right-0 z-50 transition-all duration-500 flex justify-center items-center ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
-      style={{ top: 0, height: '80vh' }}
+      style={{ top: 0, height: '90vh' }}
     >
-      <div className="flex w-full mx-auto bg-white rounded-lg shadow-2xl border border-gray-200" style={{ height: '80vh' }}>
+      <div className="flex w-full mx-auto bg-white shadow-2xl border border-gray-200" style={{ height: '90vh' }}>
         {/* Left nav */}
-        <div className="w-1/4 flex flex-col justify-between border-r border-gray-200 py-16 px-12 bg-white">
+        <div className="w-1/3 flex flex-col justify-between my-8 px-12 bg-white border-r-2 border-gray-200">
           <div>
-            <ul className="space-y-6 mb-10">
+            <ul className="space-y-6 mb-10 ">
               {navItems.map((item) => (
                 <li
                   key={item.label}
-                  className={`text-3xl font-arpona font-bold transition-colors duration-200 flex items-center cursor-pointer ${selected === item.label ? 'text-gray-900' : 'text-gray-300'}`}
+                  className={`text-3xl font-arpona font-bold transition-colors duration-200 flex items-center justify-between cursor-pointer ${selected === item.label ? 'text-gray-900' : 'text-gray-300'}`}
                   onClick={() => setSelected(item.label)}
                 >
                   {item.label}
@@ -65,41 +65,24 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
                 </li>
               ))}
             </ul>
-            <div className="space-y-3 mb-10">
+            <div className="space-y-4">
               {quickLinks.map((link) => (
-                <div key={link.label} className="flex items-center text-gray-400 text-lg font-inter font-bold">
+                <div key={link.label} className="flex items-center text-gray-400 text-sm font-inter font-bold">
                   {link.icon}
                   {link.label}
                 </div>
               ))}
             </div>
           </div>
-          <div className="flex gap-6 mt-8">
+          <div className="flex gap-6">
             {socials.map((s, i) => (
               <a key={i} href={s.href} className="text-gray-400 hover:text-gray-900 transition-colors">{s.icon}</a>
             ))}
           </div>
         </div>
         {/* Center section (dynamic) */}
-        <div className="w-2/4 flex flex-col justify-center items-center gap-8 py-16 px-12">
+        <div className="w-3/4 flex flex-col justify-center items-center">
           {CenterSection}
-        </div>
-        {/* Right conversation */}
-        <div className="w-1/4 flex flex-col items-center justify-center bg-gray-100 relative px-12">
-          <button onClick={onClose} className="absolute top-10 right-10 text-gray-500 hover:text-gray-900" aria-label="Close">
-            <X className="w-8 h-8" />
-          </button>
-          <img
-            src="https://randomuser.me/api/portraits/women/44.jpg"
-            alt="Team Member"
-            className="w-28 h-28 rounded-full object-cover mb-8"
-          />
-          <h2 className="text-3xl font-arpona font-bold text-gray-900 mb-4 text-center">Prefer a conversation?</h2>
-          <p className="text-gray-700 text-center font-inter font-bold mb-8">
-            Our team is always available to guide you through the process and ensure your experience is perfectly matched to your preferences.
-          </p>
-          <button className="w-full border border-gray-400 py-3 mb-4 rounded font-inter font-bold text-gray-900 hover:bg-gray-200 transition-all">START PLANNING <ArrowRight className="inline w-4 h-4 ml-2" /></button>
-          <button className="w-full border border-gray-400 py-3 rounded font-inter font-bold text-gray-900 hover:bg-gray-200 transition-all">TRY THE TRIP WIZARD <ArrowRight className="inline w-4 h-4 ml-2" /></button>
         </div>
       </div>
     </div>
