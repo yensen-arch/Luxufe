@@ -84,8 +84,11 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
         <div className="w-3/4 flex flex-col justify-center items-center">
           {CenterSection}
         </div>
+        <button onClick={onClose} className="cursor-pointer absolute top-7 right-9 text-gray-500 hover:text-gray-900" aria-label="Close">
+          <X className="w-8 h-8" />
+        </button>
       </div>
-    </div>
+    </div> 
   );
 };
 
