@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { X, ArrowRight, Trophy, Heart, Mail, Instagram, Facebook, Globe } from 'lucide-react';
 import ExploreBySection from './expandedNavbarSections/ExploreBySection';
 import ExperiencesSection from './expandedNavbarSections/ExperiencesSection';
+import AboutUsSection from './expandedNavbarSections/AboutUsSection';
+import PartnersSection from './expandedNavbarSections/PartnersSection';
+import SpecialOffersSection from './expandedNavbarSections/SpecialOffersSection';
 
 interface ExpandedNavbarProps {
   open: boolean;
@@ -36,6 +39,9 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
   let CenterSection = null;
   if (selected === 'Explore by') CenterSection = <ExploreBySection />;
   else if (selected === 'Experiences') CenterSection = <ExperiencesSection />;
+  else if (selected === 'About Us') CenterSection = <AboutUsSection />;
+  else if (selected === 'Partners') CenterSection = <PartnersSection />;
+  else if (selected === 'Special Offers') CenterSection = <SpecialOffersSection />;
   // Add more as needed
 
   return (
