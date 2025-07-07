@@ -47,9 +47,9 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
   return (
     <div
       className={`fixed left-0 right-0 z-50 transition-all duration-500 flex justify-center items-center ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
-      style={{ top: 0, height: '100vh' }}
+      style={{ top: 0, height: '80vh' }}
     >
-      <div className="flex w-full max-w-[1600px] mx-auto bg-white rounded-lg shadow-2xl border border-gray-200" style={{ height: '70vh' }}>
+      <div className="flex w-full mx-auto bg-white rounded-lg shadow-2xl border border-gray-200" style={{ height: '80vh' }}>
         {/* Left nav */}
         <div className="w-1/4 flex flex-col justify-between border-r border-gray-200 py-16 px-12 bg-white">
           <div>
