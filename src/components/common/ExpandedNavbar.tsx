@@ -51,7 +51,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
     >
       <div className="flex w-full mx-auto bg-white shadow-2xl border border-gray-200" style={{ height: '90vh' }}>
         {/* Left nav */}
-        <div className="w-1/3 flex flex-col justify-between my-8 px-12 bg-white border-r-2 border-gray-200">
+        <div className="w-1/3 flex flex-col justify-between mb-8 mt-12 px-12 bg-white border-r-2 border-gray-200">
           <div>
             <ul className="space-y-6 mb-10 ">
               {navItems.map((item) => (
