@@ -1,6 +1,10 @@
 import Navbar from "@/components/common/Navbar";
 import Hero from "@/components/tailorMadeTravel/Hero";
 import WhatTailorMadeMeans from "@/components/tailorMadeTravel/WhatTailorMadeMeans";
+import NewsletterSignUp from "@/components/landing/NewsletterSignUp";
+import Footer from "@/components/common/Footer";
+import LuxuryPartners from "@/components/landing/LuxuryPartners";
+import Testimonials from "@/components/landing/Testimonials";
 
 const Page = () => {
   return (
@@ -8,6 +12,10 @@ const Page = () => {
       <Navbar />
       <Hero />
       <WhatTailorMadeMeans />
+      <Testimonials />
+      <LuxuryPartners />
+      <NewsletterSignUp />
+      <Footer />
     </main>
   );
 };
