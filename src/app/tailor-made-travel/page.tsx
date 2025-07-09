@@ -1,6 +1,7 @@
 import Navbar from "@/components/common/Navbar";
 import Hero from "@/components/tailorMadeTravel/Hero";
 import WhatTailorMadeMeans from "@/components/tailorMadeTravel/WhatTailorMadeMeans";
+import TailorMadeItineraries from "@/components/tailorMadeTravel/TailorMadeItineraries";
 import WorldwideMap from "@/components/tailorMadeTravel/WorldwideMap";
 import NewsletterSignUp from "@/components/landing/NewsletterSignUp";
 import Footer from "@/components/common/Footer";
@@ -13,6 +14,7 @@ const Page = () => {
       <Navbar />
       <Hero />
       <WhatTailorMadeMeans />
+      <TailorMadeItineraries />
       <WorldwideMap />
       <Testimonials />
       <LuxuryPartners />
