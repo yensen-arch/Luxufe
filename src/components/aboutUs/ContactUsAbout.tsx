@@ -1,6 +1,6 @@
 import { ArrowRight, Mail, CalendarDays, Info } from 'lucide-react';
 
-export default function ContactUs() {
+export default function ContactUsAbout() {
   return (
     <section className="bg-[#a8d1cf] text-[#1a233a] py-24">
       <div className="container mx-auto px-8">

@@ -1,20 +1,21 @@
 import Navbar from "@/components/common/Navbar";
+import ContactHero from "@/components/contact-us/ContactHero";
 import ElevePerks from "@/components/landing/ElevePerks";
 import NewsletterSignUp from "@/components/landing/NewsletterSignUp";
 import Footer from "@/components/common/Footer";
 import Testimonials from "@/components/landing/Testimonials";
-import StoriesAndInsights from "../stories-and-insights/page";
-import ContactUs from "@/components/landing/ContactUs";
-
+import Inspiration from "@/components/landing/Inspiration";
+import ContactUsJourneys from "@/components/landing/ContactUsJourneys";
 const Page = () => {
   return (
     <main>
       <Navbar />
+      <ContactHero />
       <ElevePerks />
       <Testimonials />
-      <StoriesAndInsights />
+      <Inspiration/>
       <NewsletterSignUp/>
-      <ContactUs/>
+      <ContactUsJourneys/>
       <Footer />
     </main>
   );
