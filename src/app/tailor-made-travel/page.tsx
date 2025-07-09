@@ -4,6 +4,7 @@ import WhatTailorMadeMeans from "@/components/tailorMadeTravel/WhatTailorMadeMea
 import TailorMadeItineraries from "@/components/tailorMadeTravel/TailorMadeItineraries";
 import ExploreTogetherHero from "@/components/tailorMadeTravel/ExploreTogetherHero";
 import AssistWithMore from "@/components/tailorMadeTravel/AssistWithMore";
+import TailorMadeProcess from "@/components/tailorMadeTravel/TailorMadeProcess";
 import WorldwideMap from "@/components/tailorMadeTravel/WorldwideMap";
 import NewsletterSignUp from "@/components/landing/NewsletterSignUp";
 import Footer from "@/components/common/Footer";
@@ -20,6 +21,7 @@ const Page = () => {
       <TailorMadeItineraries />
       <ExploreTogetherHero />
       <AssistWithMore />
+      <TailorMadeProcess />
       <Testimonials />
       <LuxuryPartners />
       <NewsletterSignUp />
