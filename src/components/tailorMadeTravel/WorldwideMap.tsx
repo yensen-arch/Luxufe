@@ -26,8 +26,8 @@ export default function WorldwideMap() {
   return (
     <section className="py-20">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-4xl md:text-5xl font-arpona text-[#23263a] text-center mb-4">Luxufe, Worldwide</h2>
-        <p className="text-lg font-inter text-[#23263a] text-center mb-10">Discover regions where our deep knowledge and trusted partners create<br />something truly exceptional</p>
+        <h2 className="text-4xl md:text-5xl font-arpona font-bold text-[#23263a] text-center mb-8">Luxufe, Worldwide</h2>
+        <p className="text-md font-inter text-[#23263a] text-center font-bold mb-10">Discover regions where our deep knowledge and trusted partners create<br />something truly exceptional</p>
         <div className="w-full h-[650px] overflow-hidden shadow-lg relative">
           <Map
             initialViewState={{ longitude: 20, latitude: 20, zoom: 1.1 }}
