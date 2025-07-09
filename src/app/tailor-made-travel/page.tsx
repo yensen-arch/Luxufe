@@ -1,9 +1,13 @@
+import Navbar from "@/components/common/Navbar";
+import Hero from "@/components/tailorMadeTravel/Hero";
 
-
-const page = () => {
+const Page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <main>
+      <Navbar />
+      <Hero />
+    </main>
+  );
+};
 
-export default page
+export default Page;
