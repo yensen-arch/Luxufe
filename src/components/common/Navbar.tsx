@@ -29,7 +29,7 @@ export default function Navbar() {
           <span className={`text-sm font-bold ${textColor}`}>+12 34 567 8900</span>
           <div className="flex items-center gap-4">
             <a href="#"><User className={`h-6 w-6 font-bold ${textColor}`} /></a>
-            <button onClick={() => setExpanded(true)}><Menu className={`h-6 w-6 ${textColor}`} /></button>
+            <button onClick={() => setExpanded(true)}><Menu className={`h-6 w-6 cursor-pointer ${textColor}`} /></button>
           </div>
         </div>
       </div>

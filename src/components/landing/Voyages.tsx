@@ -60,7 +60,7 @@ export default function Voyages() {
         <div className="relative flex flex-col lg:flex-row items-center lg:justify-start min-h-[650px]">
           
           {/* Image Section */}
-          <div className="w-3/6 h-full z-40 ml-20">
+          <div className="w-3/6 h-full z-10 ml-20">
             <div className="relative overflow-hidden shadow-2xl">
               <img
                 src={currentVoyage.imageUrl || "/placeholder.svg"}
@@ -73,7 +73,7 @@ export default function Voyages() {
           </div>
 
           {/* Navigation Arrows */}
-          <div className="absolute left-15 top-1/2 -translate-y-1/2 flex flex-col gap-8 z-50 hidden lg:flex">
+          <div className="absolute left-15 top-1/2 -translate-y-1/2 flex flex-col gap-8 z-10 hidden lg:flex">
             <button
               onClick={goToPrevious}
               className="bg-white rounded-full p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
@@ -91,7 +91,7 @@ export default function Voyages() {
           </div>
 
           {/* Content Section */}
-          <div className="bg-gray-100 w-6/8 mt-8 h-screen lg:mt-0 lg:absolute lg:right-0 p-12 z-20">
+          <div className="bg-gray-100 w-6/8 mt-8 h-screen lg:mt-0 lg:absolute lg:right-0 p-12">
             <div
               className={`transition-all duration-700 ease-in-out  ${
                 isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"

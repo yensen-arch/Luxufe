@@ -60,7 +60,7 @@ export default function ElevePerks() {
             </div>
       <div className="flex flex-col lg:flex-row">
         <div className="w-4/7 relative h-[650px] mt-40">
-        <div className="z-100  absolute top-0 -right-36 -translate-y-1/2 -translate-x-1/2 ">
+        <div className="  absolute top-0 -right-36 -translate-y-1/2 -translate-x-1/2 ">
        <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[150px] h-auto" />
       </div>
           <img src={currentPerk.imageUrl} alt={currentPerk.title} className="w-full h-full object-cover" />

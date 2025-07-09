@@ -28,7 +28,7 @@ export default function DiscoverLuxury() {
           </div>
           
           {/* Right Image Panel - Offset and overlapping */}
-          <div className="absolute right-0 top-26 w-3/7 h-6/6 z-10 min-h-screen">
+          <div className="absolute right-0 top-26 w-3/7 h-6/6 min-h-screen">
             <img 
               src="https://images.unsplash.com/photo-1609902726285-00668009f004?w=800&h=1000&fit=crop&crop=face"
               alt="Happy older couple enjoying travel together"

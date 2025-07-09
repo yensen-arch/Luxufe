@@ -59,7 +59,7 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
 
       {/* Content Container */}
       <div className={`
-        relative z-10 flex flex-col h-full text-center transition-all duration-500
+        relative flex flex-col h-full text-center transition-all duration-500
         ${isExpanded 
           ? 'p-6 text-gray-800 bg-white' 
           : 'p-6 text-white'

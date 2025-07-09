@@ -46,12 +46,12 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
 
   return (
     <div
-      className={`fixed left-0 right-0 z-50 transition-all duration-500 flex justify-center items-center ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      className={`fixed left-0 right-0 transition-all duration-500 flex justify-center items-center ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       style={{ top: 0, height: '90vh' }}
     >
-      <div className="flex w-full mx-auto bg-white shadow-2xl border border-gray-200" style={{ height: '90vh' }}>
+      <div className="flex w-full z-50 mx-auto bg-white shadow-2xl border border-gray-200" style={{ height: '90vh' }}>
         {/* Left nav */}
-        <div className="w-1/3 flex flex-col justify-between mb-8 mt-12 px-12 bg-white border-r-2 border-gray-200">
+        <div className="w-1/3 flex flex-col justify-between mb-8 mt-12 px-10 bg-white border-r-2 border-gray-200">
           <div>
             <ul className="space-y-6 mb-10 ">
               {navItems.map((item) => (
@@ -67,7 +67,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
             </ul>
             <div className="space-y-4">
               {quickLinks.map((link) => (
-                <div key={link.label} className="flex items-center text-gray-400 text-sm font-inter font-bold">
+                <div key={link.label} className="font-inter font-bold flex items-center text-gray-400 hover:text-gray-600 text-sm cursor-pointer">
                   {link.icon}
                   {link.label}
                 </div>
@@ -76,7 +76,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
           </div>
           <div className="flex gap-6">
             {socials.map((s, i) => (
-              <a key={i} href={s.href} className="text-gray-400 hover:text-gray-900 transition-colors">{s.icon}</a>
+              <a key={i} href={s.href} className="cursor-pointer transition-colors text-[#a8d1cf]">{s.icon}</a>
             ))}
           </div>
         </div>
