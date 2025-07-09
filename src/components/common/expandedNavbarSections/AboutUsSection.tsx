@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, X } from 'lucide-react';
 
 const mainLinks = [
   'About Luxufe',
@@ -25,30 +25,32 @@ const rightCards = [
 ];
 
 const AboutUsSection: React.FC = () => (
-  <div className="flex w-full h-full">
-    {/* Main links */}
-    <div className="w-2/3 flex flex-col justify-center pl-4">
-      <ul className="space-y-6 mb-8">
+  <div className="flex w-full h-full min-h-[600px]">
+    {/* Left: Main links */}
+    <div className="w-1/2 bg-white flex flex-col pl-12 py-12">
+      <ul className="space-y-7 mb-10">
         {mainLinks.map((link) => (
-          <li key={link} className="text-2xl font-arpona font-bold text-gray-900 cursor-pointer hover:underline">{link}</li>
+          <li key={link} className="text-2xl font-arpona text-gray-900 cursor-pointer hover:text-gray-500">{link}</li>
         ))}
       </ul>
       <ul className="space-y-2">
         {mutedLinks.map((link) => (
-          <li key={link} className="text-lg font-inter text-gray-300 cursor-not-allowed">{link}</li>
+          <li key={link} className="text-base font-inter text-gray-400 hover:text-gray-500 cursor-pointer">{link}</li>
         ))}
       </ul>
     </div>
-    {/* Right stacked cards */}
-    <div className="w-1/3 flex flex-col gap-6 justify-between">
-      {rightCards.map((card) => (
-        <div key={card.label} className="relative h-32 rounded-lg overflow-hidden shadow group cursor-pointer">
-          <img src={card.img} alt={card.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-          <div className="absolute inset-0 bg-black/30 flex items-end p-4">
-            <span className="text-white text-md font-arpona font-bold">{card.label} <ArrowRight className="inline w-5 h-5 ml-2" /></span>
+    {/* Right: Stacked cards */}
+    <div className="w-1/2 bg-[#f3f3f5] relative flex flex-col justify-center items-center px-8">
+      <div className="flex flex-col gap-8 w-full max-w-[450px] flex-1 justify-center">
+        {rightCards.map((card) => (
+          <div key={card.label} className="relative h-62 overflow-hidden shadow group cursor-pointer flex items-end">
+            <img src={card.img} alt={card.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 absolute inset-0" />
+            <div className="w-full absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-center">
+              <span className=" text-white text-sm font-arpona font-bold flex gap-2 mb-6 ml-6">{card.label} <ArrowRight className="w-6 h-6" /></span>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </div>
 );
