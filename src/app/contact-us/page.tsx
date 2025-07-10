@@ -14,8 +14,8 @@ const Page = () => {
       <Navbar />
       <ContactHero />
       <Carousel />
-      <TravelInsuranceInfo />
       <ElevePerks />
+      <TravelInsuranceInfo />
       <Testimonials />
       <Inspiration/>
       <NewsletterSignUp/>
