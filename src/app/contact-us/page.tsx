@@ -7,12 +7,14 @@ import Testimonials from "@/components/landing/Testimonials";
 import Inspiration from "@/components/landing/Inspiration";
 import ContactUsJourneys from "@/components/landing/ContactUsJourneys";
 import Carousel from "@/components/contact-us/Carousel";
+import TravelInsuranceInfo from "@/components/contact-us/TravelInsuranceInfo";
 const Page = () => {
   return (
     <main>
       <Navbar />
       <ContactHero />
       <Carousel />
+      <TravelInsuranceInfo />
       <ElevePerks />
       <Testimonials />
       <Inspiration/>
