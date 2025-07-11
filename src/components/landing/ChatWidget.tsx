@@ -3,7 +3,7 @@ import { Send } from 'lucide-react';
 export default function ChatWidget() {
   return (
     <div className="w-full font-inter font-bold">
-      <div className="bg-white flex items-center p-2 shadow-sm border">
+      <div className="bg-white flex items-center p-2 shadow-sm ">
         {/* Avatar and Text */}
         <div className="flex items-center gap-2 pl-2 pr-4 border-r border-gray-300">
           <img
