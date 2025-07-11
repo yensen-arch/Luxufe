@@ -8,6 +8,7 @@ import ChatWidget from "@/components/landing/ChatWidget";
 import WaysToTravelHero from "@/components/waysToTravel/WaysToTravelHero";
 import WaysToTravelIntro from "@/components/waysToTravel/WaysToTravelIntro";
 import WaysToTravelReflectsYou from "@/components/waysToTravel/WaysToTravelReflectsYou";
+import WaysToTravelGrid from "@/components/waysToTravel/WaysToTravelGrid";
 
 const Page = () => {
   return (
@@ -16,6 +17,7 @@ const Page = () => {
       <WaysToTravelHero />
       <WaysToTravelIntro />
       <WaysToTravelReflectsYou />
+      <WaysToTravelGrid />
       <ElevePerks />
       <ChatWidget />
       <Testimonials />
