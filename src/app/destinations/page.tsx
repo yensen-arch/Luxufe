@@ -5,6 +5,7 @@ import MapDestinations from "@/components/destinations/MapDestinations";
 import Masonry from "@/components/destinations/Masonry";
 import ExploreMore from "@/components/eleve/ExploreMore";
 import WaysToTravelFindJourney from "@/components/waysToTravel/WaysToTravelFindJourney";
+import PlanningYourTrip from "@/components/destinations/PlanningYourTrip";
 
 const Page = () => {
   return (
@@ -13,6 +14,7 @@ const Page = () => {
       <DestinationsHero />
       <MapDestinations />
       <Masonry />
+      <PlanningYourTrip />
       <WaysToTravelFindJourney />
       <ExploreMore />
       <Footer />
