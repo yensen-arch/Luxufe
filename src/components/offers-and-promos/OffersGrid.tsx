@@ -32,7 +32,7 @@ export default function OffersGrid() {
   return (
     <section className="flex-1 bg-[#f7f7fa] min-h-screen">
       {/* Search */}
-      <div className="border-b-2 border-gray-300 px-4 py-6">
+      <div className="border-b-2 border-gray-300 px-30  py-6">
         <h3 className="text-xs font-inter font-bold text-gray-500  tracking-widest">SEARCH</h3>
         <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-2">
           <Search className="w-4 h-4 text-gray-400 mr-2" />
@@ -46,7 +46,7 @@ export default function OffersGrid() {
           </button>
         </div>
       </div>
-      <div className="mb-6 text-gray-400 text-sm font-inter font-bold px-4 py-6">Showing 3 of 10 Results</div>
+      <div className="mb-6 text-gray-400 text-sm font-inter font-bold px-30 py-6">Showing 3 of 10 Results</div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16 px-30">
         {offers.map((offer, idx) => (
           <div key={idx} className="bg-white shadow-lg overflow-hidden flex flex-col">
