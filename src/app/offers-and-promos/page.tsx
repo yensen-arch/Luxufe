@@ -5,6 +5,7 @@ import ElevePerks from "@/components/landing/ElevePerks";
 import NewsletterSignUp from "@/components/landing/NewsletterSignUp";
 import EffortlessLuxury from "@/components/blogs/EffortlessLuxury";
 
+
 const Page = () => {
   return (
     <main>
