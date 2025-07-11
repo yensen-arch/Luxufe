@@ -8,6 +8,7 @@ import FAQs from "@/components/cruises/FAQs";
 import ExploreMore from "@/components/eleve/ExploreMore";
 import CruiseWithConfidence from "@/components/cruises/CruiseWithConfidence";
 import TrustedCruisePartners from "@/components/cruises/TrustedCruisePartners";
+import SetSailWithLuxufe from "@/components/cruises/SetSailWithLuxufe";
 
 const Page = () => {
   return (
@@ -18,6 +19,7 @@ const Page = () => {
       <TravelTheWorld />
       <CruiseWithConfidence />
       <TrustedCruisePartners />
+      <SetSailWithLuxufe />
       <FAQs />
       <Testimonials/>
       <ExploreMore />

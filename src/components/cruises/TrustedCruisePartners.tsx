@@ -61,7 +61,7 @@ export default function TrustedCruisePartners() {
           ))}
         </div>
         <div className="flex justify-center mt-16">
-          <button className="flex items-center gap-2 border border-gray-400 px-8 py-4 bg-white text-[#23263a] font-inter font-bold text-xs tracking-widest hover:bg-gray-100 transition-all">
+          <button className="flex items-center gap-2 border border-gray-400 px-8 py-4 bg-[#f7f7f8] text-[#23263a] font-inter font-bold text-xs tracking-widest hover:bg-gray-100 transition-all">
             ALL CRUISE PARTNERS <ArrowRight className="w-5 h-5 ml-2" />
           </button>
         </div>
