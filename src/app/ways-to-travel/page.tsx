@@ -20,9 +20,9 @@ const Page = () => {
       <WaysToTravelReflectsYou />
       <WaysToTravelGrid />
       <WaysToTravelTailorMade />
+      <Testimonials />
       <ElevePerks />
       <ChatWidget />
-      <Testimonials />
       <NewsletterSignUp/>
       <ContactUsJourneys />
       <Footer />
