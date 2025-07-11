@@ -6,6 +6,7 @@ import ContactUs from "@/components/regions/ContactUs";
 import ExploreAfrica from "@/components/regions/ExploreAfrica";
 import LuxuryBuilt from "@/components/regions/LuxuryBuilt";
 import CountriesGrid from "@/components/regions/CountriesGrid";
+import WaysToExplore from "@/components/regions/WaysToExplore";
 const Page = () => {
   return (
     <main>
@@ -13,6 +14,7 @@ const Page = () => {
       <HeroRegions />
       <MapRegions />
       <CountriesGrid />
+      <WaysToExplore />
       <LuxuryBuilt />
       <ExploreAfrica />
       <ContactUs />
