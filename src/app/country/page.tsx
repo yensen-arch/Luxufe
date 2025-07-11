@@ -4,13 +4,17 @@ import ContactUs from "@/components/regions/ContactUs";
 import Testimonials from "@/components/landing/Testimonials";
 import CountryHero from "@/components/country/CountryHero";
 import RecommendedJourneys from "@/components/country/RecommendedJourneys";
+import SetSail from "@/components/country/SetSail";
+import ExploreCountry from "@/components/country/ExploreCountry";
 
 const Page = () => {
   return (
     <main>
       <Navbar />
       <CountryHero />
+      <ExploreCountry />
       <RecommendedJourneys />
+      <SetSail />
       <Testimonials />
       <ContactUs />
       <Footer />
