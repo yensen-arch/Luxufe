@@ -12,7 +12,7 @@ export default function ChatWidget() {
             className="w-12 h-12 rounded-full"
           />
           <div className="leading-tight">
-            <p className="text-sm font-semibold text-gray-800">Hi, I’m Albert</p>
+            <p className="text-sm font-semibold text-gray-800">Hi, I’m Alfred</p>
             <p className="text-xs text-gray-500">How can I help?</p>
           </div>
         </div>
