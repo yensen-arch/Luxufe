@@ -7,6 +7,7 @@ import TravelTheWorld from "@/components/cruises/TravelTheWorld";
 import FAQs from "@/components/cruises/FAQs";
 import ExploreMore from "@/components/eleve/ExploreMore";
 import CruiseWithConfidence from "@/components/cruises/CruiseWithConfidence";
+import TrustedCruisePartners from "@/components/cruises/TrustedCruisePartners";
 
 const Page = () => {
   return (
@@ -16,6 +17,7 @@ const Page = () => {
       <CuratedForYou />
       <TravelTheWorld />
       <CruiseWithConfidence />
+      <TrustedCruisePartners />
       <FAQs />
       <Testimonials/>
       <ExploreMore />
