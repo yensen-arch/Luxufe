@@ -6,12 +6,16 @@ import ContactUsJourneys from "@/components/landing/ContactUsJourneys";
 import Testimonials from "@/components/landing/Testimonials";
 import ChatWidget from "@/components/landing/ChatWidget";
 import WaysToTravelHero from "@/components/waysToTravel/WaysToTravelHero";
+import WaysToTravelIntro from "@/components/waysToTravel/WaysToTravelIntro";
+import WaysToTravelReflectsYou from "@/components/waysToTravel/WaysToTravelReflectsYou";
 
 const Page = () => {
   return (
     <main>
       <Navbar />
       <WaysToTravelHero />
+      <WaysToTravelIntro />
+      <WaysToTravelReflectsYou />
       <ElevePerks />
       <ChatWidget />
       <Testimonials />
