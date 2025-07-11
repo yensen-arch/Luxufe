@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ArtOfEffortlessTravel() {
+export default function TravelTheWorld() {
   return (
     <section className="bg-white flex justify-center items-stretch mt-60 mb-20 h-[120vh]">
       <div className="flex flex-col md:flex-row w-full mx-auto h-full relative">
@@ -32,10 +32,6 @@ export default function ArtOfEffortlessTravel() {
             <p className="text-base md:text-md font-inter text-[#23263a] font-bold leading-relaxed">
               From anticipating a client's needs before they arise to ensuring smooth transitions between destinations, we want to eliminate friction and enhance the joy of discovery in every journey.
             </p>
-          </div>
-          {/* Watermark */}
-          <div className="absolute -bottom-18 right-30 ">
-            <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[135px] h-auto" />
           </div>
         </div>
       </div>
