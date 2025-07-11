@@ -1,3 +1,4 @@
+import { Search } from "lucide-react";
 import React from "react";
 
 const offers = [
@@ -33,6 +34,21 @@ const totalPages = Math.ceil(totalResults / resultsPerPage);
 export default function OffersGrid() {
   return (
     <section className="flex-1 bg-[#f7f7fa] p-12 min-h-screen">
+      {/* Search */}
+      <div>
+        <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">SEARCH</h3>
+        <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-2">
+          <Search className="w-4 h-4 text-gray-400 mr-2" />
+          <input
+            type="text"
+            placeholder="What are you looking for?"
+            className="flex-1 bg-transparent outline-none text-xs font-inter font-bold text-gray-500"
+          />
+          <button className="ml-2 bg-[#23263a] text-white rounded-full p-2 flex items-center justify-center">
+            <Search className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
       <div className="mb-6 text-gray-400 text-sm font-inter font-bold">Showing 3 of 10 Results</div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16">
         {offers.map((offer, idx) => (
