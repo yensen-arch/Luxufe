@@ -2,7 +2,7 @@ import React from "react";
 
 export default function WaysToTravelTailorMade() {
   return (
-    <section className="w-full bg-[#23263a] flex flex-col md:flex-row items-stretch h-[120vh]">
+    <section className="w-full bg-[#23263a] flex flex-col md:flex-row items-stretch h-[120vh] mb-200">
       {/* Left: Text Content */}
       <div className="flex flex-col justify-center items-center px-10 md:px-24 py-20 md:w-1/2 w-full text-white">
         <h2 className="text-5xl md:text-5xl font-arpona  font-bold mb-8 leading-tight">

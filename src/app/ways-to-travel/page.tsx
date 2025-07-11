@@ -10,17 +10,21 @@ import WaysToTravelIntro from "@/components/waysToTravel/WaysToTravelIntro";
 import WaysToTravelReflectsYou from "@/components/waysToTravel/WaysToTravelReflectsYou";
 import WaysToTravelGrid from "@/components/waysToTravel/WaysToTravelGrid";
 import WaysToTravelTailorMade from "@/components/waysToTravel/WaysToTravelTailorMade";
+import WaysToTravelVideoSection from "@/components/waysToTravel/WaysToTravelVideoSection";
 
 const Page = () => {
   return (
-    <main>
+    <main className="relative">
       <Navbar />
       <WaysToTravelHero />
       <WaysToTravelIntro />
       <WaysToTravelReflectsYou />
       <WaysToTravelGrid />
       <WaysToTravelTailorMade />
-      <Testimonials />
+      <div className="relative min-h-[600px]">
+        <WaysToTravelVideoSection />
+        <Testimonials />
+      </div>
       <ElevePerks />
       <ChatWidget />
       <NewsletterSignUp/>
