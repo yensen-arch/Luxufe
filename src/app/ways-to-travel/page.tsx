@@ -9,6 +9,7 @@ import WaysToTravelHero from "@/components/waysToTravel/WaysToTravelHero";
 import WaysToTravelIntro from "@/components/waysToTravel/WaysToTravelIntro";
 import WaysToTravelReflectsYou from "@/components/waysToTravel/WaysToTravelReflectsYou";
 import WaysToTravelGrid from "@/components/waysToTravel/WaysToTravelGrid";
+import WaysToTravelTailorMade from "@/components/waysToTravel/WaysToTravelTailorMade";
 
 const Page = () => {
   return (
@@ -18,6 +19,7 @@ const Page = () => {
       <WaysToTravelIntro />
       <WaysToTravelReflectsYou />
       <WaysToTravelGrid />
+      <WaysToTravelTailorMade />
       <ElevePerks />
       <ChatWidget />
       <Testimonials />

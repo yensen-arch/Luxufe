@@ -29,6 +29,31 @@ const journeys = [
     button: "INDULGE",
     highlight: false,
   },
+  {
+    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+    logo: "https://res.cloudinary.com/dqh2tacov/image/upload/v1750509663/LUXUFE_-_Wordmark_Logo_2_fqjqq2.png",
+    logoSub: "LUXURY TRAIN JOURNEYS",
+    title: "Luxury Train Journeys",
+    description: "Stay in handpicked luxury hotels offering exceptional service, world-class amenities, and breathtaking locations, from private retreats to iconic city landmarks.",
+    button: "INDULGE",
+    highlight: false,
+  },{
+    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+    logo: "https://res.cloudinary.com/dqh2tacov/image/upload/v1750509663/LUXUFE_-_Wordmark_Logo_2_fqjqq2.png",
+    logoSub: "LUXURY TRAIN JOURNEYS",
+    title: "Luxury Train Journeys",
+    description: "Stay in handpicked luxury hotels offering exceptional service, world-class amenities, and breathtaking locations, from private retreats to iconic city landmarks.",
+    button: "INDULGE",
+    highlight: false,
+  },{
+    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+    logo: "https://res.cloudinary.com/dqh2tacov/image/upload/v1750509663/LUXUFE_-_Wordmark_Logo_2_fqjqq2.png",
+    logoSub: "LUXURY TRAIN JOURNEYS",
+    title: "Luxury Train Journeys",
+    description: "Stay in handpicked luxury hotels offering exceptional service, world-class amenities, and breathtaking locations, from private retreats to iconic city landmarks.",
+    button: "INDULGE",
+    highlight: false,
+  },
   // Add more cards as needed
 ];
 
