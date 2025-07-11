@@ -12,9 +12,9 @@ const Page = () => {
       <Navbar />
       <HeroRegions />
       <MapRegions />
-      <ContactUs />
       <LuxuryBuilt />
       <ExploreAfrica />
+      <ContactUs />
       <Footer />
     </main>
   );
