@@ -29,7 +29,6 @@ export default function EssentialTravelInfo() {
             <p className="font-inter text-[#23263a] font-bold md:text-md w-5/7">
               With expert guidance, thoughtful preparation, and seamless execution, we help you prepare for the ultimate luxury experience so you can focus on what truly matters: immersing yourself in the journey.
             </p>
-            <button className="w-full border border-gray-400 text-xs py-3 font-inter font-bold text-gray-800 flex items-center justify-center gap-2 hover:bg-gray-800 hover:text-white transition">BOOK THIS ITINERARY <span>&rarr;</span></button>
           </div>
         </div>
       </div>

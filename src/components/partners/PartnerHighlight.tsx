@@ -5,30 +5,40 @@ export default function PartnerHighlight() {
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         {/* Heading */}
-        <h2 className="text-4xl md:text-5xl w-8xl font-arpona font-bold text-[#23263a] mb-16">
-          Essential Travel Information<br />for Luxury Voyagers
+        <h2 className="text-4xl md:text-5xl font-arpona text-[#23263a] text-center mb-16">
+          Partner highlight - a Luxufe favorite
         </h2>
         {/* Content Row */}
-        <div className="flex flex-col md:flex-row items-start gap-12">
+        <div className="flex flex-col md:flex-row items-start gap-12 justify-center">
           {/* Left: Image */}
-          <div className="md:w-1/2 w-full flex-shrink-0">
+          <div className="md:w-1/2 w-full flex-shrink-0 flex justify-center">
             <img
               src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
-              alt="Santorini"
-              className="w-full h-[340px] md:h-[420px] object-cover "
+              alt="Seven Seas Navigator"
+              className="w-[420px] h-[340px] md:w-[500px] md:h-[380px] object-cover object-center border border-gray-200 shadow"
             />
           </div>
-          {/* Right: Text */}
-          <div className="md:w-1/2 w-full flex flex-col justify-center my-auto ml-10">
-            <h3 className="text-2xl md:text-3xl font-arpona font-bold text-[#23263a] mb-6">
-              Every journey begins long<br />before takeoff.
+          {/* Right: Logo, Text, Button */}
+          <div className="md:w-1/2 w-full flex flex-col justify-center my-auto md:ml-10">
+            {/* Logo */}
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Regent_Seven_Seas_Cruises_logo.svg"
+              alt="Regent Seven Seas Cruises Logo"
+              className="h-14 w-auto mb-6"
+              style={{ maxWidth: 260 }}
+            />
+            {/* Large Heading */}
+            <h3 className="text-2xl md:text-3xl font-arpona text-[#23263a] mb-4 text-left">
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
             </h3>
-            <p className="font-inter text-[#23263a] font-bold md:text-md mb-4 w-5/7">
-              At Luxufe, we ensure that every detail is meticulously arranged, from visa requirements to cultural etiquette, allowing you to travel with confidence and ease.
+            {/* Paragraph */}
+            <p className="font-inter text-[#23263a] text-base md:text-lg mb-8 text-left max-w-xl">
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum
             </p>
-            <p className="font-inter text-[#23263a] font-bold md:text-md w-5/7">
-              With expert guidance, thoughtful preparation, and seamless execution, we help you prepare for the ultimate luxury experience so you can focus on what truly matters: immersing yourself in the journey.
-            </p>
+            {/* Button */}
+            <button className="w-fit border border-gray-400 text-base py-3 px-8 font-inter font-bold text-gray-800 flex items-center justify-center gap-2 hover:bg-gray-800 hover:text-white transition rounded text-left">
+              MORE FROM THIS BRAND <span>&rarr;</span>
+            </button>
           </div>
         </div>
       </div>
