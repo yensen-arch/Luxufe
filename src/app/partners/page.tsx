@@ -14,10 +14,10 @@ const Page = () => {
     <main className="overflow-y-hidden">
       <Navbar />
       <HeroPartners />
-      <SilverseaCruiseSearch />
       <GlobalNetwork />
       <BenefitsSection />
       <PartnerHighlight />
+      <SilverseaCruiseSearch />
       <SelectedFavs />
       <ElevePerks />
       <ContactUs />
