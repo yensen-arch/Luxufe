@@ -6,12 +6,14 @@ import ElevePerks from "@/components/landing/ElevePerks";
 import SelectedFavs from "@/components/partners/SelectedFavs";
 import PartnerHighlight from "@/components/partners/PartnerHighlight";
 import BenefitsSection from "@/components/partners/BenefitsSection";
+import GlobalNetwork from "@/components/partners/GlobalNetwork";
 
 const Page = () => {
   return (
-    <main>
+    <main className="overflow-y-hidden">
       <Navbar />
       <HeroPartners />
+      <GlobalNetwork />
       <BenefitsSection />
       <PartnerHighlight />
       <SelectedFavs />
