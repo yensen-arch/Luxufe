@@ -26,6 +26,7 @@ export default function GlobalNetwork() {
               More than just a travel service, we are curators of experience, ensuring that each trip is tailored with precision, care, and an uncompromising commitment to excellence.<br/>
               Our philosophy is built on three core pillars: Care, Comfort, and Consistency.
             </p>
+            <button className="w-fit border-2 border-gray-300 text-xs py-4 px-6 mt-10 font-inter font-bold text-gray-800 flex items-center justify-center gap-2 hover:bg-gray-800 hover:text-white transition text-left">VIEW ALL PARTNERS <span>&rarr;</span></button>
           </div>
           {/* Watermark */}
           <div className="absolute -bottom-18 -right-20">
