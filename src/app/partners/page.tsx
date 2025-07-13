@@ -7,12 +7,14 @@ import SelectedFavs from "@/components/partners/SelectedFavs";
 import PartnerHighlight from "@/components/partners/PartnerHighlight";
 import BenefitsSection from "@/components/partners/BenefitsSection";
 import GlobalNetwork from "@/components/partners/GlobalNetwork";
+import SilverseaCruiseSearch from "@/components/partners/SilverseaCruiseSearch";
 
 const Page = () => {
   return (
     <main className="overflow-y-hidden">
       <Navbar />
       <HeroPartners />
+      <SilverseaCruiseSearch />
       <GlobalNetwork />
       <BenefitsSection />
       <PartnerHighlight />
