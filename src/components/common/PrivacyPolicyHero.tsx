@@ -16,18 +16,18 @@ export default function PrivacyPolicyHero() {
         </div>
       </div>
       {/* Text Section */}
-      <div className="w-full bg-[#f7f7fa] py-24 flex flex-col items-center justify-center">
-        <div className="max-w-3xl w-full px-4 mx-auto">
-          <h2 className="text-3xl md:text-4xl font-arpona text-[#23263a] font-medium mb-4 text-center">This is a heading level 2</h2>
-          <p className="font-inter text-md text-[#23263a] font-normal text-center mb-12">
+      <div className="w-full bg-[#f7f7fa] py-32 flex flex-col items-center justify-center">
+        <div className="max-w-4xl w-full px-4 mx-auto">
+          <h2 className="text-3xl md:text-4xl font-arpona text-[#23263a] font-medium mb-4">This is a heading level 2</h2>
+          <p className="font-inter text-md text-[#23263a] font-normal mb-16">
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet
           </p>
-          <h3 className="text-2xl md:text-3xl font-arpona text-[#23263a] font-medium mb-4 text-center">This is a heading level 3</h3>
-          <p className="font-inter text-md text-[#23263a] font-normal text-center mb-12">
+          <h3 className="text-2xl md:text-3xl font-arpona text-[#23263a] font-medium mb-4">This is a heading level 3</h3>
+          <p className="font-inter text-md text-[#23263a] font-normal mb-16">
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet
           </p>
-          <h4 className="text-xs font-inter font-bold uppercase tracking-widest text-[#23263a] mb-4 text-center">This is a heading level 4</h4>
-          <p className="font-inter text-md text-[#23263a] font-normal text-center">
+          <h4 className="text-xs font-inter font-bold uppercase tracking-widest text-[#23263a] mb-4">This is a heading level 4</h4>
+          <p className="font-inter text-md text-[#23263a] font-normal">
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet
           </p>
         </div>
