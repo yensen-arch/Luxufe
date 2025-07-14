@@ -7,6 +7,7 @@ import Itineraries from "@/components/brand/Itineraries";
 import ProductOverview from "@/components/Product/ProductOverview";
 import ProductGrid from "@/components/Product/Grid";
 import MapProduct from "@/components/Product/MapProduct";
+import OtherAmanHotels from "@/components/Product/OtherAmanHotels";
 const Page = () => {
   return (
     <main className="overflow-y-hidden">
@@ -16,6 +17,7 @@ const Page = () => {
       <ProductGrid />
       <MapProduct />
       <Itineraries />
+      <OtherAmanHotels />
       <Testimonials />
       <ContactUs />
       <Footer />
