@@ -7,6 +7,7 @@ import WhyWeTravel from "@/components/brand/WhyWeTravel";
 import BrandPhilosophy from "@/components/brand/BrandPhilosophy";
 import BrandBenefits from "@/components/brand/BrandBenefits";
 import Itineraries from "@/components/brand/Itineraries";
+import AmanHotelsGrid from "@/components/offers-and-promos/AmanHotelsGrid";
 
 const Page = () => {
   return (
@@ -14,8 +15,9 @@ const Page = () => {
       <Navbar />
       <BrandHero />
       <BrandPhilosophy />
-      <BrandBenefits />
       <WhyWeTravel />
+      <BrandBenefits />
+      <AmanHotelsGrid />
       <Itineraries />
       <Testimonials />
       <ContactUs />
