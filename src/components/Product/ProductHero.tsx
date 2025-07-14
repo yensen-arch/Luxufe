@@ -18,28 +18,22 @@ const ProductHero = () => {
         className="absolute inset-0 w-full h-full object-cover object-center z-0"
       />
       {/* Content */}
-      <div className="relative z-20 flex flex-col items-start justify-center h-full w-full max-w-7xl mx-auto px-8">
-        <div className="mt-24">
-          <div className="text-white text-sm mb-4 font-inter opacity-80">
-            Home &gt; Destinations &gt; Regions &gt; Africa
-          </div>
-          <h1 className="text-5xl md:text-7xl font-arpona text-white font-bold mb-4 flex items-center gap-4">
-            Discover <span className="font-bellarina text-5xl md:text-7xl">Africa</span>
+      <div className="relative z-20 flex flex-col items-center justify-center h-full w-full max-w-7xl mx-auto px-8">
+        <div>
+          <h1 className="text-5xl md:text-7xl w-full font-arpona text-white font-bold mb-4 gap-4 text-center">
+            Amangiri
           </h1>
-          <p className="text-lg md:text-2xl text-white font-inter mb-8 max-w-2xl">
-            From iconic landscapes to legendary hospitality, Africa redefines luxury through experience
+          <p className="text-lg md:text-md text-white font-bold font-inter mb-8 max-w-2xl text-center">
+            CANYON POINT, UTAH, UNITED STATES
           </p>
-          {/* Stats Row */}
-          <div className="flex items-center gap-8 text-white text-base md:text-lg font-inter font-semibold mb-2">
-            <span className="flex items-center gap-2">
-              <MapPin className="w-5 h-5" /> 23 Countries
-            </span>
-            <span className="flex items-center gap-2">
-              <Building2 className="w-5 h-5" /> 123 Properties
-            </span>
-            <span className="flex items-center gap-2">
-              <BookOpen className="w-5 h-5" /> 87 Itineraries
-            </span>
+          {/* Stats Row replaced with buttons */}
+          <div className="flex items-center gap-8 mb-2 ">
+            <button className="border-2 border-gray-300 text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest">
+              BOOK THIS HOTEL <span className="ml-2">→</span>
+            </button>
+            <button className="border-2 border-gray-300 text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest">
+              ADD TO MY JOURNEY <span className="ml-2">→</span>
+            </button>
           </div>
         </div>
       </div>
