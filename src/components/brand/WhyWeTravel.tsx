@@ -2,7 +2,7 @@ import React from "react";
 
 export default function WhyWeTravel() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-[#f5f5f5]">
       <div className="max-w-7xl mx-auto px-4">
         {/* Heading */}
         <h2 className="text-4xl md:text-5xl font-arpona text-[#23263a] font-bold text-start mb-16">

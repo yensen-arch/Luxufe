@@ -1,18 +1,20 @@
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import ContactUs from "@/components/regions/ContactUs";
-import SelectedFavs from "@/components/partners/SelectedFavs";
 import Testimonials from "@/components/landing/Testimonials";
 import BrandHero from "@/components/brand/BrandHero";
 import WhyWeTravel from "@/components/brand/WhyWeTravel";
+import BrandPhilosophy from "@/components/brand/BrandPhilosophy";
+import Itineraries from "@/components/brand/Itineraries";
 
 const Page = () => {
   return (
     <main className="overflow-y-hidden">
       <Navbar />
       <BrandHero />
+      <BrandPhilosophy />
       <WhyWeTravel />
-      <SelectedFavs />
+      <Itineraries />
       <Testimonials />
       <ContactUs />
       <Footer />
