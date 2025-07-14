@@ -7,8 +7,7 @@ import WhyWeTravel from "@/components/brand/WhyWeTravel";
 import BrandPhilosophy from "@/components/brand/BrandPhilosophy";
 import BrandBenefits from "@/components/brand/BrandBenefits";
 import Itineraries from "@/components/brand/Itineraries";
-import AmanHotelsGrid from "@/components/offers-and-promos/AmanHotelsGrid";
-
+import BrandMain from "@/components/brand/BrandMain";
 const Page = () => {
   return (
     <main className="overflow-y-hidden">
@@ -17,7 +16,7 @@ const Page = () => {
       <BrandPhilosophy />
       <WhyWeTravel />
       <BrandBenefits />
-      <AmanHotelsGrid />
+      <BrandMain />
       <Itineraries />
       <Testimonials />
       <ContactUs />
