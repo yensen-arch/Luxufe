@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export default function NotFoundHero() {
   return (
@@ -21,12 +22,12 @@ export default function NotFoundHero() {
           Just like in travel, sometimes the path isn’t quite what you expected. But not to worry, we’re here to guide you back. Explore some of our curated journeys below or let us help you find exactly what you’re after.
         </p>
         <div className="flex flex-col md:flex-row gap-6 justify-center items-center mt-4">
-          <a href="/" className="border-2 border-white text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest min-w-[220px] text-center">
+          <Link href="/" className="border-2 border-white text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest min-w-[220px] text-center">
             RETURN TO HOME
-          </a>
-          <a href="/ways-to-travel" className="border-2 border-white text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest min-w-[220px] text-center">
+          </Link>
+          <Link href="/ways-to-travel" className="border-2 border-white text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest min-w-[220px] text-center">
             WAYS TO TRAVEL
-          </a>
+          </Link>
           <a href="/contact-us" className="border-2 border-white text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest min-w-[220px] text-center">
             SPEAK TO AN EXPERT <span className="ml-2">→</span>
           </a>
