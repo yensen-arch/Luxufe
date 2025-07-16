@@ -31,7 +31,7 @@ export default function ExploreMore() {
   return (
     <section className="bg-white relative mt-60">
       <div className="relative -top-20 z-10 max-w-7xl mx-auto px-4">
-        <h2 className="text-5xl font-arpona font-bold text-[#23263a] text-center mb-4 absolute md:static">Explore More</h2>
+        <h2 className="text-6xl font-arpona font-bold text-[#23263a] text-center mb-6 absolute md:static">Explore More</h2>
         <p className="text-md font-inter font-bold text-[#23263a] text-center mb-16">Discover more exclusive, luxury travel experiences, tailored to you</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {cards.map((card) => (
@@ -39,7 +39,7 @@ export default function ExploreMore() {
               <img src={card.image} alt={card.title} className="w-full h-110 object-cover" />
               <div className="p-8 flex flex-col flex-1">
                 <h3 className="text-2xl font-arpona font-bold text-[#23263a] mb-4">{card.title}</h3>
-                <p className="font-inter font-bold text-slate-500 text-base text-sm mb-8 flex-1">{card.description}</p>
+                <p className="font-inter font-bold text-slate-500 text-base text-xs mb-8 flex-1">{card.description}</p>
                 <a href={card.href} className="font-inter font-bold text-sm tracking-wider flex items-center gap-2 text-[#23263a] hover:underline mt-auto">
                   {card.cta}
                   <span className="inline-block transform transition-transform group-hover:translate-x-1">→</span>
