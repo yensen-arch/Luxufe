@@ -4,7 +4,7 @@ export default function PrivacyPolicyHero() {
   return (
     <section className="w-full">
       {/* Hero Section */}
-      <div className="relative w-full h-[48vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
+      <div className="relative w-full h-[48vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80"
           alt="Privacy Policy Hero"
