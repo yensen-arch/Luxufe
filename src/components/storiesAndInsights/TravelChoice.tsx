@@ -107,7 +107,7 @@ export default function TravelChoice({ data }: TravelChoiceProps) {
           <div className="w-1/2 z-40 mr-20">
             <div className="relative overflow-hidden shadow-2xl">
               <img
-                src={travelData.image.url}
+                src={travelData.image.asset.url}
                 alt={travelData.image.alt}
                 className="w-full h-[500px] object-cover"
               />

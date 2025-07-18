@@ -631,4 +631,36 @@ export const experienceMorePageQuery = groq`
       description
     }
   }
+`
+
+export const blogPageQuery = groq`
+  *[_type == "blogPage"][0] {
+    title,
+    hero {
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    effortlessLuxury {
+      title,
+      description,
+      buttonText,
+      buttonLink,
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    }
+  }
 ` 

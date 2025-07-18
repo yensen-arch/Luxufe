@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -711,6 +711,52 @@ export async function getExperienceMorePageData(): Promise<ExperienceMorePageDat
     return data
   } catch (error) {
     console.error('Error fetching experience more page data:', error)
+    return null
+  }
+}
+
+export interface BlogPageData {
+  title: string
+  hero: {
+    image: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+  }
+  effortlessLuxury: {
+    title: string
+    description: string
+    buttonText: string
+    buttonLink?: string
+    image: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+  }
+}
+
+export async function getBlogPageData(): Promise<BlogPageData | null> {
+  try {
+    const data = await client.fetch(blogPageQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching blog page data:', error)
     return null
   }
 } 

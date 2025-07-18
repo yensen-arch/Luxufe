@@ -38,7 +38,7 @@ export default function EssentialTravelInfo({ data }: EssentialTravelInfoProps) 
           {/* Left: Image */}
           <div className="md:w-1/2 w-full flex-shrink-0">
             <img
-              src={infoData.image.url}
+              src={infoData.image.asset.url}
               alt={infoData.image.alt}
               className="w-full h-[340px] md:h-[420px] object-cover "
             />

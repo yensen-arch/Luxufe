@@ -40,7 +40,7 @@ export default function ArtOfEffortlessTravel({ data }: ArtOfEffortlessTravelPro
         {/* Left: Image */}
         <div className="w-[56%] z-10 absolute -top-30 h-[120vh]">
           <img
-            src={sectionData.image.url}
+            src={sectionData.image.asset.url}
             alt={sectionData.image.alt}
             className="w-full h-full object-cover"
           />

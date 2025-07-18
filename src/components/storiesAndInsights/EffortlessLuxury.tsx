@@ -42,7 +42,7 @@ export default function EffortlessLuxury({ data }: EffortlessLuxuryProps) {
           {/* Left: Image */}
           <div className="md:w-1/2 w-full flex-shrink-0">
             <img
-              src={luxuryData.image.url}
+              src={luxuryData.image.asset.url}
               alt={luxuryData.image.alt}
               className="w-full h-[340px] md:h-[500px] object-cover "
             />
