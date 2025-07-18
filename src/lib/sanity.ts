@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -382,12 +382,104 @@ export async function getLandingPageData(): Promise<LandingPageData | null> {
   }
 }
 
+export interface BeforeYouTravelPageData {
+  title: string
+  hero: {
+    backgroundImage: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+    subtitle: string
+    title: string
+    description: string
+  }
+  essentialTravelInfo: {
+    title: string
+    image: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+    subtitle: string
+    paragraph1: string
+    paragraph2: string
+  }
+  travelAccordion: {
+    items: Array<{
+      title: string
+      content: string
+    }>
+  }
+  exploreMore: {
+    backgroundImage: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+    title: string
+    subtitle: string
+    cards: Array<{
+      image: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+        alt: string
+      }
+      title: string
+      description: string
+      cta: string
+      href?: string
+    }>
+  }
+  contactUs: {
+    title: string
+    description: string
+    email: string
+    appointmentText: string
+    appointmentLink?: string
+    faqText: string
+    faqLink?: string
+    buttonText: string
+    buttonLink?: string
+  }
+}
+
 export async function getAboutPageData(): Promise<AboutPageData | null> {
   try {
     const data = await client.fetch(aboutPageQuery)
     return data
   } catch (error) {
     console.error('Error fetching about page data:', error)
+    return null
+  }
+}
+
+export async function getBeforeYouTravelPageData(): Promise<BeforeYouTravelPageData | null> {
+  try {
+    const data = await client.fetch(beforeYouTravelPageQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching before you travel page data:', error)
     return null
   }
 } 

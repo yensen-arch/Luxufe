@@ -7,18 +7,22 @@ import Footer from "@/components/common/Footer";
 import NewsletterSignUp from "@/components/landing/NewsletterSignUp";
 import ContactUs from "@/components/beforeYouTravel/ContactUsBefore";
 import Testimonials from "@/components/landing/Testimonials";
+import { getBeforeYouTravelPageData, getLandingPageData } from '@/lib/sanity';
 
-export default function BeforeYouTravel() {
+export default async function BeforeYouTravel() {
+  const beforeYouTravelData = await getBeforeYouTravelPageData();
+  const landingData = await getLandingPageData();
+
   return (
     <main>
       <Navbar />
-      <BeforeYouTravelHero />
-      <EssentialTravelInfo />
-      <TravelAccordion />
-      <NewsletterSignUp />
-      <Testimonials />
-      <ExploreMore />
-      <ContactUs />
+      <BeforeYouTravelHero data={beforeYouTravelData?.hero} />
+      <EssentialTravelInfo data={beforeYouTravelData?.essentialTravelInfo} />
+      <TravelAccordion data={beforeYouTravelData?.travelAccordion} />
+      <NewsletterSignUp data={landingData?.newsletter} />
+      <Testimonials data={landingData?.testimonials} />
+      <ExploreMore data={beforeYouTravelData?.exploreMore} />
+      <ContactUs data={beforeYouTravelData?.contactUs} />
       <Footer />
     </main>
   );

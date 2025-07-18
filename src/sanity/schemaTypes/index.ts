@@ -6,7 +6,8 @@ import {postType} from './postType'
 import {authorType} from './authorType'
 import {landingPageType} from './landingPageType'
 import {aboutPageType} from './aboutPageType'
+import {beforeYouTravelPageType} from './beforeYouTravelPageType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blockContentType, categoryType, postType, authorType, landingPageType, aboutPageType],
+  types: [blockContentType, categoryType, postType, authorType, landingPageType, aboutPageType, beforeYouTravelPageType],
 }

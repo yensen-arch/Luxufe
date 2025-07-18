@@ -1,7 +1,16 @@
 "use client";
 import React, { useState } from "react";
 
-const items = [
+interface TravelAccordionProps {
+  data?: {
+    items: Array<{
+      title: string
+      content: string
+    }>
+  }
+}
+
+const defaultItems = [
   {
     title: "Visas, Entry Requirements & Exclusive Travel Tips",
     content:
@@ -34,13 +43,18 @@ const items = [
   },
 ];
 
-export default function TravelAccordion() {
+export default function TravelAccordion({ data }: TravelAccordionProps) {
+  // Fallback data if no Sanity data is provided
+  const accordionData = data || {
+    items: defaultItems
+  }
+
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <section className="max-w-6xl mx-auto my-24">
       <div className="divide-y divide-gray-600 border-t border-b border-gray-600">
-        {items.map((item, idx) => (
+        {accordionData.items.map((item, idx) => (
           <div key={item.title} className="relative overflow-hidden transition-all duration-500">
             {/* Toggle button */}
             <button

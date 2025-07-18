@@ -354,4 +354,84 @@ export const aboutPageQuery = groq`
       buttonLink
     }
   }
+`
+
+export const beforeYouTravelPageQuery = groq`
+  *[_type == "beforeYouTravelPage"][0] {
+    title,
+    hero {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      subtitle,
+      title,
+      description
+    },
+    essentialTravelInfo {
+      title,
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      subtitle,
+      paragraph1,
+      paragraph2
+    },
+    travelAccordion {
+      items[] {
+        title,
+        content
+      }
+    },
+    exploreMore {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      title,
+      subtitle,
+      cards[] {
+        image {
+          asset->{
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        },
+        title,
+        description,
+        cta,
+        href
+      }
+    },
+    contactUs {
+      title,
+      description,
+      email,
+      appointmentText,
+      appointmentLink,
+      faqText,
+      faqLink,
+      buttonText,
+      buttonLink
+    }
+  }
 ` 
