@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -673,12 +673,44 @@ export async function getElevePageData(): Promise<ElevePageData | null> {
   }
 }
 
+export interface ExperienceMorePageData {
+  title: string
+  hero: {
+    backgroundImage: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+    title: string
+    description: string
+  }
+  latestGreatestFilter: {
+    title: string
+    description: string
+  }
+}
+
 export async function getStoriesAndInsightsPageData(): Promise<StoriesAndInsightsPageData | null> {
   try {
     const data = await client.fetch(storiesAndInsightsPageQuery)
     return data
   } catch (error) {
     console.error('Error fetching stories and insights page data:', error)
+    return null
+  }
+}
+
+export async function getExperienceMorePageData(): Promise<ExperienceMorePageData | null> {
+  try {
+    const data = await client.fetch(experienceMorePageQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching experience more page data:', error)
     return null
   }
 } 

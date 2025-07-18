@@ -1,12 +1,27 @@
 import React from "react";
 import { ChevronDown } from "lucide-react";
 
-export default function LatestGreatestFilter() {
+interface LatestGreatestFilterProps {
+  data?: {
+    title: string
+    description: string
+  }
+}
+
+export default function LatestGreatestFilter({ data }: LatestGreatestFilterProps) {
+  // Fallback data
+  const fallbackData = {
+    title: 'The Latest from The Greatest',
+    description: 'We always want our clients to experience more. Here are the latest, and greatest, luxury travel offers, promotions and itineraries from our elite partners.'
+  }
+
+  const filterData = data || fallbackData
+
   return (
     <section className="w-full flex flex-col items-center py-20 bg-white">
-      <h2 className="text-6xl font-arpona font-bold text-center text-[#23263a] mb-6">The Latest from The Greatest</h2>
+      <h2 className="text-6xl font-arpona font-bold text-center text-[#23263a] mb-6">{filterData.title}</h2>
       <p className="text-lg font-bold font-inter text-[#23263a] text-center mb-14 max-w-3xl">
-        We always want our clients to experience more. Here are the latest, and greatest, luxury travel offers, promotions and itineraries from our elite partners.
+        {filterData.description}
       </p>
       <div className="w-full flex justify-center">
         <div className="relative w-full max-w-2xl">

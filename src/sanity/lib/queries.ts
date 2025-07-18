@@ -608,4 +608,27 @@ export const storiesAndInsightsPageQuery = groq`
       }
     }
   }
+`
+
+export const experienceMorePageQuery = groq`
+  *[_type == "experienceMorePage"][0] {
+    title,
+    hero {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      title,
+      description
+    },
+    latestGreatestFilter {
+      title,
+      description
+    }
+  }
 ` 
