@@ -910,4 +910,38 @@ export const waysToTravelPageQuery = groq`
       buttonText
     }
   }
+`
+
+export const notFoundPageQuery = groq`
+  *[_type == "notFoundPage"][0] {
+    title,
+    hero {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      subtitle,
+      title,
+      description,
+      buttons {
+        homeButton {
+          text,
+          link
+        },
+        waysToTravelButton {
+          text,
+          link
+        },
+        contactButton {
+          text,
+          link
+        }
+      }
+    }
+  }
 ` 

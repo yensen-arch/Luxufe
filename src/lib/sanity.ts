@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery, notFoundPageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -1075,6 +1075,51 @@ export async function getWaysToTravelPageData(): Promise<WaysToTravelPageData | 
     return data
   } catch (error) {
     console.error('Error fetching ways to travel page data:', error)
+    return null
+  }
+}
+
+export interface NotFoundPageData {
+  title: string
+  hero: {
+    backgroundImage: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+    subtitle: string
+    title: string
+    description: string
+    buttons: {
+      homeButton: {
+        text: string
+        link: string
+      }
+      waysToTravelButton: {
+        text: string
+        link: string
+      }
+      contactButton: {
+        text: string
+        link: string
+      }
+    }
+  }
+}
+
+export async function getNotFoundPageData(): Promise<NotFoundPageData | null> {
+  try {
+    const data = await client.fetch(notFoundPageQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching not found page data:', error)
     return null
   }
 } 
