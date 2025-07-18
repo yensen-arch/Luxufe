@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -757,6 +757,200 @@ export async function getBlogPageData(): Promise<BlogPageData | null> {
     return data
   } catch (error) {
     console.error('Error fetching blog page data:', error)
+    return null
+  }
+}
+
+export interface TailorMadeTravelPageData {
+  title: string
+  hero: {
+    backgroundImage: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+    subtitle: string
+    title: string
+    description: string
+  }
+  whatTailorMadeMeans: {
+    title: string
+    subtitle: string
+    description: string
+    image: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+  }
+  tailorMadeItineraries: {
+    heading: string
+    subheading: string
+    buttonText: string
+  }
+  exploreTogetherHero: {
+    backgroundImage: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+    title: string
+    description: string
+    buttonText: string
+  }
+  assistWithMore: {
+    title: string
+    subtitle: string
+    description: string
+    items: Array<{
+      title: string
+      description: string
+      image: {
+        asset: {
+          url: string
+          metadata: {
+            dimensions: {
+              width: number
+              height: number
+            }
+          }
+        }
+        alt: string | null
+      }
+    }>
+  }
+  tailorMadeProcess: {
+    title: string
+    description: string
+    steps: Array<{
+      title: string
+      description: string
+      image: {
+        asset: {
+          url: string
+          metadata: {
+            dimensions: {
+              width: number
+              height: number
+            }
+          }
+        }
+        alt: string | null
+      }
+    }>
+    appointmentButtonText: string
+    wizardButtonText: string
+  }
+}
+
+export async function getTailorMadeTravelPageData(): Promise<TailorMadeTravelPageData | null> {
+  try {
+    const data = await client.fetch(tailorMadeTravelPageQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching tailor made travel page data:', error)
+    return null
+  }
+}
+
+export interface ContactUsPageData {
+  title: string
+  contactHero: {
+    backgroundImage: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+    subtitle: string
+    title: string
+    buttonText: string
+    description: string
+    contactInfo: {
+      callUs: {
+        title: string
+        phoneNumbers: string[]
+      }
+      emailUs: {
+        title: string
+        email: string
+      }
+      bookACall: {
+        title: string
+        description: string
+        linkText: string
+        linkUrl?: string
+      }
+    }
+  }
+  carousel: {
+    image: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+  }
+  travelInsuranceInfo: {
+    title: string
+    subtitle: string
+    description: string
+    additionalInfo: string
+    image: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+    buttonText: string
+  }
+}
+
+export async function getContactUsPageData(): Promise<ContactUsPageData | null> {
+  try {
+    const data = await client.fetch(contactUsPageQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching contact us page data:', error)
     return null
   }
 } 

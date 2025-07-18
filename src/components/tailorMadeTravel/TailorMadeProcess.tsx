@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from "react";
 
-const steps = [
+const defaultSteps = [
   {
     title: "DISCOVER",
     description:
@@ -32,8 +32,40 @@ const steps = [
   },
 ];
 
-export default function TailorMadeProcess() {
+interface TailorMadeProcessProps {
+  data?: {
+    title: string;
+    description: string;
+    steps: Array<{
+      title: string;
+      description: string;
+      image: {
+        asset: {
+          url: string;
+        };
+        alt: string | null;
+      };
+    }>;
+    appointmentButtonText: string;
+    wizardButtonText: string;
+  };
+}
+
+export default function TailorMadeProcess({ data }: TailorMadeProcessProps) {
   const [currentStep, setCurrentStep] = useState(0);
+
+  // Use data from CMS if available, otherwise fall back to hardcoded content
+  const displayTitle = data?.title || "The Tailor-made Process";
+  const displayDescription = data?.description || "Thoughtful planning, perfectly paced; here's how we bring your journey to life";
+  const displayAppointmentButtonText = data?.appointmentButtonText || "BOOK AN APPOINTMENT";
+  const displayWizardButtonText = data?.wizardButtonText || "TRY THE TRIP WIZARD";
+  
+  // Use CMS steps if available, otherwise use default steps
+  const steps = data?.steps?.map(step => ({
+    title: step.title,
+    description: step.description,
+    imageUrl: step.image.asset.url,
+  })) || defaultSteps;
 
   const handleNext = () => {
     setCurrentStep((prev) => (prev < steps.length - 1 ? prev + 1 : 0));
@@ -42,9 +74,9 @@ export default function TailorMadeProcess() {
   return (
     <section className="w-full bg-[#23263a] py-24 px-4">
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-5xl md:text-6xl font-arpona text-white mb-4">The Tailor-made Process</h2>
+        <h2 className="text-5xl md:text-6xl font-arpona text-white mb-4">{displayTitle}</h2>
         <p className="text-md text-white/80 font-inter font-bold my-10 max-w-2xl mx-auto">
-          Thoughtful planning, perfectly paced; here’s how<br />we bring your journey to life
+          {displayDescription}
         </p>
         <div className="flex flex-col md:flex-row justify-center items-start gap-10 md:gap-0 mb-16 relative">
           {steps.map((step, idx) => (
@@ -71,10 +103,10 @@ export default function TailorMadeProcess() {
         </div>
         <div className="flex flex-col md:flex-row gap-6 justify-center mt-8">
           <button className="border-2 border-gray-400 text-white px-8 py-4 bg-transparent hover:bg-white hover:text-[#23263a] transition font-inter font-bold text-xs flex items-center justify-center gap-2 tracking-widest">
-            BOOK AN APPOINTMENT <span className="ml-2">→</span>
+            {displayAppointmentButtonText} <span className="ml-2">→</span>
           </button>
           <button className="border-2 border-gray-400 text-white px-8 py-4 bg-transparent hover:bg-white hover:text-[#23263a] transition font-inter font-bold text-xs flex items-center justify-center gap-2 tracking-widest">
-            TRY THE TRIP WIZARD <span className="ml-2">→</span>
+            {displayWizardButtonText} <span className="ml-2">→</span>
           </button>
         </div>
       </div>

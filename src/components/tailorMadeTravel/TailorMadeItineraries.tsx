@@ -57,7 +57,15 @@ const itineraries = [
   },
 ];
 
-export default function TailorMadeItineraries() {
+interface TailorMadeItinerariesProps {
+  data?: {
+    heading: string;
+    subheading: string;
+    buttonText: string;
+  };
+}
+
+export default function TailorMadeItineraries({ data }: TailorMadeItinerariesProps) {
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
@@ -81,12 +89,17 @@ export default function TailorMadeItineraries() {
     }
   }, [emblaApi, selectedCard]);
 
+  // Use data from CMS if available, otherwise fall back to hardcoded content
+  const displayHeading = data?.heading || "Sample Itineraries - Trips to inspire";
+  const displaySubheading = data?.subheading || "Browse a selection of existing itineraries to inspire yours";
+  const displayButtonText = data?.buttonText || "GET IN TOUCH TO DESIGN YOURS";
+
   return (
     <section className="py-20 bg-white text-gray-800 relative overflow-hidden">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-5xl font-arpona font-bold mb-6">Sample Itineraries - Trips to <span className="font-bellarina font-normal text-8xl">inspire</span></h2>
+        <h2 className="text-5xl font-arpona font-bold mb-6">{displayHeading}</h2>
         <p className="max-w-xl text-black mx-auto mb-8 font-inter font-bold">
-          Browse a selection of existing itineraries to inspire yours
+          {displaySubheading}
         </p>
       </div>
       <div className="relative py-10">
@@ -195,7 +208,7 @@ export default function TailorMadeItineraries() {
       </div>
       <div className="text-center mt-16 flex justify-center">
         <button className="border-2 border-gray-300 text-gray-800 px-6 py-4 hover:bg-gray-800 hover:text-white transition font-inter font-bold text-xs flex items-center justify-center gap-2">
-          <span className="font-bold">GET IN TOUCH TO DESIGN YOURS</span>
+          <span className="font-bold">{displayButtonText}</span>
           <ArrowRight className="w-4 h-4 ml-2" />
         </button>
       </div>

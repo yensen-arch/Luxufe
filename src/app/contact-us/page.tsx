@@ -8,14 +8,19 @@ import Inspiration from "@/components/landing/Inspiration";
 import ContactUsJourneys from "@/components/landing/ContactUsJourneys";
 import Carousel from "@/components/contact-us/Carousel";
 import TravelInsuranceInfo from "@/components/contact-us/TravelInsuranceInfo";
-const Page = () => {
+import { getContactUsPageData } from "@/lib/sanity";
+
+const Page = async () => {
+  // Fetch data from Sanity CMS
+  const pageData = await getContactUsPageData();
+
   return (
     <main>
       <Navbar />
-      <ContactHero />
-      <Carousel />
+      <ContactHero data={pageData?.contactHero} />
+      <Carousel data={pageData?.carousel} />
       <ElevePerks />
-      <TravelInsuranceInfo />
+      <TravelInsuranceInfo data={pageData?.travelInsuranceInfo} />
       <Testimonials />
       <Inspiration/>
       <NewsletterSignUp/>

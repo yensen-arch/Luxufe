@@ -2,7 +2,7 @@
 import React, { useCallback, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-const assistItems = [
+const defaultAssistItems = [
   {
     title: "Local & International flights",
     description: "Lorem ipsum dolor sit amet, consetetur",
@@ -35,10 +35,40 @@ const slideReset = {
   transform: 'translateX(0)'
 };
 
-export default function AssistWithMore() {
+interface AssistWithMoreProps {
+  data?: {
+    title: string;
+    subtitle: string;
+    description: string;
+    items: Array<{
+      title: string;
+      description: string;
+      image: {
+        asset: {
+          url: string;
+        };
+        alt: string | null;
+      };
+    }>;
+  };
+}
+
+export default function AssistWithMore({ data }: AssistWithMoreProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animDirection, setAnimDirection] = useState <'left' | 'right' | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
+
+  // Use data from CMS if available, otherwise fall back to hardcoded content
+  const displayTitle = data?.title || "We can assist with more";
+  const displaySubtitle = data?.subtitle || "There for you";
+  const displayDescription = data?.description || "From flights to hotel reservations, we'll handle it all so you can relax.";
+  
+  // Use CMS items if available, otherwise use default items
+  const assistItems = data?.items?.map(item => ({
+    title: item.title,
+    description: item.description,
+    imageUrl: item.image.asset.url,
+  })) || defaultAssistItems;
 
   const handleAnimationEnd = () => {
     setIsAnimating(false);
@@ -52,7 +82,7 @@ export default function AssistWithMore() {
     setTimeout(() => {
       setCurrentIndex((prev) => (prev === 0 ? assistItems.length - 1 : prev - 1));
     }, 200);
-  }, [isAnimating]);
+  }, [isAnimating, assistItems.length]);
 
   const scrollNext = useCallback(() => {
     if (isAnimating) return;
@@ -61,7 +91,7 @@ export default function AssistWithMore() {
     setTimeout(() => {
       setCurrentIndex((prev) => (prev === assistItems.length - 1 ? 0 : prev + 1));
     }, 200);
-  }, [isAnimating]);
+  }, [isAnimating, assistItems.length]);
 
   // Inline animation style
   const getAnimStyle = () => {
@@ -86,10 +116,10 @@ export default function AssistWithMore() {
           {/* Left Side */}
           <div className="md:col-span-9 flex flex-col items-start justify-center h-[100vh] py-12 bg-[#f8f8fa]">
             <div className="mb-4 ml-20">
-              <span className="font-bellarina text-6xl text-[#23263a] block mb-2">There for you</span>
-              <h2 className="text-6xl font-arpona font-bold text-[#23263a] mb-4 leading-tight">We can assist<br />with more</h2>
+              <span className="font-bellarina text-6xl text-[#23263a] block mb-2">{displaySubtitle}</span>
+              <h2 className="text-6xl font-arpona font-bold text-[#23263a] mb-4 leading-tight">{displayTitle}</h2>
               <p className="font-inter text-[#23263a] text-base mb-8 max-w-xs font-bold">
-                From flights to hotel reservations, we’ll handle it all so you can relax.
+                {displayDescription}
               </p>
               <div className="flex gap-6 mt-4">
                 <button

@@ -663,4 +663,158 @@ export const blogPageQuery = groq`
       }
     }
   }
+`
+
+export const tailorMadeTravelPageQuery = groq`
+  *[_type == "tailorMadeTravelPage"][0] {
+    title,
+    hero {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      subtitle,
+      title,
+      description
+    },
+    whatTailorMadeMeans {
+      title,
+      subtitle,
+      description,
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    tailorMadeItineraries {
+      heading,
+      subheading,
+      buttonText
+    },
+    exploreTogetherHero {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      title,
+      description,
+      buttonText
+    },
+    assistWithMore {
+      title,
+      subtitle,
+      description,
+      items[] {
+        title,
+        description,
+        image {
+          asset->{
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        }
+      }
+    },
+    tailorMadeProcess {
+      title,
+      description,
+      steps[] {
+        title,
+        description,
+        image {
+          asset->{
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        }
+      },
+      appointmentButtonText,
+      wizardButtonText
+    }
+  }
+`
+
+export const contactUsPageQuery = groq`
+  *[_type == "contactUsPage"][0] {
+    title,
+    contactHero {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      subtitle,
+      title,
+      buttonText,
+      description,
+      contactInfo {
+        callUs {
+          title,
+          phoneNumbers
+        },
+        emailUs {
+          title,
+          email
+        },
+        bookACall {
+          title,
+          description,
+          linkText,
+          linkUrl
+        }
+      }
+    },
+    carousel {
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    travelInsuranceInfo {
+      title,
+      subtitle,
+      description,
+      additionalInfo,
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      buttonText
+    }
+  }
 ` 
