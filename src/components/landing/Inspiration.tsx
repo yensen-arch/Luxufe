@@ -4,31 +4,78 @@ import React, { useCallback, useState } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import BlogCard from './BlogCard';
 
-const blogPosts = [
+interface BlogPost {
+  category: string;
+  title: string;
+  description: string;
+  image: {
+    url: string;
+    alt: string;
+  };
+  buttonText: string;
+  buttonLink: string;
+}
+
+interface InspirationData {
+  heading: string;
+  description: string;
+  ctaText: string;
+  ctaLink: string;
+  blogPosts: BlogPost[];
+}
+
+interface InspirationProps {
+  data?: InspirationData;
+}
+
+const defaultBlogPosts = [
   {
     category: "DESTINATIONS",
     title: "The Allure of the Amalfi Coast",
     description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.",
-    imageUrl: "https://picsum.photos/seed/amalfi/800/600"
+    imageUrl: "https://picsum.photos/seed/amalfi/800/600",
+    buttonText: "READ MORE",
+    buttonLink: "#"
   },
   {
     category: "EXPERIENCES",
     title: "A Culinary Journey Through Japan",
     description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.",
-    imageUrl: "https://picsum.photos/seed/japan-food/800/600"
+    imageUrl: "https://picsum.photos/seed/japan-food/800/600",
+    buttonText: "READ MORE",
+    buttonLink: "#"
   }
 ];
 
-export default function Inspiration() {
+export default function Inspiration({ data }: InspirationProps) {
+  // Fallback to hardcoded content if no data is provided
+  const sectionData = data || {
+    heading: "Inspiration for the discerning traveller",
+    description: "Explore expert insights, curated guides, and insider tips to elevate your travel experiences. Discover the world's finest destinations, luxury stays, and bespoke journeys, all designed to inspire your next adventure.",
+    ctaText: "FIND INSPIRATION",
+    ctaLink: "#",
+    blogPosts: defaultBlogPosts.map(post => ({
+      category: post.category,
+      title: post.title,
+      description: post.description,
+      image: {
+        url: post.imageUrl,
+        alt: post.title
+      },
+      buttonText: post.buttonText,
+      buttonLink: post.buttonLink
+    }))
+  };
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const scrollPrev = useCallback(() => {
-    setCurrentIndex((prev) => prev === 0 ? blogPosts.length - 1 : prev - 1);
-  }, []);
+    setCurrentIndex((prev) => prev === 0 ? sectionData.blogPosts.length - 1 : prev - 1);
+  }, [sectionData.blogPosts.length]);
 
   const scrollNext = useCallback(() => {
-    setCurrentIndex((prev) => prev === blogPosts.length - 1 ? 0 : prev + 1);
-  }, []);
+    setCurrentIndex((prev) => prev === sectionData.blogPosts.length - 1 ? 0 : prev + 1);
+  }, [sectionData.blogPosts.length]);
 
   return (
     <section className="my-24 h-screen">
@@ -41,15 +88,13 @@ export default function Inspiration() {
                 Stories & insights
               </h3>
               <h2 className="text-5xl font-arpona font-bold text-gray-800 my-6">
-                Inspiration for the discerning traveller
+                {sectionData.heading}
               </h2>
               <p className="mb-10 lg:w-5/6 font-inter font-bold">
-                Explore expert insights, curated guides, and insider tips to elevate your travel experiences. 
-                Discover the world's finest destinations, luxury stays, and bespoke journeys, all designed to 
-                inspire your next adventure.
+                {sectionData.description}
               </p>
               <button className="group flex items-center gap-2 text-sm font-inter font-bold tracking-widest border border-gray-400 justify-center py-4 px-8 hover:bg-gray-800 hover:text-white transition-colors mx-auto lg:mx-0">
-                FIND INSPIRATION
+                {sectionData.ctaText}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
@@ -62,9 +107,16 @@ export default function Inspiration() {
                 className="flex transition-transform duration-500 ease-in-out m-10 gap-10"
                 style={{ transform: `translateX(-${currentIndex * 50}%)` }}
               >
-                {blogPosts.map((post, index) => (
+                {sectionData.blogPosts.map((post, index) => (
                   <div className="flex-[0_0_70%]" key={index}>
-                    <BlogCard {...post} />
+                    <BlogCard 
+                      category={post.category}
+                      title={post.title}
+                      description={post.description}
+                      imageUrl={post.image.url}
+                      buttonText={post.buttonText}
+                      buttonLink={post.buttonLink}
+                    />
                   </div>
                 ))}
               </div>

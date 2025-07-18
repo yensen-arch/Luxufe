@@ -3,7 +3,28 @@
 import React, { useState } from 'react';
 import { ArrowLeft, ArrowRight, Star } from 'lucide-react';
 
-const perksData = [
+interface Perk {
+  title: string;
+  description: string;
+  image: {
+    url: string;
+    alt: string;
+  };
+  icon: string;
+}
+
+interface ElevePerksData {
+  heading: string;
+  description: string;
+  perks: Perk[];
+  ctaText: string;
+}
+
+interface ElevePerksProps {
+  data?: ElevePerksData;
+}
+
+const defaultPerksData = [
   {
     title: "Elevé",
     description: "Loyalty should feel as effortless as your travels. With Elevé by Luxufe, every journey brings exclusive benefits, personalised perks, and priority access to unforgettable experiences. Because the more you explore with us, the more rewarding it becomes.",
@@ -45,13 +66,29 @@ const BackgroundPattern = () => (
   />
 );
 
-export default function ElevePerks() {
+export default function ElevePerks({ data }: ElevePerksProps) {
+  // Fallback to hardcoded content if no data is provided
+  const sectionData = data || {
+    heading: "Experience more with Elevé by Luxufe",
+    description: "Loyalty should feel as effortless as your travels. With Elevé by Luxufe, every journey brings exclusive benefits, personalised perks, and priority access to unforgettable experiences.",
+    perks: defaultPerksData.map(perk => ({
+      title: perk.title,
+      description: perk.description,
+      image: {
+        url: perk.imageUrl,
+        alt: perk.title
+      },
+      icon: "star"
+    })),
+    ctaText: "ELEVATE YOUR TRAVEL"
+  };
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const goToPrevious = () => setCurrentIndex(prev => (prev === 0 ? perksData.length - 1 : prev - 1));
-  const goToNext = () => setCurrentIndex(prev => (prev === perksData.length - 1 ? 0 : prev + 1));
+  const goToPrevious = () => setCurrentIndex(prev => (prev === 0 ? sectionData.perks.length - 1 : prev - 1));
+  const goToNext = () => setCurrentIndex(prev => (prev === sectionData.perks.length - 1 ? 0 : prev + 1));
 
-  const currentPerk = perksData[currentIndex];
+  const currentPerk = sectionData.perks[currentIndex];
 
   return (
     <section className="bg-[#1a233a] text-white h-[108vh] relative">
@@ -63,9 +100,9 @@ export default function ElevePerks() {
         <div className="  absolute top-0 -right-36 -translate-y-1/2 -translate-x-1/2 ">
        <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[150px] h-auto" />
       </div>
-          <img src={currentPerk.imageUrl} alt={currentPerk.title} className="w-full h-full object-cover" />
+          <img src={currentPerk.image.url} alt={currentPerk.image.alt} className="w-full h-full object-cover" />
           <div className="absolute top-6 left-6 text-sm font-mono">
-            {String(currentIndex + 1).padStart(2, '0')} / {String(perksData.length).padStart(2, '0')}
+            {String(currentIndex + 1).padStart(2, '0')} / {String(sectionData.perks.length).padStart(2, '0')}
           </div>
           <div className="absolute bottom-6 left-6 flex gap-3">
               <button onClick={goToPrevious} className="bg-white/80 rounded-full p-3 shadow-md hover:bg-white transition">
@@ -84,7 +121,7 @@ export default function ElevePerks() {
                 </h2>
                 <p className="mb-8 font-inter font-bold w-4/5">{currentPerk.description}</p>
                 <ul className="space-y-4 font-inter font-bold text-green-200 opacity-60">
-                    {currentPerk.perks.map((perk, index) => (
+                    {defaultPerksData[currentIndex].perks.map((perk, index) => (
                         <li key={index} className="flex items-center gap-4 border-b border-white/40 pb-4">
                             <Star className="h-5 w-5 " />
                             <span>{perk}</span>
@@ -92,7 +129,7 @@ export default function ElevePerks() {
                     ))}
                 </ul>
                 <button className="mt-10 group font-inter font-bold flex items-center gap-3 text-sm font-semibold tracking-widest border border-white/40 px-6 py-3 hover:bg-white hover:text-[#1a233a] transition-colors">
-                    ELEVATE YOUR TRAVEL
+                    {sectionData.ctaText}
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </button>
             </div>

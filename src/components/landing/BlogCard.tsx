@@ -6,9 +6,18 @@ interface BlogCardProps {
   title: string;
   description: string;
   imageUrl: string;
+  buttonText?: string;
+  buttonLink?: string;
 }
 
-const BlogCard: React.FC<BlogCardProps> = ({ category, title, description, imageUrl }) => {
+const BlogCard: React.FC<BlogCardProps> = ({ 
+  category, 
+  title, 
+  description, 
+  imageUrl, 
+  buttonText = "READ MORE", 
+  buttonLink = "#" 
+}) => {
   return (
     <div className="w-full bg-white border border-gray-200 shadow-xl">
       <img src={imageUrl} alt={title} className=" object-cover" />
@@ -24,8 +33,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ category, title, description, image
           <p className="text-xs text-gray-500 tracking-widest uppercase font-inter font-bold">{category}</p>
           <h3 className="text-xl w-2/4 font-arpona font-bold text-gray-800 mt-2 mb-3 h-16">{title}</h3>
           <p className="text-sm text-gray-600 w-3/4 leading-relaxed h-24 font-inter font-bold mb-4">{description}</p>
-          <a href="#" className="mt-4 text-xs inline-flex items-center gap-2 text-sm font-inter font-bold text-gray-800 hover:underline">
-            READ MORE <ArrowRight className="h-4 w-4" />
+          <a href={buttonLink} className="mt-4 text-xs inline-flex items-center gap-2 text-sm font-inter font-bold text-gray-800 hover:underline">
+            {buttonText} <ArrowRight className="h-4 w-4" />
           </a>
         </div>
       </div>

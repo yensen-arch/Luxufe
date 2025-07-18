@@ -4,7 +4,23 @@ import React, { useState, useEffect, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Star } from 'lucide-react';
 
-const testimonialsData = [
+interface Testimonial {
+  quote: string;
+  author: string;
+  location: string;
+}
+
+interface TestimonialsData {
+  heading: string;
+  description: string;
+  testimonials: Testimonial[];
+}
+
+interface TestimonialsProps {
+  data?: TestimonialsData;
+}
+
+const defaultTestimonialsData = [
   {
     quote: "At Luxufe, our clients' experiences define us. But don't take our word for it. Explore their experiences of effortless journeys, impeccable service, and unforgettable moments.",
     author: "Name Here",
@@ -45,7 +61,14 @@ const TestimonialCard = ({ quote, author, location, isActive }: { quote: string,
   )
 }
 
-export default function Testimonials() {
+export default function Testimonials({ data }: TestimonialsProps) {
+  // Fallback to hardcoded content if no data is provided
+  const sectionData = data || {
+    heading: "Journeys that speak for themselves",
+    description: "At Luxufe, our clients' experiences define us. But don't take our word for it. Explore their experiences of effortless journeys, impeccable service, and unforgettable moments.",
+    testimonials: defaultTestimonialsData
+  };
+
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     loop: true, 
     align: 'center',
@@ -75,12 +98,12 @@ export default function Testimonials() {
         <div className="flex flex-col lg:flex-row justify-between items-start mb-20 max-w-7xl mx-auto">
           <div className="lg:w-1/2 mb-8 lg:mb-0">
             <h2 className="text-5xl lg:text-6xl font-light text-gray-900  font-arpona font-bold">
-              Journeys that speak for themselves
+              {sectionData.heading}
             </h2>
           </div>
           <div className="lg:w-3/8 lg:pl-16">
             <p className="text-lg font-bold font-inter">
-              At Luxufe, our clients' experiences define us. But don't take our word for it. Explore their experiences of effortless journeys, impeccable service, and unforgettable moments.
+              {sectionData.description}
             </p>
           </div>
         </div>
@@ -89,7 +112,7 @@ export default function Testimonials() {
         <div className="max-w-6xl mx-auto">
           <div ref={emblaRef}>
             <div className="flex">
-              {testimonialsData.map((testimonial, index) => (
+              {sectionData.testimonials.map((testimonial, index) => (
                 <div className="flex-[0_0_100%] lg:flex-[0_0_50%] min-w-0 cursor-pointer" key={index}>
                   <TestimonialCard {...testimonial} isActive={index === selectedIndex} />
                 </div>

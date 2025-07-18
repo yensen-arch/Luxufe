@@ -4,7 +4,36 @@ import useEmblaCarousel from "embla-carousel-react"
 import ItineraryCard from "./ItineraryCard"
 import { ArrowLeft, ArrowRight, Star } from "lucide-react"
 
-const itineraries = [
+interface Itinerary {
+  id: string;
+  location: string;
+  nights: number;
+  name: string;
+  description: string;
+  price: number;
+  image: {
+    url: string;
+    alt: string;
+  };
+}
+
+interface CuratedForYouData {
+  title: string;
+  subtitle: string;
+  description: string;
+  features: string[];
+  itineraries: Itinerary[];
+  ctaButtons: Array<{
+    text: string;
+    link: string;
+  }>;
+}
+
+interface CuratedForYouProps {
+  data?: CuratedForYouData;
+}
+
+const defaultItineraries = [
   {
     id: "egypt",
     location: "EGYPT",
@@ -57,7 +86,26 @@ const itineraries = [
   },
 ]
 
-export default function CuratedForYou() {
+export default function CuratedForYou({ data }: CuratedForYouProps) {
+  // Fallback to hardcoded content if no data is provided
+  const sectionData = data || {
+    title: "The world,",
+    subtitle: "curated for you",
+    description: "From iconic landmarks to hidden retreats, Luxufe takes you beyond the expected. Discover travel experiences designed around your desires, where every journey is effortless and immersive.",
+    features: ["Personalised Itineraries", "Insider secrets guaranteed", "World-class Service"],
+    itineraries: defaultItineraries.map(item => ({
+      ...item,
+      image: {
+        url: item.imageUrl,
+        alt: item.name
+      }
+    })),
+    ctaButtons: [
+      { text: "JOURNEYS & TOURS", link: "#" },
+      { text: "MORE WAYS TO TRAVEL", link: "#" }
+    ]
+  };
+
   const [selectedCard, setSelectedCard] = useState<string | null>(null)
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
@@ -74,12 +122,12 @@ export default function CuratedForYou() {
   // Center the selected card when it changes
   useEffect(() => {
     if (emblaApi && selectedCard) {
-      const index = itineraries.findIndex((item) => item.id === selectedCard)
+      const index = sectionData.itineraries.findIndex((item) => item.id === selectedCard)
       if (index !== -1) {
         emblaApi.scrollTo(index)
       }
     }
-  }, [emblaApi, selectedCard])
+  }, [emblaApi, selectedCard, sectionData.itineraries])
 
   return (
     <section className="py-20 my-40 bg-white text-gray-800 relative overflow-hidden">
@@ -87,37 +135,40 @@ export default function CuratedForYou() {
         <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[300px] h-auto" />
       </div>
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-6xl font-arpona ">The world,</h2>
+        <h2 className="text-6xl font-arpona ">{sectionData.title}</h2>
         <h3 className="text-6xl mb-6 font-arpona font-medium">
-          curated for <span className="font-bellarina font-medium text-8xl">you</span>
+          {sectionData.subtitle.split(' ').map((word, index) => (
+            <span key={index}>
+              {word === 'you' ? (
+                <span className="font-bellarina font-medium text-8xl">{word}</span>
+              ) : (
+                word
+              )}
+              {index < sectionData.subtitle.split(' ').length - 1 && ' '}
+            </span>
+          ))}
         </h3>
         <p className="max-w-xl text-black mx-auto my-12 font-inter font-bold">
-          From iconic landmarks to hidden retreats, Luxufe takes you beyond the expected. Discover travel experiences
-          designed around your desires, where every journey is effortless and immersive.
+          {sectionData.description}
         </p>
         <div className="flex justify-center items-center gap-0 mb-16 text-gray-500 font-inter font-bold">
-          <div className="flex items-center gap-2 border-r-2 px-12 py-2 border-amber-400/50">
-            <Star className="h-4 w-4" />
-            <span>Personalised Itineraries</span>
-          </div>
-          <div className="flex items-center gap-2 border-r-2 px-12 py-2 border-amber-400/50">
-            <Star className="h-4 w-4" />
-            <span>Insider secrets guaranteed</span>
-          </div>
-          <div className="flex items-center gap-2 px-12 py-2">
-            <Star className="h-4 w-4" />
-            <span>World-class Service</span>
-          </div>
+          {sectionData.features.map((feature, index) => (
+            <div key={index} className={`flex items-center gap-2 ${index < sectionData.features.length - 1 ? 'border-r-2 px-12 py-2 border-amber-400/50' : 'px-12 py-2'}`}>
+              <Star className="h-4 w-4" />
+              <span>{feature}</span>
+            </div>
+          ))}
         </div>
       </div>
 
       <div className="relative py-10">
         <div ref={emblaRef}>
           <div className="flex">
-            {itineraries.map((item, index) => (
+            {sectionData.itineraries.map((item, index) => (
               <div className="flex-[0_0_auto] min-w-0 " key={item.id}>
                 <ItineraryCard
                   {...item}
+                  imageUrl={item.image.url}
                   isExpanded={selectedCard === item.id}
                   onClick={() => handleCardClick(item.id)}
                 />
@@ -140,12 +191,11 @@ export default function CuratedForYou() {
       </div>
 
       <div className="text-center mt-16 flex justify-center gap-4">
-        <button className="border border-gray-800 text-gray-800 px-6 py-3 hover:bg-gray-800 hover:text-white transition flex items-center gap-2">
-          JOURNEYS & TOURS <ArrowRight className="h-4 w-4" />
-        </button>
-        <button className="border border-gray-800 text-gray-800 px-6 py-3 hover:bg-gray-800 hover:text-white transition flex items-center gap-2">
-          MORE WAYS TO TRAVEL <ArrowRight className="h-4 w-4" />
-        </button>
+        {sectionData.ctaButtons.map((button, index) => (
+          <button key={index} className="border border-gray-800 text-gray-800 px-6 py-3 hover:bg-gray-800 hover:text-white transition flex items-center gap-2">
+            {button.text} <ArrowRight className="h-4 w-4" />
+          </button>
+        ))}
       </div>
     </section>
   )

@@ -12,23 +12,26 @@ import NewsletterSignUp from "@/components/landing/NewsletterSignUp";
 import StartJourney from "@/components/landing/StartJourney";
 import Testimonials from "@/components/landing/Testimonials";
 import Voyages from "@/components/landing/Voyages";
+import { getLandingPageData } from "@/lib/sanity";
 
-export default function Home() {
+export default async function Home() {
+  const landingPageData = await getLandingPageData();
+
   return (
     <main>
       <Navbar />
-      <Hero />
-      <StartJourney />
-      <DiscoverLuxury />
-      <CuratedForYou />
-      <Voyages />
-      <Testimonials />
-      <LuxuryPartners />
-      <ElevePerks />
-      <ExclusiveOffers />
-      <Inspiration />
-      <NewsletterSignUp />
-      <ContactUs />
+      <Hero data={landingPageData?.hero} />
+      <StartJourney data={landingPageData?.startJourney} />
+      <DiscoverLuxury data={landingPageData?.discoverLuxury} />
+      <CuratedForYou data={landingPageData?.curatedForYou} />
+      <Voyages data={landingPageData?.voyages} />
+      <Testimonials data={landingPageData?.testimonials} />
+      <LuxuryPartners data={landingPageData?.luxuryPartners} />
+      <ElevePerks data={landingPageData?.elevePerks} />
+      <ExclusiveOffers data={landingPageData?.exclusiveOffers} />
+      <Inspiration data={landingPageData?.inspiration} />
+      <NewsletterSignUp data={landingPageData?.newsletter} />
+      <ContactUs data={landingPageData?.contactUs} />
       <Footer />
     </main>
   );

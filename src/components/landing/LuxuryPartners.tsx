@@ -3,18 +3,37 @@
 import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 
-const partnersData = {
+interface Partner {
+  name: string;
+  logo: {
+    url: string;
+    alt: string;
+  };
+  description: string;
+}
+
+interface LuxuryPartnersData {
+  heading: string;
+  description: string;
+  partners: Partner[];
+}
+
+interface LuxuryPartnersProps {
+  data?: LuxuryPartnersData;
+}
+
+const defaultPartnersData = {
   'HOTEL PARTNERS': [
     { name: '&BEYOND', logoUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_mjJSw5TamVPloUqcsexkByMBgwdknm4uSa9nG8mQfyU6M=s160-c-k-c0x00ffffff-no-rj' },
-    { name: 'BELMOND', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvZW4vdGh1bWIv/MS8xYy9CZWxtb25k/X0xvZ28ucG5nLzUx/MnB4LUJlbG1vbmRf/TG9nby5wbmc' },
+    { name: 'BELMOND', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvZW4vdGh1bWIvMS8xYy9CZWxtb25kX0xvZ28ucG5nLzUxMnB4LUJlbG1vbmRfTG9nby5wbmc' },
     { name: 'CAPELLA', logoUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_mjJSw5TamVPloUqcsexkByMBgwdknm4uSa9nG8mQfyU6M=s160-c-k-c0x00ffffff-no-rj' },
-    { name: 'Dorchester Collection', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvZW4vdGh1bWIv/MS8xYy9CZWxtb25k/X0xvZ28ucG5nLzUx/MnB4LUJlbG1vbmRf/TG9nby5wbmc' },
+    { name: 'Dorchester Collection', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvZW4vdGh1bWIvMS8xYy9CZWxtb25kX0xvZ28ucG5nLzUxMnB4LUJlbG1vbmRfTG9nby5wbmc' },
     { name: 'CAPELLA 2', logoUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_mjJSw5TamVPloUqcsexkByMBgwdknm4uSa9nG8mQfyU6M=s160-c-k-c0x00ffffff-no-rj' },
-    { name: 'Fairmont', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvZW4vdGh1bWIv/MS8xYy9CZWxtb25k/X0xvZ28ucG5nLzUx/MnB4LUJlbG1vbmRf/TG9nby5wbmc' },
+    { name: 'Fairmont', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvZW4vdGh1bWIvMS8xYy9CZWxtb25kX0xvZ28ucG5nLzUxMnB4LUJlbG1vbmRfTG9nby5wbmc' },
     { name: 'One&Only', logoUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_mjJSw5TamVPloUqcsexkByMBgwdknm4uSa9nG8mQfyU6M=s160-c-k-c0x00ffffff-no-rj' },
-    { name: 'St. Regis', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvZW4vdGh1bWIv/MS8xYy9CZWxtb25k/X0xvZ28ucG5nLzUx/MnB4LUJlbG1vbmRf/TG9nby5wbmc' },
+    { name: 'St. Regis', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvZW4vdGh1bWIvMS8xYy9CZWxtb25kX0xvZ28ucG5nLzUxMnB4LUJlbG1vbmRfTG9nby5wbmc' },
     { name: 'Oetker Collection', logoUrl: 'https://yt3.googleusercontent.com/ytc/AIdro_mjJSw5TamVPloUqcsexkByMBgwdknm4uSa9nG8mQfyU6M=s160-c-k-c0x00ffffff-no-rj' },
-    { name: 'St. Regis 2', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvZW4vdGh1bWIv/MS8xYy9CZWxtb25k/X0xvZ28ucG5nLzUx/MnB4LUJlbG1vbmRf/TG9nby5wbmc' },
+    { name: 'St. Regis 2', logoUrl: 'https://imgs.search.brave.com/AiYi_6N0bNwwy7IxP24suDIAJZe2WIXPqf7X5dqwRHI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvZW4vdGh1bWIvMS8xYy9CZWxtb25kX0xvZ28ucG5nLzUxMnB4LUJlbG1vbmRfTG9nby5wbmc' },
   ],
   'CRUISE LINE PARTNERS': [
     { name: 'Seabourn', logoUrl: 'https://www.logoipsum.com/logo/logo-11.svg' },
@@ -30,17 +49,31 @@ const partnersData = {
   ],
 };
 
-type Tab = keyof typeof partnersData;
+type Tab = keyof typeof defaultPartnersData;
 
-export default function LuxuryPartners() {
+export default function LuxuryPartners({ data }: LuxuryPartnersProps) {
+  // Fallback to hardcoded content if no data is provided
+  const sectionData = data || {
+    heading: "Our trusted, luxury partners",
+    description: "Excellence elevated",
+    partners: defaultPartnersData['HOTEL PARTNERS'].map(partner => ({
+      name: partner.name,
+      logo: {
+        url: partner.logoUrl,
+        alt: partner.name
+      },
+      description: ""
+    }))
+  };
+
   const [activeTab, setActiveTab] = useState<Tab>('HOTEL PARTNERS');
-  const tabs = Object.keys(partnersData) as Tab[];
+  const tabs = Object.keys(defaultPartnersData) as Tab[];
 
   return (
     <section className="bg-gray-50 py-24 text-gray-800">
       <div className="container mx-auto px-4 text-center">
-        <h3 className="text-5xl font-bellarina font-medium text-gray-600 italic mb-6">Excellence elevated</h3>
-        <h2 className="text-6xl font-arpona font-medium my-16">Our trusted, luxury partners</h2>
+        <h3 className="text-5xl font-bellarina font-medium text-gray-600 italic mb-6">{sectionData.description}</h3>
+        <h2 className="text-6xl font-arpona font-medium my-16">{sectionData.heading}</h2>
         
         <div className="flex justify-center mb-12">
           {tabs.map(tab => (
@@ -60,7 +93,7 @@ export default function LuxuryPartners() {
         </div>
 
         <div className="w-3/4 mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-24 items-center justify-items-center">
-          {partnersData[activeTab].map(partner => (
+          {defaultPartnersData[activeTab].map(partner => (
             <div key={partner.name} className="my-2 h-16 flex items-center justify-center">
                <img src={partner.logoUrl} alt={partner.name} className="max-h-full max-w-full h-auto w-auto  opacity-600 transition-all duration-900" />
             </div>

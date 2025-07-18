@@ -3,7 +3,26 @@
 import { useState } from "react"
 import { ArrowLeft, ArrowRight, Anchor } from "lucide-react"
 
-const voyageData = [
+interface Voyage {
+  titlePart1: string;
+  titlePart2: string;
+  description: string;
+  image: {
+    url: string;
+    alt: string;
+  };
+  buttonText: string;
+}
+
+interface VoyagesData {
+  voyages: Voyage[];
+}
+
+interface VoyagesProps {
+  data?: VoyagesData;
+}
+
+const defaultVoyageData = [
   {
     titlePart1: "Unforgettable voyages,",
     titlePart2: "luxury",
@@ -30,7 +49,18 @@ const voyageData = [
   },
 ]
 
-export default function Voyages() {
+export default function Voyages({ data }: VoyagesProps) {
+  // Fallback to hardcoded content if no data is provided
+  const sectionData = data || {
+    voyages: defaultVoyageData.map(voyage => ({
+      ...voyage,
+      image: {
+        url: voyage.imageUrl,
+        alt: voyage.titlePart1
+      }
+    }))
+  };
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(false)
 
@@ -38,7 +68,7 @@ export default function Voyages() {
     if (isTransitioning) return
     setIsTransitioning(true)
     setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex === 0 ? voyageData.length - 1 : prevIndex - 1))
+      setCurrentIndex((prevIndex) => (prevIndex === 0 ? sectionData.voyages.length - 1 : prevIndex - 1))
       setIsTransitioning(false)
     }, 300)
   }
@@ -47,12 +77,12 @@ export default function Voyages() {
     if (isTransitioning) return
     setIsTransitioning(true)
     setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex === voyageData.length - 1 ? 0 : prevIndex + 1))
+      setCurrentIndex((prevIndex) => (prevIndex === sectionData.voyages.length - 1 ? 0 : prevIndex + 1))
       setIsTransitioning(false)
     }, 300)
   }
 
-  const currentVoyage = voyageData[currentIndex]
+  const currentVoyage = sectionData.voyages[currentIndex]
 
   return (
     <section className="py-24 overflow-hidden">
@@ -63,8 +93,8 @@ export default function Voyages() {
           <div className="w-3/6 h-full z-10 ml-20">
             <div className="relative overflow-hidden shadow-2xl">
               <img
-                src={currentVoyage.imageUrl || "/placeholder.svg"}
-                alt={currentVoyage.titlePart1}
+                src={currentVoyage.image.url || "/placeholder.svg"}
+                alt={currentVoyage.image.alt}
                 className={`w-full h-[600px] object-cover transition-all duration-700 ease-in-out ${
                   isTransitioning ? "opacity-0 scale-105" : "opacity-100 scale-100"
                 }`}
