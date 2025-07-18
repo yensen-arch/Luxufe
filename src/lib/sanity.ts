@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -221,12 +221,173 @@ export interface LandingPageData {
   }
 }
 
+export interface AboutPageData {
+  title: string
+  hero: {
+    backgroundImage: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+    subtitle: string
+    title: string
+    description: string
+  }
+  artOfEffortlessTravel: {
+    image: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+    title: string
+    subtitle: string
+    paragraph1: string
+    paragraph2: string
+    badgeImage?: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+  }
+  wallpaper: {
+    image: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+  }
+  luxuryStay: {
+    title: string
+    description: string
+    image: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+  }
+  guidingValues: {
+    title: string
+    subtitle: string
+    values: Array<{
+      title: string
+      highlightedWord: string
+      description: string
+    }>
+  }
+  luxufeStory: {
+    title: string
+    description: string
+    buttonText: string
+    buttonLink?: string
+    image: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+  }
+  recognizedForExcellence: {
+    title: string
+    logos: Array<{
+      image: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+        altText?: string
+      }
+    }>
+  }
+  speakingJourneys: {
+    backgroundImage: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+    title: string
+    description: string
+    testimonials: Array<{
+      quote: string
+      supporting: string
+      name: string
+      avatar?: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+        alt: string
+      }
+    }>
+  }
+  contactUs: {
+    title: string
+    description: string
+    email: string
+    appointmentText: string
+    appointmentLink?: string
+    faqText: string
+    faqLink?: string
+    buttonText: string
+    buttonLink?: string
+  }
+}
+
 export async function getLandingPageData(): Promise<LandingPageData | null> {
   try {
     const data = await client.fetch(landingPageQuery)
     return data
   } catch (error) {
     console.error('Error fetching landing page data:', error)
+    return null
+  }
+}
+
+export async function getAboutPageData(): Promise<AboutPageData | null> {
+  try {
+    const data = await client.fetch(aboutPageQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching about page data:', error)
     return null
   }
 } 

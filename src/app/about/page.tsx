@@ -12,22 +12,25 @@ import ArtOfEffortlessTravel from "@/components/aboutUs/ArtOfEffortlessTravel";
 import RecognizedForExcellence from "@/components/aboutUs/RecognizedForExcellence";
 import LuxufeStory from "@/components/beforeYouTravel/LuxufeStory";
 import SpeakingJourneys from "@/components/aboutUs/SpeakingJourneys";
+import { getAboutPageData } from '@/lib/sanity';
 
-export default function About() {
+export default async function About() {
+  const aboutData = await getAboutPageData();
+
   return (
     <main>
       <Navbar />
-      <AboutHero />
-      <ArtOfEffortlessTravel />
-      <Wallpaper />
-      <LuxuryStay />
-      <GuidingValues />
-      <LuxufeStory />
-      <RecognizedForExcellence />
-      <SpeakingJourneys />
+      <AboutHero data={aboutData?.hero} />
+      <ArtOfEffortlessTravel data={aboutData?.artOfEffortlessTravel} />
+      <Wallpaper data={aboutData?.wallpaper} />
+      <LuxuryStay data={aboutData?.luxuryStay} />
+      <GuidingValues data={aboutData?.guidingValues} />
+      <LuxufeStory data={aboutData?.luxufeStory} />
+      <RecognizedForExcellence data={aboutData?.recognizedForExcellence} />
+      <SpeakingJourneys data={aboutData?.speakingJourneys} />
       <LuxuryPartners />
       <ElevePerks />
-      <ContactUs />
+      <ContactUs data={aboutData?.contactUs} />
       <Footer />
     </main>
   );

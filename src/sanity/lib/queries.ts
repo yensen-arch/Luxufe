@@ -210,4 +210,148 @@ export const landingPageQuery = groq`
       }
     }
   }
+`
+
+export const aboutPageQuery = groq`
+  *[_type == "aboutPage"][0] {
+    title,
+    hero {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      subtitle,
+      title,
+      description
+    },
+    artOfEffortlessTravel {
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      title,
+      subtitle,
+      paragraph1,
+      paragraph2,
+      badgeImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    wallpaper {
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    luxuryStay {
+      title,
+      description,
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    guidingValues {
+      title,
+      subtitle,
+      values[] {
+        title,
+        highlightedWord,
+        description
+      }
+    },
+    luxufeStory {
+      title,
+      description,
+      buttonText,
+      buttonLink,
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    recognizedForExcellence {
+      title,
+      logos[] {
+        image {
+          asset->{
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          altText
+        }
+      }
+    },
+    speakingJourneys {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      title,
+      description,
+      testimonials[] {
+        quote,
+        supporting,
+        name,
+        avatar {
+          asset->{
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        }
+      }
+    },
+    contactUs {
+      title,
+      description,
+      email,
+      appointmentText,
+      appointmentLink,
+      faqText,
+      faqLink,
+      buttonText,
+      buttonLink
+    }
+  }
 ` 
