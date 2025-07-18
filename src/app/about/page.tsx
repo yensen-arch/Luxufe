@@ -12,10 +12,11 @@ import ArtOfEffortlessTravel from "@/components/aboutUs/ArtOfEffortlessTravel";
 import RecognizedForExcellence from "@/components/aboutUs/RecognizedForExcellence";
 import LuxufeStory from "@/components/beforeYouTravel/LuxufeStory";
 import SpeakingJourneys from "@/components/aboutUs/SpeakingJourneys";
-import { getAboutPageData } from '@/lib/sanity';
+import { getAboutPageData, getLandingPageData } from '@/lib/sanity';
 
 export default async function About() {
   const aboutData = await getAboutPageData();
+  const landingData = await getLandingPageData();
 
   return (
     <main>
@@ -28,8 +29,8 @@ export default async function About() {
       <LuxufeStory data={aboutData?.luxufeStory} />
       <RecognizedForExcellence data={aboutData?.recognizedForExcellence} />
       <SpeakingJourneys data={aboutData?.speakingJourneys} />
-      <LuxuryPartners />
-      <ElevePerks />
+      <LuxuryPartners data={landingData?.luxuryPartners} />
+      <ElevePerks data={landingData?.elevePerks} />
       <ContactUs data={aboutData?.contactUs} />
       <Footer />
     </main>
