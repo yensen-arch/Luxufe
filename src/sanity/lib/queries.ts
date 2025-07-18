@@ -434,4 +434,124 @@ export const beforeYouTravelPageQuery = groq`
       buttonLink
     }
   }
+`
+
+export const elevePageQuery = groq`
+  *[_type == "elevePage"][0] {
+    title,
+    hero {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      subtitle,
+      title,
+      buttonText
+    },
+    eleveIntro {
+      brandName,
+      description
+    },
+    whyJoinEleve {
+      title,
+      brandName,
+      items[] {
+        icon,
+        title,
+        content
+      },
+      buttonText
+    },
+    discoverLuxuryEleve {
+      title,
+      description,
+      buttonText,
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    speakingJourneys {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      title,
+      description,
+      testimonials[] {
+        quote,
+        supporting,
+        name,
+        avatar {
+          asset->{
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        }
+      }
+    },
+    elevateTravel {
+      subtitle,
+      title,
+      paragraph1,
+      paragraph2,
+      buttonText,
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    exploreMore {
+      title,
+      subtitle,
+      cards[] {
+        image {
+          asset->{
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        },
+        title,
+        description,
+        cta,
+        href
+      }
+    },
+    becomeMemberModal {
+      title,
+      description,
+      perksTitle,
+      perks,
+      footerText,
+      formTitle,
+      radioOptions,
+      submitButtonText
+    }
+  }
 ` 

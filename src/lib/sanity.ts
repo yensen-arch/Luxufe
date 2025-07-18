@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -474,12 +474,146 @@ export async function getAboutPageData(): Promise<AboutPageData | null> {
   }
 }
 
+export interface ElevePageData {
+  title: string
+  hero: {
+    backgroundImage: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+    subtitle: string
+    title: string
+    buttonText: string
+  }
+  eleveIntro: {
+    brandName: string
+    description: string
+  }
+  whyJoinEleve: {
+    title: string
+    brandName: string
+    items: Array<{
+      icon: string
+      title: string
+      content: string
+    }>
+    buttonText: string
+  }
+  discoverLuxuryEleve: {
+    title: string
+    description: string
+    buttonText: string
+    image: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+  }
+  speakingJourneys: {
+    backgroundImage: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+    title: string
+    description: string
+    testimonials: Array<{
+      quote: string
+      supporting: string
+      name: string
+      avatar?: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+        alt: string
+      }
+    }>
+  }
+  elevateTravel: {
+    subtitle: string
+    title: string
+    paragraph1: string
+    paragraph2: string
+    buttonText: string
+    image: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+  }
+  exploreMore: {
+    title: string
+    subtitle: string
+    cards: Array<{
+      image: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+        alt: string
+      }
+      title: string
+      description: string
+      cta: string
+      href?: string
+    }>
+  }
+  becomeMemberModal: {
+    title: string
+    description: string
+    perksTitle: string
+    perks: string[]
+    footerText?: string
+    formTitle: string
+    radioOptions: string[]
+    submitButtonText: string
+  }
+}
+
 export async function getBeforeYouTravelPageData(): Promise<BeforeYouTravelPageData | null> {
   try {
     const data = await client.fetch(beforeYouTravelPageQuery)
     return data
   } catch (error) {
     console.error('Error fetching before you travel page data:', error)
+    return null
+  }
+}
+
+export async function getElevePageData(): Promise<ElevePageData | null> {
+  try {
+    const data = await client.fetch(elevePageQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching eleve page data:', error)
     return null
   }
 } 
