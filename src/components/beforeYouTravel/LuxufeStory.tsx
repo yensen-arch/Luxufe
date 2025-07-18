@@ -52,7 +52,7 @@ export default function LuxufeStory({ data }: LuxufeStoryProps) {
           {/* Right Image Panel - Offset and overlapping */}
           <div className="absolute right-0 top-26 w-3/7 h-6/6 z-10 min-h-screen">
             <img 
-              src={storyData.image.asset.url}
+              src={storyData.image.url}
               alt={storyData.image.alt}
               className="w-full h-full object-cover shadow-2xl"
             />

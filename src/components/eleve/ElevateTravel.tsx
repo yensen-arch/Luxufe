@@ -62,7 +62,7 @@ export default function ElevateTravel({ data }: ElevateTravelProps) {
           <div className="w-3/7 h-full z-40 mr-20">
             <div className="relative overflow-hidden shadow-2xl">
               <img
-                src={elevateData.image.asset.url}
+                src={elevateData.image.url}
                 alt={elevateData.image.alt}
                 className="w-full h-[600px] object-cover"
               />

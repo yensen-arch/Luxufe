@@ -37,7 +37,7 @@ export default function LuxuryStay({ data }: LuxuryStayProps) {
         {/* Right: Image */}
         <div className="w-1/2 h-full flex justify-center">
           <img
-            src={luxuryData.image.asset.url}
+            src={luxuryData.image.url}
             alt={luxuryData.image.alt}
             className="w-full  object-cover"
           />

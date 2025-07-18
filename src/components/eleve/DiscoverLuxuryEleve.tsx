@@ -52,7 +52,7 @@ export default function DiscoverLuxuryEleve({ data }: DiscoverLuxuryEleveProps) 
           {/* Right Image Panel - Offset and overlapping */}
           <div className="absolute right-0 top-26 w-3/7 h-6/6 z-10 min-h-screen">
             <img 
-              src={discoverData.image.asset.url}
+              src={discoverData.image.url}
               alt={discoverData.image.alt}
               className="w-full h-full object-cover shadow-2xl"
             />
