@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -951,6 +951,36 @@ export async function getContactUsPageData(): Promise<ContactUsPageData | null> 
     return data
   } catch (error) {
     console.error('Error fetching contact us page data:', error)
+    return null
+  }
+}
+
+export interface LinkInBioPageData {
+  title: string
+  hero: {
+    backgroundImage: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+    subtitle: string
+    title: string
+  }
+}
+
+export async function getLinkInBioPageData(): Promise<LinkInBioPageData | null> {
+  try {
+    const data = await client.fetch(linkInBioPageQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching link in bio page data:', error)
     return null
   }
 } 

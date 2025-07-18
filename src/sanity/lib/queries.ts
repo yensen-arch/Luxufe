@@ -817,4 +817,23 @@ export const contactUsPageQuery = groq`
       buttonText
     }
   }
+`
+
+export const linkInBioPageQuery = groq`
+  *[_type == "linkInBioPage"][0] {
+    title,
+    hero {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      subtitle,
+      title
+    }
+  }
 ` 
