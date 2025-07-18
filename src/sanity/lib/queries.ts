@@ -944,4 +944,29 @@ export const notFoundPageQuery = groq`
       }
     }
   }
+`
+
+export const privacyPolicyPageQuery = groq`
+  *[_type == "privacyPolicyPage"][0] {
+    title,
+    hero {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      title
+    },
+    content {
+      sections[] {
+        heading,
+        headingLevel,
+        content
+      }
+    }
+  }
 ` 

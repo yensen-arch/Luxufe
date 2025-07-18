@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery, notFoundPageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery, notFoundPageQuery, privacyPolicyPageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -1120,6 +1120,42 @@ export async function getNotFoundPageData(): Promise<NotFoundPageData | null> {
     return data
   } catch (error) {
     console.error('Error fetching not found page data:', error)
+    return null
+  }
+}
+
+export interface PrivacyPolicyPageData {
+  title: string
+  hero: {
+    backgroundImage: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+    title: string
+  }
+  content: {
+    sections: Array<{
+      heading: string
+      headingLevel: 'h2' | 'h3' | 'h4'
+      content: string
+    }>
+  }
+}
+
+export async function getPrivacyPolicyPageData(): Promise<PrivacyPolicyPageData | null> {
+  try {
+    const data = await client.fetch(privacyPolicyPageQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching privacy policy page data:', error)
     return null
   }
 } 
