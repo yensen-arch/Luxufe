@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -608,12 +608,77 @@ export async function getBeforeYouTravelPageData(): Promise<BeforeYouTravelPageD
   }
 }
 
+export interface StoriesAndInsightsPageData {
+  title: string
+  hero: {
+    backgroundImage: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+    subtitle: string
+    title: string
+    description: string
+  }
+  travelChoice: {
+    title: string
+    description: string
+    socialLinks: Array<{
+      platform: string
+      url?: string
+      enabled: boolean
+    }>
+    image: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+  }
+  effortlessLuxury: {
+    title: string
+    subtitle: string
+    paragraph1: string
+    paragraph2: string
+    buttonText: string
+    image: {
+      url: string
+      metadata: {
+        dimensions: {
+          width: number
+          height: number
+        }
+      }
+      alt: string
+    }
+  }
+}
+
 export async function getElevePageData(): Promise<ElevePageData | null> {
   try {
     const data = await client.fetch(elevePageQuery)
     return data
   } catch (error) {
     console.error('Error fetching eleve page data:', error)
+    return null
+  }
+}
+
+export async function getStoriesAndInsightsPageData(): Promise<StoriesAndInsightsPageData | null> {
+  try {
+    const data = await client.fetch(storiesAndInsightsPageQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching stories and insights page data:', error)
     return null
   }
 } 

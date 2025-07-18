@@ -554,4 +554,58 @@ export const elevePageQuery = groq`
       submitButtonText
     }
   }
+`
+
+export const storiesAndInsightsPageQuery = groq`
+  *[_type == "storiesAndInsightsPage"][0] {
+    title,
+    hero {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      subtitle,
+      title,
+      description
+    },
+    travelChoice {
+      title,
+      description,
+      socialLinks[] {
+        platform,
+        url,
+        enabled
+      },
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    effortlessLuxury {
+      title,
+      subtitle,
+      paragraph1,
+      paragraph2,
+      buttonText,
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    }
+  }
 ` 

@@ -8,7 +8,8 @@ import {landingPageType} from './landingPageType'
 import {aboutPageType} from './aboutPageType'
 import {beforeYouTravelPageType} from './beforeYouTravelPageType'
 import {elevePageType} from './elevePageType'
+import {storiesAndInsightsPageType} from './storiesAndInsightsPageType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blockContentType, categoryType, postType, authorType, landingPageType, aboutPageType, beforeYouTravelPageType, elevePageType],
+  types: [blockContentType, categoryType, postType, authorType, landingPageType, aboutPageType, beforeYouTravelPageType, elevePageType, storiesAndInsightsPageType],
 }
