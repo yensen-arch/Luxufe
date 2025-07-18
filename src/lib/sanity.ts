@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -981,6 +981,100 @@ export async function getLinkInBioPageData(): Promise<LinkInBioPageData | null> 
     return data
   } catch (error) {
     console.error('Error fetching link in bio page data:', error)
+    return null
+  }
+}
+
+export interface WaysToTravelPageData {
+  title: string
+  hero: {
+    backgroundImage: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+    subtitle: string
+    title: string
+  }
+  intro: {
+    description: string
+  }
+  reflectsYou: {
+    title: string
+    subtitle: string
+    description1: string
+    description2: string
+    buttonText: string
+    image: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+  }
+  grid: {
+    subtitle: string
+    title: string
+    description: string
+  }
+  tailorMade: {
+    title: string
+    subtitle: string
+    description: string
+    buttonText: string
+    image: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+  }
+  videoSection: {
+    image: {
+      asset: {
+        url: string
+        metadata: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt: string | null
+    }
+  }
+  findJourney: {
+    title: string
+    description: string
+    buttonText: string
+  }
+}
+
+export async function getWaysToTravelPageData(): Promise<WaysToTravelPageData | null> {
+  try {
+    const data = await client.fetch(waysToTravelPageQuery)
+    return data
+  } catch (error) {
+    console.error('Error fetching ways to travel page data:', error)
     return null
   }
 } 

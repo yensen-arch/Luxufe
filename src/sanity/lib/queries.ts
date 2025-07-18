@@ -836,4 +836,78 @@ export const linkInBioPageQuery = groq`
       title
     }
   }
+`
+
+export const waysToTravelPageQuery = groq`
+  *[_type == "waysToTravelPage"][0] {
+    title,
+    hero {
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      subtitle,
+      title
+    },
+    intro {
+      description
+    },
+    reflectsYou {
+      title,
+      subtitle,
+      description1,
+      description2,
+      buttonText,
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    grid {
+      subtitle,
+      title,
+      description
+    },
+    tailorMade {
+      title,
+      subtitle,
+      description,
+      buttonText,
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    videoSection {
+      image {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    findJourney {
+      title,
+      description,
+      buttonText
+    }
+  }
 ` 

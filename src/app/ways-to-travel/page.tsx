@@ -11,23 +11,30 @@ import WaysToTravelGrid from "@/components/waysToTravel/WaysToTravelGrid";
 import WaysToTravelTailorMade from "@/components/waysToTravel/WaysToTravelTailorMade";
 import WaysToTravelVideoSection from "@/components/waysToTravel/WaysToTravelVideoSection";
 import WaysToTravelFindJourney from "@/components/waysToTravel/WaysToTravelFindJourney";
+import { getWaysToTravelPageData, getLandingPageData } from "@/lib/sanity";
 
-const Page = () => {
+const Page = async () => {
+  // Fetch data from Sanity CMS for both ways-to-travel page and landing page
+  const [pageData, landingData] = await Promise.all([
+    getWaysToTravelPageData(),
+    getLandingPageData()
+  ]);
+
   return (
     <main className="relative">
       <Navbar />
-      <WaysToTravelHero />
-      <WaysToTravelIntro />
-      <WaysToTravelReflectsYou />
-      <WaysToTravelGrid />
-      <WaysToTravelTailorMade />
+      <WaysToTravelHero data={pageData?.hero} />
+      <WaysToTravelIntro data={pageData?.intro} />
+      <WaysToTravelReflectsYou data={pageData?.reflectsYou} />
+      <WaysToTravelGrid data={pageData?.grid} />
+      <WaysToTravelTailorMade data={pageData?.tailorMade} />
       <div className="relative min-h-[600px]">
-        <WaysToTravelVideoSection />
-        <Testimonials />
+        <WaysToTravelVideoSection data={pageData?.videoSection} />
+        <Testimonials data={landingData?.testimonials} />
       </div>
-      <WaysToTravelFindJourney />
-      <ElevePerks />
-      <NewsletterSignUp/>
+      <WaysToTravelFindJourney data={pageData?.findJourney} />
+      <ElevePerks data={landingData?.elevePerks} />
+      <NewsletterSignUp data={landingData?.newsletter} />
       <ContactUsJourneys />
       <Footer />
     </main>

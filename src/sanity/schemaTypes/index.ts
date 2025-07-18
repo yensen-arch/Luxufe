@@ -14,7 +14,8 @@ import {blogPageType} from './blogPageType'
 import {tailorMadeTravelPageType} from './tailorMadeTravelPageType'
 import {contactUsPageType} from './contactUsPageType'
 import {linkInBioPageType} from './linkInBioPageType'
+import {waysToTravelPageType} from './waysToTravelPageType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blockContentType, categoryType, postType, authorType, landingPageType, aboutPageType, beforeYouTravelPageType, elevePageType, storiesAndInsightsPageType, experienceMorePageType, blogPageType, tailorMadeTravelPageType, contactUsPageType, linkInBioPageType],
+  types: [blockContentType, categoryType, postType, authorType, landingPageType, aboutPageType, beforeYouTravelPageType, elevePageType, storiesAndInsightsPageType, experienceMorePageType, blogPageType, tailorMadeTravelPageType, contactUsPageType, linkInBioPageType, waysToTravelPageType],
 }

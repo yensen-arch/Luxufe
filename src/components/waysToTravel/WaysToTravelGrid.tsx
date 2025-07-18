@@ -1,6 +1,14 @@
 import React from "react";
 import Image from "next/image";
 
+interface WaysToTravelGridProps {
+  data?: {
+    subtitle: string;
+    title: string;
+    description: string;
+  };
+}
+
 const journeys = [
   {
     image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80",
@@ -57,15 +65,20 @@ const journeys = [
   // Add more cards as needed
 ];
 
-export default function WaysToTravelGrid() {
+export default function WaysToTravelGrid({ data }: WaysToTravelGridProps) {
+  // Use data from CMS if available, otherwise fall back to hardcoded content
+  const displaySubtitle = data?.subtitle || "Ways to Travel";
+  const displayTitle = data?.title || "Your journey, your way.";
+  const displayDescription = data?.description || "Travel is personal. We all have different wants, needs, and desires when we consider where, when, and how you travel. Let Luxufe tailor your next travel experience for you.";
+
   return (
     <section className="bg-white py-24 flex flex-col items-center">
       {/* Heading Section */}
       <div className="mb-16 text-center">
-        <p className="text-3xl md:text-5xl font-bellarina mb-2">Ways to Travel</p>
-        <h2 className="text-5xl md:text-6xl font-arpona font-bold mb-6">Your journey, your way.</h2>
+        <p className="text-3xl md:text-5xl font-bellarina mb-2">{displaySubtitle}</p>
+        <h2 className="text-5xl md:text-6xl font-arpona font-bold mb-6">{displayTitle}</h2>
         <p className="text-lg md:text-md font-inter font-bold text-[#23263a] max-w-2/5 mx-auto">
-          Travel is personal. We all have different wants, needs, and desires when we consider where, when, and how you travel. Let Luxufe tailor your next travel experience for you.
+          {displayDescription}
         </p>
       </div>
       {/* Grid Section */}
