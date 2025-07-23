@@ -3,41 +3,45 @@ import React from "react";
 interface SeamlessWayProps {
   data?: {
     image: {
-      url: string
-      alt: string
-    }
-    title: string
-    subtitle: string
-    paragraph1: string
-    paragraph2: string
+      url: string;
+      alt: string;
+    };
+    title: string;
+    subtitle: string;
+    paragraph1: string;
+    paragraph2: string;
     badgeImage?: {
-      url: string
-      alt: string
-    }
-  }
-}
-
-const sectionData = {
-    title: 'The Art of Effortless Travel',
-    subtitle: 'We believe that true luxury lies in the details, where every moment is seamlessly orchestrated and every journey is as effortless as it is extraordinary.',
-    paragraph1: 'More than just a travel service, we are curators of experience, ensuring that each trip is tailored with precision, care, and an uncompromising commitment to excellence.\nOur philosophy is built on three core pillars: Care, Comfort, and Consistency.',
-    paragraph2: 'From anticipating a client\'s needs before they arise to ensuring smooth transitions between destinations, we want to eliminate friction and enhance the joy of discovery in every journey.',
-    badgeImage: {
-      url: 'https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png',
-      alt: 'Luxufe Badge'
-    },
-    buttonText: 'Get Started'
-  }
+      url: string;
+      alt: string;
+    };
+    buttonText?: string;
+  };
 }
 
 export default function SeamlessWay({ data }: SeamlessWayProps) {
   // Fallback data if no Sanity data is provided
-  const sectionData = data || {
+  const sectionData = {
     image: {
       url: 'https://picsum.photos/seed/resort-pool/1000/1200',
-      alt: 'Effortless Travel'
-    }
-  }
+      alt: 'Effortless Travel',
+      ...(data?.image || {})
+    },
+    title: data?.title || 'The Art of Effortless Travel',
+    subtitle:
+      data?.subtitle ||
+      'We believe that true luxury lies in the details, where every moment is seamlessly orchestrated and every journey is as effortless as it is extraordinary.',
+    paragraph1:
+      data?.paragraph1 ||
+      'More than just a travel service, we are curators of experience, ensuring that each trip is tailored with precision, care, and an uncompromising commitment to excellence.\nOur philosophy is built on three core pillars: Care, Comfort, and Consistency.',
+    paragraph2:
+      data?.paragraph2 ||
+      "From anticipating a client's needs before they arise to ensuring smooth transitions between destinations, we want to eliminate friction and enhance the joy of discovery in every journey.",
+    badgeImage: data?.badgeImage || {
+      url: 'https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png',
+      alt: 'Luxufe Badge',
+    },
+    buttonText: data?.buttonText || 'Get Started',
+  };
 
   return (
     <section className="bg-white flex justify-center items-stretch mt-60 mb-20 h-[120vh]">
