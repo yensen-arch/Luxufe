@@ -1,12 +1,12 @@
 import React from "react";
-import OffersFilterSidebar from "@/components/offers-and-promos/OffersFilterSidebar";
-import OffersGrid from "@/components/offers-and-promos/OffersGrid";
+import BrandSidebar from "@/components/brand/BrandSidebar";
+import BrandGrid from "@/components/brand/BrandGrid";
 
 const BrandMain = () => {
   return (
     <div className="flex flex-col md:flex-row">
-      <OffersFilterSidebar />
-      <OffersGrid />
+      <BrandSidebar />
+      <BrandGrid />
     </div>
   );
 };
