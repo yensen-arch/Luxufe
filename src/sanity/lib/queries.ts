@@ -1039,4 +1039,18 @@ export const searchPageQuery = groq`
       searchPlaceholder
     }
   }
+`
+
+export const tripWizardPageQuery = groq`
+  *[_type == "tripWizardPage"][0] {
+    title,
+    stepper {
+      question,
+      options[] {
+        label,
+        iconUrl
+      },
+      progress
+    }
+  }
 ` 

@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery, notFoundPageQuery, privacyPolicyPageQuery, paymentsPageQuery, membersLoginPageQuery, searchPageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery, notFoundPageQuery, privacyPolicyPageQuery, paymentsPageQuery, membersLoginPageQuery, searchPageQuery, tripWizardPageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -1247,6 +1247,28 @@ export async function getSearchPageData(): Promise<SearchPageData | null> {
     return data;
   } catch (error) {
     console.error('Error fetching search page data:', error);
+    return null;
+  }
+}
+
+export interface TripWizardPageData {
+  title: string;
+  stepper: {
+    question: string;
+    options: Array<{
+      label: string;
+      iconUrl?: string;
+    }>;
+    progress: number;
+  };
+}
+
+export async function getTripWizardPageData(): Promise<TripWizardPageData | null> {
+  try {
+    const data = await client.fetch(tripWizardPageQuery);
+    return data;
+  } catch (error) {
+    console.error('Error fetching trip wizard page data:', error);
     return null;
   }
 } 
