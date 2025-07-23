@@ -4,17 +4,22 @@ import ContactUsJourneys from '@/components/landing/ContactUsJourneys'
 import NewsletterSignUp from '@/components/landing/NewsletterSignUp'
 import SearchHero from '@/components/search/SearchHero'
 import SearchMain from '@/components/search/SearchMain'
+import { getSearchPageData, getLandingPageData } from '@/lib/sanity'
 
-const SearchPage = () => {
+const SearchPage = async () => {
+  const [searchData, landingData] = await Promise.all([
+    getSearchPageData(),
+    getLandingPageData(),
+  ]);
   return (
-    <div>
-        <Navbar />
-        <SearchHero />
-        <SearchMain />
-        <NewsletterSignUp />
-        <ContactUsJourneys />
-        <Footer />
-    </div>
+    <main>
+      <Navbar />
+      <SearchHero data={searchData?.hero} />
+      <SearchMain />
+      <NewsletterSignUp data={landingData?.newsletter} />
+      <ContactUsJourneys />
+      <Footer />
+    </main>
   )
 }
 

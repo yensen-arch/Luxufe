@@ -1021,4 +1021,22 @@ export const membersLoginPageQuery = groq`
       contactLinkHref
     }
   }
+`
+
+export const searchPageQuery = groq`
+  *[_type == "searchPage"][0] {
+    title,
+    hero {
+      backgroundImage {
+        asset->{
+          url,
+          metadata { dimensions }
+        },
+        alt
+      },
+      title,
+      description,
+      searchPlaceholder
+    }
+  }
 ` 

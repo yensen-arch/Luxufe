@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery, notFoundPageQuery, privacyPolicyPageQuery, paymentsPageQuery, membersLoginPageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery, notFoundPageQuery, privacyPolicyPageQuery, paymentsPageQuery, membersLoginPageQuery, searchPageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -1224,6 +1224,29 @@ export async function getMembersLoginPageData(): Promise<MembersLoginPageData | 
     return data;
   } catch (error) {
     console.error('Error fetching members login page data:', error);
+    return null;
+  }
+}
+
+export interface SearchPageData {
+  title: string;
+  hero: {
+    backgroundImage: {
+      url: string;
+      alt?: string;
+    };
+    title?: string;
+    description?: string;
+    searchPlaceholder?: string;
+  };
+}
+
+export async function getSearchPageData(): Promise<SearchPageData | null> {
+  try {
+    const data = await client.fetch(searchPageQuery);
+    return data;
+  } catch (error) {
+    console.error('Error fetching search page data:', error);
     return null;
   }
 } 
