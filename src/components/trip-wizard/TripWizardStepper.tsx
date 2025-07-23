@@ -8,7 +8,7 @@ interface Option {
 
 interface TripWizardStepperProps {
   question: string;
-  options: Option[];
+  options?: Option[];
   progress: number; // 0 to 1
   onNext?: (selected: Option | null) => void;
 }
@@ -24,10 +24,19 @@ const defaultOptions: Option[] = [
 
 const TripWizardStepper: React.FC<TripWizardStepperProps> = ({
   question,
-  options = defaultOptions,
+  options,
   progress = 0.2,
   onNext,
 }) => {
+  // Always use 6 options for the grid
+  let gridOptions: Option[] = [];
+  if (options && options.length === 6) {
+    gridOptions = options;
+  } else if (options && options.length > 0) {
+    gridOptions = [...options, ...defaultOptions].slice(0, 6);
+  } else {
+    gridOptions = defaultOptions;
+  }
   const [selectedIdx, setSelectedIdx] = useState<number | null>(0);
 
   return (
@@ -37,7 +46,7 @@ const TripWizardStepper: React.FC<TripWizardStepperProps> = ({
           {question}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-12">
-          {options.map((option, idx) => (
+          {gridOptions.map((option, idx) => (
             <button
               key={option.label}
               className={`flex flex-col items-center justify-center border-2 rounded-none bg-white px-8 py-10 shadow-sm transition-all duration-200 text-[#23263a] text-lg font-inter font-semibold min-h-[160px] border-gray-200 hover:border-[#a8d1cf] focus:outline-none ${
@@ -60,7 +69,7 @@ const TripWizardStepper: React.FC<TripWizardStepperProps> = ({
         </div>
         <button
           className="mt-4 px-10 py-4 border border-gray-300 bg-white text-[#23263a] font-inter font-semibold text-base tracking-widest flex items-center gap-2 hover:bg-gray-100 transition-all"
-          onClick={() => onNext?.(selectedIdx !== null ? options[selectedIdx] : null)}
+          onClick={() => onNext?.(selectedIdx !== null ? gridOptions[selectedIdx] : null)}
         >
           NEXT QUESTION
           <span>
