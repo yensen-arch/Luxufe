@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery, notFoundPageQuery, privacyPolicyPageQuery, paymentsPageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery, notFoundPageQuery, privacyPolicyPageQuery, paymentsPageQuery, membersLoginPageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -1195,6 +1195,35 @@ export async function getPaymentsPageData(): Promise<PaymentsPageData | null> {
     return data;
   } catch (error) {
     console.error('Error fetching payments page data:', error);
+    return null;
+  }
+}
+
+export interface MembersLoginPageData {
+  title: string;
+  hero: {
+    leftImage: {
+      url: string;
+      alt?: string;
+    };
+    scriptText?: string;
+    heading?: string;
+    description?: string;
+    emailPlaceholder?: string;
+    passwordPlaceholder?: string;
+    buttonText?: string;
+    belowText?: string;
+    contactLinkText?: string;
+    contactLinkHref?: string;
+  };
+}
+
+export async function getMembersLoginPageData(): Promise<MembersLoginPageData | null> {
+  try {
+    const data = await client.fetch(membersLoginPageQuery);
+    return data;
+  } catch (error) {
+    console.error('Error fetching members login page data:', error);
     return null;
   }
 } 

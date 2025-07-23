@@ -997,4 +997,28 @@ export const paymentsPageQuery = groq`
       }
     }
   }
+`
+
+export const membersLoginPageQuery = groq`
+  *[_type == "membersLoginPage"][0] {
+    title,
+    hero {
+      leftImage {
+        asset->{
+          url,
+          metadata { dimensions }
+        },
+        alt
+      },
+      scriptText,
+      heading,
+      description,
+      emailPlaceholder,
+      passwordPlaceholder,
+      buttonText,
+      belowText,
+      contactLinkText,
+      contactLinkHref
+    }
+  }
 ` 

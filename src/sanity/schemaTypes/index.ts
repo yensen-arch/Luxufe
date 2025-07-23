@@ -18,7 +18,8 @@ import {waysToTravelPageType} from './waysToTravelPageType'
 import {notFoundPageType} from './notFoundPageType'
 import {privacyPolicyPageType} from './privacyPolicyPageType'
 import {paymentsPageType} from './paymentsPageType'
+import {membersLoginPageType} from './membersLoginPageType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blockContentType, categoryType, postType, authorType, landingPageType, aboutPageType, beforeYouTravelPageType, elevePageType, storiesAndInsightsPageType, experienceMorePageType, blogPageType, tailorMadeTravelPageType, contactUsPageType, linkInBioPageType, waysToTravelPageType, notFoundPageType, privacyPolicyPageType, paymentsPageType],
+  types: [blockContentType, categoryType, postType, authorType, landingPageType, aboutPageType, beforeYouTravelPageType, elevePageType, storiesAndInsightsPageType, experienceMorePageType, blogPageType, tailorMadeTravelPageType, contactUsPageType, linkInBioPageType, waysToTravelPageType, notFoundPageType, privacyPolicyPageType, paymentsPageType, membersLoginPageType],
 }
