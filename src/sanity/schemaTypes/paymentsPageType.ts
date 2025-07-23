@@ -46,6 +46,55 @@ export const paymentsPageType = defineType({
         }),
       ],
     }),
+    defineField({
+      name: 'paymentsAccordion',
+      title: 'Payments Accordion',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'heading',
+          title: 'Heading',
+          type: 'string',
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+        }),
+        defineField({
+          name: 'buttonText',
+          title: 'Button Text',
+          type: 'string',
+        }),
+        defineField({
+          name: 'buttonLink',
+          title: 'Button Link',
+          type: 'string',
+        }),
+        defineField({
+          name: 'items',
+          title: 'Accordion Items',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'title',
+                  title: 'Title',
+                  type: 'string',
+                }),
+                defineField({
+                  name: 'content',
+                  title: 'Content',
+                  type: 'text',
+                }),
+              ],
+            },
+          ],
+        }),
+      ],
+    }),
   ],
   preview: {
     select: {

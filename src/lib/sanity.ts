@@ -1177,6 +1177,16 @@ export interface PaymentsPageData {
     title: string;
     description: string;
   };
+  paymentsAccordion?: {
+    heading?: string;
+    description?: string;
+    buttonText?: string;
+    buttonLink?: string;
+    items: Array<{
+      title: string;
+      content: string;
+    }>;
+  };
 }
 
 export async function getPaymentsPageData(): Promise<PaymentsPageData | null> {

@@ -13,7 +13,7 @@ const PaymentsPage = async () => {
       <Navbar />
       <PaymentsHero data={paymentsData?.hero} />
       <PaymentsDisplay />
-      <PaymentsAccordion />
+      <PaymentsAccordion data={paymentsData?.paymentsAccordion} />
       <ContactUs />
       <Footer />
     </main>

@@ -985,6 +985,16 @@ export const paymentsPageQuery = groq`
       subtitle,
       title,
       description
+    },
+    paymentsAccordion {
+      heading,
+      description,
+      buttonText,
+      buttonLink,
+      items[] {
+        title,
+        content
+      }
     }
   }
 ` 
