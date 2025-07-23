@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery, notFoundPageQuery, privacyPolicyPageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery, notFoundPageQuery, privacyPolicyPageQuery, paymentsPageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -1157,5 +1157,34 @@ export async function getPrivacyPolicyPageData(): Promise<PrivacyPolicyPageData 
   } catch (error) {
     console.error('Error fetching privacy policy page data:', error)
     return null
+  }
+}
+
+export interface PaymentsPageData {
+  title: string;
+  hero: {
+    backgroundImage: {
+      url: string;
+      metadata: {
+        dimensions: {
+          width: number;
+          height: number;
+        };
+      };
+      alt: string | null;
+    };
+    subtitle: string;
+    title: string;
+    description: string;
+  };
+}
+
+export async function getPaymentsPageData(): Promise<PaymentsPageData | null> {
+  try {
+    const data = await client.fetch(paymentsPageQuery);
+    return data;
+  } catch (error) {
+    console.error('Error fetching payments page data:', error);
+    return null;
   }
 } 

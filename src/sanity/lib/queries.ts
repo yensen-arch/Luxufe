@@ -969,4 +969,22 @@ export const privacyPolicyPageQuery = groq`
       }
     }
   }
+`
+
+export const paymentsPageQuery = groq`
+  *[_type == "paymentsPage"][0] {
+    title,
+    hero {
+      backgroundImage {
+        asset->{
+          url,
+          metadata { dimensions }
+        },
+        alt
+      },
+      subtitle,
+      title,
+      description
+    }
+  }
 ` 
