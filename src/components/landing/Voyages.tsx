@@ -85,17 +85,17 @@ export default function Voyages({ data }: VoyagesProps) {
   const currentVoyage = sectionData.voyages[currentIndex]
 
   return (
-    <section className="py-24 overflow-hidden">
-      <div className="container mx-auto">
-        <div className="relative flex flex-col lg:flex-row items-center lg:justify-start min-h-[650px]">
+    <section className="py-12 lg:py-24 overflow-hidden">
+      <div className="container mx-auto px-4 lg:px-0">
+        <div className="relative flex flex-col lg:flex-row items-center lg:justify-start min-h-[400px] lg:min-h-[650px]">
           
           {/* Image Section */}
-          <div className="w-3/6 h-full z-10 ml-20">
+          <div className="w-full lg:w-3/6 h-full z-10 lg:ml-20 order-2 lg:order-1">
             <div className="relative overflow-hidden shadow-2xl">
               <img
                 src={currentVoyage.image.url || "/placeholder.svg"}
                 alt={currentVoyage.image.alt}
-                className={`w-full h-[600px] object-cover transition-all duration-700 ease-in-out ${
+                className={`w-full h-[300px] lg:h-[600px] object-cover transition-all duration-700 ease-in-out ${
                   isTransitioning ? "opacity-0 scale-105" : "opacity-100 scale-100"
                 }`}
               />
@@ -120,30 +120,52 @@ export default function Voyages({ data }: VoyagesProps) {
             </button>
           </div>
 
+          {/* Mobile Navigation Dots - Only visible on mobile */}
+          <div className="flex justify-center gap-2 mt-4 lg:hidden order-3">
+            {sectionData.voyages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  if (isTransitioning) return
+                  setIsTransitioning(true)
+                  setTimeout(() => {
+                    setCurrentIndex(index)
+                    setIsTransitioning(false)
+                  }, 300)
+                }}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === currentIndex ? 'bg-gray-900 w-6' : 'bg-gray-300'
+                }`}
+                disabled={isTransitioning}
+              />
+            ))}
+          </div>
+
           {/* Content Section */}
-          <div className="bg-gray-100 w-6/8 mt-8 h-screen lg:mt-0 lg:absolute lg:right-0 p-12">
+          <div className="bg-gray-100 w-full lg:w-6/8 mt-6 lg:mt-0 lg:absolute lg:right-0 p-6 lg:p-12 order-1 lg:order-2">
             <div
               className={`transition-all duration-700 ease-in-out  ${
                 isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
               }`}
             >
-              <div className="w-1/2 ml-auto">
-              <div className="inline-flex items-center justify-center w-16 h-16 border border-gray-300 rounded-full mb-8">
-                <Anchor className="h-7 w-7 text-gray-600" />
-              </div>
+              <div className="w-full lg:w-1/2 lg:ml-auto">
+                {/* Icon - Hidden on mobile for cleaner look */}
+                <div className="hidden lg:inline-flex items-center justify-center w-16 h-16 border border-gray-300 rounded-full mb-8">
+                  <Anchor className="h-7 w-7 text-gray-600" />
+                </div>
 
-              <h2 className="text-4xl ml-auto lg:text-5xl font-light leading-tight mb-8 text-gray-900 font-arpona">
-                {currentVoyage.titlePart1}
-                <br />
-                unparalleled <span className="italic font-serif text-7xl font-bellarina ">{currentVoyage.titlePart2}</span>
-              </h2>
+                <h2 className="text-2xl lg:text-4xl xl:text-5xl font-light leading-tight mb-4 lg:mb-8 text-gray-900 font-arpona lg:ml-auto">
+                  {currentVoyage.titlePart1}
+                  <br />
+                  unparalleled <span className="italic font-serif text-3xl lg:text-6xl xl:text-7xl font-bellarina ">{currentVoyage.titlePart2}</span>
+                </h2>
 
-              <p className="text-lg leading-relaxed mb-10 max-w-lg font-inter font-bold">{currentVoyage.description}</p>
+                <p className="text-base lg:text-lg leading-relaxed mb-6 lg:mb-10 max-w-full lg:max-w-lg font-inter font-bold">{currentVoyage.description}</p>
 
-              <button className="group inline-flex items-center gap-3 text-sm font-semibold tracking-widest border border-gray-400 px-8 py-4 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 font-inter font-bold">
-                {currentVoyage.buttonText}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </button>
+                <button className="group inline-flex items-center gap-3 text-xs lg:text-sm font-semibold tracking-widest border border-gray-400 px-6 lg:px-8 py-3 lg:py-4 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 font-inter font-bold">
+                  {currentVoyage.buttonText}
+                  <ArrowRight className="h-3 w-3 lg:h-4 lg:w-4 transition-transform group-hover:translate-x-1" />
+                </button>
               </div>
             </div>
           </div>
