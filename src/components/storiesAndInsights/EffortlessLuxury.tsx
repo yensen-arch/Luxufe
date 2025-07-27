@@ -31,34 +31,34 @@ export default function EffortlessLuxury({ data }: EffortlessLuxuryProps) {
   const luxuryData = data || fallbackData
 
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-12 md:py-16 lg:py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         {/* Heading */}
-        <h2 className="text-4xl md:text-5xl w-8xl font-arpona font-bold text-[#23263a] mb-16">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl w-full lg:w-8xl font-arpona font-bold text-[#23263a] mb-8 md:mb-12 lg:mb-16">
           {luxuryData.title}
         </h2>
         {/* Content Row */}
-        <div className="flex flex-col md:flex-row items-start gap-12">
+        <div className="flex flex-col lg:flex-row items-start gap-6 md:gap-8 lg:gap-12">
           {/* Left: Image */}
-          <div className="md:w-1/2 w-full flex-shrink-0">
+          <div className="w-full lg:w-1/2 flex-shrink-0 order-1 lg:order-1">
             <img
               src={luxuryData.image.url}
               alt={luxuryData.image.alt}
-              className="w-full h-[340px] md:h-[500px] object-cover "
+              className="w-full h-[250px] md:h-[300px] lg:h-[340px] xl:h-[500px] object-cover"
             />
           </div>
           {/* Right: Text */}
-          <div className="md:w-1/2 w-full flex flex-col justify-center my-auto ml-10">
-            <h3 className="text-4xl md:text-3xl font-arpona font-bold text-[#23263a] mb-8">
+          <div className="w-full lg:w-1/2 flex flex-col justify-center my-auto lg:ml-10 order-2 lg:order-2">
+            <h3 className="text-2xl md:text-3xl lg:text-4xl font-arpona font-bold text-[#23263a] mb-4 md:mb-6 lg:mb-8">
               {luxuryData.subtitle}
             </h3>
-            <p className="font-inter text-[#23263a] md:text-md mb-4 w-6/8 font-bold">
+            <p className="font-inter text-[#23263a] text-sm md:text-base lg:text-md mb-3 md:mb-4 w-full lg:w-6/8 font-bold">
               {luxuryData.paragraph1}
             </p>
-            <p className="font-inter text-[#23263a] md:text-md mb-8 w-6/8 font-bold">
+            <p className="font-inter text-[#23263a] text-sm md:text-base lg:text-md mb-6 md:mb-7 lg:mb-8 w-full lg:w-6/8 font-bold">
               {luxuryData.paragraph2}
             </p>
-            <button className="border text-xs border-slate-300 px-8 py-4 font-inter font-semibold text-[#23263a] flex items-center gap-2 w-fit hover:bg-black hover:text-white transition-colors">
+            <button className="border text-xs border-slate-300 px-4 md:px-6 lg:px-8 py-3 md:py-4 font-inter font-semibold text-[#23263a] flex items-center gap-2 w-fit hover:bg-black hover:text-white transition-colors">
               {luxuryData.buttonText}
               <span className="ml-2">&rarr;</span>
             </button>
