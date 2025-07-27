@@ -130,17 +130,18 @@ export default function CuratedForYou({ data }: CuratedForYouProps) {
   }, [emblaApi, selectedCard, sectionData.itineraries])
 
   return (
-    <section className="py-20 my-40 bg-white text-gray-800 relative overflow-hidden">
-      <div className="absolute top-30 left-10 -translate-y-1/2 -translate-x-1/2 opacity-30">
+    <section className="py-12 md:py-16 lg:py-20 my-20 md:my-32 lg:my-40 bg-white text-gray-800 relative overflow-hidden">
+      {/* Badge Logo - Hidden on mobile for cleaner look */}
+      <div className="hidden lg:block absolute top-30 left-10 -translate-y-1/2 -translate-x-1/2 opacity-30">
         <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[300px] h-auto" />
       </div>
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-6xl font-arpona ">{sectionData.title}</h2>
-        <h3 className="text-6xl mb-6 font-arpona font-medium">
+        <h2 className="text-3xl md:text-4xl lg:text-6xl font-arpona">{sectionData.title}</h2>
+        <h3 className="text-3xl md:text-4xl lg:text-6xl mb-4 md:mb-6 font-arpona font-medium">
           {sectionData.subtitle.split(' ').map((word, index) => (
             <span key={index}>
               {word === 'you' ? (
-                <span className="font-bellarina font-medium text-8xl">{word}</span>
+                <span className="font-bellarina font-medium text-4xl md:text-6xl lg:text-8xl">{word}</span>
               ) : (
                 word
               )}
@@ -148,20 +149,21 @@ export default function CuratedForYou({ data }: CuratedForYouProps) {
             </span>
           ))}
         </h3>
-        <p className="max-w-xl text-black mx-auto my-12 font-inter font-bold">
+        <p className="max-w-xl text-black mx-auto my-8 md:my-10 lg:my-12 font-inter font-bold text-sm md:text-base">
           {sectionData.description}
         </p>
-        <div className="flex justify-center items-center gap-0 mb-16 text-gray-500 font-inter font-bold">
+        {/* Features - Hidden on mobile for cleaner look */}
+        <div className="hidden md:flex justify-center items-center gap-0 mb-12 lg:mb-16 text-gray-500 font-inter font-bold">
           {sectionData.features.map((feature, index) => (
-            <div key={index} className={`flex items-center gap-2 ${index < sectionData.features.length - 1 ? 'border-r-2 px-12 py-2 border-amber-400/50' : 'px-12 py-2'}`}>
+            <div key={index} className={`flex items-center gap-2 ${index < sectionData.features.length - 1 ? 'border-r-2 px-8 lg:px-12 py-2 border-amber-400/50' : 'px-8 lg:px-12 py-2'}`}>
               <Star className="h-4 w-4" />
-              <span>{feature}</span>
+              <span className="text-sm lg:text-base">{feature}</span>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="relative py-10">
+      <div className="relative py-6 md:py-8 lg:py-10">
         <div ref={emblaRef}>
           <div className="flex">
             {sectionData.itineraries.map((item, index) => (
@@ -176,24 +178,25 @@ export default function CuratedForYou({ data }: CuratedForYouProps) {
             ))}
           </div>
         </div>
+        {/* Navigation arrows - Hidden on mobile for cleaner look */}
         <button
           onClick={scrollPrev}
-          className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/80 rounded-full p-5 shadow-md hover:bg-white z-0 transition-colors"
+          className="hidden md:block absolute top-1/2 left-4 -translate-y-1/2 bg-white/80 rounded-full p-3 md:p-4 lg:p-5 shadow-md hover:bg-white z-0 transition-colors"
         >
-          <ArrowLeft className="h-6 w-6 text-gray-800" />
+          <ArrowLeft className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
         </button>
         <button
           onClick={scrollNext}
-          className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 rounded-full p-5 shadow-md hover:bg-white z-0 transition-colors"
+          className="hidden md:block absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 rounded-full p-3 md:p-4 lg:p-5 shadow-md hover:bg-white z-0 transition-colors"
         >
-          <ArrowRight className="h-6 w-6 text-gray-800" />
+          <ArrowRight className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
         </button>
       </div>
 
-      <div className="text-center mt-16 flex justify-center gap-4">
+      <div className="text-center mt-8 md:mt-12 lg:mt-16 flex flex-col md:flex-row justify-center gap-3 md:gap-4 px-4">
         {sectionData.ctaButtons.map((button, index) => (
-          <button key={index} className="border border-gray-800 text-gray-800 px-6 py-3 hover:bg-gray-800 hover:text-white transition flex items-center gap-2">
-            {button.text} <ArrowRight className="h-4 w-4" />
+          <button key={index} className="border border-gray-800 text-gray-800 px-4 md:px-6 py-2 md:py-3 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-sm md:text-base">
+            {button.text} <ArrowRight className="h-3 w-3 md:h-4 md:w-4" />
           </button>
         ))}
       </div>
