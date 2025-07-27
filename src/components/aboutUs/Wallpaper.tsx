@@ -19,8 +19,8 @@ export default function Wallpaper({ data }: WallpaperProps) {
   }
 
   return (
-    <div className="flex justify-center items-center py-16 bg-white">
-      <div className="w-full max-w-6xl aspect-[16/9] bg-gray-100 overflow-hidden">
+    <div className="flex justify-center items-center py-8 md:py-12 lg:py-16 bg-white">
+      <div className="w-full max-w-6xl aspect-[16/9] bg-gray-100 overflow-hidden px-4 md:px-6 lg:px-0">
         <img
           src={wallpaperData.image.url}
           alt={wallpaperData.image.alt}
