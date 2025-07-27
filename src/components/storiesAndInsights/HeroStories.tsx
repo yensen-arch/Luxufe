@@ -27,7 +27,7 @@ export default function HeroStories({ data }: HeroStoriesProps) {
   const heroData = data || fallbackData
 
   return (
-    <section className="relative h-screen w-full mb-30 flex items-center justify-center text-white text-center">
+    <section className="relative h-screen w-full mb-20 md:mb-25 lg:mb-30 flex items-center justify-center text-white text-center">
       {/* Background image */}
       <div
         className="absolute top-0 left-0 w-full h-full bg-cover bg-center"
@@ -36,12 +36,12 @@ export default function HeroStories({ data }: HeroStoriesProps) {
         <div className="absolute top-0 left-0 w-full h-full bg-black/30"></div>
       </div>
       {/* Content */}
-      <div className="relative z-10 p-4 w-full max-w-5xl mx-auto flex flex-col items-center justify-center">
-        <p className="text-4xl md:text-5xl italic mb-4 font-bellarina">{heroData.subtitle}</p>
-        <h1 className="text-5xl md:text-6xl font-arpona font-bold mb-8 leading-tight">
+      <div className="relative z-10 p-4 md:p-6 lg:p-8 w-full max-w-5xl mx-auto flex flex-col items-center justify-center">
+        <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl italic mb-2 md:mb-3 lg:mb-4 font-bellarina">{heroData.subtitle}</p>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-arpona font-bold mb-4 md:mb-6 lg:mb-8 leading-tight">
           {heroData.title}
         </h1>
-        <p className="mt-2 max-w-2xl mx-auto font-inter font-bold text-md md:text-md text-white/90">
+        <p className="mt-2 max-w-2xl mx-auto font-inter font-bold text-sm md:text-base lg:text-md text-white/90 px-4">
           {heroData.description}
         </p>
       </div>
