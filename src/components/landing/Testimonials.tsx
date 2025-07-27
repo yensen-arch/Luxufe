@@ -45,16 +45,16 @@ const defaultTestimonialsData = [
 
 const TestimonialCard = ({ quote, author, location, isActive }: { quote: string, author: string, location: string, isActive: boolean }) => {
   return (
-    <div className={`transition-all duration-500 p-12 mx-4 ${isActive ? 'shadow-2xl' : 'shadow-xl'} min-h-[400px] flex flex-col justify-center`}>
-      <div className="flex justify-center mb-8">
+    <div className={`transition-all duration-500 p-6 sm:p-8 lg:p-12 mx-2 sm:mx-4 ${isActive ? 'shadow-2xl' : 'shadow-xl'} min-h-[300px] sm:min-h-[350px] lg:min-h-[400px] flex flex-col justify-center`}>
+      <div className="flex justify-center mb-4 sm:mb-6 lg:mb-8">
         {[...Array(5)].map((_, i) => (
-          <Star key={i} className="h-6 w-6 mx-1 text-gray-300 fill-current" />
+          <Star key={i} className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 mx-1 text-gray-300 fill-current" />
         ))}
       </div>
-      <blockquote className={`text-center leading-relaxed mb-8 text-lg ${isActive ? 'text-gray-700' : 'text-gray-400'}`}>
+      <blockquote className={`text-center leading-relaxed mb-4 sm:mb-6 lg:mb-8 text-sm sm:text-base lg:text-lg ${isActive ? 'text-gray-700' : 'text-gray-400'}`}>
         "{quote}"
       </blockquote>
-      <p className={`text-center font-medium ${isActive ? 'text-gray-800' : 'text-gray-500'}`}>
+      <p className={`text-center font-medium text-xs sm:text-sm lg:text-base ${isActive ? 'text-gray-800' : 'text-gray-500'}`}>
         {author} - {location}
       </p>
     </div>
@@ -92,17 +92,17 @@ export default function Testimonials({ data }: TestimonialsProps) {
   }, [emblaApi, updateSelectedIndex]);
 
   return (
-    <section className="py-20">
-      <div className="container mx-auto px-4 overflow-hidden">
+    <section className="py-12 sm:py-16 lg:py-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-4 overflow-hidden">
         {/* Header Section */}
-        <div className="flex flex-col lg:flex-row justify-between items-start mb-20 max-w-7xl mx-auto">
-          <div className="lg:w-1/2 mb-8 lg:mb-0">
-            <h2 className="text-5xl lg:text-6xl font-light text-gray-900  font-arpona font-bold">
+        <div className="flex flex-col lg:flex-row justify-between items-start mb-12 sm:mb-16 lg:mb-20 max-w-7xl mx-auto">
+          <div className="lg:w-1/2 mb-6 sm:mb-8 lg:mb-0">
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-light text-gray-900 font-arpona font-bold">
               {sectionData.heading}
             </h2>
           </div>
           <div className="lg:w-3/8 lg:pl-16">
-            <p className="text-lg font-bold font-inter">
+            <p className="text-sm sm:text-base lg:text-lg font-bold font-inter">
               {sectionData.description}
             </p>
           </div>
@@ -121,17 +121,17 @@ export default function Testimonials({ data }: TestimonialsProps) {
           </div>
 
           {/* Progress Indicator */}
-          <div className="flex justify-center items-center gap-6 mt-16">
-            <span className="text-gray-400 text-lg font-light">
+          <div className="flex justify-center items-center gap-4 sm:gap-6 mt-8 sm:mt-12 lg:mt-16">
+            <span className="text-gray-400 text-sm sm:text-base lg:text-lg font-light">
               {String(selectedIndex + 1).padStart(2, '0')}
             </span>
-            <div className="w-32 h-px bg-gray-300 relative">
+            <div className="w-24 sm:w-28 lg:w-32 h-px bg-gray-300 relative">
               <div 
                 className="h-px bg-gray-800 transition-all duration-300" 
                 style={{ width: `${((selectedIndex + 1) / scrollSnaps.length) * 100}%` }}
               />
             </div>
-            <span className="text-gray-400 text-lg font-light">
+            <span className="text-gray-400 text-sm sm:text-base lg:text-lg font-light">
               {String(scrollSnaps.length).padStart(2, '0')}
             </span>
           </div>
