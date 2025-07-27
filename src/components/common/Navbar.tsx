@@ -18,14 +18,14 @@ export default function Navbar() {
         <Link href="/">
           <Image src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750509663/LUXUFE_-_Wordmark_Logo_2_fqjqq2.png" alt="Luxufe" width={150} height={150} />
         </Link>
-        <div className="hidden md:flex gap-10 items-center ">
-          <a href="#" className={`hover:underline font-bold ${textColor}`}>DESTINATIONS</a>
-          <a href="#" className={`hover:underline font-bold ${textColor}`}>EXPERIENCES</a>
-          <Link href="/journeys" className={`hover:underline font-bold ${textColor}`}>JOURNEYS</Link>
-          <a href="#" className={`hover:underline font-bold ${textColor}`}>HOTELS</a>
+        <div className="hidden md:flex gap-10 items-center">
+          <a href="#" className={`hover:font-normal font-bold ${textColor}`}>DESTINATIONS</a>
+          <a href="#" className={`hover:font-normal font-bold ${textColor}`}>EXPERIENCES</a>
+          <Link href="/journeys" className={`hover:font-normal font-bold ${textColor}`}>JOURNEYS</Link>
+          <a href="#" className={`hover:font-normal font-bold ${textColor}`}>HOTELS</a>
         </div>
         <div className="hidden md:flex items-center gap-6">
-          <a href="#" className={`hover:underline font-bold ${textColor}`}>ENQUIRE</a>
+          <a href="#" className={`hover:font-normal font-bold ${textColor}`}>ENQUIRE</a>
           <span className={`text-sm font-bold ${textColor}`}>+12 34 567 8900</span>
           <div className="flex items-center gap-4">
             <a href="#"><User className={`h-6 w-6 font-bold ${textColor}`} /></a>
