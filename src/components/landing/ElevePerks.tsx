@@ -91,48 +91,72 @@ export default function ElevePerks({ data }: ElevePerksProps) {
   const currentPerk = sectionData.perks[currentIndex];
 
   return (
-    <section className="bg-[#1a233a] text-white h-[108vh] relative">
+    <section className="bg-[#1a233a] text-white min-h-screen lg:h-[108vh] relative">
       <div className="absolute inset-0 z-0">
-                <BackgroundPattern />
-            </div>
-      <div className="flex flex-col lg:flex-row">
-        <div className="w-4/7 relative h-[650px] mt-40">
-        <div className="  absolute top-0 -right-36 -translate-y-1/2 -translate-x-1/2 ">
-       <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[150px] h-auto" />
+        <BackgroundPattern />
       </div>
+      <div className="flex flex-col lg:flex-row">
+        {/* Image Section - Mobile: Simplified, Desktop: Full */}
+        <div className="w-full lg:w-4/7 relative h-64 sm:h-80 lg:h-[650px] lg:mt-40">
+          {/* Badge Logo - Hidden on mobile for cleaner look */}
+          <div className="hidden lg:block absolute top-0 -right-36 -translate-y-1/2 -translate-x-1/2">
+            <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[150px] h-auto" />
+          </div>
           <img src={currentPerk.image.url} alt={currentPerk.image.alt} className="w-full h-full object-cover" />
-          <div className="absolute top-6 left-6 text-sm font-mono">
+          
+          {/* Counter - Hidden on mobile for cleaner look */}
+          <div className="hidden lg:block absolute top-6 left-6 text-sm font-mono">
             {String(currentIndex + 1).padStart(2, '0')} / {String(sectionData.perks.length).padStart(2, '0')}
           </div>
-          <div className="absolute bottom-6 left-6 flex gap-3">
-              <button onClick={goToPrevious} className="bg-white/80 rounded-full p-3 shadow-md hover:bg-white transition">
-                  <ArrowLeft className="h-6 w-6 text-gray-800" />
-              </button>
-              <button onClick={goToNext} className="bg-white/80 rounded-full p-3 shadow-md hover:bg-white transition">
-                  <ArrowRight className="h-6 w-6 text-gray-800" />
-              </button>
+          
+          {/* Navigation Buttons - Hidden on mobile for cleaner look */}
+          <div className="hidden lg:flex absolute bottom-6 left-6 gap-3">
+            <button onClick={goToPrevious} className="bg-white/80 rounded-full p-3 shadow-md hover:bg-white transition">
+              <ArrowLeft className="h-6 w-6 text-gray-800" />
+            </button>
+            <button onClick={goToNext} className="bg-white/80 rounded-full p-3 shadow-md hover:bg-white transition">
+              <ArrowRight className="h-6 w-6 text-gray-800" />
+            </button>
           </div>
         </div>
-        <div className="w-1/2 flex items-center justify-center">
+
+        {/* Content Section */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-6 lg:px-0 py-8 lg:py-0">
+          <div className="relative max-w-md lg:mt-25">
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-arpona font-bold">Experience more with</h3>
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bellarina mb-4 sm:mb-6">
+              {currentPerk.title} <span className="text-xl sm:text-2xl lg:text-3xl font-arpona font-bold">by Luxufe</span>
+            </h2>
+            <p className="mb-6 sm:mb-8 font-inter font-bold w-full lg:w-4/5 text-sm sm:text-base">{currentPerk.description}</p>
             
-            <div className="relative max-w-md mt-25">
-                <h3 className="text-3xl font-arpona font-bold">Experience more with</h3>
-                <h2 className="text-6xl font-bellarina mb-6 ">{currentPerk.title} <span className="text-3xl font-arpona font-bold">by Luxufe</span>
-                </h2>
-                <p className="mb-8 font-inter font-bold w-4/5">{currentPerk.description}</p>
-                <ul className="space-y-4 font-inter font-bold text-green-200 opacity-60">
-                    {defaultPerksData[currentIndex].perks.map((perk, index) => (
-                        <li key={index} className="flex items-center gap-4 border-b border-white/40 pb-4">
-                            <Star className="h-5 w-5 " />
-                            <span>{perk}</span>
-                        </li>
-                    ))}
-                </ul>
-                <button className="mt-10 group font-inter font-bold flex items-center gap-3 text-sm font-semibold tracking-widest border border-white/40 px-6 py-3 hover:bg-white hover:text-[#1a233a] transition-colors">
-                    {sectionData.ctaText}
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </button>
-            </div>
+            {/* Perks List - Hidden on mobile for cleaner look */}
+            <ul className="hidden lg:block space-y-4 font-inter font-bold text-green-200 opacity-60">
+              {defaultPerksData[currentIndex].perks.map((perk, index) => (
+                <li key={index} className="flex items-center gap-4 border-b border-white/40 pb-4">
+                  <Star className="h-5 w-5" />
+                  <span>{perk}</span>
+                </li>
+              ))}
+            </ul>
+            
+            <button className="mt-6 sm:mt-8 lg:mt-10 group font-inter font-bold flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold tracking-widest border border-white/40 px-4 sm:px-6 py-2 sm:py-3 hover:bg-white hover:text-[#1a233a] transition-colors">
+              {sectionData.ctaText}
+              <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation Dots */}
+        <div className="lg:hidden flex justify-center gap-2 pb-6">
+          {sectionData.perks.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-2 h-2 rounded-full transition-colors ${
+                index === currentIndex ? 'bg-white' : 'bg-white/40'
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>

@@ -70,17 +70,17 @@ export default function LuxuryPartners({ data }: LuxuryPartnersProps) {
   const tabs = Object.keys(defaultPartnersData) as Tab[];
 
   return (
-    <section className="bg-gray-50 py-24 text-gray-800">
-      <div className="container mx-auto px-4 text-center">
-        <h3 className="text-5xl font-bellarina font-medium text-gray-600 italic mb-6">{sectionData.description}</h3>
-        <h2 className="text-6xl font-arpona font-medium my-16">{sectionData.heading}</h2>
+    <section className="bg-gray-50 py-12 sm:py-16 lg:py-24 text-gray-800">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-4 text-center">
+        <h3 className="text-2xl sm:text-3xl lg:text-5xl font-bellarina font-medium text-gray-600 italic mb-4 sm:mb-6">{sectionData.description}</h3>
+        <h2 className="text-3xl sm:text-4xl lg:text-6xl font-arpona font-medium my-8 sm:my-12 lg:my-16">{sectionData.heading}</h2>
         
-        <div className="flex justify-center mb-12">
+        <div className="flex flex-wrap justify-center mb-8 sm:mb-10 lg:mb-12 gap-2 sm:gap-4">
           {tabs.map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-3 text-sm font-inter font-bold tracking-wider relative transition-colors ${
+              className={`px-3 sm:px-4 lg:px-6 py-2 sm:py-3 text-xs sm:text-sm font-inter font-bold tracking-wider relative transition-colors ${
                 activeTab === tab ? 'text-gray-900' : 'text-gray-500 hover:text-gray-800'
               }`}
             >
@@ -92,18 +92,18 @@ export default function LuxuryPartners({ data }: LuxuryPartnersProps) {
           ))}
         </div>
 
-        <div className="w-3/4 mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-24 items-center justify-items-center">
+        <div className="w-full sm:w-5/6 lg:w-3/4 mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-y-8 sm:gap-y-12 lg:gap-y-24 items-center justify-items-center">
           {defaultPartnersData[activeTab].map(partner => (
-            <div key={partner.name} className="my-2 h-16 flex items-center justify-center">
-               <img src={partner.logoUrl} alt={partner.name} className="max-h-full max-w-full h-auto w-auto  opacity-600 transition-all duration-900" />
+            <div key={partner.name} className="my-1 sm:my-2 h-12 sm:h-14 lg:h-16 flex items-center justify-center px-2 sm:px-4">
+               <img src={partner.logoUrl} alt={partner.name} className="max-h-full max-w-full h-auto w-auto opacity-600 transition-all duration-900" />
             </div>
           ))}
         </div>
         
-        <div className="text-center mt-20">
-          <button className="group flex items-center gap-3 text-sm font-inter font-bold tracking-widest border border-gray-400 px-6 py-3 hover:bg-gray-800 hover:text-white transition-colors mx-auto">
+        <div className="text-center mt-12 sm:mt-16 lg:mt-20">
+          <button className="group flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-inter font-bold tracking-widest border border-gray-400 px-4 sm:px-6 py-2 sm:py-3 hover:bg-gray-800 hover:text-white transition-colors mx-auto">
             ELITE PARTNERS
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
           </button>
         </div>
       </div>
