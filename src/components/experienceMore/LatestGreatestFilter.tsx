@@ -26,24 +26,30 @@ export default function LatestGreatestFilter({ data }: LatestGreatestFilterProps
       <div className="w-full flex justify-center px-4 md:px-6 lg:px-8">
         <div className="relative w-full max-w-2xl">
           <div className="bg-white shadow-xl flex flex-col md:flex-row items-center px-4 md:px-6 lg:px-8 py-4 md:py-5 lg:py-7">
-            {/* Left: Filter label */}
-            <div className="flex items-center pr-0 md:pr-4 lg:pr-8 h-full mb-4 md:mb-0">
+            {/* Left: Filter label - hidden on mobile */}
+            <div className="hidden md:flex items-center pr-4 lg:pr-8 h-full">
               <span className="text-lg md:text-xl lg:text-2xl font-arpona text-[#23263a] font-normal">Filter</span>
             </div>
-            {/* Divider */}
+            {/* Divider - hidden on mobile */}
             <div className="hidden md:block h-8 w-px bg-gray-300 mx-3 md:mx-4 lg:mx-6" />
             {/* Filters */}
             <div className="flex flex-col md:flex-row items-center gap-3 md:gap-4 lg:gap-6 flex-1 w-full md:w-auto">
-              <button className="flex items-center gap-2 text-xs md:text-sm font-inter text-[#23263a] focus:outline-none w-full md:w-auto justify-center md:justify-start">
+              {/* Mobile: Simplified single filter */}
+              <div className="md:hidden flex items-center gap-2 text-sm font-inter text-[#23263a] w-full justify-center">
+                <span>Filter by</span>
+                <ChevronDown className="w-4 h-4" />
+              </div>
+              {/* Desktop: Full filter options */}
+              <button className="hidden md:flex items-center gap-2 text-xs md:text-sm font-inter text-[#23263a] focus:outline-none">
                 By Brand <ChevronDown className="w-3 h-3 md:w-4 md:h-4 ml-1" />
               </button>
-              <button className="flex items-center gap-2 text-xs md:text-sm font-inter text-[#23263a] focus:outline-none w-full md:w-auto justify-center md:justify-start">
+              <button className="hidden md:flex items-center gap-2 text-xs md:text-sm font-inter text-[#23263a] focus:outline-none">
                 By Destination <ChevronDown className="w-3 h-3 md:w-4 md:h-4 ml-1" />
               </button>
-              <button className="flex items-center gap-2 text-xs md:text-sm font-inter text-[#23263a] focus:outline-none w-full md:w-auto justify-center md:justify-start">
+              <button className="hidden md:flex items-center gap-2 text-xs md:text-sm font-inter text-[#23263a] focus:outline-none">
                 By Itinerary <ChevronDown className="w-3 h-3 md:w-4 md:h-4 ml-1" />
               </button>
-              <label className="flex items-center gap-2 text-xs md:text-sm font-inter text-[#23263a] cursor-pointer w-full md:w-auto justify-center md:justify-start">
+              <label className="hidden md:flex items-center gap-2 text-xs md:text-sm font-inter text-[#23263a] cursor-pointer">
                 <input type="radio" name="filter" className="accent-[#23263a]" defaultChecked />
                 All
               </label>
