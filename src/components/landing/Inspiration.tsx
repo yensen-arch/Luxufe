@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import BlogCard from './BlogCard';
 
@@ -68,6 +68,18 @@ export default function Inspiration({ data }: InspirationProps) {
   };
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
 
   const scrollPrev = useCallback(() => {
     setCurrentIndex((prev) => prev === 0 ? sectionData.blogPosts.length - 1 : prev - 1);
@@ -78,37 +90,37 @@ export default function Inspiration({ data }: InspirationProps) {
   }, [sectionData.blogPosts.length]);
 
   return (
-    <section className="my-24 h-screen">
-      <div className="container mx-auto h-full">
-        <div className="grid grid-cols-12 h-full items-center relative">
+    <section className="my-12 sm:my-16 lg:my-24 min-h-screen lg:h-screen">
+      <div className="container mx-auto h-full px-4 sm:px-6 lg:px-0">
+        <div className="grid grid-cols-1 lg:grid-cols-12 h-full items-center relative">
           {/* Left Content Section */}
-          <div className="lg:col-span-8 h-full text-center lg:text-left p-6 lg:p-24 bg-gray-50 flex items-center">
-            <div className="w-3/5">
-              <h3 className="text-5xl font-medium text-gray-600 italic mb-2 font-bellarina">
+          <div className="lg:col-span-8 h-full text-center lg:text-left p-6 sm:p-8 lg:p-24 bg-gray-50 flex items-center">
+            <div className="w-full lg:w-3/5">
+              <h3 className="text-2xl sm:text-3xl lg:text-5xl font-medium text-gray-600 italic mb-2 font-bellarina">
                 Stories & insights
               </h3>
-              <h2 className="text-5xl font-arpona font-bold text-gray-800 my-6">
+              <h2 className="text-2xl sm:text-3xl lg:text-5xl font-arpona font-bold text-gray-800 my-4 sm:my-6">
                 {sectionData.heading}
               </h2>
-              <p className="mb-10 lg:w-5/6 font-inter font-bold">
+              <p className="mb-6 sm:mb-8 lg:mb-10 lg:w-5/6 font-inter font-bold text-sm sm:text-base">
                 {sectionData.description}
               </p>
-              <button className="group flex items-center gap-2 text-sm font-inter font-bold tracking-widest border border-gray-400 justify-center py-4 px-8 hover:bg-gray-800 hover:text-white transition-colors mx-auto lg:mx-0">
+              <button className="group flex items-center gap-2 text-xs sm:text-sm font-inter font-bold tracking-widest border border-gray-400 justify-center py-3 sm:py-4 px-6 sm:px-8 hover:bg-gray-800 hover:text-white transition-colors mx-auto lg:mx-0">
                 {sectionData.ctaText}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
               </button>
             </div>
           </div>
 
-          {/* Right Carousel Section - Overlapping */}
-          <div className="col-span-7 col-start-7 lg:absolute lg:right-0 lg:top-0 h-full flex items-center relative">
+          {/* Right Carousel Section - Mobile: Stacked, Desktop: Overlapping */}
+          <div className="lg:col-span-7 lg:col-start-7 lg:absolute lg:right-0 lg:top-0 h-auto lg:h-full flex items-center relative mt-8 lg:mt-0">
             <div className="overflow-hidden w-full">
               <div 
-                className="flex transition-transform duration-500 ease-in-out m-10 gap-10"
-                style={{ transform: `translateX(-${currentIndex * 50}%)` }}
+                className="flex transition-transform duration-500 ease-in-out m-4 sm:m-6 lg:m-10 gap-4 sm:gap-6 lg:gap-10"
+                style={{ transform: `translateX(-${currentIndex * (isMobile ? 100 : 50)}%)` }}
               >
                 {sectionData.blogPosts.map((post, index) => (
-                  <div className="flex-[0_0_70%]" key={index}>
+                  <div className={`flex-[0_0_${isMobile ? '100%' : '70%'}]`} key={index}>
                     <BlogCard 
                       category={post.category}
                       title={post.title}
@@ -122,11 +134,11 @@ export default function Inspiration({ data }: InspirationProps) {
               </div>
             </div>
             
-            {/* Navigation Buttons */}
-            <div className="absolute flex flex-col gap-6 top-1/2 left-3/4 -translate-x-1/2 -translate-y-1/2  pointer-events-none z-10">
+            {/* Navigation Buttons - Hidden on mobile for cleaner look */}
+            <div className="hidden lg:flex absolute flex-col gap-6 top-1/2 left-3/4 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10">
               <button 
                 onClick={scrollPrev} 
-                className="bg-white rounded-full p-6 shadow-md hover:bg-white transition pointer-events-auto "
+                className="bg-white rounded-full p-6 shadow-md hover:bg-white transition pointer-events-auto"
               >
                 <ArrowLeft className="h-6 w-6 text-gray-800" />
               </button>
@@ -136,6 +148,19 @@ export default function Inspiration({ data }: InspirationProps) {
               >
                 <ArrowRight className="h-6 w-6 text-gray-800" />
               </button>
+            </div>
+
+            {/* Mobile Navigation Dots */}
+            <div className="lg:hidden flex justify-center gap-2 mt-4">
+              {sectionData.blogPosts.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-colors ${
+                    index === currentIndex ? 'bg-gray-800' : 'bg-gray-300'
+                  }`}
+                />
+              ))}
             </div>
           </div>
         </div>
