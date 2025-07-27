@@ -1,5 +1,5 @@
 'use client';
-import { Menu, User } from 'lucide-react';
+import { Menu, User, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -11,19 +11,24 @@ export default function Navbar() {
   const isBlog = pathname.startsWith('/blog');
   const textColor = isBlog ? 'text-slate-500' : 'text-white';
   const [expanded, setExpanded] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className={`absolute top-0 left-0 right-0 z-40 py-6 px-10 font-inter font-bold ${textColor}`}>
+    <nav className={`absolute top-0 left-0 right-0 z-40 py-6 px-4 md:px-10 font-inter font-bold ${textColor}`}>
       <div className="container mx-auto flex justify-between items-center text-xs">
         <Link href="/">
           <Image src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750509663/LUXUFE_-_Wordmark_Logo_2_fqjqq2.png" alt="Luxufe" width={150} height={150} />
         </Link>
+        
+        {/* Desktop Navigation */}
         <div className="hidden md:flex gap-10 items-center">
           <a href="#" className={`hover:font-normal font-bold ${textColor}`}>DESTINATIONS</a>
           <a href="#" className={`hover:font-normal font-bold ${textColor}`}>EXPERIENCES</a>
           <Link href="/journeys" className={`hover:font-normal font-bold ${textColor}`}>JOURNEYS</Link>
           <a href="#" className={`hover:font-normal font-bold ${textColor}`}>HOTELS</a>
         </div>
+        
+        {/* Desktop Right Section */}
         <div className="hidden md:flex items-center gap-6">
           <a href="#" className={`hover:font-normal font-bold ${textColor}`}>ENQUIRE</a>
           <span className={`text-sm font-bold ${textColor}`}>+12 34 567 8900</span>
@@ -32,7 +37,39 @@ export default function Navbar() {
             <button onClick={() => setExpanded(true)}><Menu className={`h-6 w-6 cursor-pointer ${textColor}`} /></button>
           </div>
         </div>
+
+        {/* Mobile Menu Button */}
+        <div className="md:hidden flex items-center gap-4">
+          <a href="#"><User className={`h-6 w-6 font-bold ${textColor}`} /></a>
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="flex items-center"
+          >
+            {mobileMenuOpen ? (
+              <X className={`h-6 w-6 cursor-pointer ${textColor}`} />
+            ) : (
+              <Menu className={`h-6 w-6 cursor-pointer ${textColor}`} />
+            )}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Menu */}
+      <div className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+        mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+      }`}>
+        <div className="bg-white/95 backdrop-blur-sm mt-4 rounded-lg shadow-lg border border-gray-200">
+          <div className="py-6 px-4 space-y-4">
+            <a href="#" className={`block hover:font-normal font-bold ${textColor} text-center`}>DESTINATIONS</a>
+            <a href="#" className={`block hover:font-normal font-bold ${textColor} text-center`}>EXPERIENCES</a>
+            <Link href="/journeys" className={`block hover:font-normal font-bold ${textColor} text-center`}>JOURNEYS</Link>
+            <a href="#" className={`block hover:font-normal font-bold ${textColor} text-center`}>HOTELS</a>
+            <a href="#" className={`block hover:font-normal font-bold ${textColor} text-center`}>ENQUIRE</a>
+            <span className={`block text-sm font-bold ${textColor} text-center`}>+12 34 567 8900</span>
+          </div>
+        </div>
+      </div>
+
       <ExpandedNavbar open={expanded} onClose={() => setExpanded(false)} />
     </nav>
   );

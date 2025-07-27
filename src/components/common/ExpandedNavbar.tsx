@@ -46,46 +46,56 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
 
   return (
     <div
-      className={`fixed left-0 right-0 transition-all duration-500 flex justify-center items-center ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      className={`fixed left-0 right-0 transition-all duration-700 ease-in-out transform ${
+        open 
+          ? 'translate-y-0 opacity-100 pointer-events-auto' 
+          : '-translate-y-full opacity-0 pointer-events-none'
+      }`}
       style={{ top: 0, height: '90vh' }}
     >
-      <div className="flex w-full z-50 mx-auto bg-white shadow-2xl border border-gray-200" style={{ height: '90vh' }}>
+      <div className="flex flex-col md:flex-row w-full z-50 mx-auto bg-white shadow-2xl border border-gray-200 h-full">
         {/* Left nav */}
-        <div className="w-1/4 flex flex-col justify-between mb-8 mt-12 px-10 bg-white border-r-2 border-gray-200">
+        <div className="w-full md:w-1/4 flex flex-col justify-between mb-8 mt-12 px-4 md:px-10 bg-white border-b-2 md:border-b-0 md:border-r-2 border-gray-200">
           <div>
-            <ul className="space-y-6 mb-10 ">
+            <ul className="space-y-4 md:space-y-6 mb-6 md:mb-10">
               {navItems.map((item) => (
                 <li
                   key={item.label}
-                  className={`text-3xl font-arpona font-bold transition-colors duration-200 flex items-center justify-between cursor-pointer ${selected === item.label ? 'text-gray-900' : 'text-gray-300'}`}
+                  className={`text-xl md:text-3xl font-arpona font-bold transition-colors duration-200 flex items-center justify-between cursor-pointer ${selected === item.label ? 'text-gray-900' : 'text-gray-300'}`}
                   onClick={() => setSelected(item.label)}
                 >
                   {item.label}
-                  {selected === item.label && <ArrowRight className="ml-2 w-6 h-6" />}
+                  {selected === item.label && <ArrowRight className="ml-2 w-4 h-4 md:w-6 md:h-6" />}
                 </li>
               ))}
             </ul>
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {quickLinks.map((link) => (
-                <div key={link.label} className="font-inter font-bold flex items-center text-gray-400 hover:text-gray-600 text-sm cursor-pointer">
+                <div key={link.label} className="font-inter font-bold flex items-center text-gray-400 hover:text-gray-600 text-xs md:text-sm cursor-pointer">
                   {link.icon}
                   {link.label}
                 </div>
               ))}
             </div>
           </div>
-          <div className="flex gap-6">
+          <div className="flex gap-4 md:gap-6 mb-4 md:mb-0">
             {socials.map((s, i) => (
               <a key={i} href={s.href} className="cursor-pointer transition-colors text-[#a8d1cf]">{s.icon}</a>
             ))}
           </div>
         </div>
+        
         {/* Center section (dynamic) */}
-        <div className="w-3/4 flex flex-col justify-center items-center">
+        <div className="w-full md:w-3/4 flex flex-col justify-center items-center px-4 md:px-0">
           {CenterSection}
         </div>
-        <button onClick={onClose} className="cursor-pointer absolute top-7 right-9 text-gray-500 hover:text-gray-900" aria-label="Close">
-          <X className="w-8 h-8" />
+        
+        <button 
+          onClick={onClose} 
+          className="cursor-pointer absolute top-4 right-4 md:top-7 md:right-9 text-gray-500 hover:text-gray-900 z-10" 
+          aria-label="Close"
+        >
+          <X className="w-6 h-6 md:w-8 md:h-8" />
         </button>
       </div>
     </div> 
