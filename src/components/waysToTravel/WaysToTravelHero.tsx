@@ -30,8 +30,8 @@ export default function WaysToTravelHero({ data }: WaysToTravelHeroProps) {
       </div>
       {/* Centered Content */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full px-4">
-        <p className="text-4xl md:text-5xl font-bellarina italic mb-6 mt-20">{displaySubtitle}</p>
-        <h1 className="text-5xl md:text-6xl font-arpona font-normal leading-tight">
+        <p className="text-2xl md:text-4xl lg:text-5xl font-bellarina italic mb-4 md:mb-6 mt-16 md:mt-20">{displaySubtitle}</p>
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-arpona font-normal leading-tight px-2 md:px-0">
           {displayTitle}
         </h1>
       </div>
