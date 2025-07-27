@@ -53,49 +53,51 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
       }`}
       style={{ top: 0, height: '90vh' }}
     >
-      <div className="flex flex-col md:flex-row w-full z-50 mx-auto bg-white shadow-2xl border border-gray-200 h-full">
+      <div className="flex flex-col lg:flex-row w-full z-50 mx-auto bg-white shadow-2xl border border-gray-200 h-full overflow-hidden">
         {/* Left nav */}
-        <div className="w-full md:w-1/4 flex flex-col justify-between mb-8 mt-12 px-4 md:px-10 bg-white border-b-2 md:border-b-0 md:border-r-2 border-gray-200">
-          <div>
-            <ul className="space-y-4 md:space-y-6 mb-6 md:mb-10">
+        <div className="w-full lg:w-1/4 flex flex-col justify-between py-6 lg:py-0 lg:mb-8 lg:mt-12 px-4 sm:px-6 lg:px-10 bg-white border-b-2 lg:border-b-0 lg:border-r-2 border-gray-200 min-h-0 lg:min-h-full">
+          <div className="flex-1 flex flex-col justify-start">
+            <ul className="space-y-3 sm:space-y-4 lg:space-y-6 mb-4 sm:mb-6 lg:mb-10">
               {navItems.map((item) => (
                 <li
                   key={item.label}
-                  className={`text-xl md:text-3xl font-arpona font-bold transition-colors duration-200 flex items-center justify-between cursor-pointer ${selected === item.label ? 'text-gray-900' : 'text-gray-300'}`}
+                  className={`text-lg sm:text-xl lg:text-3xl font-arpona font-bold transition-colors duration-200 flex items-center justify-between cursor-pointer ${selected === item.label ? 'text-gray-900' : 'text-gray-300'}`}
                   onClick={() => setSelected(item.label)}
                 >
                   {item.label}
-                  {selected === item.label && <ArrowRight className="ml-2 w-4 h-4 md:w-6 md:h-6" />}
+                  {selected === item.label && <ArrowRight className="ml-2 w-4 h-4 lg:w-6 lg:h-6 flex-shrink-0" />}
                 </li>
               ))}
             </ul>
-            <div className="space-y-3 md:space-y-4">
+            <div className="space-y-2 sm:space-y-3 lg:space-y-4">
               {quickLinks.map((link) => (
-                <div key={link.label} className="font-inter font-bold flex items-center text-gray-400 hover:text-gray-600 text-xs md:text-sm cursor-pointer">
+                <div key={link.label} className="font-inter font-bold flex items-center text-gray-400 hover:text-gray-600 text-xs sm:text-sm lg:text-sm cursor-pointer">
                   {link.icon}
                   {link.label}
                 </div>
               ))}
             </div>
           </div>
-          <div className="flex gap-4 md:gap-6 mb-4 md:mb-0">
+          <div className="flex gap-3 sm:gap-4 lg:gap-6 mt-4 lg:mt-0">
             {socials.map((s, i) => (
-              <a key={i} href={s.href} className="cursor-pointer transition-colors text-[#a8d1cf]">{s.icon}</a>
+              <a key={i} href={s.href} className="cursor-pointer transition-colors text-[#a8d1cf] hover:text-[#8bc1bf]">{s.icon}</a>
             ))}
           </div>
         </div>
         
         {/* Center section (dynamic) */}
-        <div className="w-full md:w-3/4 flex flex-col justify-center items-center px-4 md:px-0">
-          {CenterSection}
+        <div className="w-full lg:w-3/4 flex flex-col justify-center items-center px-2 sm:px-4 lg:px-0 h-full overflow-y-auto">
+          <div className="w-full h-full">
+            {CenterSection}
+          </div>
         </div>
         
         <button 
           onClick={onClose} 
-          className="cursor-pointer absolute top-4 right-4 md:top-7 md:right-9 text-gray-500 hover:text-gray-900 z-10" 
+          className="cursor-pointer absolute top-3 right-3 sm:top-4 sm:right-4 lg:top-7 lg:right-9 text-gray-500 hover:text-gray-900 z-10 p-1" 
           aria-label="Close"
         >
-          <X className="w-6 h-6 md:w-8 md:h-8" />
+          <X className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8" />
         </button>
       </div>
     </div> 
