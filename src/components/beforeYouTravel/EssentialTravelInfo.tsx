@@ -27,31 +27,31 @@ export default function EssentialTravelInfo({ data }: EssentialTravelInfoProps) 
   }
 
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-12 md:py-16 lg:py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         {/* Heading */}
-        <h2 className="text-4xl md:text-5xl w-8xl font-arpona font-bold text-[#23263a] mb-16">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl w-full lg:w-8xl font-arpona font-bold text-[#23263a] mb-8 md:mb-12 lg:mb-16">
           {infoData.title}
         </h2>
         {/* Content Row */}
-        <div className="flex flex-col md:flex-row items-start gap-12">
+        <div className="flex flex-col lg:flex-row items-start gap-6 md:gap-8 lg:gap-12">
           {/* Left: Image */}
-          <div className="md:w-1/2 w-full flex-shrink-0">
+          <div className="w-full lg:md:w-1/2 flex-shrink-0 order-1 lg:order-1">
             <img
               src={infoData.image.url}
               alt={infoData.image.alt}
-              className="w-full h-[340px] md:h-[420px] object-cover "
+              className="w-full h-[250px] md:h-[300px] lg:h-[340px] xl:h-[420px] object-cover"
             />
           </div>
           {/* Right: Text */}
-          <div className="md:w-1/2 w-full flex flex-col justify-center my-auto ml-10">
-            <h3 className="text-2xl md:text-3xl font-arpona font-bold text-[#23263a] mb-6">
+          <div className="w-full lg:md:w-1/2 flex flex-col justify-center my-auto lg:ml-10 order-2 lg:order-2">
+            <h3 className="text-xl md:text-2xl lg:text-3xl font-arpona font-bold text-[#23263a] mb-4 md:mb-5 lg:mb-6">
               {infoData.subtitle}
             </h3>
-            <p className="font-inter text-[#23263a] font-bold md:text-md mb-4 w-5/7">
+            <p className="font-inter text-[#23263a] font-bold text-sm md:text-base lg:md:text-md mb-3 md:mb-4 w-full lg:w-5/7">
               {infoData.paragraph1}
             </p>
-            <p className="font-inter text-[#23263a] font-bold md:text-md w-5/7">
+            <p className="font-inter text-[#23263a] font-bold text-sm md:text-base lg:md:text-md w-full lg:w-5/7">
               {infoData.paragraph2}
             </p>
           </div>
