@@ -59,44 +59,44 @@ export default function SpeakingJourneys({ data }: SpeakingJourneysProps) {
   }, [speakingData.testimonials.length]);
 
   return (
-    <section className="my-24 h-screen">
+    <section className="my-12 md:my-16 lg:my-24 h-auto md:h-screen">
       <div className="container mx-auto h-full">
-        <div className="grid grid-cols-12 h-full items-center relative">
+        <div className="grid grid-cols-1 lg:grid-cols-12 h-full items-center relative">
           {/* Left Content Section */}
           <div 
-            className="bg-cover bg-center lg:col-span-12 h-full text-center lg:text-left p-6 lg:p-24 flex items-center"
+            className="bg-cover bg-center lg:col-span-12 h-[60vh] md:h-[70vh] lg:h-full text-center lg:text-left p-4 md:p-6 lg:p-24 flex items-center order-2 lg:order-1"
             style={{ backgroundImage: `url('${speakingData.backgroundImage.url}')` }}
           >
-            <div className="w-3/7 flex flex-col items-start justify-center">
-              <h2 className="text-5xl font-arpona font-bold text-white my-6">
+            <div className="w-full lg:w-3/7 flex flex-col items-center lg:items-start justify-center">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-arpona font-bold text-white my-4 md:my-5 lg:my-6">
                 {speakingData.title}
               </h2>
-              <p className="mb-10 lg:w-5/7 font-inter font-bold text-white">
+              <p className="mb-6 md:mb-8 lg:mb-10 w-full lg:w-5/7 font-inter font-bold text-white text-sm md:text-base">
                 {speakingData.description}
               </p>
               {/* Navigation Buttons */}
-              <div className="flex gap-6 mt-8 mx-auto lg:mx-0">
+              <div className="flex gap-4 md:gap-5 lg:gap-6 mt-6 md:mt-7 lg:mt-8 mx-auto lg:mx-0">
                 <button 
                   onClick={scrollPrev} 
-                  className="bg-white rounded-full p-6 shadow-md hover:bg-white transition"
+                  className="bg-white rounded-full p-4 md:p-5 lg:p-6 shadow-md hover:bg-white transition"
                 >
-                  <ArrowLeft className="h-6 w-6 text-gray-800" />
+                  <ArrowLeft className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
                 </button>
                 <button 
                   onClick={scrollNext} 
-                  className="bg-white rounded-full p-6 shadow-md hover:bg-white transition"
+                  className="bg-white rounded-full p-4 md:p-5 lg:p-6 shadow-md hover:bg-white transition"
                 >
-                  <ArrowRight className="h-6 w-6 text-gray-800" />
+                  <ArrowRight className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
                 </button>
               </div>
             </div>
           </div>
 
           {/* Right Carousel Section - Overlapping */}
-          <div className="col-span-7 col-start-7 lg:absolute lg:right-0 lg:top-0 h-full flex items-center relative">
+          <div className="col-span-1 lg:col-span-7 lg:col-start-7 lg:absolute lg:right-0 lg:top-0 h-auto lg:h-full flex items-center relative order-1 lg:order-2">
             <div className="overflow-hidden w-full">
               <div 
-                className="flex transition-transform duration-500 ease-in-out m-10 gap-10"
+                className="flex transition-transform duration-500 ease-in-out m-4 md:m-6 lg:m-10 gap-4 md:gap-6 lg:gap-10"
                 style={{ transform: `translateX(-${currentIndex * 50}%)` }}
               >
                 {speakingData.testimonials.map((testimonial, index) => (
