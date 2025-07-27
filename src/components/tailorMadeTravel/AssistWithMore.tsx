@@ -111,41 +111,41 @@ export default function AssistWithMore({ data }: AssistWithMoreProps) {
           to { opacity: 1; transform: translateX(0); }
         }
       `}</style>
-      <section className="w-full my-24 relative">
-        <div className=" mx-auto gap-0 items-center px-4 flex grid grid-cols-12 ">
+      <section className="w-full my-12 md:my-24 relative">
+        <div className="mx-auto gap-0 items-center px-4 flex flex-col md:grid md:grid-cols-12">
           {/* Left Side */}
-          <div className="md:col-span-9 flex flex-col items-start justify-center h-[100vh] py-12 bg-[#f8f8fa]">
-            <div className="mb-4 ml-20">
-              <span className="font-bellarina text-6xl text-[#23263a] block mb-2">{displaySubtitle}</span>
-              <h2 className="text-6xl w-3/4 font-arpona font-bold text-[#23263a] mb-4 leading-tight">{displayTitle}</h2>
-              <p className="font-inter text-[#23263a] text-base mb-8 max-w-xs font-bold">
+          <div className="md:col-span-9 flex flex-col items-start justify-center h-auto md:h-[100vh] py-8 md:py-12 bg-[#f8f8fa] w-full md:w-auto">
+            <div className="mb-4 md:ml-20 px-4 md:px-0">
+              <span className="font-bellarina text-3xl md:text-6xl text-[#23263a] block mb-2">{displaySubtitle}</span>
+              <h2 className="text-3xl md:text-6xl w-full md:w-3/4 font-arpona font-bold text-[#23263a] mb-4 leading-tight">{displayTitle}</h2>
+              <p className="font-inter text-[#23263a] text-sm md:text-base mb-6 md:mb-8 max-w-xs font-bold">
                 {displayDescription}
               </p>
-              <div className="flex gap-6 mt-4">
+              <div className="flex gap-4 md:gap-6 mt-4">
                 <button
                   onClick={scrollPrev}
-                  className="bg-white rounded-full p-5 shadow-md border border-gray-200 hover:bg-gray-100 transition flex items-center justify-center"
+                  className="bg-white rounded-full p-3 md:p-5 shadow-md border border-gray-200 hover:bg-gray-100 transition flex items-center justify-center"
                   disabled={isAnimating}
                 >
-                  <ArrowLeft className="h-6 w-6 text-gray-800" />
+                  <ArrowLeft className="h-4 w-4 md:h-6 md:w-6 text-gray-800" />
                 </button>
                 <button
                   onClick={scrollNext}
-                  className="bg-white rounded-full p-5 shadow-md border border-gray-200 hover:bg-gray-100 transition flex items-center justify-center"
+                  className="bg-white rounded-full p-3 md:p-5 shadow-md border border-gray-200 hover:bg-gray-100 transition flex items-center justify-center"
                   disabled={isAnimating}
                 >
-                  <ArrowRight className="h-6 w-6 text-gray-800" />
+                  <ArrowRight className="h-4 w-4 md:h-6 md:w-6 text-gray-800" />
                 </button>
               </div>
             </div>
           </div>
           {/* Right Side - Carousel */}
-          <div className="flex absolute right-0 top-1/2 -translate-y-1/2">
-            <div className="flex gap-8 w-full justify-center">
+          <div className="flex md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 w-full md:w-auto mt-8 md:mt-0">
+            <div className="flex gap-4 md:gap-8 w-full justify-center">
               {assistItems.slice(currentIndex, currentIndex + 2).map((item, idx) => (
                 <div
                   key={item.title + currentIndex}
-                  className="relative w-[420px] h-[420px] bg-white rounded-none overflow-hidden shadow-md flex flex-col justify-end"
+                  className="relative w-[280px] h-[280px] md:w-[420px] md:h-[420px] bg-white rounded-none overflow-hidden shadow-md flex flex-col justify-end"
                   style={getAnimStyle()}
                   onAnimationEnd={handleAnimationEnd}
                 >
@@ -155,8 +155,8 @@ export default function AssistWithMore({ data }: AssistWithMoreProps) {
                     className="absolute inset-0 w-full h-full object-cover object-center z-0"
                   />
                   <div className="absolute inset-0 bg-black/40 z-10" />
-                  <div className="relative z-20 p-6 text-center">
-                    <h3 className="text-white text-2xl font-arpona  mb-2 drop-shadow-lg">
+                  <div className="relative z-20 p-4 md:p-6 text-center">
+                    <h3 className="text-white text-lg md:text-2xl font-arpona mb-2 drop-shadow-lg">
                       {item.title}
                     </h3>
                     <p className="text-white text-xs font-inter font-bold drop-shadow-lg">
@@ -165,9 +165,9 @@ export default function AssistWithMore({ data }: AssistWithMoreProps) {
                   </div>
                 </div>
               ))}
-              </div>
             </div>
           </div>
+        </div>
       </section>
     </>
   );
