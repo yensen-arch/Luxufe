@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from "react";
-import { ArrowUpRight, Star, Bell, Mail, Trophy, Gift, X, Plus, PlaneTakeoff } from 'lucide-react';
+import {  Star, Bell, Mail, Trophy, Gift, X, Plus, PlaneTakeoff } from 'lucide-react';
 
 interface WhyJoinEleveProps {
   onBecomeMember?: () => void
@@ -18,12 +18,12 @@ interface WhyJoinEleveProps {
 
 // Icon mapping
 const iconMap: { [key: string]: React.ReactNode } = {
-  PlaneTakeoff: <PlaneTakeoff className="w-7 h-7 text-[#23263a]" />,
-  Star: <Star className="w-7 h-7 text-[#23263a]" />,
-  Bell: <Bell className="w-7 h-7 text-[#23263a]" />,
-  Mail: <Mail className="w-7 h-7 text-[#23263a]" />,
-  Trophy: <Trophy className="w-7 h-7 text-[#23263a]" />,
-  Gift: <Gift className="w-7 h-7 text-[#23263a]" />,
+  PlaneTakeoff: <PlaneTakeoff className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[#23263a]" />,
+  Star: <Star className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[#23263a]" />,
+  Bell: <Bell className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[#23263a]" />,
+  Mail: <Mail className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[#23263a]" />,
+  Trophy: <Trophy className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[#23263a]" />,
+  Gift: <Gift className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[#23263a]" />,
 }
 
 export default function WhyJoinEleve({ onBecomeMember, data }: WhyJoinEleveProps) {
@@ -71,42 +71,42 @@ export default function WhyJoinEleve({ onBecomeMember, data }: WhyJoinEleveProps
   const whyJoinData = data || fallbackData
 
   return (
-    <section className="bg-white py-24 flex flex-col items-center">
+    <section className="bg-white py-12 md:py-16 lg:py-24 flex flex-col items-center">
       {/* Heading */}
-      <h2 className="text-4xl font-bold md:text-5xl font-arpona text-[#23263a] text-center mb-16">
-        {whyJoinData.title} <span className="font-bellarina font-normal text-6xl mr-2 md:text-8xl align-middle">{whyJoinData.brandName}</span>by Luxufe?
+      <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold font-arpona text-[#23263a] text-center mb-8 md:mb-12 lg:mb-16 px-4 md:px-6 lg:px-8">
+        {whyJoinData.title} <span className="font-bellarina font-normal text-3xl md:text-4xl lg:text-6xl xl:text-8xl align-middle mr-1 md:mr-2">{whyJoinData.brandName}</span>by Luxufe?
       </h2>
       {/* Accordion */}
-      <div className="w-full max-w-6xl divide-y divide-gray-300 border-t border-b border-gray-300 mb-16">
+      <div className="w-full max-w-6xl divide-y divide-gray-300 border-t border-b border-gray-300 mb-8 md:mb-12 lg:mb-16 px-4 md:px-6 lg:px-8">
         {whyJoinData.items.map((item, idx) => (
           <div key={item.title} className="relative overflow-hidden transition-all duration-500">
             <button
-              className="w-full flex justify-between items-center py-8 px-4 md:px-8 focus:outline-none group hover:cursor-pointer"
+              className="w-full flex justify-between items-center py-4 md:py-6 lg:py-8 px-4 md:px-6 lg:px-8 focus:outline-none group hover:cursor-pointer"
               onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
               aria-expanded={openIndex === idx}
               aria-controls={`accordion-panel-${idx}`}
             >
-              <span className="flex items-center gap-4 text-2xl md:text-2xl font-arpona font-bold text-[#23263a] text-left">
+              <span className="flex items-center gap-2 md:gap-3 lg:gap-4 text-lg md:text-xl lg:text-2xl font-arpona font-bold text-[#23263a] text-left">
                 {iconMap[item.icon] || iconMap.Star}
                 {item.title}
               </span>
-              <span className="ml-4 text-gray-500 group-hover:text-gray-800">
+              <span className="ml-2 md:ml-3 lg:ml-4 text-gray-500 group-hover:text-gray-800">
                 {openIndex === idx ? (
-                  <X className="w-8 h-8" />
+                  <X className="w-5 h-5 md:w-6 md:h-6 lg:w-8 lg:h-8" />
                 ) : (
-                  <Plus className="w-8 h-8" />
+                  <Plus className="w-5 h-5 md:w-6 md:h-6 lg:w-8 lg:h-8" />
                 )}
               </span>
             </button>
             {/* Expandable panel */}
             <div
               className={`transition-all duration-500 ease-in-out grid ${
-                openIndex === idx ? "max-h-[500px] opacity-100 py-4 px-4 md:px-8" : "max-h-0 opacity-0"
+                openIndex === idx ? "max-h-[500px] opacity-100 py-4 md:py-6 px-4 md:px-6 lg:px-8" : "max-h-0 opacity-0"
               }`}
               style={{ overflow: "hidden" }}
             >
               {item.content && (
-                <p className="font-inter text-slate-700 text-md md:text-md font-bold max-w-4xl">
+                <p className="font-inter text-slate-700 text-sm md:text-base lg:text-md font-bold max-w-4xl">
                   {item.content}
                 </p>
               )}
@@ -116,7 +116,7 @@ export default function WhyJoinEleve({ onBecomeMember, data }: WhyJoinEleveProps
       </div>
       {/* Button */}
       <button
-        className="mt-6 px-10 py-4 border border-slate-300 text-[#23263a] font-inter font-bold bg-transparent hover:bg-[#23263a] hover:text-white transition-all text-xs"
+        className="mt-4 md:mt-5 lg:mt-6 px-6 md:px-8 lg:px-10 py-3 md:py-4 border border-slate-300 text-[#23263a] font-inter font-bold bg-transparent hover:bg-[#23263a] hover:text-white transition-all text-xs"
         onClick={onBecomeMember || (() => {})}
       >
         {whyJoinData.buttonText}

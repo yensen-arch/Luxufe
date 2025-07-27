@@ -37,13 +37,13 @@ export default function HeroEleve({ onBecomeMember, data }: HeroEleveProps) {
         <div className="absolute top-0 left-0 w-full h-full bg-black/40"></div>
       </div>
       {/* Content */}
-      <div className="relative z-10 p-4 w-full max-w-5xl mx-auto flex flex-col items-center justify-center">
-        <p className="text-4xl md:text-5xl italic mb-4 font-bellarina">{heroData.subtitle}</p>
-        <h1 className="text-5xl md:text-6xl font-arpona font-bold mb-8 leading-tight">
+      <div className="relative z-10 p-4 md:p-6 lg:p-8 w-full max-w-5xl mx-auto flex flex-col items-center justify-center">
+        <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl italic mb-2 md:mb-3 lg:mb-4 font-bellarina">{heroData.subtitle}</p>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-arpona font-bold mb-4 md:mb-6 lg:mb-8 leading-tight">
           {heroData.title}
         </h1>
         <button
-          className="mt-6 px-10 py-4 border border-slate-300 text-white font-inter font-bold bg-transparent hover:bg-white hover:text-black transition-all text-xs"
+          className="mt-4 md:mt-5 lg:mt-6 px-6 md:px-8 lg:px-10 py-3 md:py-4 border border-slate-300 text-white font-inter font-bold bg-transparent hover:bg-white hover:text-black transition-all text-xs"
           onClick={onBecomeMember || (() => {})}
         >
           {heroData.buttonText}
