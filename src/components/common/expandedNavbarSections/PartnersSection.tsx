@@ -30,7 +30,7 @@ const PartnersSection: React.FC = () => (
       <h3 className="text-lg sm:text-xl lg:text-2xl font-arpona font-semibold text-gray-900 mb-4 sm:mb-6 lg:mb-8">Hotels & Stays</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-4 sm:gap-x-6 lg:gap-x-10 gap-y-4">
         {hotelColumns.map((col, i) => (
-          <ul key={i} className="space-y-2 sm:space-y-3">
+          <ul key={i} className={`space-y-2 sm:space-y-3 ${i >= 3 ? 'hidden lg:block' : ''}`}>
             {col.map((hotel) => (
               <li key={hotel} className="text-xs font-inter text-gray-500 hover:text-gray-900 transition-colors duration-200 cursor-pointer break-words">{hotel}</li>
             ))}
@@ -56,7 +56,8 @@ const PartnersSection: React.FC = () => (
           ))}
         </ul>
       </div>
-      <div className="sm:col-span-2 lg:col-span-1">
+      {/* Private Jets - hidden on mobile for cleaner look */}
+      <div className="hidden lg:block">
         <h3 className="text-lg sm:text-xl lg:text-2xl font-arpona font-semibold text-gray-900 mb-3 sm:mb-4">Private Jets</h3>
         <ul className="space-y-2 sm:space-y-3">
           {privateJets.map((jet) => (

@@ -30,20 +30,20 @@ const ExploreBySection: React.FC = () => (
         </div>
       ))}
     </div>
-    {/* Right: Conversation Section */}
-    <div className="w-full lg:w-1/2 flex flex-col items-center justify-center bg-gray-100 relative px-4 sm:px-8 lg:px-12 py-6 sm:py-8 lg:py-12">
+    {/* Right: Conversation Section - hidden on mobile for cleaner look */}
+    <div className="hidden lg:flex w-full lg:w-1/2 flex-col items-center justify-center bg-gray-100 relative px-12 py-12">
       <img
         src="https://randomuser.me/api/portraits/women/44.jpg"
         alt="Team Member"
-        className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full object-cover mb-4 sm:mb-6 lg:mb-8"
+        className="w-28 h-28 rounded-full object-cover mb-8"
       />
-      <h2 className="text-xl sm:text-2xl lg:text-3xl font-arpona font-bold text-gray-700 mb-3 sm:mb-4 text-center">Prefer a conversation?</h2>
-      <p className="text-black text-center text-sm sm:text-base lg:text-md font-inter font-bold mb-6 sm:mb-8 px-2">
+      <h2 className="text-3xl font-arpona font-bold text-gray-700 mb-4 text-center">Prefer a conversation?</h2>
+      <p className="text-black text-center text-md font-inter font-bold mb-8">
         Our team is always available to guide you through the process and ensure your experience is perfectly matched to your preferences.
       </p>
-      <div className="w-full space-y-3 sm:space-y-4">
-        <button className="w-full border border-gray-400 py-2 sm:py-3 font-inter font-bold text-gray-900 hover:bg-gray-200 transition-all text-xs sm:text-sm">START PLANNING <ArrowRight className="inline w-3 h-3 sm:w-4 sm:h-4 ml-2" /></button>
-        <button className="w-full border border-gray-400 py-2 sm:py-3 font-inter font-bold text-gray-900 hover:bg-gray-200 transition-all text-xs sm:text-sm">TRY THE TRIP WIZARD <ArrowRight className="inline w-3 h-3 sm:w-4 sm:h-4 ml-2" /></button>
+      <div className="w-full space-y-4">
+        <button className="w-full border border-gray-400 py-3 font-inter font-bold text-gray-900 hover:bg-gray-200 transition-all text-sm">START PLANNING <ArrowRight className="inline w-4 h-4 ml-2" /></button>
+        <button className="w-full border border-gray-400 py-3 font-inter font-bold text-gray-900 hover:bg-gray-200 transition-all text-sm">TRY THE TRIP WIZARD <ArrowRight className="inline w-4 h-4 ml-2" /></button>
       </div>
     </div>
   </div>

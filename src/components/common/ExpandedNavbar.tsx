@@ -69,16 +69,18 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
                 </li>
               ))}
             </ul>
-            <div className="space-y-2 sm:space-y-3 lg:space-y-4">
+            {/* Quick links - hidden on mobile for cleaner look */}
+            <div className="hidden lg:block space-y-4">
               {quickLinks.map((link) => (
-                <div key={link.label} className="font-inter font-bold flex items-center text-gray-400 hover:text-gray-600 text-xs sm:text-sm lg:text-sm cursor-pointer">
+                <div key={link.label} className="font-inter font-bold flex items-center text-gray-400 hover:text-gray-600 text-sm cursor-pointer">
                   {link.icon}
                   {link.label}
                 </div>
               ))}
             </div>
           </div>
-          <div className="flex gap-3 sm:gap-4 lg:gap-6 mt-4 lg:mt-0">
+          {/* Social links - hidden on mobile for cleaner look */}
+          <div className="hidden lg:flex gap-6 mt-0">
             {socials.map((s, i) => (
               <a key={i} href={s.href} className="cursor-pointer transition-colors text-[#a8d1cf] hover:text-[#8bc1bf]">{s.icon}</a>
             ))}

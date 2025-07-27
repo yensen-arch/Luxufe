@@ -39,14 +39,14 @@ const AboutUsSection: React.FC = () => (
         ))}
       </ul>
     </div>
-    {/* Right: Stacked cards */}
-    <div className="w-full lg:w-1/2 bg-[#f3f3f5] relative flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-      <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8 w-full max-w-[450px] flex-1 justify-center">
+    {/* Right: Stacked cards - hidden on mobile for cleaner look */}
+    <div className="hidden lg:flex w-full lg:w-1/2 bg-[#f3f3f5] relative flex-col justify-center items-center px-8">
+      <div className="flex flex-col gap-8 w-full max-w-[450px] flex-1 justify-center">
         {rightCards.map((card) => (
-          <div key={card.label} className="relative h-40 sm:h-48 lg:h-62 overflow-hidden shadow group cursor-pointer flex items-end">
+          <div key={card.label} className="relative h-62 overflow-hidden shadow group cursor-pointer flex items-end">
             <img src={card.img} alt={card.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 absolute inset-0" />
             <div className="w-full absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-center">
-              <span className="text-white text-xs sm:text-sm font-arpona font-bold flex gap-1 sm:gap-2 mb-3 sm:mb-4 lg:mb-6 ml-3 sm:ml-4 lg:ml-6">{card.label} <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 flex-shrink-0" /></span>
+              <span className="text-white text-sm font-arpona font-bold flex gap-2 mb-6 ml-6">{card.label} <ArrowRight className="w-6 h-6" /></span>
             </div>
           </div>
         ))}
