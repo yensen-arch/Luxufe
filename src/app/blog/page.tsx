@@ -51,11 +51,11 @@ export default function Blog() {
         tags={["TRAVEL ADVICE", "TRAVEL ADVICE"]}
         data={blogData?.hero} 
       />
-      <div className="flex flex-col md:flex-row mx-auto w-[80vw] pt-24 pb-12">
-        <div className="w-full md:w-1/3 flex-shrink-0">
+      <div className="flex flex-col lg:flex-row mx-auto w-full lg:w-[80vw] pt-12 md:pt-16 lg:pt-24 pb-8 md:pb-10 lg:pb-12 px-4 md:px-6 lg:px-8">
+        <div className="w-full lg:w-1/3 flex-shrink-0 mb-8 lg:mb-0">
           <BlogSidebar />
         </div>
-        <div className="w-full md:w-2/3">
+        <div className="w-full lg:w-2/3">
           <BlogContent />
         </div>
       </div>
