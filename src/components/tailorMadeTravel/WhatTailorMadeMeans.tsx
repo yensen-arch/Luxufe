@@ -26,31 +26,31 @@ export default function WhatTailorMadeMeans({ data }: WhatTailorMadeMeansProps) 
   const paragraphs = displayDescription.split('\n\n');
 
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-12 md:py-16 lg:py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         {/* Heading */}
-        <h2 className="text-4xl md:text-5xl font-arpona text-[#23263a] mb-16 flex flex-wrap items-end">
-          <span className="mr-3 font-bold">What</span>
-          <span className="font-bellarina text-4xl md:text-6xl" style={{fontFamily: 'Bellarina, serif'}}>{displaySubtitle}</span>
-          <span className="ml-3 font-bold">means at Luxufe</span>
+        <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-arpona text-[#23263a] mb-8 md:mb-12 lg:mb-16 flex flex-wrap items-end">
+          <span className="mr-2 md:mr-3 font-bold">What</span>
+          <span className="font-bellarina text-2xl md:text-3xl lg:text-4xl xl:text-6xl" style={{fontFamily: 'Bellarina, serif'}}>{displaySubtitle}</span>
+          <span className="ml-2 md:ml-3 font-bold">means at Luxufe</span>
         </h2>
         {/* Content Row */}
-        <div className="flex flex-col md:flex-row items-start gap-12">
+        <div className="flex flex-col lg:flex-row items-start gap-8 md:gap-10 lg:gap-12">
           {/* Left: Image */}
-          <div className="md:w-1/2 w-full flex-shrink-0 flex justify-center">
+          <div className="w-full lg:w-1/2 flex-shrink-0 flex justify-center order-1 lg:order-1">
             <img
               src={displayImageUrl}
               alt={displayImageAlt}
-              className="w-full w-[540px] h-[500px] object-cover rounded"
+              className="w-full lg:w-[540px] h-[300px] md:h-[400px] lg:h-[500px] object-cover rounded"
             />
           </div>
           {/* Right: Text */}
-          <div className="md:w-1/2 w-full flex flex-col justify-center my-auto md:ml-10">
-            <h3 className="text-2xl md:text-3xl font-arpona font-bold text-[#23263a] mb-6">
+          <div className="w-full lg:w-1/2 flex flex-col justify-center my-auto lg:ml-10 order-2 lg:order-2">
+            <h3 className="text-xl md:text-2xl lg:text-3xl font-arpona font-bold text-[#23263a] mb-4 md:mb-5 lg:mb-6">
               {displayTitle}
             </h3>
             {paragraphs.map((paragraph, index) => (
-              <p key={index} className="font-inter text-[#23263a] text-md font-bold mb-4 w-5/6">
+              <p key={index} className="font-inter text-[#23263a] text-sm md:text-base lg:text-md font-bold mb-3 md:mb-4 w-full lg:w-5/6">
                 {paragraph}
               </p>
             ))}

@@ -29,12 +29,12 @@ export default function Hero({ data }: HeroProps) {
       >
         <div className="absolute top-0 left-0 w-full h-full bg-black/40"></div>
       </div>
-      <div className="relative z-10 p-4 flex flex-col items-center justify-center w-full">
-        <p className="text-3xl md:text-4xl mb-6 font-bellarina" style={{fontFamily: 'Bellarina, serif'}}>{displaySubtitle}</p>
-        <h1 className="text-4xl md:text-6xl font-arpona font-light mb-6 leading-tight">
+      <div className="relative z-10 p-4 md:p-6 lg:p-8 flex flex-col items-center justify-center w-full">
+        <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-4 md:mb-5 lg:mb-6 font-bellarina px-4" style={{fontFamily: 'Bellarina, serif'}}>{displaySubtitle}</p>
+        <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-arpona font-light mb-4 md:mb-5 lg:mb-6 leading-tight px-4">
           {displayTitle}
         </h1>
-        <p className="mt-2 max-w-xl mx-auto font-inter text-lg font-bold">
+        <p className="mt-2 max-w-xl mx-auto font-inter text-sm md:text-base lg:text-lg font-bold px-4">
           {displayDescription}
         </p>
       </div>

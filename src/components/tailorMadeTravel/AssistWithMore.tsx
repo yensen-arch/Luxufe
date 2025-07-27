@@ -117,7 +117,7 @@ export default function AssistWithMore({ data }: AssistWithMoreProps) {
           <div className="md:col-span-9 flex flex-col items-start justify-center h-[100vh] py-12 bg-[#f8f8fa]">
             <div className="mb-4 ml-20">
               <span className="font-bellarina text-6xl text-[#23263a] block mb-2">{displaySubtitle}</span>
-              <h2 className="text-6xl font-arpona font-bold text-[#23263a] mb-4 leading-tight">{displayTitle}</h2>
+              <h2 className="text-6xl w-3/4 font-arpona font-bold text-[#23263a] mb-4 leading-tight">{displayTitle}</h2>
               <p className="font-inter text-[#23263a] text-base mb-8 max-w-xs font-bold">
                 {displayDescription}
               </p>
