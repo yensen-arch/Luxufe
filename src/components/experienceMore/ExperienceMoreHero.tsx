@@ -32,11 +32,11 @@ export default function ExperienceMoreHero({ data }: ExperienceMoreHeroProps) {
       >
         <div className="absolute top-0 left-0 w-full h-full bg-black/60"></div>
       </div>
-      <div className="relative z-10 p-4 w-full flex flex-col items-center justify-center">
-        <h1 className="text-5xl md:text-7xl font-arpona font-bold leading-tight mb-8">
+      <div className="relative z-10 p-4 md:p-6 lg:p-8 w-full flex flex-col items-center justify-center">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-7xl font-arpona font-bold leading-tight mb-4 md:mb-6 lg:mb-8 px-4">
           {heroData.title}
         </h1>
-        <p className="mt-2 max-w-2xl mx-auto font-inter text-lg md:text-xl font-normal">
+        <p className="mt-2 max-w-2xl mx-auto font-inter text-sm md:text-base lg:text-lg xl:text-xl font-normal px-4">
           {heroData.description}
         </p>
       </div>
