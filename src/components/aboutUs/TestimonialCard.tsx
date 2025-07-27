@@ -12,7 +12,7 @@ export default function TestimonialCard({
   name?: string;
 }) {
   return (
-    <div className="bg-white p-12 mx-auto flex flex-col gap-6">
+    <div className="bg-white p-12 mx-auto flex flex-col gap-6 border border-gray-400">
       {/* Stars */}
       <div className="flex gap-1 mb-2">
         {[...Array(5)].map((_, i) => (

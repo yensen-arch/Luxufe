@@ -40,12 +40,12 @@ const defaultValues = [
 
 const ValueCard = ({ title, highlightedWord, description, isActive }: { title: string, highlightedWord: string, description: string, isActive: boolean }) => (
   <div
-    className='bg-white shadow-xl p-12 flex flex-col items-center text-center min-h-[260px] transition-all duration-500 mx-4'
+    className='bg-white shadow-xl p-6 md:p-8 lg:p-12 flex flex-col items-center text-center min-h-[200px] md:min-h-[240px] lg:min-h-[260px] transition-all duration-500 mx-2 md:mx-4'
   >
-    <h3 className="text-2xl font-arpona font-bold mb-4 text-[#23263a]">
-      {title} <span className="font-bellarina italic text-3xl align-baseline">{highlightedWord}</span>
+    <h3 className="text-lg md:text-xl lg:text-2xl font-arpona font-bold mb-3 md:mb-4 text-[#23263a]">
+      {title} <span className="font-bellarina italic text-xl md:text-2xl lg:text-3xl align-baseline">{highlightedWord}</span>
     </h3>
-    <p className="w-5/6 font-inter text-[#23263a] text-sm font-bold leading-relaxed">{description}</p>
+    <p className="w-full lg:w-5/6 font-inter text-[#23263a] text-xs md:text-sm font-bold leading-relaxed">{description}</p>
   </div>
 );
 
@@ -84,17 +84,17 @@ export default function GuidingValues({ data }: GuidingValuesProps) {
   }, [emblaApi, updateSelectedIndex]);
 
   return (
-    <section className="py-24 bg-[#fafbfc]">
+    <section className="py-12 md:py-16 lg:py-24 bg-[#fafbfc]">
       <div className="container mx-auto px-4 overflow-hidden">
         {/* Header */}
-        <div className="flex max-w-6xl mx-auto flex-col lg:flex-row justify-between items-start mb-24">
-          <div className="lg:w-2/3 lg:mb-0">
-            <h2 className="text-5xl lg:text-6xl font-arpona font-bold text-[#23263a] leading-tight">
+        <div className="flex max-w-6xl mx-auto flex-col lg:flex-row justify-between items-start mb-12 md:mb-16 lg:mb-24">
+          <div className="lg:w-2/3 lg:mb-0 mb-6 md:mb-8">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-arpona font-bold text-[#23263a] leading-tight">
               {guidingData.title}
             </h2>
           </div>
           <div className="lg:w-2/5">
-            <p className="text-lg font-inter font-bold text-[#23263a]">
+            <p className="text-base md:text-lg font-inter font-bold text-[#23263a]">
               {guidingData.subtitle}
             </p>
           </div>
@@ -111,7 +111,7 @@ export default function GuidingValues({ data }: GuidingValuesProps) {
             </div>
           </div>
           {/* Pagination Indicator */}
-          <div className="flex justify-center items-center gap-2 mt-24 w-40 mx-auto">
+          <div className="flex justify-center items-center gap-2 mt-12 md:mt-16 lg:mt-24 w-40 mx-auto">
             {/* Left numbers */}
             <span className={`text-xs font-inter ${selectedIndex === 0 ? 'text-[#23263a] font-bold' : 'text-gray-400 font-light'}`}>01</span>
             <span className={`text-xs font-inter ${selectedIndex === 1 ? 'text-[#23263a] font-bold' : 'text-gray-400 font-light'}`}>02</span>
