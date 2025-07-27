@@ -132,7 +132,7 @@ export default function Footer() {
                     {/* Decorative grid - hidden on mobile for cleaner look */}
                     <div className="hidden lg:grid grid-cols-8 gap-4 mb-8">
                         {[...Array(8)].map((_, i) => (
-                           <div key={i} className="h-20 bg-white/5 rounded"></div>
+                           <div key={i} className="h-20 bg-white/5"></div>
                         ))}
                     </div>
                     <div className="border-t border-white/70 pt-6 sm:pt-8 font-inter font-bold flex flex-col sm:flex-row flex-wrap justify-between items-center text-xs gap-4 sm:gap-6">
