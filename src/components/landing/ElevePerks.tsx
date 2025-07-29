@@ -102,7 +102,7 @@ export default function ElevePerks({ data }: ElevePerksProps) {
           <div className="hidden lg:block absolute top-0 -right-36 -translate-y-1/2 -translate-x-1/2">
             <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[150px] h-auto" />
           </div>
-          <img src={currentPerk.image.url} alt={currentPerk.image.alt} className="w-full h-full object-cover" />
+          <img src={currentPerk.image?.url} alt={currentPerk.image?.alt} className="w-full h-full object-cover" />
           
           {/* Counter - Hidden on mobile for cleaner look */}
           <div className="hidden lg:block absolute top-6 left-6 text-sm font-mono">

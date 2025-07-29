@@ -5,6 +5,7 @@ import ExperiencesSection from './expandedNavbarSections/ExperiencesSection';
 import AboutUsSection from './expandedNavbarSections/AboutUsSection';
 import PartnersSection from './expandedNavbarSections/PartnersSection';
 import SpecialOffersSection from './expandedNavbarSections/SpecialOffersSection';
+import Link from 'next/link';
 
 interface ExpandedNavbarProps {
   open: boolean;
@@ -22,9 +23,9 @@ const navItems = [
 ];
 
 const quickLinks = [
-  { icon: <Trophy className="w-4 h-4 mr-2" />, label: 'Become a member' },
-  { icon: <Heart className="w-4 h-4 mr-2" />, label: 'Offers & Promotions' },
-  { icon: <Mail className="w-4 h-4 mr-2" />, label: 'Subscribe for news' },
+  { icon: <Trophy className="w-4 h-4 mr-2" />, label: 'Become a member', href: '/eleve' },
+  { icon: <Heart className="w-4 h-4 mr-2" />, label: 'Offers & Promotions', href: '/offers' },
+  { icon: <Mail className="w-4 h-4 mr-2" />, label: 'Subscribe for news', href: '/newsletter' },
 ];
 
 const socials = [
@@ -49,7 +50,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
       className={`fixed left-0 right-0 transition-all duration-700 ease-in-out transform ${
         open 
           ? 'translate-y-0 opacity-100 pointer-events-auto' 
-          : '-translate-y-full opacity-0 pointer-events-none'
+          : '-translate-y-full opacity-100 pointer-events-none'
       }`}
       style={{ top: 0, height: '90vh' }}
     >
@@ -74,7 +75,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
               {quickLinks.map((link) => (
                 <div key={link.label} className="font-inter font-bold flex items-center text-gray-400 hover:text-gray-600 text-sm cursor-pointer">
                   {link.icon}
-                  {link.label}
+                  <Link href={link.href}>{link.label}</Link>
                 </div>
               ))}
             </div>

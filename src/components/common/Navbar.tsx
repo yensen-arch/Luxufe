@@ -29,7 +29,7 @@ export default function Navbar() {
         
         {/* Desktop Right Section */}
         <div className="hidden md:flex items-center gap-6">
-          <a href="#" className={`hover:font-normal font-bold ${textColor}`}>ENQUIRE</a>
+          <a href="/contact-us" className={`hover:font-normal font-bold ${textColor}`}>ENQUIRE</a>
           <span className={`text-sm font-bold ${textColor}`}>+12 34 567 8900</span>
           <div className="flex items-center gap-4">
             <a href="#"><User className={`h-6 w-6 font-bold ${textColor}`} /></a>
