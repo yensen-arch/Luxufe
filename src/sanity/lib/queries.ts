@@ -104,8 +104,17 @@ export const landingPageQuery = groq`
       description,
       testimonials[] {
         quote,
-        author,
-        location
+        supporting,
+        name,
+        avatar {
+          asset->{
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        }
       }
     },
     luxuryPartners {
@@ -121,28 +130,28 @@ export const landingPageQuery = groq`
             }
           },
           alt
-        },
-        description
+        }
       }
     },
     elevePerks {
       heading,
       description,
       perks[] {
+        icon,
         title,
-        description,
-        image {
-          asset->{
-            url,
-            metadata {
-              dimensions
-            }
-          },
-          alt
-        },
-        icon
+        content
       },
-      ctaText
+      ctaText,
+      ctaLink,
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
     },
     exclusiveOffers {
       heading,
@@ -166,12 +175,10 @@ export const landingPageQuery = groq`
     inspiration {
       heading,
       description,
-      ctaText,
-      ctaLink,
       blogPosts[] {
-        category,
         title,
-        description,
+        excerpt,
+        slug,
         image {
           asset->{
             url,
@@ -180,9 +187,7 @@ export const landingPageQuery = groq`
             }
           },
           alt
-        },
-        buttonText,
-        buttonLink
+        }
       }
     },
     newsletter {
@@ -230,20 +235,9 @@ export const aboutPageQuery = groq`
       description
     },
     artOfEffortlessTravel {
-      image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
-        alt
-      },
       title,
-      subtitle,
-      paragraph1,
-      paragraph2,
-      badgeImage {
+      description,
+      image {
         asset->{
           url,
           metadata {
@@ -254,7 +248,7 @@ export const aboutPageQuery = groq`
       }
     },
     wallpaper {
-      image {
+      backgroundImage {
         asset->{
           url,
           metadata {
@@ -262,7 +256,9 @@ export const aboutPageQuery = groq`
           }
         },
         alt
-      }
+      },
+      title,
+      description
     },
     luxuryStay {
       title,
@@ -279,18 +275,16 @@ export const aboutPageQuery = groq`
     },
     guidingValues {
       title,
-      subtitle,
+      description,
       values[] {
+        icon,
         title,
-        highlightedWord,
-        description
+        content
       }
     },
     luxufeStory {
       title,
       description,
-      buttonText,
-      buttonLink,
       image {
         asset->{
           url,
@@ -303,7 +297,10 @@ export const aboutPageQuery = groq`
     },
     recognizedForExcellence {
       title,
-      logos[] {
+      description,
+      awards[] {
+        name,
+        year,
         image {
           asset->{
             url,
@@ -311,7 +308,7 @@ export const aboutPageQuery = groq`
               dimensions
             }
           },
-          altText
+          alt
         }
       }
     },
@@ -345,13 +342,11 @@ export const aboutPageQuery = groq`
     contactUs {
       title,
       description,
-      email,
-      appointmentText,
-      appointmentLink,
-      faqText,
-      faqLink,
-      buttonText,
-      buttonLink
+      contactInfo {
+        phone,
+        email,
+        address
+      }
     }
   }
 `
@@ -375,6 +370,16 @@ export const beforeYouTravelPageQuery = groq`
     },
     essentialTravelInfo {
       title,
+      description,
+      items[] {
+        icon,
+        title,
+        content
+      }
+    },
+    luxufeStory {
+      title,
+      description,
       image {
         asset->{
           url,
@@ -383,27 +388,17 @@ export const beforeYouTravelPageQuery = groq`
           }
         },
         alt
-      },
-      subtitle,
-      paragraph1,
-      paragraph2
+      }
     },
     travelAccordion {
+      title,
+      description,
       items[] {
         title,
         content
       }
     },
     exploreMore {
-      backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
-        alt
-      },
       title,
       subtitle,
       cards[] {
@@ -425,13 +420,11 @@ export const beforeYouTravelPageQuery = groq`
     contactUs {
       title,
       description,
-      email,
-      appointmentText,
-      appointmentLink,
-      faqText,
-      faqLink,
-      buttonText,
-      buttonLink
+      contactInfo {
+        phone,
+        email,
+        address
+      }
     }
   }
 `
@@ -576,11 +569,6 @@ export const storiesAndInsightsPageQuery = groq`
     travelChoice {
       title,
       description,
-      socialLinks[] {
-        platform,
-        url,
-        enabled
-      },
       image {
         asset->{
           url,
@@ -593,10 +581,9 @@ export const storiesAndInsightsPageQuery = groq`
     },
     effortlessLuxury {
       title,
-      subtitle,
-      paragraph1,
-      paragraph2,
+      description,
       buttonText,
+      buttonLink,
       image {
         asset->{
           url,
@@ -684,7 +671,34 @@ export const tailorMadeTravelPageQuery = groq`
     },
     whatTailorMadeMeans {
       title,
-      subtitle,
+      description,
+      items[] {
+        icon,
+        title,
+        content
+      }
+    },
+    tailorMadeItineraries {
+      title,
+      description,
+      itineraries[] {
+        title,
+        description,
+        image {
+          asset->{
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        },
+        ctaText,
+        ctaLink
+      }
+    },
+    exploreTogetherHero {
+      title,
       description,
       image {
         asset->{
@@ -696,61 +710,23 @@ export const tailorMadeTravelPageQuery = groq`
         alt
       }
     },
-    tailorMadeItineraries {
-      heading,
-      subheading,
-      buttonText
-    },
-    exploreTogetherHero {
-      backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
-        alt
-      },
-      title,
-      description,
-      buttonText
-    },
     assistWithMore {
       title,
-      subtitle,
       description,
       items[] {
+        icon,
         title,
-        description,
-        image {
-          asset->{
-            url,
-            metadata {
-              dimensions
-            }
-          },
-          alt
-        }
+        content
       }
     },
     tailorMadeProcess {
       title,
       description,
       steps[] {
+        number,
         title,
-        description,
-        image {
-          asset->{
-            url,
-            metadata {
-              dimensions
-            }
-          },
-          alt
-        }
-      },
-      appointmentButtonText,
-      wizardButtonText
+        content
+      }
     }
   }
 `
@@ -771,50 +747,32 @@ export const contactUsPageQuery = groq`
       subtitle,
       title,
       buttonText,
-      description,
-      contactInfo {
-        callUs {
-          title,
-          phoneNumbers
-        },
-        emailUs {
-          title,
-          email
-        },
-        bookACall {
-          title,
-          description,
-          linkText,
-          linkUrl
-        }
-      }
+      description
     },
     carousel {
-      image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
-        alt
+      title,
+      description,
+      items[] {
+        title,
+        content,
+        image {
+          asset->{
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        }
       }
     },
     travelInsuranceInfo {
       title,
-      subtitle,
       description,
-      additionalInfo,
-      image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
-        alt
-      },
-      buttonText
+      items[] {
+        title,
+        content
+      }
     }
   }
 `
@@ -859,10 +817,7 @@ export const waysToTravelPageQuery = groq`
     },
     reflectsYou {
       title,
-      subtitle,
-      description1,
-      description2,
-      buttonText,
+      description,
       image {
         asset->{
           url,
@@ -874,15 +829,26 @@ export const waysToTravelPageQuery = groq`
       }
     },
     grid {
-      subtitle,
       title,
-      description
+      description,
+      items[] {
+        icon,
+        title,
+        content,
+        image {
+          asset->{
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        }
+      }
     },
     tailorMade {
       title,
-      subtitle,
       description,
-      buttonText,
       image {
         asset->{
           url,
@@ -894,20 +860,15 @@ export const waysToTravelPageQuery = groq`
       }
     },
     videoSection {
-      image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
-        alt
-      }
+      title,
+      description,
+      videoUrl
     },
     findJourney {
       title,
       description,
-      buttonText
+      buttonText,
+      buttonLink
     }
   }
 `
@@ -927,21 +888,7 @@ export const notFoundPageQuery = groq`
       },
       subtitle,
       title,
-      description,
-      buttons {
-        homeButton {
-          text,
-          link
-        },
-        waysToTravelButton {
-          text,
-          link
-        },
-        contactButton {
-          text,
-          link
-        }
-      }
+      description
     }
   }
 `
@@ -1051,6 +998,56 @@ export const tripWizardPageQuery = groq`
         iconUrl
       },
       progress
+    }
+  }
+`
+
+export const hotelsPageQuery = groq`
+  *[_type == "hotelsPage"][0] {
+    title,
+    hero {
+      tagline,
+      mainHeading,
+      subHeading,
+      backgroundImage {
+        asset->{
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      }
+    },
+    brands {
+      title,
+      subtitle,
+      description,
+      brandLogos[] {
+        name,
+        logo {
+          asset->{
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        }
+      },
+      destinations[] {
+        name,
+        location,
+        image {
+          asset->{
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        }
+      }
     }
   }
 ` 

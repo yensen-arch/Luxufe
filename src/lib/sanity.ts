@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery, notFoundPageQuery, privacyPolicyPageQuery, paymentsPageQuery, membersLoginPageQuery, searchPageQuery, tripWizardPageQuery } from '@/sanity/lib/queries'
+import { landingPageQuery, aboutPageQuery, beforeYouTravelPageQuery, elevePageQuery, storiesAndInsightsPageQuery, experienceMorePageQuery, blogPageQuery, tailorMadeTravelPageQuery, contactUsPageQuery, linkInBioPageQuery, waysToTravelPageQuery, notFoundPageQuery, privacyPolicyPageQuery, paymentsPageQuery, membersLoginPageQuery, searchPageQuery, tripWizardPageQuery, hotelsPageQuery } from '@/sanity/lib/queries'
 
 export interface LandingPageData {
   title: string
@@ -1270,5 +1270,65 @@ export async function getTripWizardPageData(): Promise<TripWizardPageData | null
   } catch (error) {
     console.error('Error fetching trip wizard page data:', error);
     return null;
+  }
+}
+
+export interface HotelsPageData {
+  title: string;
+  hero: {
+    tagline: string;
+    mainHeading: string;
+    subHeading: string;
+    backgroundImage: {
+      url: string;
+      metadata: {
+        dimensions: {
+          width: number;
+          height: number;
+        };
+      };
+      alt: string;
+    };
+  };
+  brands: {
+    title: string;
+    subtitle: string;
+    description: string;
+    brandLogos: Array<{
+      name: string;
+      logo: {
+        url: string;
+        metadata: {
+          dimensions: {
+            width: number;
+            height: number;
+          };
+        };
+        alt: string;
+      };
+    }>;
+    destinations: Array<{
+      name: string;
+      location: string;
+      image: {
+        url: string;
+        metadata: {
+          dimensions: {
+            width: number;
+            height: number;
+          };
+        };
+        alt: string;
+      };
+    }>;
+  };
+}
+
+export async function getHotelsPageData(): Promise<HotelsPageData | null> {
+  try {
+    return await client.fetch(hotelsPageQuery)
+  } catch (error) {
+    console.error('Error fetching hotels page data:', error)
+    return null
   }
 } 

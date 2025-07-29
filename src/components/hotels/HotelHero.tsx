@@ -55,7 +55,7 @@ export default function HotelHero({ data }: HotelHeroProps) {
       <div className="absolute -bottom-140">
         <div className="relative w-full h-full">
           {/* Map Container */}
-            <HotelMap />
+          <HotelMap />
         </div>
       </div>
     </section>

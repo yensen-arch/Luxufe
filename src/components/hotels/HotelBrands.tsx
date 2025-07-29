@@ -7,14 +7,20 @@ interface HotelBrandsData {
   title: string;
   subtitle: string;
   description: string;
-  brands: Array<{
+  brandLogos: Array<{
     name: string;
-    logo: string;
+    logo: {
+      url: string;
+      alt: string;
+    };
   }>;
   destinations: Array<{
     name: string;
     location: string;
-    image: string;
+    image: {
+      url: string;
+      alt: string;
+    };
   }>;
 }
 
@@ -23,30 +29,30 @@ interface HotelBrandsProps {
 }
 
 const defaultBrands = [
-  { name: "BEYOND", logo: "https://via.placeholder.com/120x60/000000/FFFFFF?text=BEYOND" },
-  { name: "BELMOND", logo: "https://via.placeholder.com/120x60/000000/FFFFFF?text=BELMOND" },
-  { name: "CAPELLA HOTELS & RESORTS", logo: "https://via.placeholder.com/120x60/000000/FFFFFF?text=CAPELLA" },
-  { name: "Dorchester Collection", logo: "https://via.placeholder.com/120x60/000000/FFFFFF?text=DORCHESTER" },
-  { name: "Fairmont HOTELS & RESORTS", logo: "https://via.placeholder.com/120x60/000000/FFFFFF?text=FAIRMONT" },
-  { name: "One&Only RESORTS", logo: "https://via.placeholder.com/120x60/000000/FFFFFF?text=ONE&ONLY" },
-  { name: "ST REGIS", logo: "https://via.placeholder.com/120x60/000000/FFFFFF?text=ST+REGIS" },
+  { name: "BEYOND", logo: { url: "https://via.placeholder.com/120x60/000000/FFFFFF?text=BEYOND", alt: "BEYOND" } },
+  { name: "BELMOND", logo: { url: "https://via.placeholder.com/120x60/000000/FFFFFF?text=BELMOND", alt: "BELMOND" } },
+  { name: "CAPELLA HOTELS & RESORTS", logo: { url: "https://via.placeholder.com/120x60/000000/FFFFFF?text=CAPELLA", alt: "CAPELLA" } },
+  { name: "Dorchester Collection", logo: { url: "https://via.placeholder.com/120x60/000000/FFFFFF?text=DORCHESTER", alt: "DORCHESTER" } },
+  { name: "Fairmont HOTELS & RESORTS", logo: { url: "https://via.placeholder.com/120x60/000000/FFFFFF?text=FAIRMONT", alt: "FAIRMONT" } },
+  { name: "One&Only RESORTS", logo: { url: "https://via.placeholder.com/120x60/000000/FFFFFF?text=ONE&ONLY", alt: "ONE&ONLY" } },
+  { name: "ST REGIS", logo: { url: "https://via.placeholder.com/120x60/000000/FFFFFF?text=ST+REGIS", alt: "ST REGIS" } },
 ];
 
 const defaultDestinations = [
   {
     name: "Singita Castleton",
     location: "Greater Kruger, South Africa",
-    image: "https://picsum.photos/seed/castleton/800/600"
+    image: { url: "https://picsum.photos/seed/castleton/800/600", alt: "Singita Castleton" }
   },
   {
     name: "Palace Hotel",
     location: "Europe",
-    image: "https://picsum.photos/seed/palace/800/600"
+    image: { url: "https://picsum.photos/seed/palace/800/600", alt: "Palace Hotel" }
   },
   {
     name: "Taj Palace",
     location: "India",
-    image: "https://picsum.photos/seed/taj/800/600"
+    image: { url: "https://picsum.photos/seed/taj/800/600", alt: "Taj Palace" }
   }
 ];
 
@@ -65,7 +71,7 @@ export default function HotelBrands({ data }: HotelBrandsProps) {
     title: "Where You Stay, Matters",
     subtitle: "More than accommodation, these are destinations in their own right",
     description: "At Luxufe, we curate hotels with the same care we give to every journey. From iconic city landmarks to secluded hideaways, each property is chosen for its character, service, and ability to enhance your overall experience.",
-    brands: defaultBrands,
+    brandLogos: defaultBrands,
     destinations: defaultDestinations
   };
 
@@ -87,11 +93,11 @@ export default function HotelBrands({ data }: HotelBrandsProps) {
 
         {/* Brand Logos */}
         <div className="flex justify-center items-center gap-8 md:gap-12 lg:gap-16 mb-16 md:mb-20 lg:mb-24 flex-wrap">
-          {sectionData.brands.map((brand, index) => (
+          {sectionData.brandLogos.map((brand, index) => (
             <div key={index} className="flex-shrink-0">
               <img 
-                src={brand.logo} 
-                alt={brand.name}
+                src={brand.logo.url} 
+                alt={brand.logo.alt}
                 className="h-8 md:h-10 lg:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity"
               />
             </div>
@@ -107,8 +113,8 @@ export default function HotelBrands({ data }: HotelBrandsProps) {
                   <div className="relative mx-2 md:mx-4 lg:mx-6">
                     <div className="relative overflow-hidden">
                       <img 
-                        src={destination.image} 
-                        alt={destination.name}
+                        src={destination.image.url} 
+                        alt={destination.image.alt}
                         className="w-[300px] md:w-[400px] lg:w-[1000px] h-[200px] md:h-[250px] lg:h-[650px] object-cover"
                       />
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 md:p-6">
