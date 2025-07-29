@@ -71,16 +71,16 @@ export default function HotelBrands({ data }: HotelBrandsProps) {
 
   return (
     <section className="py-12 md:py-16 lg:py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <div className=" mx-auto ">
         {/* Text Content */}
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-arpona text-gray-800 mb-4 md:mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-arpona font-bold text-gray-800 mb-4 md:mb-6">
             {sectionData.title}
           </h2>
-          <h3 className="text-xl md:text-2xl lg:text-3xl font-arpona text-gray-800 mb-6 md:mb-8">
+          <h3 className="text-xl md:text-2xl lg:text-3xl max-w-xl mx-auto font-arpona font-bold text-gray-600 mb-6 md:mb-8">
             {sectionData.subtitle}
           </h3>
-          <p className="max-w-3xl mx-auto text-sm md:text-base lg:text-lg font-inter text-gray-700 leading-relaxed">
+          <p className="max-w-xl mx-auto text-sm md:text-base lg:text-sm font-inter font-bold text-gray-700 leading-relaxed">
             {sectionData.description}
           </p>
         </div>
@@ -105,11 +105,11 @@ export default function HotelBrands({ data }: HotelBrandsProps) {
               {sectionData.destinations.map((destination, index) => (
                 <div className="flex-[0_0_auto] min-w-0" key={index}>
                   <div className="relative mx-2 md:mx-4 lg:mx-6">
-                    <div className="relative overflow-hidden rounded-lg">
+                    <div className="relative overflow-hidden">
                       <img 
                         src={destination.image} 
                         alt={destination.name}
-                        className="w-[300px] md:w-[400px] lg:w-[500px] h-[200px] md:h-[250px] lg:h-[300px] object-cover"
+                        className="w-[300px] md:w-[400px] lg:w-[1000px] h-[200px] md:h-[250px] lg:h-[650px] object-cover"
                       />
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 md:p-6">
                         <h4 className="text-white font-arpona text-lg md:text-xl lg:text-2xl mb-1">
@@ -129,13 +129,13 @@ export default function HotelBrands({ data }: HotelBrandsProps) {
           {/* Navigation Arrows */}
           <button
             onClick={scrollPrev}
-            className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/90 rounded-full p-3 md:p-4 shadow-lg hover:bg-white transition-colors z-10"
+            className="absolute top-1/2 left-55 -translate-y-1/2 bg-white/90 rounded-full p-3 md:p-8 shadow-lg hover:bg-white transition-colors z-10"
           >
             <ArrowLeft className="h-4 w-4 md:h-5 md:w-5 text-gray-800" />
           </button>
           <button
             onClick={scrollNext}
-            className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/90 rounded-full p-3 md:p-4 shadow-lg hover:bg-white transition-colors z-10"
+            className="absolute top-1/2 right-55 -translate-y-1/2 bg-white/90 rounded-full p-3 md:p-8 shadow-lg hover:bg-white transition-colors z-10"
           >
             <ArrowRight className="h-4 w-4 md:h-5 md:w-5 text-gray-800" />
           </button>
