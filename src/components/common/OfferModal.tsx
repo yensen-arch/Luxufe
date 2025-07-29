@@ -104,14 +104,14 @@ export default function OfferModal({ isOpen, onClose, data }: OfferModalProps) {
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-50 transition-colors"
+            className="absolute top-4 right-4 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-50 transition-colors"
           >
-            <X className="w-4 h-4 text-gray-700" />
+            <X className="w-8 h-8 text-gray-700" />
           </button>
         </div>
 
         {/* Content Section */}
-        <div className="flex-1 p-6 overflow-y-auto">
+        <div className="flex-1 px-6 pt-2 overflow-y-auto">
           {/* Title */}
           <h2 className="text-xl w-3/4 font-bold font-arpona text-gray-900 mb-4 leading-tight">
             {offerData.title}
@@ -126,7 +126,7 @@ export default function OfferModal({ isOpen, onClose, data }: OfferModalProps) {
           <div className="border-t-2 border-gray-300 mb-6"></div>
           
           {/* Details List */}
-          <div className="space-y-4 mb-8">
+          <div className="space-y-4 mb-4">
             {/* Details */}
             <div className="flex items-start gap-3">
               <div className="flex-shrink-0 w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center mt-0.5">
@@ -163,13 +163,13 @@ export default function OfferModal({ isOpen, onClose, data }: OfferModalProps) {
             </div>
             
             {/* Terms */}
-            <div className="flex items-start gap-3">
+            <div className="flex items-start gap-3 w-full">
               <div className="flex-shrink-0 w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center mt-0.5">
                 <FileText className="w-3 h-3 text-gray-600" />
               </div>
               <div className='flex flex-row'>
                 <span className="text-xs font-semibold font-inter text-gray-500 uppercase tracking-wide">Terms</span>
-                <p className="text-xs w-3/4 text-gray-700 font-bold font-inter ml-auto">
+                <p className="text-xs w-full text-gray-700 font-bold font-inter ml-auto">
                   {offerData.terms.split('Contact the team')[0]}
                   <a 
                     href={offerData.contactLink} 
@@ -185,18 +185,20 @@ export default function OfferModal({ isOpen, onClose, data }: OfferModalProps) {
         </div>
 
         {/* Bottom Section - CTA Buttons */}
-        <div className="p-6 border-t border-gray-200 space-y-3">
+        <div className="px-6">
           {/* Primary CTA */}
-          <button className="w-full bg-gray-900 text-white py-3 px-4 rounded-lg font-semibold text-sm uppercase tracking-wide hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
+          <div className=' border-t-2 p-6 border-gray-300 space-y-3'>
+          <button className="w-full bg-gray-900 font-inter text-white py-3 px-4 font-semibold text-sm uppercase tracking-wide hover:bg-white hover:text-gray-900 border-gray-900 border-1 border-gray-900 transition-colors flex items-center justify-center gap-2">
             Discuss This Offer
             <ArrowRight className="w-4 h-4" />
           </button>
           
           {/* Secondary CTA */}
-          <button className="w-full border border-gray-300 text-gray-700 py-3 px-4 rounded-lg font-semibold text-sm uppercase tracking-wide hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+          <button className="w-full font-inter border border-gray-300 text-gray-700 py-3 px-4 font-semibold text-sm uppercase tracking-wide hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
             More Offers From This Brand
             <ArrowRight className="w-4 h-4" />
           </button>
+          </div>
         </div>
       </div>
     </>
