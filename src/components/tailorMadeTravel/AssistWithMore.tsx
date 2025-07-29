@@ -44,9 +44,7 @@ interface AssistWithMoreProps {
       title: string;
       description: string;
       image: {
-        asset: {
-          url: string;
-        };
+        url: string;
         alt: string | null;
       };
     }>;
@@ -64,10 +62,10 @@ export default function AssistWithMore({ data }: AssistWithMoreProps) {
   const displayDescription = data?.description || "From flights to hotel reservations, we'll handle it all so you can relax.";
   
   // Use CMS items if available, otherwise use default items
-  const assistItems = data?.items?.map(item => ({
+  const assistItems = data?.items?.map((item: any) => ({
     title: item.title,
     description: item.description,
-    imageUrl: item.image.asset.url,
+    imageUrl: item.image?.url,
   })) || defaultAssistItems;
 
   const handleAnimationEnd = () => {

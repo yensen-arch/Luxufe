@@ -20,7 +20,7 @@ export default function HotelMap({ className = "" }: HotelMapProps) {
   const [selected, setSelected] = useState<Location | null>(null);
 
   return (
-    <div className={`w-[80vw] h-screen z-50 relative ${className}`}>
+    <div className={`w-[80vw] h-screen z-10 relative ${className}`}>
       <Map
         initialViewState={{ longitude: 20, latitude: 20, zoom: 1.1 }}
         mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
@@ -53,7 +53,7 @@ export default function HotelMap({ className = "" }: HotelMapProps) {
 
         {/* View All Properties Button */}
         <div className="absolute top-4 right-4 z-10">
-          <button className="bg-gray-800 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-inter text-xs md:text-sm font-bold hover:bg-gray-900 transition-colors shadow-lg">
+          <button className="bg-gray-800 text-white px-4 md:px-6 py-2 md:py-3 font-inter text-xs md:text-sm font-bold hover:bg-gray-900 transition-colors shadow-lg">
             View All Properties
           </button>
         </div>

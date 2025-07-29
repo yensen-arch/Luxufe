@@ -33,7 +33,7 @@ const defaultJourneyData = [
     imageUrl: 'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&h=600&fit=crop',
     link: {
       text: 'DESTINATIONS',
-      href: '#'
+      href: '/destinations'
     }
   },
   {
@@ -43,7 +43,7 @@ const defaultJourneyData = [
     imageUrl: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop',
     link: {
       text: 'EXPERIENCES',
-      href: '#'
+      href: '/experiences'
     }
   },
   {
@@ -53,7 +53,7 @@ const defaultJourneyData = [
     imageUrl: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop',
     link: {
       text: 'JOURNEYS & TOURS',
-      href: '#'
+      href: '/journeys'
     }
   }
 ];

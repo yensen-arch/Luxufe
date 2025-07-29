@@ -29,7 +29,7 @@ export default function RecognizedForExcellence({ data }: RecognizedForExcellenc
       <div className="max-w-6xl mx-auto px-4 flex flex-col items-center">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-arpona font-bold text-[#23263a] text-center mb-8 md:mb-12 lg:mb-16">{excellenceData.title}</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 lg:gap-8">
-          {excellenceData.logos.slice(0, 5).map((logo, i) => (
+          {excellenceData?.logos?.slice(0, 5).map((logo: any, i: number) => (
             <div
               key={i}
               className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 bg-gray-200 flex items-center justify-center"
@@ -39,7 +39,7 @@ export default function RecognizedForExcellence({ data }: RecognizedForExcellenc
           ))}
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mt-4 md:mt-6 lg:mt-7">
-          {excellenceData.logos.slice(5, 8).map((logo, i) => (
+          {excellenceData?.logos?.slice(5, 8).map((logo: any, i: number) => (
             <div
               key={i + 5}
               className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 bg-gray-200 flex items-center justify-center"

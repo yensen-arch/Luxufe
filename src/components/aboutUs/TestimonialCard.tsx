@@ -25,7 +25,7 @@ export default function TestimonialCard({
       <p className="text-sm md:text-base font-bold font-inter text-[#23263a] mb-4 md:mb-5 lg:mb-6">"{supporting}"</p>
       {/* Avatar and Name */}
       <div className="flex items-center gap-3 md:gap-4 mt-3 md:mt-4">
-        <img src={avatar} alt={name} className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-full object-cover" />
+        <img src={avatar || ''} alt={name || ''} className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-full object-cover" />
         <span className="text-gray-400 text-xs md:text-sm font-inter font-bold">{name}</span>
       </div>
     </div>

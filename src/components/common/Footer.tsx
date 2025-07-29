@@ -13,12 +13,12 @@ const galleryImages = [
 
 const mainLinks = {
     EXPLORE: [
-        { text: 'Journeys & Itineraries', href: '#' },
-        { text: 'Hotels', href: '#' },
-        { text: 'Destinations', href: '#' },
-        { text: 'Experiences', href: '#' },
-        { text: 'Travel Partners', href: '#' },
-        { text: 'Tailored Travel', href: '#' },
+        { text: 'Journeys & Itineraries', href: '/journeys' },
+        { text: 'Hotels', href: '/hotels' },
+        { text: 'Destinations', href: '/destinations' },
+        { text: 'Experiences', href: '/experience-more' },
+        { text: 'Travel Partners', href: '/partners' },
+        { text: 'Tailored Travel', href: '/tailor-made-travel' },
     ],
     ABOUT: [
         { text: 'About Rewards Program', href: '#' },
@@ -26,7 +26,7 @@ const mainLinks = {
         { text: 'Before you travel', href: '/before-you-travel' },
         { text: 'Offers & Promotions', href: '#' },
         { text: 'Find the journey for you', href: '#' },
-        { text: 'Travel Journal / Blog', href: '#' },
+        { text: 'Travel Journal / Blog', href: '/blog' },
     ],
     CONTACT: [
         { text: 'Submit an enquiry', href: '#' },
@@ -138,10 +138,10 @@ export default function Footer() {
                     <div className="border-t border-white/70 pt-6 sm:pt-8 font-inter font-bold flex flex-col sm:flex-row flex-wrap justify-between items-center text-xs gap-4 sm:gap-6">
                         <p>&copy; COPYRIGHT. ALL RIGHTS RESERVED. LUXUFE 2025</p>
                         <div className="flex flex-wrap gap-3 sm:gap-6 justify-center sm:justify-end">
-                            <Link href="#" className="hover:text-white">PRIVACY POLICY</Link>
-                            <Link href="#" className="hover:text-white">TERMS OF USE</Link>
-                            <Link href="#" className="hover:text-white">RESERVATION TERMS</Link>
-                            <Link href="#" className="hover:text-white">REWARDS PROGRAM TERMS</Link>
+                            <Link href="/privacy-policy" className="hover:text-white">PRIVACY POLICY</Link>
+                            <Link href="/terms-and-conditions" className="hover:text-white">TERMS OF USE</Link>
+                            <Link href="/reservation-terms" className="hover:text-white">RESERVATION TERMS</Link>
+                            <Link href="/rewards-program-terms" className="hover:text-white">REWARDS PROGRAM TERMS</Link>
                             <Link href="#" className="hover:text-white">SITE CREDITS</Link>
                         </div>
                     </div>

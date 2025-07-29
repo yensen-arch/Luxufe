@@ -67,9 +67,9 @@ export default function ExploreMore({ data }: ExploreMoreProps) {
         <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-arpona font-bold text-[#23263a] text-center mb-4 md:mb-5 lg:mb-6 absolute md:static">{exploreData.title}</h2>
         <p className="text-sm md:text-base lg:text-md font-inter font-bold text-[#23263a] text-center mb-8 md:mb-12 lg:mb-16">{exploreData.subtitle}</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-          {exploreData.cards.map((card) => (
+          {exploreData?.cards?.map((card: any) => (
             <div key={card.title} className="bg-white shadow-xl border border-slate-200 overflow-hidden flex flex-col h-[60vh] md:h-[70vh] lg:h-[90vh]">
-              <img src={card.image.url} alt={card.image.alt} className="w-full h-60 md:h-80 lg:h-110 object-cover" />
+              <img src={card?.image?.url} alt={card?.image?.alt} className="w-full h-60 md:h-80 lg:h-110 object-cover" />
               <div className="p-4 md:p-6 lg:p-8 flex flex-col flex-1">
                 <h3 className="text-lg md:text-xl lg:text-2xl font-arpona font-bold text-[#23263a] mb-2 md:mb-3 lg:mb-4">{card.title}</h3>
                 <p className="font-inter font-bold text-slate-500 text-xs md:text-sm lg:text-base mb-4 md:mb-6 lg:mb-8 flex-1">{card.description}</p>

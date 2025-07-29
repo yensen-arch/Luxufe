@@ -72,15 +72,15 @@ export default function ExploreMore({ data }: ExploreMoreProps) {
   return (
     <section className="bg-white relative mt-40 md:mt-60 lg:mt-80">
       <div className="absolute inset-0 z-0">
-        <img src={exploreData.backgroundImage.url} alt={exploreData.backgroundImage.alt} className="w-full h-full object-cover" />
+        <img src={exploreData?.backgroundImage?.url} alt={exploreData?.backgroundImage?.alt} className="w-full h-full object-cover" />
       </div>
       <div className="relative -top-40 md:-top-50 lg:-top-70 z-10 max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-arpona font-bold text-[#23263a] text-center mb-2 md:mb-3 lg:mb-4 absolute md:static">{exploreData.title}</h2>
         <p className="text-sm md:text-base lg:text-md font-inter font-bold text-[#23263a] text-center mb-8 md:mb-12 lg:mb-16">{exploreData.subtitle}</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-          {exploreData.cards.map((card) => (
+          {exploreData?.cards?.map((card: any) => (
             <div key={card.title} className="bg-white overflow-hidden flex flex-col h-[60vh] md:h-[70vh] lg:h-[90vh]">
-              <img src={card.image.url} alt={card.image.alt} className="w-full h-60 md:h-80 lg:h-110 object-cover" />
+              <img src={card?.image?.url} alt={card?.image?.alt} className="w-full h-60 md:h-80 lg:h-110 object-cover" />
               <div className="p-4 md:p-6 lg:p-8 flex flex-col flex-1">
                 <h3 className="text-lg md:text-xl lg:text-2xl font-arpona font-bold text-[#23263a] mb-2 md:mb-3 lg:mb-4">{card.title}</h3>
                 <p className="font-inter font-bold text-slate-500 text-xs md:text-sm lg:text-base mb-4 md:mb-6 lg:mb-8 flex-1">{card.description}</p>

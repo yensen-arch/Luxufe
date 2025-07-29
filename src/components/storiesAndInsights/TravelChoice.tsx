@@ -91,9 +91,9 @@ export default function TravelChoice({ data }: TravelChoiceProps) {
                   {travelData.description}
                 </p>
                 <div className="flex gap-4 md:gap-5 lg:gap-6 mt-2 text-lg md:text-xl lg:text-2xl text-[#23263a]">
-                  {travelData.socialLinks
-                    .filter(link => link.enabled)
-                    .map((link, index) => (
+                  {travelData?.socialLinks
+                    ?.filter((link: any) => link?.enabled)
+                    .map((link: any, index: number) => (
                       <span key={index}>
                         {getSocialIcon(link.platform)}
                       </span>
