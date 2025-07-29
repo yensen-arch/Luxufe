@@ -5,6 +5,7 @@ import NewsletterSignUp from "@/components/landing/NewsletterSignUp";
 import HotelHero from "@/components/hotels/HotelHero";
 import HotelBrands from "@/components/hotels/HotelBrands";
 import HotelsMain from "@/components/hotels/HotelsMain";
+import PropertyPicks from "@/components/hotels/PropertyPicks";
 
 export default function Hotels() {
   return (
@@ -12,6 +13,7 @@ export default function Hotels() {
       <Navbar />
       <HotelHero />
       <HotelBrands />
+      <PropertyPicks />
       <HotelsMain />
       <NewsletterSignUp />
       <ContactUs />
