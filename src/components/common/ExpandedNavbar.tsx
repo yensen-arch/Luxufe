@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ArrowRight, Trophy, Heart, Mail, Instagram, Facebook, Globe } from 'lucide-react';
+import { X, ArrowRight, Trophy, Heart, Mail, Instagram, Facebook, Globe, ChevronDown } from 'lucide-react';
 import ExploreBySection from './expandedNavbarSections/ExploreBySection';
 import ExperiencesSection from './expandedNavbarSections/ExperiencesSection';
 import AboutUsSection from './expandedNavbarSections/AboutUsSection';
@@ -36,6 +36,7 @@ const socials = [
 
 const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
   const [selected, setSelected] = useState('Explore by');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   let CenterSection = null;
   if (selected === 'Explore by') CenterSection = <ExploreBySection />;
@@ -49,15 +50,61 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
     <div
       className={`fixed left-0 right-0 transition-all duration-700 ease-in-out transform ${
         open 
-          ? 'translate-y-0 opacity-100 pointer-events-auto' 
-          : '-translate-y-full opacity-100 pointer-events-none'
+          ? 'translate-y-0 pointer-events-auto' 
+          : '-translate-y-full pointer-events-none'
       }`}
       style={{ top: 0, height: '90vh' }}
     >
       <div className="flex flex-col lg:flex-row w-full z-50 mx-auto bg-white shadow-2xl border border-gray-200 h-full overflow-hidden">
+        {/* Mobile Header - Only visible on mobile */}
+        <div className="lg:hidden flex items-center z-50 justify-between px-6 py-4 border-b border-gray-200 bg-white">
+          <h2 className="text-xl font-arpona font-bold text-gray-900">Menu</h2>
+          <button 
+            onClick={onClose} 
+            className="p-2 text-gray-500 hover:text-gray-900 transition-colors" 
+            aria-label="Close"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
         {/* Left nav */}
         <div className="w-full lg:w-1/4 flex flex-col justify-between py-6 lg:py-0 lg:mb-8 lg:mt-12 px-4 sm:px-6 lg:px-10 bg-white border-b-2 lg:border-b-0 lg:border-r-2 border-gray-200 min-h-0 lg:min-h-full">
-          <div className="flex-1 flex flex-col justify-start">
+          {/* Mobile Navigation Toggle */}
+          <div className="lg:hidden mb-6">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="w-full flex items-center justify-between p-4 bg-gray-50 border border-gray-200"
+            >
+              <span className="text-lg font-arpona font-bold text-gray-900">{selected}</span>
+              <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform ${mobileMenuOpen ? 'rotate-180' : ''}`} />
+            </button>
+            
+            {/* Mobile Dropdown Menu */}
+            <div className={`mt-2 bg-white border border-gray-200 overflow-hidden transition-all duration-300 ${mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+              <ul className="py-2">
+                {navItems.map((item) => (
+                  <li
+                    key={item.label}
+                    className={`px-4 py-3 text-base font-arpona font-bold transition-colors duration-200 cursor-pointer border-b border-gray-100 last:border-b-0 ${
+                      selected === item.label 
+                        ? 'text-gray-900 bg-gray-50' 
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    }`}
+                    onClick={() => {
+                      setSelected(item.label);
+                      setMobileMenuOpen(false);
+                    }}
+                  >
+                    {item.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Desktop Navigation - Hidden on mobile */}
+          <div className="hidden lg:flex flex-1 flex-col justify-start">
             <ul className="space-y-3 sm:space-y-4 lg:space-y-6 mb-4 sm:mb-6 lg:mb-10">
               {navItems.map((item) => (
                 <li
@@ -80,10 +127,28 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
               ))}
             </div>
           </div>
+
+          {/* Mobile Quick Links - Only visible on mobile */}
+          <div className="lg:hidden mt-6 space-y-3">
+            {quickLinks.map((link) => (
+              <div key={link.label} className="font-inter font-bold flex items-center text-gray-600 hover:text-gray-900 text-sm cursor-pointer p-2 hover:bg-gray-50 transition-colors">
+                {link.icon}
+                <Link href={link.href}>{link.label}</Link>
+              </div>
+            ))}
+          </div>
+
           {/* Social links - hidden on mobile for cleaner look */}
           <div className="hidden lg:flex gap-6 mt-0">
             {socials.map((s, i) => (
               <a key={i} href={s.href} className="cursor-pointer transition-colors text-[#a8d1cf] hover:text-[#8bc1bf]">{s.icon}</a>
+            ))}
+          </div>
+
+          {/* Mobile Social Links - Only visible on mobile */}
+          <div className="lg:hidden flex justify-center gap-6 mt-6 pt-4 border-t border-gray-200">
+            {socials.map((s, i) => (
+              <a key={i} href={s.href} className="cursor-pointer transition-colors text-[#a8d1cf] hover:text-[#8bc1bf] p-2">{s.icon}</a>
             ))}
           </div>
         </div>
@@ -95,9 +160,10 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
           </div>
         </div>
         
+        {/* Desktop Close Button - Hidden on mobile */}
         <button 
           onClick={onClose} 
-          className="cursor-pointer absolute top-3 right-3 sm:top-4 sm:right-4 lg:top-7 lg:right-9 text-gray-500 hover:text-gray-900 z-10 p-1" 
+          className="hidden lg:block cursor-pointer absolute top-3 right-3 sm:top-4 sm:right-4 lg:top-7 lg:right-9 text-gray-500 hover:text-gray-900 z-10 p-1" 
           aria-label="Close"
         >
           <X className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8" />
