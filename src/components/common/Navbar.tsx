@@ -21,10 +21,10 @@ export default function Navbar() {
         
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-10 items-center">
-          <a href="#" className={`hover:font-normal font-bold ${textColor}`}>DESTINATIONS</a>
-          <a href="#" className={`hover:font-normal font-bold ${textColor}`}>EXPERIENCES</a>
+          <a href="/regions" className={`hover:font-normal font-bold ${textColor}`}>DESTINATIONS</a>
+          <a href="/ways-to-travel" className={`hover:font-normal font-bold ${textColor}`}>EXPERIENCES</a>
           <Link href="/journeys" className={`hover:font-normal font-bold ${textColor}`}>JOURNEYS</Link>
-          <a href="#" className={`hover:font-normal font-bold ${textColor}`}>HOTELS</a>
+          <a href="/hotels" className={`hover:font-normal font-bold ${textColor}`}>HOTELS</a>
         </div>
         
         {/* Desktop Right Section */}
