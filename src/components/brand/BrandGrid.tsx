@@ -65,50 +65,52 @@ export default function BrandGrid({ filters, onClearFilter, onClearAllFilters }:
 
   return (
     <section className="flex-1 bg-[#f7f7fa] min-h-screen">
-      {/* Selected Filters */}
-      {hasFilters && (
-        <div className="border-b border-gray-200 px-8 py-4">
-          <div className="flex items-center gap-4">
-            <div className="flex flex-wrap gap-2">
-              {filters.typeOfTravel.map((type) => (
-                <span
-                  key={type}
-                  className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2"
+      {/* Selected Filters - Always visible */}
+      <div className="border-b border-gray-200 px-8 py-4">
+        <div className="flex items-center gap-4">
+          <div className="flex flex-wrap gap-2">
+            {filters.typeOfTravel.map((type) => (
+              <span
+                key={type}
+                className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2"
+              >
+                {type}
+                <button
+                  onClick={() => onClearFilter('typeOfTravel', type)}
+                  className="hover:text-gray-900"
                 >
-                  {type}
-                  <button
-                    onClick={() => onClearFilter('typeOfTravel', type)}
-                    className="hover:text-gray-900"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              ))}
-              {filters.region.map((region) => (
-                <span
-                  key={region}
-                  className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2"
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            {filters.region.map((region) => (
+              <span
+                key={region}
+                className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2"
+              >
+                {region}
+                <button
+                  onClick={() => onClearFilter('region', region)}
+                  className="hover:text-gray-900"
                 >
-                  {region}
-                  <button
-                    onClick={() => onClearFilter('region', region)}
-                    className="hover:text-gray-900"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              ))}
-            </div>
-            <div className="border-l border-gray-300 h-6"></div>
-            <button
-              onClick={onClearAllFilters}
-              className="text-xs font-inter font-bold text-gray-500 hover:text-gray-700"
-            >
-              Clear all filters
-            </button>
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
           </div>
+          {hasFilters && (
+            <>
+              <div className="border-l border-gray-300 h-6"></div>
+              <button
+                onClick={onClearAllFilters}
+                className="text-xs font-inter font-bold text-gray-500 hover:text-gray-700"
+              >
+                Clear all filters
+              </button>
+            </>
+          )}
         </div>
-      )}
+      </div>
 
       {/* Results Count */}
       <div className="px-8 py-6">
