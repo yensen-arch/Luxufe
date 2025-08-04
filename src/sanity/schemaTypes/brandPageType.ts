@@ -45,11 +45,6 @@ export default defineType({
       type: 'object',
       fields: [
         defineField({
-          name: 'tagline',
-          title: 'Tagline',
-          type: 'string'
-        }),
-        defineField({
           name: 'heading',
           title: 'Heading',
           type: 'string'

@@ -22,10 +22,10 @@ export default function WhyWeTravel({ data, brandName }: WhyWeTravelProps) {
 
   return (
     <section className="py-24 bg-[#f5f5f5]">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Heading */}
-        <h2 className="text-4xl md:text-5xl font-arpona text-[#23263a] font-bold text-start mb-16">
-          {heading} <span className="font-bellarina">{brandName || 'Aman'}</span>
+        <h2 className="text-4xl md:text-6xl font-arpona text-[#23263a] font-bold text-start mb-16">
+          {heading} <span className="font-bellarina text-7xl font-normal ml-4">{brandName || 'Aman'}</span>
         </h2>
         
         {/* Content Row */}

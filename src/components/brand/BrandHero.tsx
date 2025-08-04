@@ -5,7 +5,6 @@ import { getImageUrl } from "@/lib/sanity/brandPage";
 
 interface BrandHeroProps {
   data?: {
-    tagline?: string;
     heading?: string;
     description?: string;
     backgroundImage?: any;
@@ -25,7 +24,7 @@ export default function BrandHero({ data, brandName }: BrandHeroProps) {
   const [activeTab, setActiveTab] = useState("philosophy");
 
   // Fallback content if no data is provided
-  const heading = data?.heading || `Experience the pinnacle of luxury with ${brandName || 'our exclusive brands'}`;
+  const heading = data?.heading || `Experience the pinnacle of luxury with`;
   const description = data?.description || "Discover unparalleled service, exceptional amenities, and unforgettable experiences that define true luxury hospitality.";
   const backgroundImage = data?.backgroundImage ? getImageUrl(data.backgroundImage) : "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80";
 
@@ -43,7 +42,7 @@ export default function BrandHero({ data, brandName }: BrandHeroProps) {
   };
 
   return (
-    <section className="relative w-full h-screen shadow-lg flex flex-col justify-end">
+    <section className="relative w-full h-[110vh] shadow-lg flex flex-col justify-end">
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
         <img
@@ -57,7 +56,7 @@ export default function BrandHero({ data, brandName }: BrandHeroProps) {
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full h-full pt-32 pb-24 text-white text-center px-4">
         <h1 className="text-4xl md:text-6xl font-arpona leading-tight mb-6 max-w-4xl">
-          {heading}
+          {heading} <span className="font-bellarina">{brandName || 'Luxury'}</span>
         </h1>
         <p className="text-lg font-inter font-bold md:text-xl mb-8 max-w-2xl opacity-90">
           {description}

@@ -3,7 +3,6 @@ import { urlFor } from '@/sanity/lib/image'
 
 export interface BrandPageData {
   hero?: {
-    tagline?: string
     heading?: string
     description?: string
     backgroundImage?: any
@@ -45,7 +44,6 @@ export interface BrandPageData {
 export async function getBrandPageData(brandName: string): Promise<BrandPageData | null> {
   const query = `*[_type == "brandPage" && brand == $brandName][0] {
     hero {
-      tagline,
       heading,
       description,
       backgroundImage,
