@@ -1,8 +1,11 @@
 import React from "react";
 import { X } from "lucide-react";
 import BrandCard from "./BrandCard";
+import { Hotel } from "@/lib/database";
 
 interface BrandGridProps {
+  hotels: Hotel[];
+  loading: boolean;
   filters: {
     search: string;
     typeOfTravel: string[];
@@ -12,56 +15,39 @@ interface BrandGridProps {
   onClearAllFilters: () => void;
 }
 
-const dummyHotels = [
-  {
-    name: "Amanera",
-    location: "PLAYA GRANDE . DOMINICAN REPUBLIC",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Aman_Resorts_logo.svg/1200px-Aman_Resorts_logo.svg.png",
-    images: {
+// Helper function to get images from gallery
+const getImagesFromGallery = (gallery: string[] = []) => {
+  if (gallery.length === 0) {
+    // Fallback images if no gallery data
+    return {
       top: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
       bottomLeft: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80",
       bottomRight: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=400&q=80"
-    },
-    description: "Backed by jungle, fronted by a sweep of Atlantic Ocean, Amanera is a sanctuary of natural beauty and refined luxury."
-  },
-  {
-    name: "Amangani",
-    location: "JACKSON HOLE . USA",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Aman_Resorts_logo.svg/1200px-Aman_Resorts_logo.svg.png",
-    images: {
-      top: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80",
-      bottomLeft: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=400&q=80",
-      bottomRight: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=400&q=80"
-    },
-    description: "In the foothills of the Tetons, near the year-round mountain resort of Jackson Hole, Amangani offers a serene retreat."
-  },
-  {
-    name: "Amangiri",
-    location: "CANYON POINT . USA",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Aman_Resorts_logo.svg/1200px-Aman_Resorts_logo.svg.png",
-    images: {
-      top: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80",
-      bottomLeft: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=400&q=80",
-      bottomRight: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=400&q=80"
-    },
-    description: "Set in the dramatic landscape of Canyon Point, Amangiri and its satellite, Camp Sarika, offer a unique desert experience."
-  },
-  {
-    name: "Aman New York",
-    location: "NEW YORK . USA",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Aman_Resorts_logo.svg/1200px-Aman_Resorts_logo.svg.png",
-    images: {
-      top: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
-      bottomLeft: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80",
-      bottomRight: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=400&q=80"
-    },
-    description: "Reimagining Manhattan's Crown Building, Aman New York brings the brand's philosophy of luxury and tranquility to the heart of the city."
+    };
   }
-];
+  
+  return {
+    top: gallery[0] || "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+    bottomLeft: gallery[1] || "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80",
+    bottomRight: gallery[2] || "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=400&q=80"
+  };
+};
 
-export default function BrandGrid({ filters, onClearFilter, onClearAllFilters }: BrandGridProps) {
+export default function BrandGrid({ hotels, loading, filters, onClearFilter, onClearAllFilters }: BrandGridProps) {
   const allSelectedFilters = [...filters.typeOfTravel, ...filters.region];
   const hasFilters = allSelectedFilters.length > 0;
+
+  // Loading state
+  if (loading) {
+    return (
+      <section className="flex-1 bg-[#f7f7fa] min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#a8d1cf] mx-auto mb-4"></div>
+          <p className="text-gray-600 font-inter">Loading hotels...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="flex-1 bg-[#f7f7fa] min-h-screen">
@@ -115,23 +101,35 @@ export default function BrandGrid({ filters, onClearFilter, onClearAllFilters }:
       {/* Results Count */}
       <div className="px-8 py-6">
         <p className="text-sm font-inter font-bold text-gray-500">
-          Showing {dummyHotels.length} of {dummyHotels.length} Results
+          Showing {hotels.length} of {hotels.length} Results
         </p>
       </div>
 
       {/* Hotel Cards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 px-16 pb-8">
-        {dummyHotels.map((hotel, index) => (
-          <BrandCard
-            key={index}
-            name={hotel.name}
-            location={hotel.location}
-            logo={hotel.logo}
-            images={hotel.images}
-            description={hotel.description}
-          />
-        ))}
-      </div>
+      {hotels.length === 0 ? (
+        <div className="flex items-center justify-center py-16">
+          <div className="text-center">
+            <p className="text-gray-600 font-inter text-lg mb-2">No hotels found</p>
+            <p className="text-gray-500 font-inter text-sm">Try adjusting your filters to see more results</p>
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 px-16 pb-8">
+          {hotels.map((hotel, index) => {
+            const images = getImagesFromGallery(hotel.gallery);
+            return (
+              <BrandCard
+                key={hotel.id}
+                name={hotel.hotel_name}
+                location={`${hotel.city} . ${hotel.country}`.toUpperCase()}
+                logo={`https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Aman_Resorts_logo.svg/1200px-Aman_Resorts_logo.svg.png`}
+                images={images}
+                description={hotel.description || "Experience luxury and tranquility in this exceptional destination."}
+              />
+            );
+          })}
+        </div>
+      )}
 
       {/* Pagination Component */}
       <div className="flex justify-center items-center py-12">

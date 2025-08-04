@@ -23,6 +23,7 @@ export interface Hotel {
   created_at: string
   updated_at: string
   brand?: string
+  gallery?: string[]
 }
 
 export interface Room {
@@ -309,5 +310,171 @@ export const getRoomGallery = async (hotelName: string, roomName: string) => {
   
   console.log('✅ Successfully fetched room gallery:', data)
   return data as RoomGallery
+}
+
+// Advanced filtering functions for brand pages
+export const getHotelsWithFilters = async (filters: {
+  brand?: string;
+  search?: string;
+  countries?: string[];
+  typeOfTravel?: string[];
+}) => {
+  console.log('🔍 Fetching hotels with filters:', filters)
+  
+  let query = supabase
+    .from('hotels')
+    .select('*')
+    .order('hotel_name')
+  
+  // Filter by brand
+  if (filters.brand) {
+    query = query.eq('brand', filters.brand)
+  }
+  
+  // Filter by search term
+  if (filters.search) {
+    query = query.or(`hotel_name.ilike.%${filters.search}%,description.ilike.%${filters.search}%,city.ilike.%${filters.search}%`)
+  }
+  
+  // Filter by countries
+  if (filters.countries && filters.countries.length > 0) {
+    query = query.in('country', filters.countries)
+  }
+  
+  const { data, error } = await query
+  
+  if (error) {
+    console.error('❌ Error fetching hotels with filters:', error)
+    throw error
+  }
+  
+  console.log('✅ Successfully fetched hotels with filters:', data?.length || 0, 'records')
+  return data as Hotel[]
+}
+
+// Get unique countries for filtering
+export const getUniqueCountries = async () => {
+  console.log('🔍 Fetching unique countries...')
+  
+  const { data, error } = await supabase
+    .from('hotels')
+    .select('country')
+    .order('country')
+  
+  if (error) {
+    console.error('❌ Error fetching unique countries:', error)
+    throw error
+  }
+  
+  const uniqueCountries = [...new Set(data?.map(hotel => hotel.country) || [])]
+  console.log('✅ Successfully fetched unique countries:', uniqueCountries.length, 'countries')
+  return uniqueCountries
+}
+
+// Get hotels with gallery data for brand pages
+export const getHotelsWithGallery = async (brand: string) => {
+  console.log('🔍 Fetching hotels with gallery for brand:', brand)
+  
+  const { data: hotels, error: hotelsError } = await supabase
+    .from('hotels')
+    .select('*')
+    .eq('brand', brand)
+    .order('hotel_name')
+  
+  if (hotelsError) {
+    console.error('❌ Error fetching hotels:', hotelsError)
+    throw hotelsError
+  }
+  
+  // Fetch gallery data for each hotel
+  const hotelsWithGallery = await Promise.all(
+    hotels.map(async (hotel) => {
+      try {
+        const { data: gallery } = await supabase
+          .from('hotelgallery')
+          .select('hotel_image')
+          .eq('hotel_name', hotel.hotel_name)
+          .single()
+        
+        return {
+          ...hotel,
+          gallery: gallery?.hotel_image || []
+        }
+      } catch (error) {
+        console.warn(`⚠️ No gallery found for hotel: ${hotel.hotel_name}`)
+        return {
+          ...hotel,
+          gallery: []
+        }
+      }
+    })
+  )
+  
+  console.log('✅ Successfully fetched hotels with gallery:', hotelsWithGallery.length, 'records')
+  return hotelsWithGallery
+}
+
+// Optimized function to get hotels with filters and gallery data
+export const getHotelsWithFiltersAndGallery = async (filters: {
+  brand?: string;
+  search?: string;
+  countries?: string[];
+  typeOfTravel?: string[];
+}) => {
+  console.log('🔍 Fetching hotels with filters and gallery:', filters)
+  
+  let query = supabase
+    .from('hotels')
+    .select('*')
+    .order('hotel_name')
+  
+  // Filter by brand
+  if (filters.brand) {
+    query = query.eq('brand', filters.brand)
+  }
+  
+  // Filter by search term
+  if (filters.search) {
+    query = query.or(`hotel_name.ilike.%${filters.search}%,description.ilike.%${filters.search}%,city.ilike.%${filters.search}%`)
+  }
+  
+  // Filter by countries
+  if (filters.countries && filters.countries.length > 0) {
+    query = query.in('country', filters.countries)
+  }
+  
+  const { data: hotels, error } = await query
+  
+  if (error) {
+    console.error('❌ Error fetching hotels with filters:', error)
+    throw error
+  }
+  
+  // Fetch gallery data for each hotel
+  const hotelsWithGallery = await Promise.all(
+    (hotels || []).map(async (hotel) => {
+      try {
+        const { data: gallery } = await supabase
+          .from('hotelgallery')
+          .select('hotel_image')
+          .eq('hotel_name', hotel.hotel_name)
+          .single()
+        
+        return {
+          ...hotel,
+          gallery: gallery?.hotel_image || []
+        }
+      } catch (error) {
+        console.warn(`⚠️ No gallery found for hotel: ${hotel.hotel_name}`)
+        return {
+          ...hotel,
+          gallery: []
+        }
+      }
+    })
+  )
+  
+  console.log('✅ Successfully fetched hotels with filters and gallery:', hotelsWithGallery.length, 'records')
+  return hotelsWithGallery
 }
 

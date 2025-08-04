@@ -1,7 +1,26 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import BrandSidebar from "@/components/brand/BrandSidebar";
 import BrandGrid from "@/components/brand/BrandGrid";
+import { getHotelsWithFiltersAndGallery, getUniqueCountries } from "@/lib/database";
+import { Hotel } from "@/lib/database";
+
+// Debounce hook for search optimization
+const useDebounce = (value: any, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
 
 interface BrandMainProps {
   data?: {
@@ -27,6 +46,49 @@ const BrandMain = ({ data, brandName }: BrandMainProps) => {
     typeOfTravel: [],
     region: []
   });
+
+  const [hotels, setHotels] = useState<Hotel[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [availableCountries, setAvailableCountries] = useState<string[]>([]);
+
+  // Debounce search term to prevent too many API calls
+  const debouncedSearch = useDebounce(filters.search, 500);
+
+  // Fetch available countries for filtering
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const countries = await getUniqueCountries();
+        setAvailableCountries(countries);
+      } catch (error) {
+        console.error('Error fetching countries:', error);
+      }
+    };
+    fetchCountries();
+  }, []);
+
+  // Fetch hotels based on filters with debounced search
+  useEffect(() => {
+    const fetchHotels = async () => {
+      setLoading(true);
+      try {
+        const hotelData = await getHotelsWithFiltersAndGallery({
+          brand: brandName,
+          search: debouncedSearch,
+          countries: filters.region.length > 0 ? filters.region : undefined,
+          typeOfTravel: filters.typeOfTravel.length > 0 ? filters.typeOfTravel : undefined
+        });
+        setHotels(hotelData);
+      } catch (error) {
+        console.error('Error fetching hotels:', error);
+        setHotels([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHotels();
+  }, [brandName, debouncedSearch, filters.region, filters.typeOfTravel]);
 
   const handleFiltersChange = (newFilters: Filters) => {
     setFilters(newFilters);
@@ -63,8 +125,14 @@ const BrandMain = ({ data, brandName }: BrandMainProps) => {
       
       {/* Main Content */}
       <div className="flex flex-col md:flex-row w-full">
-        <BrandSidebar onFiltersChange={handleFiltersChange} />
+        <BrandSidebar 
+          onFiltersChange={handleFiltersChange}
+          availableCountries={availableCountries}
+          loading={loading}
+        />
         <BrandGrid 
+          hotels={hotels}
+          loading={loading}
           filters={filters}
           onClearFilter={handleClearFilter}
           onClearAllFilters={handleClearAllFilters}

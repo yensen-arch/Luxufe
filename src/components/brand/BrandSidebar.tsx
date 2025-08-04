@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from "react";
-import { Search, Send } from "lucide-react";
+import { Search, Send, Filter, X } from "lucide-react";
 
 interface BrandSidebarProps {
   onFiltersChange: (filters: {
@@ -8,6 +8,8 @@ interface BrandSidebarProps {
     typeOfTravel: string[];
     region: string[];
   }) => void;
+  availableCountries?: string[];
+  loading?: boolean;
 }
 
 const typeOfTravelOptions = [
@@ -19,10 +21,11 @@ const regionOptions = [
   "Australia & New Zealand", "Caribbean Islands", "Central America & Mexico", "Asia"
 ];
 
-export default function BrandSidebar({ onFiltersChange }: BrandSidebarProps) {
+export default function BrandSidebar({ onFiltersChange, availableCountries, loading }: BrandSidebarProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleTypeToggle = (type: string) => {
     const newTypes = selectedTypes.includes(type)
@@ -57,7 +60,38 @@ export default function BrandSidebar({ onFiltersChange }: BrandSidebarProps) {
   };
 
   return (
-    <aside className="w-full max-w-md bg-[#f7f7fa] border-r-2 border-gray-300 flex flex-col">
+    <>
+      {/* Mobile Filter Button */}
+      <div className="md:hidden fixed top-4 left-4 z-50">
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="bg-[#23263a] text-white p-3 rounded-full shadow-lg"
+        >
+          {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Filter className="w-5 h-5" />}
+        </button>
+      </div>
+
+      {/* Mobile Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      <aside className={`w-full max-w-md bg-[#f7f7fa] border-r-2 border-gray-300 flex flex-col transition-transform duration-300 ease-in-out ${
+        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+      } md:translate-x-0 md:relative fixed md:static top-0 left-0 h-full z-50`}>
+      {/* Mobile Close Button */}
+      <div className="md:hidden flex justify-end p-4">
+        <button
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="text-gray-600 hover:text-gray-800"
+        >
+          <X className="w-6 h-6" />
+        </button>
+      </div>
+      
       {/* Search */}
       <div className="border-b-2 border-gray-300 p-6 h-30">
         <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-3 shadow-xl">
@@ -71,9 +105,14 @@ export default function BrandSidebar({ onFiltersChange }: BrandSidebarProps) {
           />
           <button 
             onClick={handleSearch}
-            className="ml-2 bg-[#23263a] text-white rounded-full p-3 flex items-center justify-center hover:bg-black transition"
+            disabled={loading}
+            className="ml-2 bg-[#23263a] text-white rounded-full p-3 flex items-center justify-center hover:bg-black transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Send className="w-5 h-5" />
+            {loading ? (
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+            ) : (
+              <Send className="w-5 h-5" />
+            )}
           </button>
         </div>
       </div>
@@ -88,7 +127,11 @@ export default function BrandSidebar({ onFiltersChange }: BrandSidebarProps) {
             <button
               key={type}
               onClick={() => handleTypeToggle(type)}
-              className='px-2 py-2 rounded-full text-xs font-inter font-bold transition bg-gray-200 cursor-pointer text-gray-400 hover:bg-gray-300'
+              className={`px-2 py-2 rounded-full text-xs font-inter font-bold transition cursor-pointer ${
+                selectedTypes.includes(type)
+                  ? 'bg-[#23263a] text-white'
+                  : 'bg-gray-200 text-gray-400 hover:bg-gray-300'
+              }`}
             >
               {type}
             </button>
@@ -102,17 +145,22 @@ export default function BrandSidebar({ onFiltersChange }: BrandSidebarProps) {
           Region
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-          {regionOptions.map((region) => (
+          {(availableCountries || regionOptions).map((region) => (
             <button
               key={region}
               onClick={() => handleRegionToggle(region)}
-              className='px-2 py-2 rounded-full text-xs font-inter font-bold transition bg-gray-200 cursor-pointer text-gray-400 hover:bg-gray-300'
+              className={`px-2 py-2 rounded-full text-xs font-inter font-bold transition cursor-pointer ${
+                selectedRegions.includes(region)
+                  ? 'bg-[#23263a] text-white'
+                  : 'bg-gray-200 text-gray-400 hover:bg-gray-300'
+              }`}
             >
               {region}
             </button>
           ))}
         </div>
       </div>
-    </aside>
+      </aside>
+    </>
   );
 } 
