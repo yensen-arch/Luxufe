@@ -31,7 +31,7 @@ export default function BrandPhilosophy({ data }: BrandPhilosophyProps) {
       </div>
       
       {/* Headline */}
-      <h2 className="text-3xl md:text-3xl font-arpona text-[#23263a] font-bold text-center w-full max-w-4xl mb-6 px-4">
+      <h2 className="text-3xl md:text-3xl font-arpona text-[#23263a] font-bold text-center w-full max-w-2xl mb-6 px-4">
         {heading}
       </h2>
       

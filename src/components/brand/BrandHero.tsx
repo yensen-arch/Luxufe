@@ -1,4 +1,6 @@
-import React from "react";
+'use client'
+
+import React, { useState } from "react";
 import { getImageUrl } from "@/lib/sanity/brandPage";
 
 interface BrandHeroProps {
@@ -7,28 +9,39 @@ interface BrandHeroProps {
     heading?: string;
     description?: string;
     backgroundImage?: any;
-    ctaText?: string;
-    ctaLink?: string;
   };
   brandName?: string;
 }
 
 const tabs = [
-  { label: "Overview", active: true },
-  { label: "Philosophy" },
-  { label: "Benefits" },
-  { label: "Itineraries" },
-  { label: "Contact" },
+  { label: "Overview", id: "overview", active: true },
+  { label: "Philosophy", id: "philosophy" },
+  { label: "Benefits", id: "benefits" },
+  { label: "Itineraries", id: "itineraries" },
+  { label: "Contact", id: "contact" },
 ];
 
 export default function BrandHero({ data, brandName }: BrandHeroProps) {
+  const [activeTab, setActiveTab] = useState("overview");
+
   // Fallback content if no data is provided
   const tagline = data?.tagline || `${brandName || 'Luxury'}. Redefined`;
   const heading = data?.heading || `Experience the pinnacle of luxury with ${brandName || 'our exclusive brands'}`;
   const description = data?.description || "Discover unparalleled service, exceptional amenities, and unforgettable experiences that define true luxury hospitality.";
   const backgroundImage = data?.backgroundImage ? getImageUrl(data.backgroundImage) : "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80";
-  const ctaText = data?.ctaText || "Explore Experiences";
-  const ctaLink = data?.ctaLink || "#";
+
+  const handleTabClick = (tabId: string) => {
+    setActiveTab(tabId);
+    
+    // Smooth scroll to the relevant section
+    const element = document.getElementById(tabId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
   return (
     <section className="relative w-full h-screen shadow-lg flex flex-col justify-end">
@@ -51,14 +64,6 @@ export default function BrandHero({ data, brandName }: BrandHeroProps) {
         <p className="text-lg md:text-xl mb-8 max-w-2xl opacity-90">
           {description}
         </p>
-        {ctaText && (
-          <a
-            href={ctaLink}
-            className="bg-white text-[#23263a] px-8 py-3 rounded-full font-inter font-semibold hover:bg-gray-100 transition-colors"
-          >
-            {ctaText}
-          </a>
-        )}
       </div>
       
       {/* Breadcrumb and Image Credit */}
@@ -70,10 +75,15 @@ export default function BrandHero({ data, brandName }: BrandHeroProps) {
       {/* Tab Bar */}
       <div className="absolute bottom-0 pt-4 left-0 w-full bg-white flex justify-center items-center border-t border-gray-200">
         <div className="flex w-full max-w-5xl mx-auto">
-          {tabs.map((tab, idx) => (
+          {tabs.map((tab) => (
             <button
-              key={tab.label}
-              className={`flex-1 py-3 text-sm rounded-t-xl font-inter font-bold transition-colors ${tab.active ? "bg-[#a8d1cf]/60 text-[#23263a]" : "bg-white text-[#23263a] hover:bg-gray-100"}`}
+              key={tab.id}
+              onClick={() => handleTabClick(tab.id)}
+              className={`flex-1 py-3 cursor-pointer text-sm rounded-t-xl font-inter font-bold transition-colors ${
+                activeTab === tab.id 
+                  ? "bg-[#a8d1cf]/60 text-[#23263a]" 
+                  : "bg-white text-[#23263a] hover:bg-gray-100"
+              }`}
             >
               {tab.label}
             </button>

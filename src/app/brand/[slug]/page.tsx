@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
 import Navbar from "@/components/common/Navbar"
 import Footer from "@/components/common/Footer"
 import ContactUs from "@/components/regions/ContactUs"
@@ -11,6 +12,18 @@ import Itineraries from "@/components/brand/Itineraries"
 import BrandMain from "@/components/brand/BrandMain"
 import { getBrandPageData } from '@/lib/sanity/brandPage'
 import { getBrandByName } from '@/lib/database'
+
+// Loading component
+function BrandPageLoading() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#a8d1cf] mx-auto mb-4"></div>
+        <p className="text-gray-600 font-inter">Loading brand page...</p>
+      </div>
+    </div>
+  )
+}
 
 // Validate brand slug
 function isValidBrandSlug(slug: string): boolean {
@@ -80,16 +93,8 @@ interface PageProps {
   }>
 }
 
-export default async function BrandPage({ params }: PageProps) {
-  const { slug } = await params
-
-  // Validate the slug
-  if (!isValidBrandSlug(slug)) {
-    notFound()
-  }
-
-  const brandName = slugToBrandName(slug)
-  
+// Main content component
+async function BrandPageContent({ brandName }: { brandName: string }) {
   // Fetch data from both sources
   const [brandPageData, brandData] = await Promise.all([
     getBrandPageData(brandName), // Sanity: Brand page content
@@ -100,14 +105,49 @@ export default async function BrandPage({ params }: PageProps) {
     <main className="overflow-y-hidden">
       <Navbar />
       <BrandHero data={brandPageData?.hero} brandName={brandName} />
-      <BrandPhilosophy data={brandPageData?.philosophy} />
-      <WhyWeTravel data={brandPageData?.whyWeTravel} />
-      <BrandBenefits data={brandPageData?.benefits} />
-      <BrandMain />
-      <Itineraries />
-      <Testimonials />
-      <ContactUs />
+      <div id="philosophy">
+        <BrandPhilosophy data={brandPageData?.philosophy} />
+      </div>
+      
+      <div id="why-we-travel">
+        <WhyWeTravel data={brandPageData?.whyWeTravel} />
+      </div>
+      
+      <div id="benefits">
+        <BrandBenefits data={brandPageData?.benefits} />
+      </div>
+      
+      <div id="main">
+        <BrandMain />
+      </div>
+      
+      <div id="itineraries">
+        <Itineraries />
+      </div>
+      
+      <div id="contact">
+        <Testimonials />
+        <ContactUs />
+      </div>
+      
       <Footer />
     </main>
+  )
+}
+
+export default async function BrandPage({ params }: PageProps) {
+  const { slug } = await params
+
+  // Validate the slug
+  if (!isValidBrandSlug(slug)) {
+    notFound()
+  }
+
+  const brandName = slugToBrandName(slug)
+
+  return (
+    <Suspense fallback={<BrandPageLoading />}>
+      <BrandPageContent brandName={brandName} />
+    </Suspense>
   )
 } 
