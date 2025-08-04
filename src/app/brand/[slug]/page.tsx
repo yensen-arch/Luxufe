@@ -127,7 +127,7 @@ async function BrandPageContent({ brandName }: { brandName: string }) {
       
       <div id="contact">
         <Testimonials />
-        <ContactUs />
+        <ContactUs brandName={brandName} />
       </div>
       
       <Footer />

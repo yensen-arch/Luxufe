@@ -1,6 +1,10 @@
 import { ArrowRight, Mail, CalendarDays, Info } from 'lucide-react';
 
-export default function ContactUs() {
+interface ContactUsProps {
+  brandName?: string;
+}
+
+export default function ContactUs({ brandName }: ContactUsProps) {
   return (
     <section className="bg-[#f5f6f7] text-[#23263B] py-12 md:py-32">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -10,12 +14,12 @@ export default function ContactUs() {
             <img
               src="https://randomuser.me/api/portraits/women/44.jpg"
               alt="Agent"
-              className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover"
+              className="w-32 h-32 md:w-44 md:h-44 rounded-full object-cover"
             />
             <div className="text-center md:text-left">
-              <h2 className="text-2xl md:text-3xl font-arpona mb-3 md:mb-4 font-bold">Looking for something<br/>More personalised?</h2>
-              <p className="w-full md:w-md font-inter text-sm md:text-md font-bold">
-                Our team is always available to guide you and ensure your experience is perfectly matched to your preferences.
+              <h2 className="text-2xl md:text-3xl font-arpona mb-3 md:mb-4 font-bold">Your {brandName || 'Luxury'}<br /> Experience, Your Way</h2>
+              <p className="w-full md:w-3/4 font-inter text-md md:text-md font-bold">
+                Begin a stay, or an entire journey, centred around {brandName || 'luxury'}.
               </p>
             </div>
           </div>
