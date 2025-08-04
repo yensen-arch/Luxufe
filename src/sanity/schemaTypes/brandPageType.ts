@@ -224,6 +224,23 @@ export default defineType({
           ]
         })
       ]
+    }),
+    defineField({
+      name: 'itineraries',
+      title: 'Itineraries Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'heading',
+          title: 'Heading',
+          type: 'string'
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text'
+        })
+      ]
     })
   ],
   preview: {

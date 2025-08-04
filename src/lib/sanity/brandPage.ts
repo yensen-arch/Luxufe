@@ -38,6 +38,10 @@ export interface BrandPageData {
     description?: string
     content?: any[]
   }
+  itineraries?: {
+    heading?: string
+    description?: string
+  }
 }
 
 export async function getBrandPageData(brandName: string): Promise<BrandPageData | null> {
@@ -77,6 +81,10 @@ export async function getBrandPageData(brandName: string): Promise<BrandPageData
       heading,
       description,
       content
+    },
+    itineraries {
+      heading,
+      description
     }
   }`
 

@@ -4,6 +4,13 @@ import useEmblaCarousel from "embla-carousel-react"
 import ItineraryCard from "./ItineraryCard"
 import { ArrowLeft, ArrowRight, Star } from "lucide-react"
 
+interface ItinerariesProps {
+  data?: {
+    heading?: string;
+    description?: string;
+  };
+}
+
 const itineraries = [
   {
     id: "egypt",
@@ -57,7 +64,7 @@ const itineraries = [
   },
 ]
 
-export default function CuratedForYou() {
+export default function Itineraries({ data }: ItinerariesProps) {
   const [selectedCard, setSelectedCard] = useState<string | null>(null)
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
@@ -81,34 +88,17 @@ export default function CuratedForYou() {
     }
   }, [emblaApi, selectedCard])
 
+  // Fallback content if no data is provided
+  const heading = data?.heading || "The world, curated for you"
+  const description = data?.description || "From iconic landmarks to hidden retreats, Luxufe takes you beyond the expected. Discover travel experiences designed around your desires, where every journey is effortless and immersive."
+
   return (
     <section className="py-20 my-40 bg-white text-gray-800 relative overflow-hidden">
-      <div className="absolute top-30 left-10 -translate-y-1/2 -translate-x-1/2 opacity-30">
-        <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[300px] h-auto" />
-      </div>
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-6xl font-arpona ">The world,</h2>
-        <h3 className="text-6xl mb-6 font-arpona font-medium">
-          curated for <span className="font-bellarina font-medium text-8xl">you</span>
-        </h3>
+        <h2 className="text-6xl font-arpona ">{heading}</h2>
         <p className="max-w-xl text-black mx-auto my-12 font-inter font-bold">
-          From iconic landmarks to hidden retreats, Luxufe takes you beyond the expected. Discover travel experiences
-          designed around your desires, where every journey is effortless and immersive.
+          {description}
         </p>
-        <div className="flex justify-center items-center gap-0 mb-16 text-gray-500 font-inter font-bold">
-          <div className="flex items-center gap-2 border-r-2 px-12 py-2 border-amber-400/50">
-            <Star className="h-4 w-4" />
-            <span>Personalised Itineraries</span>
-          </div>
-          <div className="flex items-center gap-2 border-r-2 px-12 py-2 border-amber-400/50">
-            <Star className="h-4 w-4" />
-            <span>Insider secrets guaranteed</span>
-          </div>
-          <div className="flex items-center gap-2 px-12 py-2">
-            <Star className="h-4 w-4" />
-            <span>World-class Service</span>
-          </div>
-        </div>
       </div>
 
       <div className="relative py-10">

@@ -19,7 +19,6 @@ function BrandPageLoading() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="text-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#a8d1cf] mx-auto mb-4"></div>
-        <p className="text-gray-600 font-inter">Loading brand page...</p>
       </div>
     </div>
   )
@@ -118,11 +117,11 @@ async function BrandPageContent({ brandName }: { brandName: string }) {
       </div>
       
       <div id="main">
-        <BrandMain />
+        <BrandMain data={brandPageData?.main} brandName={brandName} />
       </div>
       
       <div id="itineraries">
-        <Itineraries />
+        <Itineraries data={brandPageData?.itineraries} />
       </div>
       
       <div id="contact">
