@@ -31,20 +31,19 @@ export default function BrandPhilosophy({ data }: BrandPhilosophyProps) {
       </div>
       
       {/* Headline */}
-      <h2 className="text-3xl md:text-3xl font-arpona text-[#23263a] font-bold text-center w-full max-w-2xl mb-6 px-4">
+      <h2 className="text-3xl md:text-3xl font-arpona text-slate-700 font-bold text-center w-full max-w-2xl mb-6 px-4">
         {heading}
       </h2>
       
       {/* Subheadline */}
-      <p className="font-inter text-lg md:text-md text-[#23263a] font-bold text-center max-w-xl mb-10 px-4">
+      <p className="font-inter text-md md:text-md text-slate-700 font-bold text-center max-w-xl mb-10 px-4">
         {description}
       </p>
       
       {/* Button */}
       <a
         href="#"
-        className="mt-4 px-4 py-4 border-2 border-gray-300 font-inter font-bold text-[#23263a] text-xs flex items-center justify-center gap-2 tracking-widest hover:bg-gray-100 transition-all"
-        style={{ minWidth: 220 }}
+        className="mt-4 px-3 py-4 border-2 border-gray-300 font-inter font-bold text-[#23263a] text-xs flex items-center justify-center gap-2 tracking-widest hover:bg-gray-100 transition-all"
       >
         EXPLORE HOTELS
         <span className="ml-2">→</span>

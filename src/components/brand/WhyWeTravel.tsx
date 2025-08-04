@@ -15,9 +15,13 @@ interface WhyWeTravelProps {
 
 export default function WhyWeTravel({ data }: WhyWeTravelProps) {
   // Fallback content if no data is provided
-  const heading = data?.heading || "Why we travel";
+  const heading = data?.heading || "Why we travel with Aman";
   const description = data?.description || "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum";
-  const reasons = data?.reasons || [];
+  const reasons = data?.reasons || [
+    {
+      description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum",
+    },
+  ];
 
   return (
     <section className="py-24 bg-[#f5f5f5]">

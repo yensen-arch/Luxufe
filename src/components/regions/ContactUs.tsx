@@ -2,7 +2,7 @@ import { ArrowRight, Mail, CalendarDays, Info } from 'lucide-react';
 
 export default function ContactUs() {
   return (
-    <section className="bg-[#f5f6f7] text-[#23263B] py-12 md:py-20 border-t border-gray-200">
+    <section className="bg-[#f5f6f7] text-[#23263B] py-12 md:py-32">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-30">
           {/* Left: Agent photo and text */}

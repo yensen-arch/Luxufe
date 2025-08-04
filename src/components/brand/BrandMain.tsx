@@ -5,6 +5,7 @@ import BrandGrid from "@/components/brand/BrandGrid";
 const BrandMain = () => {
   return (
     <div className="flex flex-col md:flex-row">
+      
       <BrandSidebar />
       <BrandGrid />
     </div>

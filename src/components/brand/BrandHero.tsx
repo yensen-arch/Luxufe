@@ -14,15 +14,15 @@ interface BrandHeroProps {
 }
 
 const tabs = [
-  { label: "Overview", id: "overview", active: true },
-  { label: "Philosophy", id: "philosophy" },
+  { label: "Philosophy", id: "philosophy", active: true },
+  { label: "Why We Travel", id: "why-we-travel" },
   { label: "Benefits", id: "benefits" },
   { label: "Itineraries", id: "itineraries" },
   { label: "Contact", id: "contact" },
 ];
 
 export default function BrandHero({ data, brandName }: BrandHeroProps) {
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState("philosophy");
 
   // Fallback content if no data is provided
   const tagline = data?.tagline || `${brandName || 'Luxury'}. Redefined`;
