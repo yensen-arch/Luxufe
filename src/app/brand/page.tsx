@@ -1,28 +1,17 @@
-import Navbar from "@/components/common/Navbar";
-import Footer from "@/components/common/Footer";
-import ContactUs from "@/components/regions/ContactUs";
-import Testimonials from "@/components/landing/Testimonials";
-import BrandHero from "@/components/brand/BrandHero";
-import WhyWeTravel from "@/components/brand/WhyWeTravel";
-import BrandPhilosophy from "@/components/brand/BrandPhilosophy";
-import BrandBenefits from "@/components/brand/BrandBenefits";
-import Itineraries from "@/components/brand/Itineraries";
-import BrandMain from "@/components/brand/BrandMain";
-const Page = () => {
-  return (
-    <main className="overflow-y-hidden">
-      <Navbar />
-      <BrandHero />
-      <BrandPhilosophy />
-      <WhyWeTravel />
-      <BrandBenefits />
-      <BrandMain />
-      <Itineraries />
-      <Testimonials />
-      <ContactUs />
-      <Footer />
-    </main>
-  );
-};
+import { redirect } from 'next/navigation'
+import { getBrands } from '@/lib/database'
 
-export default Page;
+export default async function BrandPage() {
+  // Get all brands from the database
+  const brands = await getBrands()
+  
+  if (brands.length > 0) {
+    // Redirect to the first brand as an example
+    const firstBrand = brands[0]
+    const brandSlug = firstBrand.name.toLowerCase().replace(/\s+/g, '-').replace(/[&]/g, 'and')
+    redirect(`/brand/${brandSlug}`)
+  }
+  
+  // Fallback if no brands exist
+  redirect('/brand/aman')
+}

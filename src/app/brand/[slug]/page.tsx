@@ -1,0 +1,118 @@
+import { notFound } from 'next/navigation'
+import Navbar from "@/components/common/Navbar"
+import Footer from "@/components/common/Footer"
+import ContactUs from "@/components/regions/ContactUs"
+import Testimonials from "@/components/landing/Testimonials"
+import BrandHero from "@/components/brand/BrandHero"
+import WhyWeTravel from "@/components/brand/WhyWeTravel"
+import BrandPhilosophy from "@/components/brand/BrandPhilosophy"
+import BrandBenefits from "@/components/brand/BrandBenefits"
+import Itineraries from "@/components/brand/Itineraries"
+import BrandMain from "@/components/brand/BrandMain"
+import { getBrandPageData } from '@/lib/sanity/brandPage'
+import { getBrands } from '@/lib/database'
+
+// Generate static params for all brands
+export async function generateStaticParams() {
+  const brands = await getBrands()
+  return brands.map((brand) => ({
+    slug: brand.name.toLowerCase().replace(/\s+/g, '-').replace(/[&]/g, 'and'),
+  }))
+}
+
+// Validate brand slug
+function isValidBrandSlug(slug: string): boolean {
+  const validSlugs = [
+    'aman',
+    'anantara', 
+    'auberge-resorts',
+    'banyan-tree-hotels',
+    'andbeyond',
+    'como-hotel-and-resorts',
+    'fairmont-hotels',
+    'four-seasons',
+    'kempinski-hotels',
+    'marriott',
+    'mandarin-oriental',
+    'oberoi-hotels',
+    'raffles-hotels-and-resorts',
+    'relais-and-chateau',
+    'ritz-carlton',
+    'rosewood',
+    'shangri-la-hotels',
+    'singita-hotels',
+    'six-senses-hotels',
+    'sofitel',
+    'soneva',
+    'saint-regis-hotels',
+    'taj-hotels',
+    'waldorf-astoria'
+  ]
+  return validSlugs.includes(slug)
+}
+
+// Convert slug back to brand name
+function slugToBrandName(slug: string): string {
+  const slugToNameMap: { [key: string]: string } = {
+    'aman': 'Aman',
+    'anantara': 'Anantara',
+    'auberge-resorts': 'Auberge Resorts',
+    'banyan-tree-hotels': 'Banyan Tree Hotels',
+    'andbeyond': '&Beyond',
+    'como-hotel-and-resorts': 'COMO Hotel and Resorts',
+    'fairmont-hotels': 'Fairmont Hotels',
+    'four-seasons': 'Four Seasons',
+    'kempinski-hotels': 'Kempinski Hotels',
+    'marriott': 'Marriott',
+    'mandarin-oriental': 'Mandarin Oriental',
+    'oberoi-hotels': 'Oberoi Hotels',
+    'raffles-hotels-and-resorts': 'Raffles Hotels & Resorts',
+    'relais-and-chateau': 'Relais and Chateau',
+    'ritz-carlton': 'Ritz Carlton',
+    'rosewood': 'Rosewood',
+    'shangri-la-hotels': 'Shangri La Hotels',
+    'singita-hotels': 'Singita Hotels',
+    'six-senses-hotels': 'Six Senses Hotels',
+    'sofitel': 'Sofitel',
+    'soneva': 'Soneva',
+    'saint-regis-hotels': 'Saint Regis Hotels',
+    'taj-hotels': 'Taj Hotels',
+    'waldorf-astoria': 'Waldorf Astoria'
+  }
+  return slugToNameMap[slug] || slug
+}
+
+interface PageProps {
+  params: {
+    slug: string
+  }
+}
+
+export default async function BrandPage({ params }: PageProps) {
+  const { slug } = params
+
+  // Validate the slug
+  if (!isValidBrandSlug(slug)) {
+    notFound()
+  }
+
+  const brandName = slugToBrandName(slug)
+  
+  // Fetch brand page data from Sanity
+  const brandPageData = await getBrandPageData(brandName)
+
+  return (
+    <main className="overflow-y-hidden">
+      <Navbar />
+      <BrandHero data={brandPageData?.hero} brandName={brandName} />
+      <BrandPhilosophy data={brandPageData?.philosophy} />
+      <WhyWeTravel data={brandPageData?.whyWeTravel} />
+      <BrandBenefits data={brandPageData?.benefits} />
+      <BrandMain data={brandPageData?.main} />
+      <Itineraries data={brandPageData?.itineraries} />
+      <Testimonials data={brandPageData?.testimonials} />
+      <ContactUs data={brandPageData?.contactUs} />
+      <Footer />
+    </main>
+  )
+} 

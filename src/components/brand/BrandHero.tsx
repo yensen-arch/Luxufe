@@ -1,37 +1,72 @@
 import React from "react";
+import { getImageUrl } from "@/lib/sanity/brandPage";
+
+interface BrandHeroProps {
+  data?: {
+    tagline?: string;
+    heading?: string;
+    description?: string;
+    backgroundImage?: any;
+    ctaText?: string;
+    ctaLink?: string;
+  };
+  brandName?: string;
+}
 
 const tabs = [
   { label: "Overview", active: true },
+  { label: "Philosophy" },
+  { label: "Benefits" },
   { label: "Itineraries" },
-  { label: "Cruise Partners" },
-  { label: "Cruise Destinations" },
-  { label: "Book a Cruise" },
+  { label: "Contact" },
 ];
 
-export default function CruisesHero() {
+export default function BrandHero({ data, brandName }: BrandHeroProps) {
+  // Fallback content if no data is provided
+  const tagline = data?.tagline || `${brandName || 'Luxury'}. Redefined`;
+  const heading = data?.heading || `Experience the pinnacle of luxury with ${brandName || 'our exclusive brands'}`;
+  const description = data?.description || "Discover unparalleled service, exceptional amenities, and unforgettable experiences that define true luxury hospitality.";
+  const backgroundImage = data?.backgroundImage ? getImageUrl(data.backgroundImage) : "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80";
+  const ctaText = data?.ctaText || "Explore Experiences";
+  const ctaLink = data?.ctaLink || "#";
+
   return (
     <section className="relative w-full h-screen shadow-lg flex flex-col justify-end">
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
         <img
-          src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80"
-          alt="Cruise Ship"
+          src={backgroundImage}
+          alt={`${brandName || 'Luxury Brand'} Hero`}
           className="w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>
+      
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center w-full h-full pt-32 pb-24 text-white text-center">
-        <p className="text-3xl md:text-5xl font-bellarina italic mb-6">Luxury Cruises. Redefined</p>
-        <h1 className="text-5xl md:text-6xl font-arpona leading-tight mb-6">
-          Unforgettable voyages across<br />oceans, rivers, and hidden coasts
+      <div className="relative z-10 flex flex-col items-center justify-center w-full h-full pt-32 pb-24 text-white text-center px-4">
+        <p className="text-3xl md:text-5xl font-bellarina italic mb-6">{tagline}</p>
+        <h1 className="text-4xl md:text-6xl font-arpona leading-tight mb-6 max-w-4xl">
+          {heading}
         </h1>
+        <p className="text-lg md:text-xl mb-8 max-w-2xl opacity-90">
+          {description}
+        </p>
+        {ctaText && (
+          <a
+            href={ctaLink}
+            className="bg-white text-[#23263a] px-8 py-3 rounded-full font-inter font-semibold hover:bg-gray-100 transition-colors"
+          >
+            {ctaText}
+          </a>
+        )}
       </div>
+      
       {/* Breadcrumb and Image Credit */}
       <div className="absolute bottom-0 left-0 w-full flex justify-between items-end px-8 pb-6 text-white text-xs font-inter">
-        <div>Home &gt; Journeys &gt; Travel Type: Cruises</div>
-        <div>Image: details for the featured image here</div>
+        <div>Home &gt; Brands &gt; {brandName || 'Brand'}</div>
+        <div>Image: {brandName || 'Luxury'} Brand</div>
       </div>
+      
       {/* Tab Bar */}
       <div className="absolute bottom-0 pt-4 left-0 w-full bg-white flex justify-center items-center border-t border-gray-200">
         <div className="flex w-full max-w-5xl mx-auto">

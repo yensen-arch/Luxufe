@@ -9,35 +9,60 @@ function StarIcon({ className }: { className?: string }) {
   );
 }
 
-const benefits = [
-  "Complimentary Upgrades*",
-  "Daily à la carte breakfast for two",
-  "Wellness or dining credits",
-  "Early check-in/late check-out",
-  "VIP welcome amenities",
-  "Dedicated Luxufe concierge",
-];
+interface BrandBenefitsProps {
+  data?: {
+    heading?: string;
+    description?: string;
+    benefits?: Array<{
+      title?: string;
+      description?: string;
+      icon?: string;
+    }>;
+  };
+}
 
-export default function BrandBenefits() {
+export default function BrandBenefits({ data }: BrandBenefitsProps) {
+  // Fallback content if no data is provided
+  const heading = data?.heading || "Seamless upgrades and insider access";
+  const description = data?.description || "";
+  const benefits = data?.benefits || [
+    { title: "Complimentary Upgrades*" },
+    { title: "Daily à la carte breakfast for two" },
+    { title: "Wellness or dining credits" },
+    { title: "Early check-in/late check-out" },
+    { title: "VIP welcome amenities" },
+    { title: "Dedicated Luxufe concierge" },
+  ];
+
   return (
     <section className="w-full flex flex-col items-center justify-center py-32 bg-white">
       {/* Script Heading */}
       <div className="mb-2">
         <span className="font-bellarina text-4xl text-[#23263a]">Benefits</span>
       </div>
+      
       {/* Main Heading */}
       <h2 className="text-4xl md:text-6xl font-arpona text-[#23263a] font-medium text-center mb-16 leading-tight">
-        Seamless upgrades and<br />insider access
+        {heading}
       </h2>
+      
+      {/* Description */}
+      {description && (
+        <p className="text-lg text-[#23263a] text-center mb-16 max-w-2xl px-4">
+          {description}
+        </p>
+      )}
+      
       {/* Benefits Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-16 mb-16 w-full max-w-5xl">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-16 mb-16 w-full max-w-5xl px-4">
         {benefits.map((benefit, i) => (
           <div key={i} className="flex items-center justify-center gap-3 text-[#6B7280] font-inter text-lg font-bold">
             <StarIcon className="w-7 h-7" />
-            <span>{benefit}</span>
+            <span>{benefit.title || benefit.description}</span>
           </div>
         ))}
       </div>
+      
       {/* Button */}
       <a
         href="#"
