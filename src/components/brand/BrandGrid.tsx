@@ -64,7 +64,7 @@ export default function BrandGrid({ filters, onClearFilter, onClearAllFilters }:
   const hasFilters = allSelectedFilters.length > 0;
 
   return (
-    <section className="flex-1 bg-white min-h-screen">
+    <section className="flex-1 bg-[#f7f7fa] min-h-screen">
       {/* Selected Filters */}
       {hasFilters && (
         <div className="border-b border-gray-200 px-8 py-4">

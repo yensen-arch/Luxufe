@@ -50,7 +50,7 @@ const BrandMain = ({ data, brandName }: BrandMainProps) => {
   return (
     <div className="flex flex-col md:flex-col">
       {/* Heading and Description Section */}
-      <div className="w-full bg-white py-16 border-b border-gray-200">
+      <div className="w-full bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-6xl font-arpona text-[#23263a] font-bold mb-6">
             {heading}

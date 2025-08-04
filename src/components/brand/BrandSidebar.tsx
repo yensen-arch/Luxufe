@@ -57,42 +57,38 @@ export default function BrandSidebar({ onFiltersChange }: BrandSidebarProps) {
   };
 
   return (
-    <aside className="w-full max-w-sm bg-[#f7f7fa] border-r border-gray-300 flex flex-col">
+    <aside className="w-full max-w-md bg-[#f7f7fa] border-r-2 border-gray-300 flex flex-col">
       {/* Search */}
-      <div className="border-b border-gray-300 p-6">
-        <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-3">
+      <div className="border-b-2 border-gray-300 p-6">
+        <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-3 shadow-xl">
           <input
             type="text"
             placeholder="What are you looking for?"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-            className="flex-1 bg-transparent outline-none text-sm font-inter text-gray-700"
+            className="flex-1 bg-transparent outline-none text-sm font-inter text-gray-700 placeholder:text-gray-400 font-bold"
           />
           <button 
             onClick={handleSearch}
-            className="ml-2 bg-[#23263a] text-white rounded-full p-2 flex items-center justify-center hover:bg-black transition"
+            className="ml-2 bg-[#23263a] text-white rounded-full p-3 flex items-center justify-center hover:bg-black transition"
           >
-            <Send className="w-4 h-4" />
+            <Send className="w-5 h-5" />
           </button>
         </div>
       </div>
 
       {/* Type of Travel */}
-      <div className="border-b border-gray-300 p-6">
-        <h3 className="text-xs font-inter font-bold text-gray-500 mb-4 tracking-widest">
-          TYPE OF TRAVEL
+      <div className="border-b-2 border-gray-300 p-6">
+        <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4 ">
+          Type of Travel
         </h3>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
           {typeOfTravelOptions.map((type) => (
             <button
               key={type}
               onClick={() => handleTypeToggle(type)}
-              className={`px-3 py-2 rounded text-xs font-inter font-bold transition ${
-                selectedTypes.includes(type)
-                  ? "bg-[#23263a] text-white"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-              }`}
+              className='px-2 py-2 rounded-full text-xs font-inter font-bold transition bg-gray-200 cursor-pointer text-gray-400 hover:bg-gray-300'
             >
               {type}
             </button>
@@ -102,19 +98,15 @@ export default function BrandSidebar({ onFiltersChange }: BrandSidebarProps) {
 
       {/* Region */}
       <div className="p-6">
-        <h3 className="text-xs font-inter font-bold text-gray-500 mb-4 tracking-widest">
-          REGION
+        <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4 ">
+          Region
         </h3>
-        <div className="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
           {regionOptions.map((region) => (
             <button
               key={region}
               onClick={() => handleRegionToggle(region)}
-              className={`px-3 py-2 rounded text-xs font-inter font-bold transition ${
-                selectedRegions.includes(region)
-                  ? "bg-[#23263a] text-white"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-              }`}
+              className='px-2 py-2 rounded-full text-xs font-inter font-bold transition bg-gray-200 cursor-pointer text-gray-400 hover:bg-gray-300'
             >
               {region}
             </button>
