@@ -20,10 +20,10 @@ const BrandMain = ({ data, brandName }: BrandMainProps) => {
       {/* Heading and Description Section */}
       <div className="w-full bg-white py-16 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-arpona text-[#23263a] font-bold mb-4">
+          <h2 className="text-4xl md:text-6xl font-arpona text-[#23263a] font-bold mb-6">
             {heading}
           </h2>
-          <p className="text-lg md:text-xl text-[#23263a] font-inter">
+          <p className="text-lg md:text-xl text-[#23263a] font-inter font-bold">
             {description}
           </p>
         </div>

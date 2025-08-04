@@ -14,16 +14,16 @@ const experiences = [
 export default function BrandSidebar() {
   return (
     <aside className="w-full max-w-sm bg-[#f7f7fa] border-r-2 border-gray-300 flex flex-col gap-8">
-      {/* Travel Dates */}
-      <div className="border-b-2 border-gray-300 px-4 py-6">
-        <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">TRAVEL DATES</h3>
-        <div className="flex gap-3 mb-2">
-          <button className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-xs font-inter font-bold text-gray-400">
-            <Calendar className="w-4 h-4" /> Departure
-          </button>
-          <span className="text-gray-400 flex items-center">→</span>
-          <button className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-xs font-inter font-bold text-gray-400">
-            <Calendar className="w-4 h-4" /> Return
+      {/* Search */}
+      <div className="border-b-2 border-gray-300 py-6">
+        <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-2">
+          <input
+            type="text"
+            placeholder="What are you looking for?"
+            className="flex-1 bg-transparent outline-none text-xs font-inter font-bold text-gray-500"
+          />
+          <button className="ml-2 bg-[#23263a] text-white rounded-full p-2 flex items-center justify-center">
+            <Search className="w-4 h-4" />
           </button>
         </div>
       </div>
