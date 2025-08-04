@@ -10,15 +10,7 @@ import BrandBenefits from "@/components/brand/BrandBenefits"
 import Itineraries from "@/components/brand/Itineraries"
 import BrandMain from "@/components/brand/BrandMain"
 import { getBrandPageData } from '@/lib/sanity/brandPage'
-import { getBrands, getBrandByName } from '@/lib/database'
-
-// Generate static params for all brands
-export async function generateStaticParams() {
-  const brands = await getBrands()
-  return brands.map((brand) => ({
-    slug: brand.name.toLowerCase().replace(/\s+/g, '-').replace(/[&]/g, 'and'),
-  }))
-}
+import { getBrandByName } from '@/lib/database'
 
 // Validate brand slug
 function isValidBrandSlug(slug: string): boolean {
