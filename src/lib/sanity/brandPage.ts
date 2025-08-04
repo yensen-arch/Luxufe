@@ -38,37 +38,6 @@ export interface BrandPageData {
     description?: string
     content?: any[]
   }
-  itineraries?: {
-    heading?: string
-    description?: string
-    itineraries?: Array<{
-      title?: string
-      description?: string
-      duration?: string
-      price?: string
-      image?: any
-      link?: string
-    }>
-  }
-  testimonials?: {
-    heading?: string
-    description?: string
-    testimonials?: Array<{
-      name?: string
-      role?: string
-      content?: string
-      image?: any
-    }>
-  }
-  contactUs?: {
-    heading?: string
-    description?: string
-    contactInfo?: {
-      phone?: string
-      email?: string
-      address?: string
-    }
-  }
 }
 
 export async function getBrandPageData(brandName: string): Promise<BrandPageData | null> {
@@ -108,37 +77,6 @@ export async function getBrandPageData(brandName: string): Promise<BrandPageData
       heading,
       description,
       content
-    },
-    itineraries {
-      heading,
-      description,
-      itineraries[] {
-        title,
-        description,
-        duration,
-        price,
-        image,
-        link
-      }
-    },
-    testimonials {
-      heading,
-      description,
-      testimonials[] {
-        name,
-        role,
-        content,
-        image
-      }
-    },
-    contactUs {
-      heading,
-      description,
-      contactInfo {
-        phone,
-        email,
-        address
-      }
     }
   }`
 

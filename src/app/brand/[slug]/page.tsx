@@ -10,7 +10,7 @@ import BrandBenefits from "@/components/brand/BrandBenefits"
 import Itineraries from "@/components/brand/Itineraries"
 import BrandMain from "@/components/brand/BrandMain"
 import { getBrandPageData } from '@/lib/sanity/brandPage'
-import { getBrands } from '@/lib/database'
+import { getBrands, getBrandByName } from '@/lib/database'
 
 // Generate static params for all brands
 export async function generateStaticParams() {
@@ -98,8 +98,11 @@ export default async function BrandPage({ params }: PageProps) {
 
   const brandName = slugToBrandName(slug)
   
-  // Fetch brand page data from Sanity
-  const brandPageData = await getBrandPageData(brandName)
+  // Fetch data from both sources
+  const [brandPageData, brandData] = await Promise.all([
+    getBrandPageData(brandName), // Sanity: Brand page content
+    getBrandByName(brandName),   // Supabase: Brand basic info
+  ])
 
   return (
     <main className="overflow-y-hidden">
