@@ -1,64 +1,122 @@
-import React from "react";
-import { Calendar, Search } from "lucide-react";
+"use client"
+import React, { useState } from "react";
+import { Search, Send } from "lucide-react";
 
-const brandPartners = [
-  "Aman Hotels", "Brand here", "Another brand here", "Brand", "Another Brand", "Brand Here", "Brand", "Another Brand goes here"
-];
-const destinations = [
-  "South Africa", "Antarctica", "Alaska", "Arctic Circle & Greenland", "Asia", "Australia & New Zealand", "Caribbean Islands", "Central America & Mexico"
-];
-const experiences = [
-  "Family Friendly", "Adults Only", "Villas", "Beach & Resorts", "Safari & Wilderness", "Ski Resorts", "Sport & Hobbies", "Hotels"
+interface BrandSidebarProps {
+  onFiltersChange: (filters: {
+    search: string;
+    typeOfTravel: string[];
+    region: string[];
+  }) => void;
+}
+
+const typeOfTravelOptions = [
+  "Family Friendly", "Adults Only", "Villas", "Beach & Resorts", 
+  "Safari & Wilderness", "Ski Resorts", "Sport & Hobbies", "Hotels", "Food & Wine"
 ];
 
-export default function BrandSidebar() {
+const regionOptions = [
+  "Australia & New Zealand", "Caribbean Islands", "Central America & Mexico", "Asia"
+];
+
+export default function BrandSidebar({ onFiltersChange }: BrandSidebarProps) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+
+  const handleTypeToggle = (type: string) => {
+    const newTypes = selectedTypes.includes(type)
+      ? selectedTypes.filter(t => t !== type)
+      : [...selectedTypes, type];
+    setSelectedTypes(newTypes);
+    onFiltersChange({
+      search: searchTerm,
+      typeOfTravel: newTypes,
+      region: selectedRegions
+    });
+  };
+
+  const handleRegionToggle = (region: string) => {
+    const newRegions = selectedRegions.includes(region)
+      ? selectedRegions.filter(r => r !== region)
+      : [...selectedRegions, region];
+    setSelectedRegions(newRegions);
+    onFiltersChange({
+      search: searchTerm,
+      typeOfTravel: selectedTypes,
+      region: newRegions
+    });
+  };
+
+  const handleSearch = () => {
+    onFiltersChange({
+      search: searchTerm,
+      typeOfTravel: selectedTypes,
+      region: selectedRegions
+    });
+  };
+
   return (
-    <aside className="w-full max-w-sm bg-[#f7f7fa] border-r-2 border-gray-300 flex flex-col gap-8">
+    <aside className="w-full max-w-sm bg-[#f7f7fa] border-r border-gray-300 flex flex-col">
       {/* Search */}
-      <div className="border-b-2 border-gray-300 py-6">
-        <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-2">
+      <div className="border-b border-gray-300 p-6">
+        <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-3">
           <input
             type="text"
             placeholder="What are you looking for?"
-            className="flex-1 bg-transparent outline-none text-xs font-inter font-bold text-gray-500"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+            className="flex-1 bg-transparent outline-none text-sm font-inter text-gray-700"
           />
-          <button className="ml-2 bg-[#23263a] text-white rounded-full p-2 flex items-center justify-center">
-            <Search className="w-4 h-4" />
+          <button 
+            onClick={handleSearch}
+            className="ml-2 bg-[#23263a] text-white rounded-full p-2 flex items-center justify-center hover:bg-black transition"
+          >
+            <Send className="w-4 h-4" />
           </button>
         </div>
       </div>
-      {/* Brand Partner */}
-      <div className="border-b-2 border-gray-300 px-4 py-6">
-        <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">BRAND PARTNER</h3>
-        <div className="flex flex-wrap gap-2 mb-2">
-          {brandPartners.map((brand, i) => (
-            <button key={i} className="bg-white border border-gray-200 rounded-full px-4 py-2 text-xs font-inter font-bold text-gray-400 flex items-center gap-2">
-              {brand}
-              {i === 0 && <span className="ml-1 text-gray-400">×</span>}
-            </button>
-          ))}
-        </div>
-        <button className="text-xs font-inter font-bold text-gray-400 mt-2">LOAD MORE +</button>
-      </div>
-      {/* Destination */}
-      <div className="border-b-2 border-gray-300 px-4 py-6">
-        <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">DESTINATION</h3>
-        <div className="flex flex-wrap gap-2">
-          {destinations.map((dest, i) => (
-            <button key={i} className={`bg-white border border-gray-200 rounded-full px-4 py-2 text-xs font-inter font-bold ${i === 0 ? "text-[#23263a] border-[#23263a]" : "text-gray-400"} flex items-center gap-2`}>
-              {dest}
-              {i === 0 && <span className="ml-1 text-gray-400">×</span>}
+
+      {/* Type of Travel */}
+      <div className="border-b border-gray-300 p-6">
+        <h3 className="text-xs font-inter font-bold text-gray-500 mb-4 tracking-widest">
+          TYPE OF TRAVEL
+        </h3>
+        <div className="grid grid-cols-2 gap-2">
+          {typeOfTravelOptions.map((type) => (
+            <button
+              key={type}
+              onClick={() => handleTypeToggle(type)}
+              className={`px-3 py-2 rounded text-xs font-inter font-bold transition ${
+                selectedTypes.includes(type)
+                  ? "bg-[#23263a] text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              {type}
             </button>
           ))}
         </div>
       </div>
-      {/* Experience */}
-      <div className="border-b-2 border-gray-300 px-4 py-6">
-        <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">EXPERIENCE</h3>
-        <div className="flex flex-wrap gap-2">
-          {experiences.map((exp, i) => (
-            <button key={i} className="bg-white border border-gray-200 rounded-full px-4 py-2 text-xs font-inter font-bold text-gray-400 flex items-center gap-2">
-              {exp}
+
+      {/* Region */}
+      <div className="p-6">
+        <h3 className="text-xs font-inter font-bold text-gray-500 mb-4 tracking-widest">
+          REGION
+        </h3>
+        <div className="grid grid-cols-1 gap-2">
+          {regionOptions.map((region) => (
+            <button
+              key={region}
+              onClick={() => handleRegionToggle(region)}
+              className={`px-3 py-2 rounded text-xs font-inter font-bold transition ${
+                selectedRegions.includes(region)
+                  ? "bg-[#23263a] text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              {region}
             </button>
           ))}
         </div>

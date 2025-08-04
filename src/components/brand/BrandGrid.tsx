@@ -1,85 +1,134 @@
-import { Search } from "lucide-react";
 import React from "react";
+import { X } from "lucide-react";
+import BrandCard from "./BrandCard";
 
-const offers = [
+interface BrandGridProps {
+  filters: {
+    search: string;
+    typeOfTravel: string[];
+    region: string[];
+  };
+  onClearFilter: (filterType: 'typeOfTravel' | 'region', value: string) => void;
+  onClearAllFilters: () => void;
+}
+
+const dummyHotels = [
   {
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Marriott_logo.svg",
-    description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod",
-    date: "Book by: 31st March 2025",
+    name: "Amanera",
+    location: "PLAYA GRANDE . DOMINICAN REPUBLIC",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Aman_Resorts_logo.svg/1200px-Aman_Resorts_logo.svg.png",
+    images: {
+      top: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+      bottomLeft: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80",
+      bottomRight: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=400&q=80"
+    },
+    description: "Backed by jungle, fronted by a sweep of Atlantic Ocean, Amanera is a sanctuary of natural beauty and refined luxury."
   },
   {
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Marriott_logo.svg",
-    description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod",
-    date: "Book by: 31st March 2025",
+    name: "Amangani",
+    location: "JACKSON HOLE . USA",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Aman_Resorts_logo.svg/1200px-Aman_Resorts_logo.svg.png",
+    images: {
+      top: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80",
+      bottomLeft: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=400&q=80",
+      bottomRight: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=400&q=80"
+    },
+    description: "In the foothills of the Tetons, near the year-round mountain resort of Jackson Hole, Amangani offers a serene retreat."
   },
   {
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Marriott_logo.svg",
-    description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod",
-    date: "Book by: 31st March 2025",
+    name: "Amangiri",
+    location: "CANYON POINT . USA",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Aman_Resorts_logo.svg/1200px-Aman_Resorts_logo.svg.png",
+    images: {
+      top: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80",
+      bottomLeft: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=400&q=80",
+      bottomRight: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=400&q=80"
+    },
+    description: "Set in the dramatic landscape of Canyon Point, Amangiri and its satellite, Camp Sarika, offer a unique desert experience."
   },
-  // Add more dummy offers as needed
+  {
+    name: "Aman New York",
+    location: "NEW YORK . USA",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Aman_Resorts_logo.svg/1200px-Aman_Resorts_logo.svg.png",
+    images: {
+      top: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+      bottomLeft: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80",
+      bottomRight: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=400&q=80"
+    },
+    description: "Reimagining Manhattan's Crown Building, Aman New York brings the brand's philosophy of luxury and tranquility to the heart of the city."
+  }
 ];
 
-const totalResults = 10;
-const currentPage = 1;
-const resultsPerPage = 3;
-const totalPages = Math.ceil(totalResults / resultsPerPage);
+export default function BrandGrid({ filters, onClearFilter, onClearAllFilters }: BrandGridProps) {
+  const allSelectedFilters = [...filters.typeOfTravel, ...filters.region];
+  const hasFilters = allSelectedFilters.length > 0;
 
-export default function BrandGrid() {
   return (
-    <section className="flex-1 bg-[#f7f7fa] min-h-screen">
-      {/* Search */}
-      <div className="border-b-2 border-gray-300 px-30  py-6">
-        <h3 className="text-xs font-inter font-bold text-gray-500  tracking-widest">SEARCH</h3>
-        <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-2">
-          <Search className="w-4 h-4 text-gray-400 mr-2" />
-          <input
-            type="text"
-            placeholder="What are you looking for?"
-            className="flex-1 bg-transparent outline-none text-xs font-inter font-bold text-gray-500"
-          />
-          <button className="ml-2 bg-[#23263a] text-white rounded-full p-2 flex items-center justify-center">
-            <Search className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
-      <div className="mb-6 text-gray-400 text-sm font-inter font-bold px-30 py-6">Showing 3 of 10 Results</div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16 px-30">
-        {offers.map((offer, idx) => (
-          <div key={idx} className="bg-white shadow-lg overflow-hidden flex flex-col">
-            <div className="relative h-64 w-full">
-              <img src={offer.image} alt="Offer" className="w-full h-full object-cover" />
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center justify-center w-full z-10">
-                <img src={offer.logo} alt="Brand Logo" className="h-10 bg-white/80 px-4 py-2 rounded max-w-[140px] object-contain shadow" />
-              </div>
+    <section className="flex-1 bg-white min-h-screen">
+      {/* Selected Filters */}
+      {hasFilters && (
+        <div className="border-b border-gray-200 px-8 py-4">
+          <div className="flex items-center gap-4">
+            <div className="flex flex-wrap gap-2">
+              {filters.typeOfTravel.map((type) => (
+                <span
+                  key={type}
+                  className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2"
+                >
+                  {type}
+                  <button
+                    onClick={() => onClearFilter('typeOfTravel', type)}
+                    className="hover:text-gray-900"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              ))}
+              {filters.region.map((region) => (
+                <span
+                  key={region}
+                  className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2"
+                >
+                  {region}
+                  <button
+                    onClick={() => onClearFilter('region', region)}
+                    className="hover:text-gray-900"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              ))}
             </div>
-            <div className="flex flex-col flex-1 items-center justify-between px-4 py-2">
-              <div className="text-center mb-4">
-                <p className="text-lg font-inter font-bold w-3/5 mx-auto text-[#23263a] my-4">{offer.description}</p>
-                <p className="text-xs text-gray-500 font-inter font-bold mb-4">{offer.date}</p>
-              </div>
-              <button className="w-full bg-[#23263a] text-white font-inter font-bold text-xs py-4 rounded-none flex items-center justify-center gap-2 hover:bg-black transition mb-2">
-                MORE INFO <span className="ml-2">&rarr;</span>
-              </button>
-            </div>
+            <div className="border-l border-gray-300 h-6"></div>
+            <button
+              onClick={onClearAllFilters}
+              className="text-xs font-inter font-bold text-gray-500 hover:text-gray-700"
+            >
+              Clear all filters
+            </button>
           </div>
-        ))}
+        </div>
+      )}
+
+      {/* Results Count */}
+      <div className="px-8 py-6">
+        <p className="text-sm font-inter font-bold text-gray-500">
+          Showing {dummyHotels.length} of {dummyHotels.length} Results
+        </p>
       </div>
-      {/* Pagination */}
-      <div className="flex justify-center items-center gap-8 my-8 text-gray-500 font-inter font-bold text-xs">
-        <button className="hover:underline" disabled={currentPage === 1}>&lt; Previous</button>
-        {[...Array(totalPages)].map((_, i) => (
-          <button
-            key={i}
-            className={`px-2 ${i + 1 === currentPage ? "text-[#23263a] font-bold" : ""}`}
-          >
-            {String(i + 1).padStart(2, "0")}
-          </button>
+
+      {/* Hotel Cards Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-8 pb-8">
+        {dummyHotels.map((hotel, index) => (
+          <BrandCard
+            key={index}
+            name={hotel.name}
+            location={hotel.location}
+            logo={hotel.logo}
+            images={hotel.images}
+            description={hotel.description}
+          />
         ))}
-        <button className="hover:underline" disabled={currentPage === totalPages}>Next &gt;</button>
       </div>
     </section>
   );

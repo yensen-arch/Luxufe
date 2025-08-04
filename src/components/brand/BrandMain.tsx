@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import BrandSidebar from "@/components/brand/BrandSidebar";
 import BrandGrid from "@/components/brand/BrandGrid";
 
@@ -10,10 +11,41 @@ interface BrandMainProps {
   brandName?: string;
 }
 
+interface Filters {
+  search: string;
+  typeOfTravel: string[];
+  region: string[];
+}
+
 const BrandMain = ({ data, brandName }: BrandMainProps) => {
   // Fallback content if no data is provided
   const heading = data?.heading || `${brandName || 'Luxury'} Hotels, Lodges & more`;
   const description = data?.description || "Handpicked for their setting, silence, and soul";
+
+  const [filters, setFilters] = useState<Filters>({
+    search: "",
+    typeOfTravel: [],
+    region: []
+  });
+
+  const handleFiltersChange = (newFilters: Filters) => {
+    setFilters(newFilters);
+  };
+
+  const handleClearFilter = (filterType: 'typeOfTravel' | 'region', value: string) => {
+    setFilters(prev => ({
+      ...prev,
+      [filterType]: prev[filterType].filter(item => item !== value)
+    }));
+  };
+
+  const handleClearAllFilters = () => {
+    setFilters({
+      search: "",
+      typeOfTravel: [],
+      region: []
+    });
+  };
 
   return (
     <div className="flex flex-col md:flex-col">
@@ -31,8 +63,12 @@ const BrandMain = ({ data, brandName }: BrandMainProps) => {
       
       {/* Main Content */}
       <div className="flex flex-col md:flex-row w-full">
-        <BrandSidebar />
-        <BrandGrid />
+        <BrandSidebar onFiltersChange={handleFiltersChange} />
+        <BrandGrid 
+          filters={filters}
+          onClearFilter={handleClearFilter}
+          onClearAllFilters={handleClearAllFilters}
+        />
       </div>
     </div>
   );
