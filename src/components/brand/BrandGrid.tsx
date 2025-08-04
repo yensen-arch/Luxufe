@@ -132,6 +132,35 @@ export default function BrandGrid({ filters, onClearFilter, onClearAllFilters }:
           />
         ))}
       </div>
+
+      {/* Pagination Component */}
+      <div className="flex justify-center items-center py-12">
+        <div className="flex items-center gap-8">
+          {/* Previous Link */}
+          <button className="text-gray-500 font-inter text-sm hover:text-gray-700 transition">
+            &lt; Previous
+          </button>
+          
+          {/* Page Numbers */}
+          <div className="flex items-center gap-4">
+            {/* Current Page with underline */}
+            <div className="flex flex-col items-center">
+              <span className="text-gray-800 font-inter text-sm font-medium">01</span>
+              <div className="w-full h-0.5 bg-gray-500 mt-1"></div>
+            </div>
+            
+            {/* Other Page Numbers */}
+            <span className="text-gray-500 font-inter text-sm">02</span>
+            <span className="text-gray-500 font-inter text-sm">03</span>
+            <span className="text-gray-500 font-inter text-sm">04</span>
+          </div>
+          
+          {/* Next Link */}
+          <button className="text-gray-800 font-inter text-sm hover:text-gray-600 transition">
+            Next &gt;
+          </button>
+        </div>
+      </div>
     </section>
   );
 } 
