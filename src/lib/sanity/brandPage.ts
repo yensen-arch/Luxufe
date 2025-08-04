@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { urlForImage } from '@/sanity/lib/image'
+import { urlFor } from '@/sanity/lib/image'
 
 export interface BrandPageData {
   hero?: {
@@ -154,5 +154,5 @@ export async function getBrandPageData(brandName: string): Promise<BrandPageData
 // Helper function to get image URL
 export function getImageUrl(image: any): string | undefined {
   if (!image) return undefined
-  return urlForImage(image).url()
+  return urlFor(image).url()
 } 

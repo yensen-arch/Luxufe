@@ -83,13 +83,13 @@ function slugToBrandName(slug: string): string {
 }
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export default async function BrandPage({ params }: PageProps) {
-  const { slug } = params
+  const { slug } = await params
 
   // Validate the slug
   if (!isValidBrandSlug(slug)) {
@@ -108,10 +108,10 @@ export default async function BrandPage({ params }: PageProps) {
       <BrandPhilosophy data={brandPageData?.philosophy} />
       <WhyWeTravel data={brandPageData?.whyWeTravel} />
       <BrandBenefits data={brandPageData?.benefits} />
-      <BrandMain data={brandPageData?.main} />
-      <Itineraries data={brandPageData?.itineraries} />
-      <Testimonials data={brandPageData?.testimonials} />
-      <ContactUs data={brandPageData?.contactUs} />
+      <BrandMain />
+      <Itineraries />
+      <Testimonials />
+      <ContactUs />
       <Footer />
     </main>
   )
