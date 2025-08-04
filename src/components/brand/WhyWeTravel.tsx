@@ -40,19 +40,19 @@ export default function WhyWeTravel({ data, brandName }: WhyWeTravelProps) {
           </div>
           
           {/* Right: Content */}
-          <div className="md:w-1/2 w-full flex flex-col justify-start my-auto md:ml-10 space-y-6">
+          <div className="md:w-1/2 w-full flex flex-col justify-start my-auto md:ml-5 space-y-6">
             {/* Subheading */}
-            <h3 className="text-xl md:text-2xl font-arpona text-[#23263a] font-bold leading-tight">
+            <h3 className="text-xl md:text-3xl w-4/5 font-arpona text-[#23263a] font-bold leading-tight">
               {subheading}
             </h3>
             
             {/* First Paragraph */}
-            <p className="text-[#23263a] text-base md:text-lg leading-relaxed">
+            <p className="text-[#23263a] text-base w-4/5 md:text-md font-inter font-bold leading-relaxed">
               {paragraph1}
             </p>
             
             {/* Second Paragraph */}
-            <p className="text-[#23263a] text-base md:text-lg leading-relaxed">
+            <p className="text-[#23263a] text-base w-4/5 md:text-md font-inter font-bold leading-relaxed">
               {paragraph2}
             </p>
           </div>
