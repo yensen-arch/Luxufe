@@ -59,7 +59,7 @@ export default function BrandSidebar({ onFiltersChange }: BrandSidebarProps) {
   return (
     <aside className="w-full max-w-md bg-[#f7f7fa] border-r-2 border-gray-300 flex flex-col">
       {/* Search */}
-      <div className="border-b-2 border-gray-300 p-6">
+      <div className="border-b-2 border-gray-300 p-6 h-30">
         <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-3 shadow-xl">
           <input
             type="text"

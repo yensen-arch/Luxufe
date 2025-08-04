@@ -66,13 +66,13 @@ export default function BrandGrid({ filters, onClearFilter, onClearAllFilters }:
   return (
     <section className="flex-1 bg-[#f7f7fa] min-h-screen">
       {/* Selected Filters - Always visible */}
-      <div className="border-b border-gray-200 px-8 py-4">
+      <div className="border-b-2 border-gray-300 px-8 py-4 h-30">
         <div className="flex items-center gap-4">
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mt-6">
             {filters.typeOfTravel.map((type) => (
               <span
                 key={type}
-                className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2"
+                className="bg-gray-200 text-gray-500 px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2"
               >
                 {type}
                 <button
@@ -86,7 +86,7 @@ export default function BrandGrid({ filters, onClearFilter, onClearAllFilters }:
             {filters.region.map((region) => (
               <span
                 key={region}
-                className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2"
+                className="bg-gray-200 text-gray-500 px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2"
               >
                 {region}
                 <button
@@ -100,10 +100,10 @@ export default function BrandGrid({ filters, onClearFilter, onClearAllFilters }:
           </div>
           {hasFilters && (
             <>
-              <div className="border-l border-gray-300 h-6"></div>
+              <div className="border-l-2 border-gray-700 h-6 mt-6"></div>
               <button
                 onClick={onClearAllFilters}
-                className="text-xs font-inter font-bold text-gray-500 hover:text-gray-700"
+                className="text-xs font-inter font-bold text-gray-700 hover:text-gray-700 mt-6"
               >
                 Clear all filters
               </button>
@@ -120,7 +120,7 @@ export default function BrandGrid({ filters, onClearFilter, onClearAllFilters }:
       </div>
 
       {/* Hotel Cards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-8 pb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 px-16 pb-8">
         {dummyHotels.map((hotel, index) => (
           <BrandCard
             key={index}
