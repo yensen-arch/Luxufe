@@ -109,7 +109,7 @@ async function BrandPageContent({ brandName }: { brandName: string }) {
       </div>
       
       <div id="why-we-travel">
-        <WhyWeTravel data={brandPageData?.whyWeTravel} />
+        <WhyWeTravel data={brandPageData?.whyWeTravel} brandName={brandName} />
       </div>
       
       <div id="benefits">

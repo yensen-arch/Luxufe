@@ -4,31 +4,28 @@ import { getImageUrl } from "@/lib/sanity/brandPage";
 interface WhyWeTravelProps {
   data?: {
     heading?: string;
-    description?: string;
-    reasons?: Array<{
-      title?: string;
-      description?: string;
-      icon?: string;
-    }>;
+    subheading?: string;
+    paragraph1?: string;
+    paragraph2?: string;
+    image?: any;
   };
+  brandName?: string;
 }
 
-export default function WhyWeTravel({ data }: WhyWeTravelProps) {
+export default function WhyWeTravel({ data, brandName }: WhyWeTravelProps) {
   // Fallback content if no data is provided
-  const heading = data?.heading || "Why we travel with Aman";
-  const description = data?.description || "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum";
-  const reasons = data?.reasons || [
-    {
-      description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum",
-    },
-  ];
+  const heading = data?.heading || "Why We Travel With";
+  const subheading = data?.subheading || "A rare calm in a busy world. Aman is less a hotel brand and more a state of being.";
+  const paragraph1 = data?.paragraph1 || "Whether in the mountains of Bhutan or on a private beach in Indonesia, every Aman property feels intimate, elemental, and deeply attuned to its surroundings. Their service is quiet and intuitive, seemingly always present but never overdone.";
+  const paragraph2 = data?.paragraph2 || "We work closely with Aman to secure exclusive access, enhancements, and tailor-made experiences that allow our travelers to connect with the soul of each location.";
+  const image = data?.image ? getImageUrl(data.image) : "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80";
 
   return (
     <section className="py-24 bg-[#f5f5f5]">
       <div className="max-w-7xl mx-auto px-4">
         {/* Heading */}
         <h2 className="text-4xl md:text-5xl font-arpona text-[#23263a] font-bold text-start mb-16">
-          {heading}
+          {heading} <span className="font-bellarina">{brandName || 'Aman'}</span>
         </h2>
         
         {/* Content Row */}
@@ -36,45 +33,28 @@ export default function WhyWeTravel({ data }: WhyWeTravelProps) {
           {/* Left: Image */}
           <div className="md:w-1/2 w-full flex-shrink-0 flex justify-center">
             <img
-              src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
-              alt="Luxury Travel"
+              src={image}
+              alt={`${brandName || 'Luxury'} Travel Experience`}
               className="w-[420px] h-[340px] md:w-[620px] md:h-[500px] object-cover object-center border border-gray-200 shadow"
             />
           </div>
           
           {/* Right: Content */}
-          <div className="md:w-1/2 w-full flex flex-col justify-center my-auto md:ml-10">
-            {/* Description */}
-            <p className="font-inter w-4/5 text-[#23263a] text-base md:text-md font-bold mb-8 text-left max-w-xl">
-              {description}
+          <div className="md:w-1/2 w-full flex flex-col justify-start my-auto md:ml-10 space-y-6">
+            {/* Subheading */}
+            <h3 className="text-xl md:text-2xl font-arpona text-[#23263a] font-bold leading-tight">
+              {subheading}
+            </h3>
+            
+            {/* First Paragraph */}
+            <p className="text-[#23263a] text-base md:text-lg leading-relaxed">
+              {paragraph1}
             </p>
             
-            {/* Reasons */}
-            {reasons.length > 0 && (
-              <div className="space-y-6">
-                {reasons.map((reason, index) => (
-                  <div key={index} className="flex items-start gap-4">
-                    {reason.icon && (
-                      <div className="flex-shrink-0 w-8 h-8 bg-[#a8d1cf] rounded-full flex items-center justify-center">
-                        <span className="text-[#23263a] text-sm font-bold">{reason.icon}</span>
-                      </div>
-                    )}
-                    <div>
-                      {reason.title && (
-                        <h4 className="text-lg font-arpona text-[#23263a] font-semibold mb-2">
-                          {reason.title}
-                        </h4>
-                      )}
-                      {reason.description && (
-                        <p className="text-[#23263a] text-sm opacity-80">
-                          {reason.description}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+            {/* Second Paragraph */}
+            <p className="text-[#23263a] text-base md:text-lg leading-relaxed">
+              {paragraph2}
+            </p>
           </div>
         </div>
       </div>

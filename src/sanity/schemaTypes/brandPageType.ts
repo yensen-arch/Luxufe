@@ -115,36 +115,27 @@ export default defineType({
           type: 'string'
         }),
         defineField({
-          name: 'description',
-          title: 'Description',
+          name: 'subheading',
+          title: 'Subheading',
+          type: 'string'
+        }),
+        defineField({
+          name: 'paragraph1',
+          title: 'First Paragraph',
           type: 'text'
         }),
         defineField({
-          name: 'reasons',
-          title: 'Reasons',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                defineField({
-                  name: 'title',
-                  title: 'Title',
-                  type: 'string'
-                }),
-                defineField({
-                  name: 'description',
-                  title: 'Description',
-                  type: 'text'
-                }),
-                defineField({
-                  name: 'icon',
-                  title: 'Icon',
-                  type: 'string'
-                })
-              ]
-            }
-          ]
+          name: 'paragraph2',
+          title: 'Second Paragraph',
+          type: 'text'
+        }),
+        defineField({
+          name: 'image',
+          title: 'Image',
+          type: 'image',
+          options: {
+            hotspot: true
+          }
         })
       ]
     }),

@@ -17,12 +17,10 @@ export interface BrandPageData {
   }
   whyWeTravel?: {
     heading?: string
-    description?: string
-    reasons?: Array<{
-      title?: string
-      description?: string
-      icon?: string
-    }>
+    subheading?: string
+    paragraph1?: string
+    paragraph2?: string
+    image?: any
   }
   benefits?: {
     heading?: string
@@ -61,12 +59,10 @@ export async function getBrandPageData(brandName: string): Promise<BrandPageData
     },
     whyWeTravel {
       heading,
-      description,
-      reasons[] {
-        title,
-        description,
-        icon
-      }
+      subheading,
+      paragraph1,
+      paragraph2,
+      image
     },
     benefits {
       heading,

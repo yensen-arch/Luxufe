@@ -25,7 +25,6 @@ export default function BrandHero({ data, brandName }: BrandHeroProps) {
   const [activeTab, setActiveTab] = useState("philosophy");
 
   // Fallback content if no data is provided
-  const tagline = data?.tagline || `${brandName || 'Luxury'}. Redefined`;
   const heading = data?.heading || `Experience the pinnacle of luxury with ${brandName || 'our exclusive brands'}`;
   const description = data?.description || "Discover unparalleled service, exceptional amenities, and unforgettable experiences that define true luxury hospitality.";
   const backgroundImage = data?.backgroundImage ? getImageUrl(data.backgroundImage) : "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80";
@@ -57,11 +56,10 @@ export default function BrandHero({ data, brandName }: BrandHeroProps) {
       
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full h-full pt-32 pb-24 text-white text-center px-4">
-        <p className="text-3xl md:text-5xl font-bellarina italic mb-6">{tagline}</p>
         <h1 className="text-4xl md:text-6xl font-arpona leading-tight mb-6 max-w-4xl">
           {heading}
         </h1>
-        <p className="text-lg md:text-xl mb-8 max-w-2xl opacity-90">
+        <p className="text-lg font-inter font-bold md:text-xl mb-8 max-w-2xl opacity-90">
           {description}
         </p>
       </div>
