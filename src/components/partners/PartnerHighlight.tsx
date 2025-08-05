@@ -1,12 +1,32 @@
 import React from "react";
 
-export default function PartnerHighlight() {
+interface PartnerHighlightProps {
+  data?: {
+    heading?: string;
+    description?: string;
+    partners?: Array<{
+      name?: string;
+      logo?: any;
+      description?: string;
+    }>;
+  };
+}
+
+export default function PartnerHighlight({ data }: PartnerHighlightProps) {
+  // Fallback content if no data is provided
+  const heading = data?.heading || "Partner highlight - a Luxufe favorite";
+  const partner = data?.partners?.[0] || {
+    name: "Regent Seven Seas Cruises",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/2/2e/Regent_Seven_Seas_Cruises_logo.svg",
+    description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum"
+  };
+
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         {/* Heading */}
         <h2 className="text-4xl md:text-5xl font-arpona text-[#23263a] font-bold text-start mb-16">
-          Partner highlight - a Luxufe favorite
+          {heading}
         </h2>
         {/* Content Row */}
         <div className="flex flex-col md:flex-row items-start gap-12 justify-center">
@@ -22,18 +42,18 @@ export default function PartnerHighlight() {
           <div className="md:w-1/2 w-full flex flex-col justify-center my-auto md:ml-10">
             {/* Logo */}
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Regent_Seven_Seas_Cruises_logo.svg"
-              alt="Regent Seven Seas Cruises Logo"
+              src={partner.logo}
+              alt={`${partner.name} Logo`}
               className="h-14 w-auto mb-6"
               style={{ maxWidth: 260 }}
             />
             {/* Large Heading */}
             <h3 className="text-2xl w-4/5 md:text-3xl font-arpona text-[#23263a] font-bold mb-4 text-left">
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+              {partner.name}
             </h3>
             {/* Paragraph */}
             <p className="font-inter w-4/5 text-[#23263a] text-base md:text-md font-bold mb-8 text-left max-w-xl">
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum
+              {partner.description}
             </p>
             {/* Button */}
             <button className="w-fit border-2 border-gray-300 text-xs py-3 px-6 font-inter font-bold text-gray-800 flex items-center justify-center gap-2 hover:bg-gray-800 hover:text-white transition text-left">

@@ -21,14 +21,14 @@ const Page = async () => {
   return (
     <main className="overflow-y-hidden">
       <Navbar />
-      <HeroPartners />
-      <GlobalNetwork />
-      <BenefitsSection />
-      <PartnerHighlight />
+      <HeroPartners data={partnersData?.heroPartners} />
+      <GlobalNetwork data={partnersData?.globalNetwork} />
+      <BenefitsSection data={partnersData?.benefitsSection} />
+      <PartnerHighlight data={partnersData?.partnerHighlight} />
       <HighestBrandSearch data={partnersData?.highestBrandSearch} />
       <SelectedFavs data={partnersData?.selectedFavs} />
       <ElevePerks data={landingData?.elevePerks} />
-      <ContactUs />
+      <ContactUs data={partnersData?.contactUs} />
       <Footer />
     </main>
   );

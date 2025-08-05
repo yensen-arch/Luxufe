@@ -1,7 +1,19 @@
 import React from "react";
 import { Pencil, Trophy, Plane } from "lucide-react";
 
-const features = [
+interface BenefitsSectionProps {
+  data?: {
+    heading?: string;
+    description?: string;
+    benefits?: Array<{
+      title?: string;
+      description?: string;
+      icon?: string;
+    }>;
+  };
+}
+
+const defaultFeatures = [
   {
     icon: <Pencil className="w-10 h-10 text-[#23263a]" />,
     title: "Tailored Expertise",
@@ -12,7 +24,7 @@ const features = [
     icon: <Trophy className="w-10 h-10 text-[#23263a]" />,
     title: "Luxury Assured",
     description:
-      "Enjoy priority access, exclusive onboard privileges, and price transparency across the world’s most prestigious cruise lines—because luxury should never come with compromise.",
+      "Enjoy priority access, exclusive onboard privileges, and price transparency across the world's most prestigious cruise lines—because luxury should never come with compromise.",
   },
   {
     icon: <Plane className="w-10 h-10 text-[#23263a]" />,
@@ -22,12 +34,25 @@ const features = [
   },
 ];
 
-export default function BenefitsSection() {
+export default function BenefitsSection({ data }: BenefitsSectionProps) {
+  // Fallback content if no data is provided
+  const heading = data?.heading || "Effortless luxury, expert guidance, and exclusive advantages—every step of the way.";
+  const features = data?.benefits 
+    ? data.benefits.map(benefit => ({
+        icon: benefit.icon === 'pencil' ? <Pencil className="w-10 h-10 text-[#23263a]" /> :
+              benefit.icon === 'trophy' ? <Trophy className="w-10 h-10 text-[#23263a]" /> :
+              benefit.icon === 'plane' ? <Plane className="w-10 h-10 text-[#23263a]" /> :
+              <Pencil className="w-10 h-10 text-[#23263a]" />,
+        title: benefit.title || "",
+        description: benefit.description || ""
+      }))
+    : defaultFeatures;
+
   return (
     <section className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-4 text-center">
         <h2 className="text-3xl w-4/5 mx-auto md:text-4xl font-arpona font-medium text-[#23263a] mb-12">
-          Effortless luxury, expert guidance, and exclusive advantages—every step of the way.
+          {heading}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16">
           {features.map((feature, idx) => (
