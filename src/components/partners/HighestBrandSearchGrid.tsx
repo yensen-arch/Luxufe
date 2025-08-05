@@ -61,10 +61,10 @@ export default function HighestBrandSearchGrid({
   }
 
   return (
-    <section className="flex-1 bg-[#f5f6f7] max-h-[170vh] py-5">
+    <section className="flex-1 bg-[#f5f6f7] max-h-[170vh] py-3 md:py-5">
       {/* Search Bar */}
       <p className="text-gray-500 font-inter font-bold text-xs mx-4 mb-2">SEARCH</p>
-      <div className="flex items-center mb-2 bg-white border border-gray-200 rounded-full px-6 py-2 text-sm font-inter font-bold text-gray-500 mx-4 placeholder:text-gray-500">
+      <div className="flex items-center mb-2 bg-white border border-gray-200 rounded-full px-4 md:px-6 py-2 text-sm font-inter font-bold text-gray-500 mx-4 placeholder:text-gray-500">
         <input
           type="text"
           placeholder="What are you looking for?"
@@ -73,13 +73,13 @@ export default function HighestBrandSearchGrid({
           className="flex-1"
         />
         <button className="bg-[#23263a] text-white rounded-full p-1 flex items-center justify-center">
-          <Search className="w-5 h-5" />
+          <Search className="w-4 h-4 md:w-5 md:h-5" />
         </button>
       </div>
 
       {/* Selected Filters - Always visible */}
-      <div className="border-b-2 border-gray-300 pb-4 mb-6">
-        <div className="flex items-center gap-4">
+      <div className="border-b-2 border-gray-300 pb-4 mb-4 md:mb-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
           <div className="flex flex-wrap gap-2">
             {filters.destinations.map((destination) => (
               <span
@@ -112,7 +112,7 @@ export default function HighestBrandSearchGrid({
           </div>
           {hasFilters && (
             <>
-              <div className="border-l-2 border-gray-700 h-6"></div>
+              <div className="border-l-2 border-gray-700 h-6 hidden sm:block"></div>
               <button
                 onClick={onClearAllFilters}
                 className="text-xs font-inter font-bold text-gray-700 hover:text-gray-700"
@@ -125,20 +125,20 @@ export default function HighestBrandSearchGrid({
       </div>
 
       {/* Results Count */}
-      <div className="mb-6 text-gray-400 text-sm font-inter font-bold mx-14">
+      <div className="mb-4 md:mb-6 text-gray-400 text-sm font-inter font-bold mx-4 md:mx-14">
         Showing {startIndex + 1}-{Math.min(endIndex, cruises.length)} of {cruises.length} Results
       </div>
 
       {/* Cruise Cards Grid */}
       {cruises.length === 0 ? (
-        <div className="flex items-center justify-center py-16 mx-14">
+        <div className="flex items-center justify-center py-8 md:py-16 mx-4 md:mx-14">
           <div className="text-center">
-            <p className="text-gray-600 font-inter text-lg mb-2">No cruises found</p>
+            <p className="text-gray-600 font-inter text-base md:text-lg mb-2">No cruises found</p>
             <p className="text-gray-500 font-inter text-sm">Try adjusting your filters to see more results</p>
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 mx-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-8 md:mb-16 mx-4 md:mx-14">
           {currentCruises.map((cruise, idx) => (
             <CruiseCard key={idx} cruise={cruise} index={idx} />
           ))}
@@ -147,7 +147,7 @@ export default function HighestBrandSearchGrid({
 
       {/* Pagination Component */}
       {totalPages > 1 && (
-        <div className="flex justify-center items-center gap-8 my-8 text-gray-500 font-inter font-bold text-xs">
+        <div className="flex justify-center items-center gap-4 md:gap-8 my-4 md:my-8 text-gray-500 font-inter font-bold text-xs">
           <button 
             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
             disabled={currentPage === 1}

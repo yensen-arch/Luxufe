@@ -127,21 +127,21 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-col">
+    <div className="flex flex-col">
       {/* Heading and Description Section */}
-      <div className="w-full bg-white py-16">
+      <div className="w-full bg-white py-8 md:py-16">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-6xl font-arpona text-[#23263a] font-bold mb-6">
+          <h2 className="text-2xl md:text-4xl lg:text-6xl font-arpona text-[#23263a] font-bold mb-4 md:mb-6">
             {heading}
           </h2>
-          <p className="text-lg md:text-xl text-[#23263a] font-inter font-bold">
+          <p className="text-base md:text-lg lg:text-xl text-[#23263a] font-inter font-bold">
             {description}
           </p>
         </div>
       </div>
       
       {/* Main Content */}
-      <div className="flex flex-col md:flex-row w-full">
+      <div className="flex flex-col lg:flex-row w-full">
         <HighestBrandSearchSidebar 
           onFiltersChange={handleFiltersChange}
           loading={loading}
