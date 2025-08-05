@@ -119,11 +119,8 @@ export default function CuratedForYou() {
       </div>
 
       <div className="text-center mt-16 flex justify-center gap-4">
-        <button className="border border-gray-800 text-gray-800 px-6 py-3 hover:bg-gray-800 hover:text-white transition flex items-center gap-2">
-          JOURNEYS & TOURS <ArrowRight className="h-4 w-4" />
-        </button>
-        <button className="border border-gray-800 text-gray-800 px-6 py-3 hover:bg-gray-800 hover:text-white transition flex items-center gap-2">
-          MORE WAYS TO TRAVEL <ArrowRight className="h-4 w-4" />
+        <button className="border-2 text-xs border-gray-300 text-gray-800 px-5 font-inter font-bold py-5 hover:bg-gray-800 hover:text-white transition flex items-center gap-2">
+          EXPLORE ALL CRUISES <ArrowRight className="h-4 w-4" />
         </button>
       </div>
     </section>

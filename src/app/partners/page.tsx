@@ -1,6 +1,6 @@
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
-import ContactUs from "@/components/regions/ContactUs";
+import ContactUs from "@/components/partners/ContactUs";
 import HeroPartners from "@/components/partners/HeroPartners";
 import ElevePerks from "@/components/landing/ElevePerks";
 import SelectedFavs from "@/components/partners/SelectedFavs";
