@@ -54,16 +54,16 @@ export default function HighestBrandSearchGrid({
       <section className="flex-1 bg-[#f5f6f7] max-h-[170vh] flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#a8d1cf] mx-auto mb-4"></div>
-          <p className="text-gray-600 font-inter">Loading cruises...</p>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="flex-1 bg-[#f5f6f7] max-h-[170vh] p-10">
+    <section className="flex-1 bg-[#f5f6f7] max-h-[170vh] py-5">
       {/* Search Bar */}
-      <div className="flex items-center mb-8 bg-white border border-gray-200 rounded-full px-6 py-2 text-sm font-inter font-bold text-gray-500 mr-4 placeholder:text-gray-500">
+      <p className="text-gray-500 font-inter font-bold text-xs mx-4 mb-2">SEARCH</p>
+      <div className="flex items-center mb-2 bg-white border border-gray-200 rounded-full px-6 py-2 text-sm font-inter font-bold text-gray-500 mx-4 placeholder:text-gray-500">
         <input
           type="text"
           placeholder="What are you looking for?"
