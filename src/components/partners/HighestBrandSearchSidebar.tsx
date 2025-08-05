@@ -80,7 +80,7 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
         />
       )}
 
-      <aside className={`w-full h-full max-w-md bg-[#f7f7fa] border-r-2 border-gray-300 flex flex-col transition-transform duration-300 ease-in-out ${
+      <aside className={`w-full min-h-[170vh] max-w-md bg-[#f5f6f7] border-r-2 border-gray-300 flex flex-col transition-transform duration-300 ease-in-out ${
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
       } md:translate-x-0 md:relative fixed md:static top-0 left-0 h-full z-50`}>
         

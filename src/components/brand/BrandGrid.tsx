@@ -64,7 +64,7 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
   }
 
   return (
-    <section className="flex-1 bg-[#f7f7fa] min-h-screen">
+    <section className="flex-1 bg-[#f7f7fa] max-h-[250vh]">
       {/* Selected Filters - Always visible */}
       <div className="border-b-2 border-gray-300 px-8 py-4 h-30">
         <div className="flex items-center gap-4">
