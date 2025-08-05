@@ -84,8 +84,8 @@ export default function CuratedForYou() {
   return (
     <section className="py-20 my-40 bg-white text-gray-800 relative overflow-hidden">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-6xl font-arpona ">Luxufe Selected Favorites</h2>
-        <p className="max-w-1/4 text-black mx-auto my-12 font-inter font-bold">
+        <h2 className="text-2xl md:text-4xl lg:text-6xl font-arpona">Luxufe Selected Favorites</h2>
+        <p className=" md:max-w-1/4 text-black mx-auto my-6 md:my-12 font-inter font-bold text-sm md:text-base">
           Discover crafted cruise itineraries that blend elegance, adventure, and ease.
         </p>
       </div>
