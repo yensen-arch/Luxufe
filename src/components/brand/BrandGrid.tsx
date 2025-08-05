@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { X } from "lucide-react";
 import BrandCard from "./BrandCard";
 import { Hotel } from "@/lib/database";
@@ -34,8 +34,22 @@ const getImagesFromGallery = (gallery: string[] = []) => {
 };
 
 export default function BrandGrid({ hotels, loading, filters, onClearFilter, onClearAllFilters }: BrandGridProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const cardsPerPage = 4;
+  
   const allSelectedFilters = [...filters.typeOfTravel, ...filters.region];
   const hasFilters = allSelectedFilters.length > 0;
+
+  // Calculate pagination
+  const totalPages = Math.ceil(hotels.length / cardsPerPage);
+  const startIndex = (currentPage - 1) * cardsPerPage;
+  const endIndex = startIndex + cardsPerPage;
+  const currentHotels = hotels.slice(startIndex, endIndex);
+
+  // Reset to first page when hotels change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [hotels.length]);
 
   // Loading state
   if (loading) {
@@ -101,7 +115,7 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
       {/* Results Count */}
       <div className="px-8 py-6">
         <p className="text-sm font-inter font-bold text-gray-500">
-          Showing {hotels.length} of {hotels.length} Results
+          Showing {startIndex + 1}-{Math.min(endIndex, hotels.length)} of {hotels.length} Results
         </p>
       </div>
 
@@ -115,7 +129,7 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 px-16 pb-8">
-          {hotels.map((hotel, index) => {
+          {currentHotels.map((hotel, index) => {
             const images = getImagesFromGallery(hotel.gallery);
             return (
               <BrandCard
@@ -132,33 +146,57 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
       )}
 
       {/* Pagination Component */}
-      <div className="flex justify-center items-center py-12">
-        <div className="flex items-center gap-8">
-          {/* Previous Link */}
-          <button className="text-gray-500 font-inter text-sm hover:text-gray-700 transition">
-            &lt; Previous
-          </button>
-          
-          {/* Page Numbers */}
-          <div className="flex items-center gap-4">
-            {/* Current Page with underline */}
-            <div className="flex flex-col items-center">
-              <span className="text-gray-800 font-inter text-sm font-medium">01</span>
-              <div className="w-full h-0.5 bg-gray-500 mt-1"></div>
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center py-12">
+          <div className="flex items-center gap-8">
+            {/* Previous Link */}
+            <button 
+              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+              disabled={currentPage === 1}
+              className={`font-inter text-sm transition ${
+                currentPage === 1 
+                  ? 'text-gray-300 cursor-not-allowed' 
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              &lt; Previous
+            </button>
+            
+            {/* Page Numbers */}
+            <div className="flex items-center gap-4">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                <button
+                  key={pageNum}
+                  onClick={() => setCurrentPage(pageNum)}
+                  className={`flex flex-col items-center ${
+                    pageNum === currentPage ? 'text-gray-800' : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  <span className={`font-inter text-sm ${pageNum === currentPage ? 'font-medium' : ''}`}>
+                    {pageNum.toString().padStart(2, '0')}
+                  </span>
+                  {pageNum === currentPage && (
+                    <div className="w-full h-0.5 bg-gray-500 mt-1"></div>
+                  )}
+                </button>
+              ))}
             </div>
             
-            {/* Other Page Numbers */}
-            <span className="text-gray-500 font-inter text-sm">02</span>
-            <span className="text-gray-500 font-inter text-sm">03</span>
-            <span className="text-gray-500 font-inter text-sm">04</span>
+            {/* Next Link */}
+            <button 
+              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+              disabled={currentPage === totalPages}
+              className={`font-inter text-sm transition ${
+                currentPage === totalPages 
+                  ? 'text-gray-300 cursor-not-allowed' 
+                  : 'text-gray-800 hover:text-gray-600'
+              }`}
+            >
+              Next &gt;
+            </button>
           </div>
-          
-          {/* Next Link */}
-          <button className="text-gray-800 font-inter text-sm hover:text-gray-600 transition">
-            Next &gt;
-          </button>
         </div>
-      </div>
+      )}
     </section>
   );
 } 

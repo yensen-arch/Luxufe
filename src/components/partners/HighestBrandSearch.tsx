@@ -28,7 +28,7 @@ const cruises = [
   },
 ];
 
-export default function SilverseaCruiseSearch() {
+export default function HighestBrandSearch() {
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-[#f7f7fa]">
       {/* Sidebar */}
