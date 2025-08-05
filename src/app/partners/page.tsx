@@ -19,7 +19,7 @@ const Page = async () => {
   const landingData = await getLandingPageData();
 
   return (
-    <main className="overflow-y-hidden">
+    <main className="overflow-hidden">
       <Navbar />
       <HeroPartners data={partnersData?.heroPartners} />
       <GlobalNetwork data={partnersData?.globalNetwork} />
