@@ -8,8 +8,16 @@ import PartnerHighlight from "@/components/partners/PartnerHighlight";
 import BenefitsSection from "@/components/partners/BenefitsSection";
 import GlobalNetwork from "@/components/partners/GlobalNetwork";
 import HighestBrandSearch from "@/components/partners/HighestBrandSearch";
+import { getPartnersPageData } from "@/lib/sanity/partnersPage";
+import { getLandingPageData } from "@/lib/sanity";
 
-const Page = () => {
+const Page = async () => {
+  // Fetch partners page data from Sanity
+  const partnersData = await getPartnersPageData();
+  
+  // Fetch landing page data for ElevePerks (since it's already set up)
+  const landingData = await getLandingPageData();
+
   return (
     <main className="overflow-y-hidden">
       <Navbar />
@@ -17,9 +25,9 @@ const Page = () => {
       <GlobalNetwork />
       <BenefitsSection />
       <PartnerHighlight />
-      <HighestBrandSearch />
-      <SelectedFavs />
-      <ElevePerks />
+      <HighestBrandSearch data={partnersData?.highestBrandSearch} />
+      <SelectedFavs data={partnersData?.selectedFavs} />
+      <ElevePerks data={landingData?.elevePerks} />
       <ContactUs />
       <Footer />
     </main>

@@ -57,7 +57,25 @@ const itineraries = [
   },
 ]
 
-export default function CuratedForYou() {
+interface SelectedFavsProps {
+  data?: {
+    heading?: string;
+    description?: string;
+    itineraries?: Array<{
+      id?: string;
+      location?: string;
+      nights?: number;
+      image?: any;
+      name?: string;
+      description?: string;
+      price?: number;
+    }>;
+    ctaText?: string;
+    ctaLink?: string;
+  };
+}
+
+export default function SelectedFavs({ data }: SelectedFavsProps) {
   const [selectedCard, setSelectedCard] = useState<string | null>(null)
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
@@ -71,29 +89,47 @@ export default function CuratedForYou() {
     setSelectedCard(cardId)
   }, [])
 
+  // Fallback content if no data is provided
+  const heading = data?.heading || "Luxufe Selected Favorites";
+  const description = data?.description || "Discover crafted cruise itineraries that blend elegance, adventure, and ease.";
+  const ctaText = data?.ctaText || "EXPLORE ALL CRUISES";
+  
+  // Transform Sanity data to match component expectations
+  const itinerariesData = data?.itineraries 
+    ? data.itineraries.map(item => ({
+        id: item.id || '',
+        location: item.location || '',
+        nights: item.nights || 0,
+        imageUrl: item.image ? `https://picsum.photos/seed/${item.id || 'default'}/800/1000` : `https://picsum.photos/seed/${item.id || 'default'}/800/1000`,
+        name: item.name || '',
+        description: item.description || '',
+        price: item.price || 0
+      }))
+    : itineraries;
+
   // Center the selected card when it changes
   useEffect(() => {
     if (emblaApi && selectedCard) {
-      const index = itineraries.findIndex((item) => item.id === selectedCard)
+      const index = itinerariesData.findIndex((item) => item.id === selectedCard)
       if (index !== -1) {
         emblaApi.scrollTo(index)
       }
     }
-  }, [emblaApi, selectedCard])
+  }, [emblaApi, selectedCard, itinerariesData])
 
   return (
     <section className="py-20 my-40 bg-white text-gray-800 relative overflow-hidden">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-2xl md:text-4xl lg:text-6xl font-arpona">Luxufe Selected Favorites</h2>
-        <p className=" md:max-w-1/4 text-black mx-auto my-6 md:my-12 font-inter font-bold text-sm md:text-base">
-          Discover crafted cruise itineraries that blend elegance, adventure, and ease.
+        <h2 className="text-2xl md:text-4xl lg:text-6xl font-arpona">{heading}</h2>
+        <p className="md:max-w-1/4 text-black mx-auto my-6 md:my-12 font-inter font-bold text-sm md:text-base">
+          {description}
         </p>
       </div>
 
       <div className="relative py-10">
         <div ref={emblaRef}>
-          <div className="flex">
-            {itineraries.map((item, index) => (
+                  <div className="flex">
+          {itinerariesData.map((item, index) => (
               <div className="flex-[0_0_auto] min-w-0 " key={item.id}>
                 <ItineraryCard
                   {...item}
@@ -120,7 +156,7 @@ export default function CuratedForYou() {
 
       <div className="text-center mt-16 flex justify-center gap-4">
         <button className="border-2 text-xs border-gray-300 text-gray-800 px-5 font-inter font-bold py-5 hover:bg-gray-800 hover:text-white transition flex items-center gap-2">
-          EXPLORE ALL CRUISES <ArrowRight className="h-4 w-4" />
+          {ctaText} <ArrowRight className="h-4 w-4" />
         </button>
       </div>
     </section>
