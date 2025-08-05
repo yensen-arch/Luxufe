@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Search, Bed, Lock, X } from "lucide-react";
+import { Search, X } from "lucide-react";
+import CruiseCard from "./CruiseCard";
 
 interface Cruise {
   image: string;
@@ -124,43 +125,22 @@ export default function HighestBrandSearchGrid({
       </div>
 
       {/* Results Count */}
-      <div className="mb-6 text-gray-400 text-sm font-inter font-bold">
+      <div className="mb-6 text-gray-400 text-sm font-inter font-bold mx-14">
         Showing {startIndex + 1}-{Math.min(endIndex, cruises.length)} of {cruises.length} Results
       </div>
 
       {/* Cruise Cards Grid */}
       {cruises.length === 0 ? (
-        <div className="flex items-center justify-center py-16">
+        <div className="flex items-center justify-center py-16 mx-14">
           <div className="text-center">
             <p className="text-gray-600 font-inter text-lg mb-2">No cruises found</p>
             <p className="text-gray-500 font-inter text-sm">Try adjusting your filters to see more results</p>
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 mx-14">
           {currentCruises.map((cruise, idx) => (
-            <div key={idx} className="bg-white shadow-lg overflow-hidden flex flex-col">
-              <div className="relative h-64 w-full">
-                <img src={cruise.image} alt="Cruise" className="w-full h-full object-cover" />
-                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-center w-full z-10">
-                  <div className="bg-white px-8 py-3 rounded-t shadow flex flex-col items-center">
-                    <img src={cruise.logo} alt="Brand Logo" className="h-8 mb-2 object-contain" />
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col flex-1 items-center justify-between px-4 pt-10 pb-6">
-                <div className="flex justify-center gap-8 w-full border-t border-gray-200 pt-6">
-                  <div className="flex items-center gap-2 text-gray-700 font-inter font-bold text-base">
-                    <Bed className="w-5 h-5 mr-1" />
-                    {cruise.suites} suites
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-700 font-inter font-bold text-base">
-                    <Lock className="w-5 h-5 mr-1" />
-                    {cruise.itineraries} itineraries
-                  </div>
-                </div>
-              </div>
-            </div>
+            <CruiseCard key={idx} cruise={cruise} index={idx} />
           ))}
         </div>
       )}
