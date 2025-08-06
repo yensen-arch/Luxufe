@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import HighestBrandSearchSidebar from "@/components/partners/HighestBrandSearchSidebar";
 import HighestBrandSearchGrid from "@/components/partners/HighestBrandSearchGrid";
+import { fetchBrands, dummyCruiseBrands, dummyPrivateJetBrands, Brand } from "@/lib/database";
 
 // Debounce hook for search optimization
 const useDebounce = (value: any, delay: number) => {
@@ -29,6 +30,7 @@ interface HighestBrandSearchProps {
 
 interface Filters {
   search: string;
+  travelType: string;
   cruiseLine: string;
   shipName: string;
   destinations: string[];
@@ -36,41 +38,14 @@ interface Filters {
   specialOffers: boolean;
 }
 
-// Dummy cruise data
-const cruises = [
-  {
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Silversea_Cruises_logo.svg",
-    suites: 50,
-    itineraries: 12,
-  },
-  {
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Silversea_Cruises_logo.svg",
-    suites: 50,
-    itineraries: 12,
-  },
-  {
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Silversea_Cruises_logo.svg",
-    suites: 50,
-    itineraries: 12,
-  },
-  {
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Silversea_Cruises_logo.svg",
-    suites: 50,
-    itineraries: 12,
-  },
-];
-
 const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
   // Fallback content if no data is provided
   const heading = data?.heading || "Highest Brand Search";
-  const description = data?.description || "Find your perfect luxury cruise experience";
+  const description = data?.description || "Find your perfect luxury experience";
 
   const [filters, setFilters] = useState<Filters>({
     search: "",
+    travelType: "",
     cruiseLine: "",
     shipName: "",
     destinations: [],
@@ -78,31 +53,70 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
     specialOffers: false
   });
 
-  const [cruiseData, setCruiseData] = useState(cruises);
+  const [brandData, setBrandData] = useState<any[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   // Debounce search term to prevent too many API calls
   const debouncedSearch = useDebounce(filters.search, 500);
 
-  // Simulate filtering based on search
+  // Fetch brands based on travel type and filters
   useEffect(() => {
-    setLoading(true);
-    // Simulate API call delay
-    const timer = setTimeout(() => {
-      if (debouncedSearch) {
-        const filtered = cruises.filter(cruise => 
-          cruise.suites.toString().includes(debouncedSearch) ||
-          cruise.itineraries.toString().includes(debouncedSearch)
-        );
-        setCruiseData(filtered);
-      } else {
-        setCruiseData(cruises);
+    const fetchData = async () => {
+      setLoading(true);
+      
+      try {
+        if (filters.travelType === 'hotels') {
+          // Fetch hotel brands from database with pagination
+          const response = await fetchBrands(currentPage, 4, debouncedSearch);
+          setBrandData(response.data);
+          setTotalCount(response.count);
+          setTotalPages(Math.ceil(response.count / 4));
+        } else if (filters.travelType === 'cruises') {
+          // Use dummy cruise data
+          const filtered = dummyCruiseBrands.filter(brand => 
+            !debouncedSearch || 
+            brand.brand_name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            brand.hotel_name.toLowerCase().includes(debouncedSearch.toLowerCase())
+          );
+          setBrandData(filtered);
+          setTotalCount(filtered.length);
+          setTotalPages(Math.ceil(filtered.length / 4));
+        } else if (filters.travelType === 'private-jets') {
+          // Use dummy private jet data
+          const filtered = dummyPrivateJetBrands.filter(brand => 
+            !debouncedSearch || 
+            brand.brand_name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            brand.hotel_name.toLowerCase().includes(debouncedSearch.toLowerCase())
+          );
+          setBrandData(filtered);
+          setTotalCount(filtered.length);
+          setTotalPages(Math.ceil(filtered.length / 4));
+        } else {
+          // No travel type selected
+          setBrandData([]);
+          setTotalCount(0);
+          setTotalPages(0);
+        }
+      } catch (error) {
+        console.error('Error fetching brands:', error);
+        setBrandData([]);
+        setTotalCount(0);
+        setTotalPages(0);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
-    }, 300);
+    };
 
-    return () => clearTimeout(timer);
-  }, [debouncedSearch, filters.destinations, filters.experiences, filters.specialOffers]);
+    fetchData();
+  }, [filters.travelType, debouncedSearch, filters.destinations, filters.experiences, filters.specialOffers, currentPage]);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters.travelType, debouncedSearch, filters.destinations, filters.experiences, filters.specialOffers]);
 
   const handleFiltersChange = (newFilters: Filters) => {
     setFilters(newFilters);
@@ -118,12 +132,17 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
   const handleClearAllFilters = () => {
     setFilters({
       search: "",
+      travelType: "",
       cruiseLine: "",
       shipName: "",
       destinations: [],
       experiences: [],
       specialOffers: false
     });
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -147,11 +166,16 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
           loading={loading}
         />
         <HighestBrandSearchGrid 
-          cruises={cruiseData}
+          brands={brandData}
           loading={loading}
           filters={filters}
+          travelType={filters.travelType}
           onClearFilter={handleClearFilter}
           onClearAllFilters={handleClearAllFilters}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalCount={totalCount}
+          onPageChange={handlePageChange}
         />
       </div>
     </div>

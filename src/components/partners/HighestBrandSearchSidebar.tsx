@@ -5,6 +5,7 @@ import { Calendar, Filter, X } from "lucide-react";
 interface HighestBrandSearchSidebarProps {
   onFiltersChange: (filters: {
     search: string;
+    travelType: string;
     cruiseLine: string;
     shipName: string;
     destinations: string[];
@@ -26,6 +27,7 @@ const experienceOptions = [
 
 export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: HighestBrandSearchSidebarProps) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [travelType, setTravelType] = useState("");
   const [cruiseLine, setCruiseLine] = useState("");
   const [shipName, setShipName] = useState("");
   const [selectedDestinations, setSelectedDestinations] = useState<string[]>([]);
@@ -52,6 +54,7 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
   const updateFilters = (destinations: string[], experiences: string[]) => {
     onFiltersChange({
       search: searchTerm,
+      travelType,
       cruiseLine,
       shipName,
       destinations,
@@ -108,35 +111,57 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
           </div>
         </div>
 
-        {/* Cruise Line */}
+        {/* Travel Type */}
         <div className="border-b-2 border-gray-300 p-4 md:p-6">
-          <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">CRUISE LINE</h3>
+          <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">TRAVEL TYPE</h3>
           <select 
             className="w-full bg-white border border-gray-200 rounded-full px-3 md:px-4 py-2 text-xs font-inter font-bold text-gray-400"
-            value={cruiseLine}
+            value={travelType}
             onChange={(e) => {
-              setCruiseLine(e.target.value);
+              setTravelType(e.target.value);
               updateFilters(selectedDestinations, selectedExperiences);
             }}
           >
-            <option value="">Select a brand...</option>
+            <option value="">Select a type...</option>
+            <option value="hotels">Hotels</option>
+            <option value="cruises">Cruises</option>
+            <option value="private-jets">Private Jets</option>
           </select>
         </div>
 
-        {/* Ship Name */}
-        <div className="border-b-2 border-gray-300 p-4 md:p-6">
-          <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">SHIP NAME</h3>
-          <select 
-            className="w-full bg-white border border-gray-200 rounded-full px-3 md:px-4 py-2 text-xs font-inter font-bold text-gray-400"
-            value={shipName}
-            onChange={(e) => {
-              setShipName(e.target.value);
-              updateFilters(selectedDestinations, selectedExperiences);
-            }}
-          >
-            <option value="">Select a ship...</option>
-          </select>
-        </div>
+        {/* Cruise Line - Only show for cruises */}
+        {travelType === 'cruises' && (
+          <div className="border-b-2 border-gray-300 p-4 md:p-6">
+            <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">CRUISE LINE</h3>
+            <select 
+              className="w-full bg-white border border-gray-200 rounded-full px-3 md:px-4 py-2 text-xs font-inter font-bold text-gray-400"
+              value={cruiseLine}
+              onChange={(e) => {
+                setCruiseLine(e.target.value);
+                updateFilters(selectedDestinations, selectedExperiences);
+              }}
+            >
+              <option value="">Select a cruise line...</option>
+            </select>
+          </div>
+        )}
+
+        {/* Ship Name - Only show for cruises */}
+        {travelType === 'cruises' && (
+          <div className="border-b-2 border-gray-300 p-4 md:p-6">
+            <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">SHIP NAME</h3>
+            <select 
+              className="w-full bg-white border border-gray-200 rounded-full px-3 md:px-4 py-2 text-xs font-inter font-bold text-gray-400"
+              value={shipName}
+              onChange={(e) => {
+                setShipName(e.target.value);
+                updateFilters(selectedDestinations, selectedExperiences);
+              }}
+            >
+              <option value="">Select a ship...</option>
+            </select>
+          </div>
+        )}
 
         {/* Destination */}
         <div className="border-b-2 border-gray-300 p-4 md:p-6">

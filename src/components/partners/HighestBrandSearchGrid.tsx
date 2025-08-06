@@ -1,53 +1,90 @@
 import React, { useState } from "react";
 import { Search, X } from "lucide-react";
-import CruiseCard from "./CruiseCard";
+import BrandCard from "./BrandCard";
 
-interface Cruise {
-  image: string;
-  logo: string;
-  suites: number;
-  itineraries: number;
+interface Brand {
+  id: number;
+  name: string;
+  description?: string;
+  logo?: string;
+  brand_image?: string;
+  // Legacy fields for dummy data
+  brand_name?: string;
+  hotel_name?: string;
+  image?: string;
+  suites?: number;
+  itineraries?: number;
+  aircraft?: number;
+  destinations?: number;
+  location?: string;
 }
 
 interface HighestBrandSearchGridProps {
-  cruises: Cruise[];
+  brands: Brand[];
   loading: boolean;
   filters: {
     search: string;
+    travelType: string;
     cruiseLine: string;
     shipName: string;
     destinations: string[];
     experiences: string[];
     specialOffers: boolean;
   };
+  travelType: string;
   onClearFilter: (filterType: 'destinations' | 'experiences', value: string) => void;
   onClearAllFilters: () => void;
+  currentPage?: number;
+  totalPages?: number;
+  totalCount?: number;
+  onPageChange?: (page: number) => void;
 }
 
 export default function HighestBrandSearchGrid({ 
-  cruises, 
+  brands, 
   loading, 
   filters, 
+  travelType,
   onClearFilter, 
-  onClearAllFilters 
+  onClearAllFilters,
+  currentPage: serverCurrentPage,
+  totalPages: serverTotalPages,
+  totalCount: serverTotalCount,
+  onPageChange: serverOnPageChange
 }: HighestBrandSearchGridProps) {
-  const [currentPage, setCurrentPage] = useState(1);
+  // Client-side pagination state for dummy data
+  const [clientCurrentPage, setClientCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const cardsPerPage = 4;
+  
+  // Use server pagination for hotels, client pagination for dummy data
+  const isServerPaginated = travelType === 'hotels';
+  const currentPage = isServerPaginated ? (serverCurrentPage || 1) : clientCurrentPage;
+  const totalPages = isServerPaginated ? (serverTotalPages || 0) : Math.ceil(brands.length / cardsPerPage);
+  const totalCount = isServerPaginated ? (serverTotalCount || 0) : brands.length;
   
   const allSelectedFilters = [...filters.destinations, ...filters.experiences];
   const hasFilters = allSelectedFilters.length > 0;
 
-  // Calculate pagination
-  const totalPages = Math.ceil(cruises.length / cardsPerPage);
-  const startIndex = (currentPage - 1) * cardsPerPage;
-  const endIndex = startIndex + cardsPerPage;
-  const currentCruises = cruises.slice(startIndex, endIndex);
+  // Calculate pagination for client-side data
+  const startIndex = isServerPaginated ? 0 : (clientCurrentPage - 1) * cardsPerPage;
+  const endIndex = isServerPaginated ? brands.length : startIndex + cardsPerPage;
+  const currentBrands = isServerPaginated ? brands : brands.slice(startIndex, endIndex);
 
-  // Reset to first page when cruises change
+  // Reset to first page when brands change (for client-side pagination)
   React.useEffect(() => {
-    setCurrentPage(1);
-  }, [cruises.length]);
+    if (!isServerPaginated) {
+      setClientCurrentPage(1);
+    }
+  }, [brands.length, isServerPaginated]);
+
+  const handlePageChange = (page: number) => {
+    if (isServerPaginated && serverOnPageChange) {
+      serverOnPageChange(page);
+    } else {
+      setClientCurrentPage(page);
+    }
+  };
 
   // Loading state
   if (loading) {
@@ -126,21 +163,30 @@ export default function HighestBrandSearchGrid({
 
       {/* Results Count */}
       <div className="mb-4 md:mb-6 text-gray-400 text-sm font-inter font-bold mx-4 md:mx-14">
-        Showing {startIndex + 1}-{Math.min(endIndex, cruises.length)} of {cruises.length} Results
+        {isServerPaginated ? (
+          `Showing ${((currentPage - 1) * cardsPerPage) + 1}-${Math.min(currentPage * cardsPerPage, totalCount)} of ${totalCount} Results`
+        ) : (
+          `Showing ${startIndex + 1}-${Math.min(endIndex, brands.length)} of ${brands.length} Results`
+        )}
       </div>
 
-      {/* Cruise Cards Grid */}
-      {cruises.length === 0 ? (
+      {/* Brand Cards Grid */}
+      {brands.length === 0 ? (
         <div className="flex items-center justify-center py-8 md:py-16 mx-4 md:mx-14">
           <div className="text-center">
-            <p className="text-gray-600 font-inter text-base md:text-lg mb-2">No cruises found</p>
+            <p className="text-gray-600 font-inter text-base md:text-lg mb-2">No brands found</p>
             <p className="text-gray-500 font-inter text-sm">Try adjusting your filters to see more results</p>
           </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-8 md:mb-16 mx-4 md:mx-14">
-          {currentCruises.map((cruise, idx) => (
-            <CruiseCard key={idx} cruise={cruise} index={idx} />
+          {currentBrands.map((brand, idx) => (
+            <BrandCard 
+              key={brand.id || idx} 
+              brand={brand} 
+              travelType={travelType as 'hotels' | 'cruises' | 'private-jets'} 
+              index={idx} 
+            />
           ))}
         </div>
       )}
@@ -149,7 +195,7 @@ export default function HighestBrandSearchGrid({
       {totalPages > 1 && (
         <div className="flex justify-center items-center gap-4 md:gap-8 my-4 md:my-8 text-gray-500 font-inter font-bold text-xs">
           <button 
-            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+            onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
             className={`hover:underline ${currentPage === 1 ? 'text-gray-300 cursor-not-allowed' : ''}`}
           >
@@ -159,7 +205,7 @@ export default function HighestBrandSearchGrid({
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button 
               key={page} 
-              onClick={() => setCurrentPage(page)}
+              onClick={() => handlePageChange(page)}
               className={`px-2 ${page === currentPage ? "text-[#23263a] font-bold" : ""}`}
             >
               {String(page).padStart(2, "0")}
@@ -167,7 +213,7 @@ export default function HighestBrandSearchGrid({
           ))}
           
           <button 
-            onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+            onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}
             className={`hover:underline ${currentPage === totalPages ? 'text-gray-300 cursor-not-allowed' : ''}`}
           >
