@@ -60,6 +60,7 @@ export default function HighestBrandSearchGrid({
 }: HighestBrandSearchGridProps) {
   // Client-side pagination state for dummy data
   const [clientCurrentPage, setClientCurrentPage] = useState(1);
+  const [localSearchTerm, setLocalSearchTerm] = useState(filters.search);
   const cardsPerPage = 4;
   
   // Use server pagination for hotels, client pagination for dummy data
@@ -83,6 +84,11 @@ export default function HighestBrandSearchGrid({
     }
   }, [brands.length, isServerPaginated]);
 
+  // Update local search term when filters.search changes
+  React.useEffect(() => {
+    setLocalSearchTerm(filters.search);
+  }, [filters.search]);
+
   const handlePageChange = (page: number) => {
     if (isServerPaginated && serverOnPageChange) {
       serverOnPageChange(page);
@@ -92,38 +98,45 @@ export default function HighestBrandSearchGrid({
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLocalSearchTerm(e.target.value);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     if (onSearchChange) {
-      onSearchChange(e.target.value);
+      onSearchChange(localSearchTerm);
     }
   };
 
-  // Loading state
-  if (loading) {
-    return (
-      <section className="flex-1 bg-[#f5f6f7] max-h-[170vh] flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#a8d1cf] mx-auto mb-4"></div>
-        </div>
-      </section>
-    );
-  }
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (onSearchChange) {
+        onSearchChange(localSearchTerm);
+      }
+    }
+  };
 
   return (
     <section className="flex-1 bg-[#f5f6f7] max-h-[170vh] py-3 md:py-5">
-      {/* Search Bar */}
+      {/* Search Bar - Always visible */}
       <p className="text-gray-500 font-inter font-bold text-xs mx-4 mb-2">SEARCH</p>
-      <div className="flex items-center mb-2 bg-white border border-gray-200 rounded-full px-4 md:px-6 py-2 text-sm font-inter font-bold text-gray-500 mx-4 placeholder:text-gray-500">
+      <form onSubmit={handleSearchSubmit} className="flex items-center mb-2 bg-white border border-gray-200 rounded-full px-4 md:px-6 py-2 text-sm font-inter font-bold text-gray-500 mx-4 placeholder:text-gray-500">
         <input
           type="text"
           placeholder="What are you looking for?"
-          value={filters.search}
+          value={localSearchTerm}
           onChange={handleSearchChange}
-          className="flex-1"
+          onKeyPress={handleKeyPress}
+          className="flex-1 focus:outline-none"
         />
-        <button className="bg-[#23263a] text-white rounded-full p-1 flex items-center justify-center">
+        <button 
+          type="submit"
+          className="bg-[#23263a] text-white rounded-full p-1 flex items-center justify-center"
+        >
           <Search className="w-4 h-4 md:w-5 md:h-5" />
         </button>
-      </div>
+      </form>
 
       {/* Selected Filters - Always visible */}
       <div className="border-b-2 border-gray-300 pb-4 mb-4 md:mb-6">
@@ -181,59 +194,71 @@ export default function HighestBrandSearchGrid({
         )}
       </div>
 
-      {/* Brand Cards Grid */}
-      {brands.length === 0 ? (
-        <div className="flex items-center justify-center py-8 md:py-16 mx-4 md:mx-14">
-          <div className="text-center">
-            <p className="text-gray-600 font-inter text-base md:text-lg mb-2">No brands found</p>
-            <p className="text-gray-500 font-inter text-sm">Try adjusting your filters to see more results</p>
+      {/* Content Area with Loader */}
+      <div className="relative">
+        {/* Loading state - only affects the content area */}
+        {loading && (
+          <div className="absolute inset-0 bg-[#f5f6f7] bg-opacity-75 flex items-center justify-center z-10">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#a8d1cf] mx-auto mb-4"></div>
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-8 md:mb-16 mx-4 md:mx-14">
-          {currentBrands.map((brand, idx) => (
-            <BrandCard 
-              key={brand.id || idx} 
-              brand={brand} 
-              travelType={travelType as 'hotels' | 'cruises' | 'private-jets'} 
-              index={idx} 
-              hotelCounts={hotelCounts}
-              loadingHotelCounts={loadingHotelCounts}
-            />
-          ))}
-        </div>
-      )}
+        )}
 
-      {/* Pagination Component */}
-      {totalPages > 1 && (
-        <div className="flex justify-center items-center gap-4 md:gap-8 my-4 md:my-8 text-gray-500 font-inter font-bold text-xs">
-          <button 
-            onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-            disabled={currentPage === 1}
-            className={`hover:underline ${currentPage === 1 ? 'text-gray-300 cursor-not-allowed' : ''}`}
-          >
-            &lt; Previous
-          </button>
-          
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+        {/* Brand Cards Grid */}
+        {brands.length === 0 ? (
+          <div className="flex items-center justify-center py-8 md:py-16 mx-4 md:mx-14">
+            <div className="text-center">
+              <p className="text-gray-600 font-inter text-base md:text-lg mb-2">No brands found</p>
+              <p className="text-gray-500 font-inter text-sm">Try adjusting your filters to see more results</p>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-8 md:mb-16 mx-4 md:mx-14">
+            {currentBrands.map((brand, idx) => (
+              <BrandCard 
+                key={brand.id || idx} 
+                brand={brand} 
+                travelType={travelType as 'hotels' | 'cruises' | 'private-jets'} 
+                index={idx} 
+                hotelCounts={hotelCounts}
+                loadingHotelCounts={loadingHotelCounts}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Pagination Component */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center gap-4 md:gap-8 my-4 md:my-8 text-gray-500 font-inter font-bold text-xs">
             <button 
-              key={page} 
-              onClick={() => handlePageChange(page)}
-              className={`px-2 ${page === currentPage ? "text-[#23263a] font-bold" : ""}`}
+              onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+              disabled={currentPage === 1}
+              className={`hover:underline ${currentPage === 1 ? 'text-gray-300 cursor-not-allowed' : ''}`}
             >
-              {String(page).padStart(2, "0")}
+              &lt; Previous
             </button>
-          ))}
-          
-          <button 
-            onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
-            disabled={currentPage === totalPages}
-            className={`hover:underline ${currentPage === totalPages ? 'text-gray-300 cursor-not-allowed' : ''}`}
-          >
-            Next &gt;
-          </button>
-        </div>
-      )}
+            
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button 
+                key={page} 
+                onClick={() => handlePageChange(page)}
+                className={`px-2 ${page === currentPage ? "text-[#23263a] font-bold" : ""}`}
+              >
+                {String(page).padStart(2, "0")}
+              </button>
+            ))}
+            
+            <button 
+              onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+              disabled={currentPage === totalPages}
+              className={`hover:underline ${currentPage === totalPages ? 'text-gray-300 cursor-not-allowed' : ''}`}
+            >
+              Next &gt;
+            </button>
+          </div>
+        )}
+      </div>
     </section>
   );
 } 

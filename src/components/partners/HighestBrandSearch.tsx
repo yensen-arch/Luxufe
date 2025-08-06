@@ -61,9 +61,6 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
   const [hotelCounts, setHotelCounts] = useState<Record<string, number>>({});
   const [loadingHotelCounts, setLoadingHotelCounts] = useState(false);
 
-  // Debounce search term to prevent too many API calls
-  const debouncedSearch = useDebounce(filters.search, 500);
-
   // Fetch hotel counts for brands
   const fetchHotelCountsForBrands = async (brands: Brand[]) => {
     if (filters.travelType !== 'hotels' || brands.length === 0) {
@@ -92,7 +89,7 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
       try {
         if (filters.travelType === 'hotels') {
           // Fetch hotel brands from database with pagination
-          const response = await fetchBrands(currentPage, 4, debouncedSearch);
+          const response = await fetchBrands(currentPage, 4, filters.search);
           setBrandData(response.data);
           setTotalCount(response.count);
           setTotalPages(Math.ceil(response.count / 4));
@@ -130,12 +127,12 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
     };
 
     fetchData();
-  }, [filters.travelType, debouncedSearch, filters.destinations, filters.experiences, filters.specialOffers, currentPage]);
+  }, [filters.travelType, filters.search, filters.destinations, filters.experiences, filters.specialOffers, currentPage]);
 
   // Reset to first page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [filters.travelType, debouncedSearch, filters.destinations, filters.experiences, filters.specialOffers]);
+  }, [filters.travelType, filters.search, filters.destinations, filters.experiences, filters.specialOffers]);
 
   const handleFiltersChange = (newFilters: Filters) => {
     setFilters(newFilters);
