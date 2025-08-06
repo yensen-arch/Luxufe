@@ -20,8 +20,8 @@ export interface Hotel {
   hotel_name: string;
   brand: string;
   room_type: string;
-  latitude?: number;
-  longitude?: number;
+  latitude?: string;
+  longitude?: string;
   map_link?: string;
   hotel_link?: string;
   country: string;
