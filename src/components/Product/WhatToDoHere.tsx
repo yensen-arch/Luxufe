@@ -61,11 +61,11 @@ export default function WhatToDoHere() {
             className="bg-[#F8F8F8] w-5/7 bg-cover bg-center lg:col-span-12 h-[50vh] md:h-[50vh] lg:h-full text-center lg:text-left p-6 md:p-12 lg:p-24 flex items-center order-2 lg:order-1"
           >
             <div className=" w-full flex flex-col items-center lg:items-start justify-center">
-                <h1 className="text-3xl md:text-4xl lg:text-6xl lg:w-sm font-bellarina text-[#212121] my-4 md:my-5 lg:my-6">Experiences</h1>
-              <h2 className="text-3xl md:text-4xl lg:text-6xl lg:w-sm font-arpona font-bold text-[#212121] my-4 md:my-5 lg:my-6">
+                <h1 className="text-3xl md:text-4xl lg:text-6xl lg:w-sm font-bellarina text-[#212121] my-4 md:my-3 lg:my-4">Experiences</h1>
+              <h2 className="text-3xl md:text-4xl lg:text-6xl lg:w-sm font-arpona font-bold text-[#212121] my-4 md:my-5 lg:my-4">
                 {journeysData.title}
               </h2>
-              <p className="mb-6 md:mb-8 lg:mb-10 w-full lg:w-5/7 font-inter font-bold text-[#212121] text-sm md:text-base">
+              <p className="mb-6 md:my-6 lg:mb-10 w-full lg:w-5/7 font-inter font-bold text-[#212121] text-sm md:text-base">
                 {journeysData.description}
               </p>
               {/* Navigation Buttons */}
