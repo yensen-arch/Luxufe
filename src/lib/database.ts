@@ -255,11 +255,76 @@ export const getHotelByName = async (hotelName: string): Promise<Hotel | null> =
 // Get hotel gallery by hotel name
 export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
   try {
-    const { data, error } = await supabase
+    // Normalize the hotel name for better matching
+    const normalizedHotelName = hotelName
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '') // Remove special characters
+      .replace(/\s+/g, ' ') // Normalize spaces
+      .trim();
+
+    // Try exact match first
+    let { data, error } = await supabase
       .from('hotelgallery')
       .select('hotel_image')
       .eq('hotel_name', hotelName)
-      .single();
+      .maybeSingle();
+
+    // If no exact match, try case-insensitive exact match
+    if (!data && !error) {
+      const { data: caseInsensitiveData, error: caseError } = await supabase
+        .from('hotelgallery')
+        .select('hotel_image')
+        .ilike('hotel_name', hotelName)
+        .maybeSingle();
+      
+      if (caseError) {
+        console.error('Error fetching hotel gallery (case-insensitive):', caseError);
+      } else {
+        data = caseInsensitiveData;
+      }
+    }
+
+    // If still no match, try partial matching with normalized names
+    if (!data && !error) {
+      // Get all gallery entries and find the best match
+      const { data: allGalleryData, error: allError } = await supabase
+        .from('hotelgallery')
+        .select('hotel_name, hotel_image');
+      
+      if (!allError && allGalleryData) {
+        // Find the best matching hotel name
+        const bestMatch = allGalleryData.find(gallery => {
+          const galleryName = gallery.hotel_name
+            .toLowerCase()
+            .replace(/[^a-z0-9\s]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+          
+          // Check for exact normalized match
+          if (galleryName === normalizedHotelName) return true;
+          
+          // Check if hotel name contains the gallery name or vice versa
+          if (galleryName.includes(normalizedHotelName) || normalizedHotelName.includes(galleryName)) return true;
+          
+          // Check for common variations (e.g., "al-baleed" vs "al baleed")
+          const hotelWords = normalizedHotelName.split(' ');
+          const galleryWords = galleryName.split(' ');
+          
+          // If at least 2 words match, consider it a match
+          const matchingWords = hotelWords.filter(word => 
+            galleryWords.some((galleryWord: string) => 
+              galleryWord.includes(word) || word.includes(galleryWord)
+            )
+          );
+          
+          return matchingWords.length >= Math.min(2, hotelWords.length, galleryWords.length);
+        });
+        
+        if (bestMatch) {
+          data = bestMatch;
+        }
+      }
+    }
 
     if (error) {
       console.error('Error fetching hotel gallery:', error);
@@ -267,6 +332,7 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
     }
 
     if (!data || !data.hotel_image) {
+      console.log(`No gallery found for hotel: ${hotelName} (normalized: ${normalizedHotelName})`);
       return [];
     }
 
