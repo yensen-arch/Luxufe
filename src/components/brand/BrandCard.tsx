@@ -1,21 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { getHotelGallery } from "@/lib/database";
 
 interface BrandCardProps {
   name: string;
   location: string;
   logo: string;
-  images: {
-    top: string;
-    bottomLeft: string;
-    bottomRight: string;
-  };
   description: string;
 }
 
-export default function BrandCard({ name, location, logo, images, description }: BrandCardProps) {
+export default function BrandCard({ name, location, logo, description }: BrandCardProps) {
   const router = useRouter();
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [imageLoading, setImageLoading] = useState({
     top: true,
     bottomLeft: true,
@@ -26,6 +23,25 @@ export default function BrandCard({ name, location, logo, images, description }:
     bottomLeft: false,
     bottomRight: false
   });
+
+  // Fetch hotel gallery images
+  useEffect(() => {
+    const fetchGalleryImages = async () => {
+      try {
+        const images = await getHotelGallery(name);
+        setGalleryImages(images);
+      } catch (error) {
+        console.error('Error fetching gallery images for', name, error);
+      }
+    };
+
+    fetchGalleryImages();
+  }, [name]);
+
+  // Get images 2, 3, 4 from the gallery array (with fallbacks)
+  const getImageUrl = (index: number, fallbackUrl: string) => {
+    return galleryImages[index] || fallbackUrl;
+  };
 
   const handleImageLoad = (imageType: 'top' | 'bottomLeft' | 'bottomRight') => {
     setImageLoading(prev => ({ ...prev, [imageType]: false }));
@@ -45,7 +61,7 @@ export default function BrandCard({ name, location, logo, images, description }:
     <div className="bg-white shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300" onClick={handleCardClick}>
       {/* Image Section - Three images layout */}
       <div className="relative">
-        {/* Large Top Image */}
+        {/* Large Top Image - Use image 2 from gallery */}
         <div className="h-44 w-full mb-0.5 relative">
           {imageLoading.top && (
             <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
@@ -54,7 +70,7 @@ export default function BrandCard({ name, location, logo, images, description }:
           )}
           {!imageError.top && (
             <img 
-              src={images.top} 
+              src={getImageUrl(1, "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80")} 
               alt={`${name} main view`} 
               className={`w-full h-full object-cover ${imageLoading.top ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
               onLoad={() => handleImageLoad('top')}
@@ -78,7 +94,7 @@ export default function BrandCard({ name, location, logo, images, description }:
             )}
             {!imageError.bottomLeft && (
               <img 
-                src={images.bottomLeft} 
+                src={getImageUrl(2, "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80")} 
                 alt={`${name} view 1`} 
                 className={`w-full h-full object-cover ${imageLoading.bottomLeft ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
                 onLoad={() => handleImageLoad('bottomLeft')}
@@ -99,7 +115,7 @@ export default function BrandCard({ name, location, logo, images, description }:
             )}
             {!imageError.bottomRight && (
               <img 
-                src={images.bottomRight} 
+                src={getImageUrl(3, "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80")} 
                 alt={`${name} view 2`} 
                 className={`w-full h-full object-cover ${imageLoading.bottomRight ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
                 onLoad={() => handleImageLoad('bottomRight')}
