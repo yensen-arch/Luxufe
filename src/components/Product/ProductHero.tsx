@@ -44,7 +44,7 @@ const ProductHero = ({ hotel }: ProductHeroProps) => {
         </div>
       </div>
       {/* Bottom Navigation Row */}
-      <nav className="absolute left-1/2 -translate-x-1/2 bottom-0 w-full z-30 ">
+      {/* <nav className="absolute left-1/2 -translate-x-1/2 bottom-0 w-full z-30 ">
         <div className="bg-white flex justify-center items-center gap-8 py-3 shadow-lg">
           {navLinks.map((link) => (
             <a
@@ -56,7 +56,7 @@ const ProductHero = ({ hotel }: ProductHeroProps) => {
             </a>
           ))}
         </div>
-      </nav>
+      </nav> */}
     </section>
   );
 };
