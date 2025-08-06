@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import HighestBrandSearchSidebar from "@/components/partners/HighestBrandSearchSidebar";
 import HighestBrandSearchGrid from "@/components/partners/HighestBrandSearchGrid";
-import { fetchBrands, dummyCruiseBrands, dummyPrivateJetBrands, Brand } from "@/lib/database";
+import { fetchBrands, fetchHotelCounts, dummyCruiseBrands, dummyPrivateJetBrands, Brand } from "@/lib/database";
 
 // Debounce hook for search optimization
 const useDebounce = (value: any, delay: number) => {
@@ -58,9 +58,31 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [hotelCounts, setHotelCounts] = useState<Record<string, number>>({});
+  const [loadingHotelCounts, setLoadingHotelCounts] = useState(false);
 
   // Debounce search term to prevent too many API calls
   const debouncedSearch = useDebounce(filters.search, 500);
+
+  // Fetch hotel counts for brands
+  const fetchHotelCountsForBrands = async (brands: Brand[]) => {
+    if (filters.travelType !== 'hotels' || brands.length === 0) {
+      setHotelCounts({});
+      return;
+    }
+
+    setLoadingHotelCounts(true);
+    try {
+      const brandNames = brands.map(brand => brand.name);
+      const counts = await fetchHotelCounts(brandNames);
+      setHotelCounts(counts);
+    } catch (error) {
+      console.error('Error fetching hotel counts:', error);
+      setHotelCounts({});
+    } finally {
+      setLoadingHotelCounts(false);
+    }
+  };
 
   // Fetch brands based on travel type and filters
   useEffect(() => {
@@ -74,27 +96,34 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
           setBrandData(response.data);
           setTotalCount(response.count);
           setTotalPages(Math.ceil(response.count / 4));
+          
+          // Fetch hotel counts for the brands
+          await fetchHotelCountsForBrands(response.data);
         } else if (filters.travelType === 'cruises') {
           // Show empty state for cruises (not populated yet)
           setBrandData([]);
           setTotalCount(0);
           setTotalPages(0);
+          setHotelCounts({});
         } else if (filters.travelType === 'private-jets') {
           // Show empty state for private jets (not populated yet)
           setBrandData([]);
           setTotalCount(0);
           setTotalPages(0);
+          setHotelCounts({});
         } else {
           // No travel type selected
           setBrandData([]);
           setTotalCount(0);
           setTotalPages(0);
+          setHotelCounts({});
         }
       } catch (error) {
         console.error('Error fetching brands:', error);
         setBrandData([]);
         setTotalCount(0);
         setTotalPages(0);
+        setHotelCounts({});
       } finally {
         setLoading(false);
       }
@@ -166,6 +195,8 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
           totalPages={totalPages}
           totalCount={totalCount}
           onPageChange={handlePageChange}
+          hotelCounts={hotelCounts}
+          loadingHotelCounts={loadingHotelCounts}
         />
       </div>
     </div>

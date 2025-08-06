@@ -5,7 +5,6 @@ interface BrandCardProps {
   brand: {
     id: number;
     name: string;
-    description?: string;
     logo?: string;
     brand_image?: string;
     // Legacy fields for dummy data
@@ -20,9 +19,11 @@ interface BrandCardProps {
   };
   travelType: 'hotels' | 'cruises' | 'private-jets';
   index: number;
+  hotelCounts?: Record<string, number>;
+  loadingHotelCounts?: boolean;
 }
 
-export default function BrandCard({ brand, travelType, index }: BrandCardProps) {
+export default function BrandCard({ brand, travelType, index, hotelCounts, loadingHotelCounts }: BrandCardProps) {
   // Get the correct brand name and hotel name based on data source
   const brandName = brand.name || brand.brand_name || '';
   const hotelName = brand.hotel_name || '';
@@ -47,11 +48,16 @@ export default function BrandCard({ brand, travelType, index }: BrandCardProps) 
   const getStats = () => {
     switch (travelType) {
       case 'hotels':
+        const hotelCount = hotelCounts?.[brandName] || 0;
         return (
           <div className="flex justify-center gap-4 md:gap-8 w-full border-t border-gray-200 pt-4 md:pt-6">
             <div className="flex items-center gap-1 md:gap-2 text-gray-700 font-inter font-bold text-sm md:text-base">
               <Bed className="w-4 h-4 md:w-5 md:h-5 mr-1" />
-              {brand.suites || 50} rooms
+              {loadingHotelCounts ? (
+                <div className="animate-pulse bg-gray-200 h-4 w-16 rounded"></div>
+              ) : (
+                `${hotelCount} Hotels`
+              )}
             </div>
             <div className="flex items-center gap-1 md:gap-2 text-gray-700 font-inter font-bold text-sm md:text-base">
               <MapPin className="w-4 h-4 md:w-5 md:h-5 mr-1" />
@@ -116,11 +122,6 @@ export default function BrandCard({ brand, travelType, index }: BrandCardProps) 
           {hotelName && (
             <p className="text-sm font-inter font-bold text-gray-500 mb-2">
               {hotelName}
-            </p>
-          )}
-          {brand.description && (
-            <p className="text-xs font-inter text-gray-600 leading-relaxed">
-              {brand.description}
             </p>
           )}
         </div>

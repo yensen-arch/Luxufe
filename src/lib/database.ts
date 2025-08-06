@@ -3,7 +3,6 @@ import { supabase } from './supabase';
 export interface Brand {
   id: number;
   name: string;
-  description?: string;
   logo?: string;
   brand_image?: string;
   created_at: string;
@@ -23,11 +22,11 @@ export const fetchBrands = async (
   try {
     let query = supabase
       .from('brands')
-      .select('*', { count: 'exact' });
+      .select('id, name, logo, brand_image, created_at', { count: 'exact' });
 
     // Add search filter if provided
     if (searchTerm) {
-      query = query.or(`name.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%`);
+      query = query.or(`name.ilike.%${searchTerm}%`);
     }
 
     // Add pagination
@@ -50,6 +49,44 @@ export const fetchBrands = async (
       count: 0,
       error
     };
+  }
+};
+
+// Fetch hotel counts for brands
+export const fetchHotelCounts = async (brandNames: string[]): Promise<Record<string, number>> => {
+  try {
+    if (brandNames.length === 0) return {};
+
+    // Get all hotels from the database
+    const { data, error } = await supabase
+      .from('hotels')
+      .select('hotel_name');
+
+    if (error) {
+      console.error('Error fetching hotel counts:', error);
+      return {};
+    }
+
+    // Count hotels by brand name
+    const hotelCounts: Record<string, number> = {};
+    brandNames.forEach(brandName => {
+      hotelCounts[brandName] = 0;
+    });
+
+    data?.forEach(hotel => {
+      // Find which brand this hotel belongs to by checking if hotel name contains brand name
+      const brandName = brandNames.find(brand => 
+        hotel.hotel_name.toLowerCase().includes(brand.toLowerCase())
+      );
+      if (brandName) {
+        hotelCounts[brandName] = (hotelCounts[brandName] || 0) + 1;
+      }
+    });
+
+    return hotelCounts;
+  } catch (error) {
+    console.error('Error fetching hotel counts:', error);
+    return {};
   }
 };
 

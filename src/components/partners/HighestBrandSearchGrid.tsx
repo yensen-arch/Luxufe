@@ -38,6 +38,8 @@ interface HighestBrandSearchGridProps {
   totalPages?: number;
   totalCount?: number;
   onPageChange?: (page: number) => void;
+  hotelCounts?: Record<string, number>;
+  loadingHotelCounts?: boolean;
 }
 
 export default function HighestBrandSearchGrid({ 
@@ -50,7 +52,9 @@ export default function HighestBrandSearchGrid({
   currentPage: serverCurrentPage,
   totalPages: serverTotalPages,
   totalCount: serverTotalCount,
-  onPageChange: serverOnPageChange
+  onPageChange: serverOnPageChange,
+  hotelCounts,
+  loadingHotelCounts
 }: HighestBrandSearchGridProps) {
   // Client-side pagination state for dummy data
   const [clientCurrentPage, setClientCurrentPage] = useState(1);
@@ -186,6 +190,8 @@ export default function HighestBrandSearchGrid({
               brand={brand} 
               travelType={travelType as 'hotels' | 'cruises' | 'private-jets'} 
               index={idx} 
+              hotelCounts={hotelCounts}
+              loadingHotelCounts={loadingHotelCounts}
             />
           ))}
         </div>
