@@ -24,7 +24,8 @@
     "react-dom": "^19.0.0",
     "react-map-gl": "^8.0.4",
     "sanity": "^3.99.0",
-    "styled-components": "^6.1.19"
+    "styled-components": "^6.1.19",
+    "swiper": "^11.2.10"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

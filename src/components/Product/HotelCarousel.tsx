@@ -1,6 +1,46 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Autoplay, EffectCoverflow } from 'swiper/modules';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/navigation';
+
+// Custom styles for the carousel
+const swiperStyles = `
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
+  
+  .swiper-slide {
+    transition: all 0.3s ease;
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+  
+  .swiper-slide-active {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .swiper-slide-prev,
+  .swiper-slide-next {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+  
+  .swiper-slide-prev {
+    transform: scale(0.9) translateX(10%);
+  }
+  
+  .swiper-slide-next {
+    transform: scale(0.9) translateX(-10%);
+  }
+`;
 
 interface HotelImage {
   id: number;
@@ -15,12 +55,6 @@ interface HotelCarouselProps {
 }
 
 const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
-  const [currentIndex, setCurrentIndex] = useState(1); // Start with middle image
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [translateX, setTranslateX] = useState(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
-
   const images: HotelImage[] = [
     {
       id: 1,
@@ -36,88 +70,22 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
       id: 3,
       src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
       alt: "Hotel interior with mountain views"
+    },
+    {
+      id: 4,
+      src: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+      alt: "Hotel spa and wellness area"
+    },
+    {
+      id: 5,
+      src: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80",
+      alt: "Hotel dining experience"
     }
   ];
 
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
-
-  // Touch/Swipe handlers
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setStartX(e.clientX);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    const currentX = e.clientX;
-    const diff = currentX - startX;
-    setTranslateX(diff);
-  };
-
-  const handleMouseUp = () => {
-    if (!isDragging) return;
-    setIsDragging(false);
-    
-    if (Math.abs(translateX) > 50) {
-      if (translateX > 0) {
-        prevSlide();
-      } else {
-        nextSlide();
-      }
-    }
-    setTranslateX(0);
-  };
-
-  // Touch handlers for mobile
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setIsDragging(true);
-    setStartX(e.touches[0].clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging) return;
-    const currentX = e.touches[0].clientX;
-    const diff = currentX - startX;
-    setTranslateX(diff);
-  };
-
-  const handleTouchEnd = () => {
-    if (!isDragging) return;
-    setIsDragging(false);
-    
-    if (Math.abs(translateX) > 50) {
-      if (translateX > 0) {
-        prevSlide();
-      } else {
-        nextSlide();
-      }
-    }
-    setTranslateX(0);
-  };
-
-  // Auto-play functionality
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isDragging) {
-        nextSlide();
-      }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [isDragging]);
-
   return (
     <section className="w-full py-20 bg-white">
+      <style dangerouslySetInnerHTML={{ __html: swiperStyles }} />
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Section Title */}
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-arpona font-bold text-[#23263a] text-center mb-12 sm:mb-16">
@@ -125,54 +93,59 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
         </h2>
         
         {/* Carousel Container */}
-        <div 
-          ref={carouselRef}
-          className="relative w-full h-[500px] sm:h-[600px] md:h-[700px] overflow-hidden cursor-grab active:cursor-grabbing"
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          {/* Images Container */}
-          <div 
-            className="flex transition-transform duration-500 ease-in-out h-full"
-            style={{
-              transform: `translateX(calc(-${currentIndex * 100}% + ${translateX}px))`,
-              width: `${images.length * 100}%`
+        <div className="relative w-full h-[500px] sm:h-[600px] md:h-[700px]">
+          <Swiper
+            effect={'coverflow'}
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={'auto'}
+            coverflowEffect={{
+              rotate: 0,
+              stretch: 0,
+              depth: 100,
+              modifier: 2.5,
+              slideShadows: false,
             }}
+            navigation={{
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            }}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            loop={true}
+            modules={[EffectCoverflow, Navigation, Autoplay]}
+            className="w-full h-full"
           >
-            {images.map((image, index) => (
-              <div 
-                key={image.id}
-                className="relative w-full h-full flex-shrink-0"
-                style={{ width: `${100 / images.length}%` }}
+            {images.map((image) => (
+              <SwiperSlide 
+                key={image.id} 
+                className="w-[80%] sm:w-[70%] md:w-[60%] lg:w-[50%]"
               >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-full object-cover object-center"
-                />
-                {/* Gradient overlay for better text readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-              </div>
+                <div className="relative w-full h-full overflow-hidden rounded-lg">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full h-full object-cover object-center"
+                  />
+                  {/* Gradient overlay for better text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                </div>
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
 
-          {/* Navigation Arrows */}
+          {/* Custom Navigation Arrows */}
           <button
-            onClick={prevSlide}
-            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 group"
+            className="swiper-button-prev absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 group"
             aria-label="Previous image"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
           </button>
           
           <button
-            onClick={nextSlide}
-            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 group"
+            className="swiper-button-next absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 group"
             aria-label="Next image"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
@@ -183,9 +156,8 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
             {images.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex 
+                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 swiper-pagination-bullet ${
+                  index === 0 
                     ? 'bg-white scale-125' 
                     : 'bg-white/50 hover:bg-white/75'
                 }`}
