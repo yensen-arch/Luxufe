@@ -2,31 +2,14 @@
 import React, { useState } from "react";
 import Map, { Marker, Popup, NavigationControl } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { MapPin, Search, ArrowRight, Building2 } from "lucide-react";
+import { MapPin, Search, ArrowRight } from "lucide-react";
 import { Hotel } from "@/lib/database";
 
 interface MapProductProps {
   hotel: Hotel;
 }
 
-const LOCATIONS = [
-  { name: "CANADA", lng: -106.3468, lat: 56.1304 },
-  { name: "NORTH AMERICA", lng: -100, lat: 40 },
-  { name: "GREENLAND", lng: -42.6043, lat: 71.7069 },
-  { name: "EUROPE", lng: 10, lat: 50 },
-  { name: "RUSSIA", lng: 105, lat: 61 },
-  { name: "EGYPT & MIDDLE EAST", lng: 30, lat: 26 },
-  { name: "INDIA", lng: 78.9629, lat: 20.5937 },
-  { name: "EAST AFRICA", lng: 39, lat: -2 },
-  { name: "SOUTHERN AFRICA", lng: 22, lat: -30 },
-  { name: "SOUTH AMERICA", lng: -60, lat: -15 },
-  { name: "AUSTRALIA", lng: 133.7751, lat: -25.2744 },
-];
-
-type Location = typeof LOCATIONS[number];
-
 export default function MapProduct({ hotel }: MapProductProps) {
-  const [selected, setSelected] = useState<Location | null>(null);
   const [showHotelPopup, setShowHotelPopup] = useState(false);
 
   // Parse hotel coordinates
@@ -70,7 +53,7 @@ export default function MapProduct({ hotel }: MapProductProps) {
             <div className="absolute top-8 left-8 z-10 bg-white shadow-lg px-4 py-3 flex items-center gap-3">
               <Search className="w-4 h-4" />
               <span className="font-inter text-gray-700 text-xs font-bold">
-                {hotelLat && hotelLng ? "Hotel location marked on map" : "Click on a region to explore further"}
+                {hotelLat && hotelLng ? "Hotel location marked on map" : "Hotel location not available"}
               </span>
             </div>
 
@@ -86,7 +69,7 @@ export default function MapProduct({ hotel }: MapProductProps) {
                   className="bg-[#a8d1cf] px-4 py-2 rounded-full shadow-lg flex items-center gap-2 font-inter text-sm font-bold text-white hover:bg-[#8bc1bf] border-2 border-white"
                   onClick={() => setShowHotelPopup(true)}
                 >
-                  <Building2 className="w-4 h-4" />
+                  <MapPin className="w-4 h-4" />
                   {hotel.hotel_name}
                 </button>
                 {showHotelPopup && (
@@ -110,31 +93,6 @@ export default function MapProduct({ hotel }: MapProductProps) {
                 )}
               </Marker>
             )}
-
-            {/* Region Markers */}
-            {LOCATIONS.map((loc) => (
-              <Marker longitude={loc.lng} latitude={loc.lat} anchor="bottom" key={loc.name}>
-                <button
-                  className="bg-white px-5 py-2 rounded-full shadow-lg flex items-center gap-2 font-inter text-sm font-bold text-gray-900 hover:bg-gray-100 border border-gray-200"
-                  onClick={() => setSelected(loc)}
-                >
-                    <MapPin className="w-4 h-4" />
-                  {loc.name}
-                </button>
-                {selected && selected.name === loc.name && (
-                  <Popup
-                    longitude={loc.lng}
-                    latitude={loc.lat}
-                    anchor="top"
-                    onClose={() => setSelected(null)}
-                    closeButton={false}
-                    className="z-20"
-                  >
-                    <div className="font-inter text-sm font-bold text-[#23263a]">{loc.name}</div>
-                  </Popup>
-                )}
-              </Marker>
-            ))}
           </Map>
         </div>
       </div>
