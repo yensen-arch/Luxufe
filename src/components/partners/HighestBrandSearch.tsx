@@ -164,6 +164,13 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
     setCurrentPage(page);
   };
 
+  const handleSearchChange = (searchTerm: string) => {
+    setFilters(prev => ({
+      ...prev,
+      search: searchTerm
+    }));
+  };
+
   return (
     <div className="flex flex-col">
       {/* Heading and Description Section */}
@@ -197,6 +204,7 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
           onPageChange={handlePageChange}
           hotelCounts={hotelCounts}
           loadingHotelCounts={loadingHotelCounts}
+          onSearchChange={handleSearchChange}
         />
       </div>
     </div>

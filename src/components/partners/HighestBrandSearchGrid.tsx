@@ -40,6 +40,7 @@ interface HighestBrandSearchGridProps {
   onPageChange?: (page: number) => void;
   hotelCounts?: Record<string, number>;
   loadingHotelCounts?: boolean;
+  onSearchChange?: (searchTerm: string) => void;
 }
 
 export default function HighestBrandSearchGrid({ 
@@ -54,11 +55,11 @@ export default function HighestBrandSearchGrid({
   totalCount: serverTotalCount,
   onPageChange: serverOnPageChange,
   hotelCounts,
-  loadingHotelCounts
+  loadingHotelCounts,
+  onSearchChange
 }: HighestBrandSearchGridProps) {
   // Client-side pagination state for dummy data
   const [clientCurrentPage, setClientCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
   const cardsPerPage = 4;
   
   // Use server pagination for hotels, client pagination for dummy data
@@ -90,6 +91,12 @@ export default function HighestBrandSearchGrid({
     }
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onSearchChange) {
+      onSearchChange(e.target.value);
+    }
+  };
+
   // Loading state
   if (loading) {
     return (
@@ -109,8 +116,8 @@ export default function HighestBrandSearchGrid({
         <input
           type="text"
           placeholder="What are you looking for?"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={filters.search}
+          onChange={handleSearchChange}
           className="flex-1"
         />
         <button className="bg-[#23263a] text-white rounded-full p-1 flex items-center justify-center">
