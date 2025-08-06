@@ -121,7 +121,7 @@ export default function BrandCard({ brand, travelType, index, hotelCounts, loadi
           className="w-full h-full object-cover" 
         />
         <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-center w-full z-10">
-          <div className="bg-white px-4 md:px-8 py-2 md:py-3 rounded-t shadow flex flex-col items-center">
+          <div className="bg-white px-4 md:px-8 py-2 md:py-3  flex flex-col items-center">
             <img 
               src={brand.logo || getDefaultLogo()} 
               alt={`${brandName} Logo`} 
