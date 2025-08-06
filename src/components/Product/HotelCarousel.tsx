@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay, EffectCoverflow } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -55,6 +56,7 @@ interface HotelCarouselProps {
 }
 
 const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
+  const swiperRef = useRef<SwiperType | null>(null);
   const images: HotelImage[] = [
     {
       id: 1,
@@ -95,15 +97,19 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
         {/* Carousel Container */}
         <div className="relative w-full h-[500px] sm:h-[600px] md:h-[700px]">
           <Swiper
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
+            }}
             effect={'coverflow'}
             grabCursor={true}
             centeredSlides={true}
-            slidesPerView={'auto'}
+            slidesPerView={3}
+            spaceBetween={30}
             coverflowEffect={{
               rotate: 0,
               stretch: 0,
-              depth: 100,
-              modifier: 2.5,
+              depth: 200,
+              modifier: 1,
               slideShadows: false,
             }}
             navigation={{
@@ -121,7 +127,7 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
             {images.map((image) => (
               <SwiperSlide 
                 key={image.id} 
-                className="w-[80%] sm:w-[70%] md:w-[60%] lg:w-[50%]"
+                className="w-full"
               >
                 <div className="relative w-full h-full overflow-hidden rounded-lg">
                   <img
@@ -138,6 +144,7 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
 
           {/* Custom Navigation Arrows */}
           <button
+            onClick={() => swiperRef.current?.slidePrev()}
             className="swiper-button-prev absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 group"
             aria-label="Previous image"
           >
@@ -145,6 +152,7 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
           </button>
           
           <button
+            onClick={() => swiperRef.current?.slideNext()}
             className="swiper-button-next absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 group"
             aria-label="Next image"
           >
@@ -178,4 +186,4 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
   );
 };
 
-export default HotelCarousel; 
+export default HotelCarousel;
