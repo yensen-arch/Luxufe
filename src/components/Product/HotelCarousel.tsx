@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -124,6 +125,23 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
               </SwiperSlide>
             ))}
           </Swiper>
+
+          {/* Custom Navigation Arrows - Positioned on sides of central image */}
+          <button
+            onClick={() => swiperRef.current?.slidePrev()}
+            className="absolute left-[calc(50%-400px)] top-1/2 -translate-y-1/2 w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-sm transition-all duration-300 z-10 group hover:bg-gray-50"
+            aria-label="Previous image"
+          >
+            <ChevronLeft className="w-5 h-5 text-black" />
+          </button>
+          
+          <button
+            onClick={() => swiperRef.current?.slideNext()}
+            className="absolute right-[calc(50%-400px)] top-1/2 -translate-y-1/2 w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-sm transition-all duration-300 z-10 group hover:bg-gray-50"
+            aria-label="Next image"
+          >
+            <ChevronRight className="w-5 h-5 text-black" />
+          </button>
         </div>
       </div>
     </section>
