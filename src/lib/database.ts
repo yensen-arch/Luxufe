@@ -402,6 +402,193 @@ export const dummyCruiseBrands = [
   },
 ];
 
+// Get rooms by hotel name
+export const getRoomsByHotel = async (hotelName: string): Promise<any[]> => {
+  try {
+    // Normalize the hotel name for better matching
+    const normalizedHotelName = hotelName
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    // Try exact match first
+    let { data, error } = await supabase
+      .from('rooms')
+      .select('id, room_name, accommodation_type, bed, hotel_name')
+      .eq('hotel_name', hotelName)
+      .limit(9);
+
+    // If no exact match, try case-insensitive search
+    if (!data || data.length === 0) {
+      const { data: caseInsensitiveData, error: caseError } = await supabase
+        .from('rooms')
+        .select('id, room_name, accommodation_type, bed, hotel_name')
+        .ilike('hotel_name', `%${hotelName}%`)
+        .limit(9);
+      
+      if (caseError) {
+        console.error('Error fetching rooms (case-insensitive):', caseError);
+      } else {
+        data = caseInsensitiveData;
+      }
+    }
+
+    // If still no match, try partial matching with normalized names
+    if (!data || data.length === 0) {
+      const { data: allRoomsData, error: allError } = await supabase
+        .from('rooms')
+        .select('id, room_name, accommodation_type, bed, hotel_name');
+      
+      if (!allError && allRoomsData) {
+        // Find the best matching hotel name
+        const bestMatches = allRoomsData.filter(room => {
+          const roomHotelName = room.hotel_name
+            .toLowerCase()
+            .replace(/[^a-z0-9\s]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+          
+          // Check for exact normalized match
+          if (roomHotelName === normalizedHotelName) return true;
+          
+          // Check if hotel name contains the room hotel name or vice versa
+          if (roomHotelName.includes(normalizedHotelName) || normalizedHotelName.includes(roomHotelName)) return true;
+          
+          // Check for common variations
+          const hotelWords = normalizedHotelName.split(' ');
+          const roomWords = roomHotelName.split(' ');
+          
+          // If at least 2 words match, consider it a match
+          const matchingWords = hotelWords.filter(word => 
+            roomWords.some((roomWord: string) => 
+              roomWord.includes(word) || word.includes(roomWord)
+            )
+          );
+          
+          return matchingWords.length >= Math.min(2, hotelWords.length, roomWords.length);
+        });
+        
+        data = bestMatches.slice(0, 9);
+      }
+    }
+
+    if (error) {
+      console.error('Error fetching rooms:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching rooms:', error);
+    return [];
+  }
+};
+
+// Get room gallery by room name and hotel name
+export const getRoomGallery = async (roomName: string, hotelName: string): Promise<string[]> => {
+  try {
+    // Normalize the names for better matching
+    const normalizedRoomName = roomName
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    const normalizedHotelName = hotelName
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    // Try exact match first
+    let { data, error } = await supabase
+      .from('roomgallery')
+      .select('room_image')
+      .eq('room_name', roomName)
+      .eq('hotel_name', hotelName)
+      .maybeSingle();
+
+    // If no exact match, try case-insensitive search
+    if (!data && !error) {
+      const { data: caseInsensitiveData, error: caseError } = await supabase
+        .from('roomgallery')
+        .select('room_image')
+        .ilike('room_name', `%${roomName}%`)
+        .ilike('hotel_name', `%${hotelName}%`)
+        .maybeSingle();
+      
+      if (caseError) {
+        console.error('Error fetching room gallery (case-insensitive):', caseError);
+      } else {
+        data = caseInsensitiveData;
+      }
+    }
+
+    // If still no match, try partial matching
+    if (!data && !error) {
+      const { data: allGalleryData, error: allError } = await supabase
+        .from('roomgallery')
+        .select('room_name, hotel_name, room_image');
+      
+      if (!allError && allGalleryData) {
+        // Find the best matching room
+        const bestMatch = allGalleryData.find(gallery => {
+          const galleryRoomName = gallery.room_name
+            .toLowerCase()
+            .replace(/[^a-z0-9\s]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+          
+          const galleryHotelName = gallery.hotel_name
+            .toLowerCase()
+            .replace(/[^a-z0-9\s]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+          
+          // Check for exact normalized match
+          if (galleryRoomName === normalizedRoomName && galleryHotelName === normalizedHotelName) return true;
+          
+          // Check if names contain each other
+          if ((galleryRoomName.includes(normalizedRoomName) || normalizedRoomName.includes(galleryRoomName)) &&
+              (galleryHotelName.includes(normalizedHotelName) || normalizedHotelName.includes(galleryHotelName))) return true;
+          
+          return false;
+        });
+        
+        if (bestMatch) {
+          data = bestMatch;
+        }
+      }
+    }
+
+    if (error) {
+      console.error('Error fetching room gallery:', error);
+      return [];
+    }
+
+    if (!data || !data.room_image) {
+      return [];
+    }
+
+    // Parse the Python-style string array and extract URLs
+    try {
+      const imageString = data.room_image;
+      const cleanString = imageString.slice(2, -2); // Remove "['" and "']"
+      const imageUrls = cleanString.split("', '");
+      const cleanedUrls = imageUrls.map((url: string) => url.replace(/['"]/g, ''));
+      
+      return cleanedUrls;
+    } catch (parseError) {
+      console.error('Error parsing room image string:', parseError);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching room gallery:', error);
+    return [];
+  }
+};
+
 export const dummyPrivateJetBrands = [
   {
     id: 1,
