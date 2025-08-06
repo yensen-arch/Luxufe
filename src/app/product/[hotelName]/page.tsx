@@ -41,8 +41,8 @@ export default async function ProductPage({ params }: PageProps) {
       <ProductHero hotel={hotel} />
       <ProductOverview hotel={hotel} brand={brand} />
       <WhatToDoHere />
-      <HotelCarousel hotel={hotel} />
       <ProductGrid hotel={hotel} />
+      <HotelCarousel hotel={hotel} />
       <MapProduct hotel={hotel} />
       <Itineraries />
       <OtherAmanHotels hotel={hotel} />
