@@ -252,6 +252,50 @@ export const getHotelByName = async (hotelName: string): Promise<Hotel | null> =
   }
 };
 
+// Get hotel gallery by hotel name
+export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('hotelgallery')
+      .select('hotel_image')
+      .eq('hotel_name', hotelName)
+      .single();
+
+    if (error) {
+      console.error('Error fetching hotel gallery:', error);
+      return [];
+    }
+
+    if (!data || !data.hotel_image) {
+      return [];
+    }
+
+    // Parse the Python-style string array and extract URLs
+    try {
+      // The data is stored as a Python-style string, not JSON
+      // Remove the outer quotes and split by ', ' to get individual URLs
+      const imageString = data.hotel_image;
+      
+      // Remove the outer brackets and quotes
+      const cleanString = imageString.slice(2, -2); // Remove "['" and "']"
+      
+      // Split by "', '" to get individual URLs
+      const imageUrls = cleanString.split("', '");
+      
+      // Clean up each URL (remove any remaining quotes)
+      const cleanedUrls = imageUrls.map((url: string) => url.replace(/['"]/g, ''));
+      
+      return cleanedUrls;
+    } catch (parseError) {
+      console.error('Error parsing hotel image string:', parseError);
+      return [];
+    }
+  } catch (error) {
+    console.error('Error fetching hotel gallery:', error);
+    return [];
+  }
+};
+
 // Dummy data for cruises and private jets
 export const dummyCruiseBrands = [
   {

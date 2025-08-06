@@ -1,5 +1,6 @@
 import React from "react";
 import { MapPin, Building2, BookOpen } from "lucide-react";
+import { getHotelGallery } from "@/lib/database";
 
 const navLinks = [
   { label: "Overview", href: "#" },
@@ -14,13 +15,19 @@ interface ProductHeroProps {
   hotel: Hotel;
 }
 
-const ProductHero = ({ hotel }: ProductHeroProps) => {
+const ProductHero = async ({ hotel }: ProductHeroProps) => {
+  // Fetch hotel gallery images
+  const galleryImages = await getHotelGallery(hotel.hotel_name);
+  const backgroundImage = galleryImages.length > 0 
+    ? galleryImages[0] 
+    : "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80";
+
   return (
     <section className="relative w-full h-screen flex items-center justify-center overflow-hidden mb-10">
       {/* Background Image */}
       <img
-        src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80"
-        alt="Africa Landscape"
+        src={backgroundImage}
+        alt={`${hotel.hotel_name} - ${hotel.city}, ${hotel.country}`}
         className="absolute inset-0 w-full h-full object-cover object-center z-0"
       />
       {/* Content */}
