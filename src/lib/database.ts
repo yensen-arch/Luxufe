@@ -5,6 +5,8 @@ export interface Brand {
   name: string;
   logo?: string;
   brand_image?: string;
+  description?: string;
+  key_features?: string | string[];
   created_at: string;
 }
 
@@ -39,7 +41,7 @@ export const fetchBrands = async (
   try {
     let query = supabase
       .from('brands')
-      .select('id, name, logo, brand_image, created_at', { count: 'exact' });
+      .select('id, name, logo, brand_image, description, key_features, created_at', { count: 'exact' });
 
     // Add search filter if provided
     if (searchTerm) {
@@ -74,7 +76,7 @@ export const getBrands = async (): Promise<Brand[]> => {
   try {
     const { data, error } = await supabase
       .from('brands')
-      .select('id, name, logo, brand_image, created_at')
+      .select('id, name, logo, brand_image, description, key_features, created_at')
       .order('name', { ascending: true });
 
     if (error) {
@@ -94,7 +96,7 @@ export const getBrandByName = async (brandName: string): Promise<Brand | null> =
   try {
     const { data, error } = await supabase
       .from('brands')
-      .select('id, name, logo, brand_image, created_at')
+      .select('id, name, logo, brand_image, description, key_features, created_at')
       .eq('name', brandName)
       .single();
 
@@ -227,6 +229,27 @@ export const getUniqueCountries = async (): Promise<string[]> => {
   } catch (error) {
     console.error('Error fetching countries:', error);
     return [];
+  }
+};
+
+// Get a single hotel by name
+export const getHotelByName = async (hotelName: string): Promise<Hotel | null> => {
+  try {
+    const { data, error } = await supabase
+      .from('hotels')
+      .select('*')
+      .eq('hotel_name', hotelName)
+      .single();
+
+    if (error) {
+      console.error('Error fetching hotel:', error);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching hotel:', error);
+    return null;
   }
 };
 

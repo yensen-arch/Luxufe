@@ -1,4 +1,5 @@
 import React from "react";
+import { Hotel, Brand } from "@/lib/database";
 
 function StarIcon({ className }: { className?: string }) {
   return (
@@ -8,32 +9,52 @@ function StarIcon({ className }: { className?: string }) {
   );
 }
 
-const features = [
-  "Key feature goes right here",
-  "Key feature goes right here",
-  "Key feature goes right here",
-  "Key feature goes right here",
-  "Key feature goes right here",
-  "Key feature goes right here",
+interface ProductOverviewProps {
+  hotel?: Hotel;
+  brand?: Brand;
+}
+
+const defaultFeatures = [
+  "Luxury accommodations",
+  "World-class amenities",
+  "Exceptional service",
+  "Prime location",
+  "Fine dining",
+  "Spa and wellness"
 ];
 
-export default function ProductOverview() {
+export default function ProductOverview({ hotel, brand }: ProductOverviewProps) {
+  // Get features from brand data or use defaults
+  const features = brand?.key_features ? 
+    (typeof brand.key_features === 'string' ? 
+      brand.key_features.split(',').map((f: string) => f.trim()) : 
+      brand.key_features) : 
+    defaultFeatures;
+
+  // Get hotel description (limited to 7 lines)
+  const hotelDescription = hotel?.description || "Experience luxury and tranquility in this exceptional destination.";
+  
+  // Get brand description
+  const brandDescription = brand?.description || "A serene sanctuary offering unparalleled luxury and exceptional service.";
+
   return (
     <section className="w-full flex flex-col items-center justify-center py-24 bg-white">
-      {/* Main Heading */}
-      <h2 className="text-3xl md:text-4xl font-arpona text-[#23263a] font-medium text-center max-w-4xl mb-6">
-        Blending into untouched red-rock country on over 900 acres of the Colorado Plateau, Amangiri and its satellite, Camp Sarika, reflect dual aspects of this ancient desert landscape.
+      {/* Main Heading - Hotel description limited to 7 lines */}
+      <h2 className="text-3xl md:text-4xl font-arpona text-[#23263a] font-medium text-center max-w-4xl mb-6 line-clamp-7">
+        {hotelDescription}
       </h2>
-      {/* Subheading */}
+      {/* Subheading - Brand description */}
       <p className="font-inter text-lg md:text-md text-[#23263a] font-bold text-center max-w-2xl mb-10">
-        A serene sanctuary, Amangiri’s 34 modernist suites, Aman Spa and mesa-embracing pool echo the tranquillity of the canyons. Camp Sarika, with its 10 tented pavilions, answers the region’s call to adventure. An unrivalled base for exhilarating expeditions and fireside connection, the camp has its own restaurant, lounge and spa suites.
+        {brandDescription}
       </p>
       {/* Divider */}
       <hr className="w-1/2 border-gray-300 my-16" />
       {/* At a glance */}
-      <h3 className="text-2xl font-arpona text-[#23263a] font-medium text-center mb-12">Amangiri at a glance</h3>
+      <h3 className="text-2xl font-arpona text-[#23263a] font-medium text-center mb-12">
+        {hotel?.hotel_name || "Hotel"} at a glance
+      </h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-16 w-full max-w-5xl mb-10">
-        {features.slice(0, 3).map((feature, i) => (
+        {features.slice(0, 3).map((feature: string, i: number) => (
           <div key={i} className="flex items-center gap-3 text-[#6B7280] font-inter text-md font-bold">
             <StarIcon className="w-7 h-7" />
             <span>{feature}</span>
@@ -41,7 +62,7 @@ export default function ProductOverview() {
         ))}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-16 w-full max-w-5xl">
-        {features.slice(3, 6).map((feature, i) => (
+        {features.slice(3, 6).map((feature: string, i: number) => (
           <div key={i} className="flex items-center gap-3 text-[#6B7280] font-inter text-md font-bold">
             <StarIcon className="w-7 h-7" />
             <span>{feature}</span>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface BrandCardProps {
   name: string;
@@ -14,6 +15,7 @@ interface BrandCardProps {
 }
 
 export default function BrandCard({ name, location, logo, images, description }: BrandCardProps) {
+  const router = useRouter();
   const [imageLoading, setImageLoading] = useState({
     top: true,
     bottomLeft: true,
@@ -34,8 +36,13 @@ export default function BrandCard({ name, location, logo, images, description }:
     setImageError(prev => ({ ...prev, [imageType]: true }));
   };
 
+  const handleCardClick = () => {
+    const encodedHotelName = encodeURIComponent(name);
+    router.push(`/product/${encodedHotelName}`);
+  };
+
   return (
-    <div className="bg-white shadow-lg overflow-hidden">
+    <div className="bg-white shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300" onClick={handleCardClick}>
       {/* Image Section - Three images layout */}
       <div className="relative">
         {/* Large Top Image */}
