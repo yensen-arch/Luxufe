@@ -1,8 +1,17 @@
-import React from "react";
+"use client"
+import { useState, useEffect } from "react";
 import { Hotel } from "@/lib/database";
+import { getHotelsWithFiltersAndGallery, getHotelGallery } from "@/lib/database";
 
 interface OtherAmanHotelsProps {
   hotel: Hotel;
+}
+
+interface OtherHotel {
+  hotel_name: string;
+  city: string;
+  country: string;
+  image: string;
 }
 
 function StarRow() {
@@ -17,25 +26,68 @@ function StarRow() {
   );
 }
 
-const hotels = [
-  {
-    image: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80",
-    name: "Hotel Name here",
-    location: "Location · Country",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80",
-    name: "Hotel Name here",
-    location: "Location · Country",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=600&q=80",
-    name: "Hotel Name here",
-    location: "Location · Country",
-  },
-];
-
 export default function OtherAmanHotels({ hotel }: OtherAmanHotelsProps) {
+  const [otherHotels, setOtherHotels] = useState<OtherHotel[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchOtherHotels = async () => {
+      setIsLoading(true);
+      try {
+        // Fetch other hotels from the same brand, excluding the current hotel
+        const hotels = await getHotelsWithFiltersAndGallery({
+          brand: hotel.brand
+        });
+
+        // Filter out the current hotel and take up to 3 others
+        const otherHotelsData = hotels
+          .filter(h => h.hotel_name !== hotel.hotel_name)
+          .slice(0, 3);
+
+        // Fetch gallery images for each hotel
+        const hotelsWithImages = await Promise.all(
+          otherHotelsData.map(async (hotelData) => {
+            const galleryImages = await getHotelGallery(hotelData.hotel_name);
+            return {
+              hotel_name: hotelData.hotel_name,
+              city: hotelData.city,
+              country: hotelData.country,
+              image: galleryImages.length > 0 
+                ? galleryImages[0] 
+                : "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80"
+            };
+          })
+        );
+
+        setOtherHotels(hotelsWithImages);
+      } catch (error) {
+        console.error('Error fetching other hotels:', error);
+        // Fallback to empty array
+        setOtherHotels([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchOtherHotels();
+  }, [hotel.brand, hotel.hotel_name]);
+
+  // Skeleton component for loading state
+  const HotelSkeleton = () => (
+    <div className="relative overflow-hidden rounded-none shadow-lg h-[320px] bg-gray-200 animate-pulse">
+      <div className="absolute inset-0 bg-gray-300"></div>
+      <div className="absolute bottom-0 left-0 right-0 p-6">
+        <div className="flex gap-1 mb-2 justify-center">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="w-5 h-5 bg-gray-400 rounded"></div>
+          ))}
+        </div>
+        <div className="h-6 bg-gray-400 rounded w-3/4 mx-auto mb-2"></div>
+        <div className="h-4 bg-gray-400 rounded w-1/2 mx-auto"></div>
+      </div>
+    </div>
+  );
+
   return (
     <section className="w-full bg-[#f7f7fa] py-24 flex flex-col items-center justify-center">
       {/* Script Heading */}
@@ -43,24 +95,53 @@ export default function OtherAmanHotels({ hotel }: OtherAmanHotelsProps) {
         <span className="font-bellarina text-4xl text-[#23263a]">Keep exploring</span>
       </div>
       {/* Main Heading */}
-      <h2 className="text-5xl md:text-6xl font-arpona text-[#23263a] font-medium text-center mb-16">Other Aman Hotels</h2>
+      <h2 className="text-5xl md:text-6xl font-arpona text-[#23263a] font-medium text-center mb-16">Other {hotel.brand} Hotels</h2>
+      
       {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 w-full max-w-6xl">
-        {hotels.map((hotel, i) => (
-          <div key={i} className="relative group overflow-hidden rounded-none shadow-lg h-[320px] flex items-end justify-center">
-            <img src={hotel.image} alt={hotel.name} className="absolute inset-0 w-full h-full object-cover object-center z-0 group-hover:scale-105 transition-transform duration-500" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 z-10" />
-            <div className="relative z-20 p-6 w-full text-center flex flex-col items-center justify-end">
-              <StarRow />
-              <h3 className="text-white text-2xl font-arpona font-normal mb-1 drop-shadow-lg">{hotel.name}</h3>
-              <p className="text-white text-sm font-inter opacity-90">{hotel.location}</p>
+        {isLoading ? (
+          // Show skeletons while loading
+          [...Array(3)].map((_, i) => <HotelSkeleton key={i} />)
+        ) : otherHotels.length > 0 ? (
+          // Show actual hotels
+          otherHotels.map((hotelData, i) => (
+            <div key={i} className="relative group overflow-hidden rounded-none shadow-lg h-[320px] flex items-end justify-center">
+              <img 
+                src={hotelData.image} 
+                alt={hotelData.hotel_name} 
+                className="absolute inset-0 w-full h-full object-cover object-center z-0 group-hover:scale-105 transition-transform duration-500" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 z-10" />
+              <div className="relative z-20 p-6 w-full text-center flex flex-col items-center justify-end">
+                <StarRow />
+                <h3 className="text-white text-2xl font-arpona font-normal mb-1 drop-shadow-lg">{hotelData.hotel_name}</h3>
+                <p className="text-white text-sm font-inter opacity-90">{hotelData.city}, {hotelData.country}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          // Show fallback if no other hotels found
+          [...Array(3)].map((_, i) => (
+            <div key={i} className="relative group overflow-hidden rounded-none shadow-lg h-[320px] flex items-end justify-center">
+              <img 
+                src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80" 
+                alt="Hotel placeholder" 
+                className="absolute inset-0 w-full h-full object-cover object-center z-0 group-hover:scale-105 transition-transform duration-500" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 z-10" />
+              <div className="relative z-20 p-6 w-full text-center flex flex-col items-center justify-end">
+                <StarRow />
+                <h3 className="text-white text-2xl font-arpona font-normal mb-1 drop-shadow-lg">More {hotel.brand.toUpperCase()} Hotels</h3>
+                <p className="text-white text-sm font-inter opacity-90">Coming Soon</p>
+              </div>
+            </div>
+          ))
+        )}
       </div>
+      
       {/* Button */}
       <button className="mt-4 px-12 py-5 border-2 border-gray-300 font-inter font-bold text-[#23263a] text-base flex items-center justify-center gap-2 tracking-widest hover:bg-gray-100 transition-all" style={{ minWidth: 320 }}>
-        EXPLORE ALL AMAN HOTELS <span className="ml-2">→</span>
+        EXPLORE ALL {hotel.brand.toUpperCase()} HOTELS <span className="ml-2">→</span>
       </button>
     </section>
   );
