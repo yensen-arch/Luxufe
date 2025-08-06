@@ -3,6 +3,11 @@ import React, { useState } from "react";
 import Map, { Marker, Popup, NavigationControl } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { MapPin, Search, ArrowRight } from "lucide-react";
+import { Hotel } from "@/lib/database";
+
+interface MapProductProps {
+  hotel: Hotel;
+}
 
 const LOCATIONS = [
   { name: "CANADA", lng: -106.3468, lat: 56.1304 },
@@ -20,7 +25,7 @@ const LOCATIONS = [
 
 type Location = typeof LOCATIONS[number];
 
-export default function MapProduct() {
+export default function MapProduct({ hotel }: MapProductProps) {
   const [selected, setSelected] = useState<Location | null>(null);
 
   return (

@@ -1,5 +1,10 @@
 import React from "react";
 import ProductCard from "./ProductCard";
+import { Hotel } from "@/lib/database";
+
+interface ProductGridProps {
+  hotel: Hotel;
+}
 
 const countries = [
   {
@@ -40,9 +45,10 @@ const countries = [
   },
 ];
 
-const ProductGrid = () => {
+const ProductGrid = ({ hotel }: ProductGridProps) => {
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 md:px-8">
+    <section className="w-full max-w-7xl mx-auto px-4 md:px-8 py-10">
+      <h2 className="text-5xl text-center text-slate-700 font-arpona font-bold mb-14">Rooms & Suites</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
         {countries.map((country) => (
           <ProductCard key={country.name} {...country} />

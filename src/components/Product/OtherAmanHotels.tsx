@@ -1,4 +1,9 @@
 import React from "react";
+import { Hotel } from "@/lib/database";
+
+interface OtherAmanHotelsProps {
+  hotel: Hotel;
+}
 
 function StarRow() {
   return (
@@ -30,7 +35,7 @@ const hotels = [
   },
 ];
 
-export default function OtherAmanHotels() {
+export default function OtherAmanHotels({ hotel }: OtherAmanHotelsProps) {
   return (
     <section className="w-full bg-[#f7f7fa] py-24 flex flex-col items-center justify-center">
       {/* Script Heading */}

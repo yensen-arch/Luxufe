@@ -1,13 +1,11 @@
 import { supabase } from './supabase';
 
 export interface Brand {
-  id: number;
-  name: string;
-  logo?: string;
-  brand_image?: string;
-  description?: string;
-  key_features?: string | string[];
+  id: string;
+  brand_name: string;
+  hotel_name: string;
   created_at: string;
+  updated_at: string;
 }
 
 export interface BrandResponse {
@@ -41,11 +39,11 @@ export const fetchBrands = async (
   try {
     let query = supabase
       .from('brands')
-      .select('id, name, logo, brand_image, description, key_features, created_at', { count: 'exact' });
+      .select('id, brand_name, hotel_name, created_at, updated_at', { count: 'exact' });
 
     // Add search filter if provided
     if (searchTerm) {
-      query = query.or(`name.ilike.%${searchTerm}%`);
+      query = query.or(`brand_name.ilike.%${searchTerm}%`);
     }
 
     // Add pagination
@@ -54,7 +52,7 @@ export const fetchBrands = async (
     
     const { data, error, count } = await query
       .range(from, to)
-      .order('name', { ascending: true });
+      .order('brand_name', { ascending: true });
 
     return {
       data: data || [],
@@ -76,8 +74,8 @@ export const getBrands = async (): Promise<Brand[]> => {
   try {
     const { data, error } = await supabase
       .from('brands')
-      .select('id, name, logo, brand_image, description, key_features, created_at')
-      .order('name', { ascending: true });
+      .select('id, brand_name, hotel_name, created_at, updated_at')
+      .order('brand_name', { ascending: true });
 
     if (error) {
       console.error('Error fetching brands:', error);
@@ -96,8 +94,8 @@ export const getBrandByName = async (brandName: string): Promise<Brand | null> =
   try {
     const { data, error } = await supabase
       .from('brands')
-      .select('id, name, logo, brand_image, description, key_features, created_at')
-      .eq('name', brandName)
+      .select('id, brand_name, hotel_name, created_at, updated_at')
+      .eq('brand_name', brandName)
       .single();
 
     if (error) {

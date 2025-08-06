@@ -2,6 +2,7 @@
 CREATE TABLE IF NOT EXISTS hotels (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     hotel_name VARCHAR(255) NOT NULL,
+    brand VARCHAR(255) NOT NULL,
     room_type VARCHAR(255) NOT NULL,
     latitude DECIMAL(10, 8),
     longitude DECIMAL(11, 8),
@@ -17,6 +18,7 @@ CREATE TABLE IF NOT EXISTS hotels (
 
 -- Create indexes for better query performance
 CREATE INDEX IF NOT EXISTS idx_hotels_hotel_name ON hotels(hotel_name);
+CREATE INDEX IF NOT EXISTS idx_hotels_brand ON hotels(brand);
 CREATE INDEX IF NOT EXISTS idx_hotels_room_type ON hotels(room_type);
 CREATE INDEX IF NOT EXISTS idx_hotels_country ON hotels(country);
 CREATE INDEX IF NOT EXISTS idx_hotels_city ON hotels(city);

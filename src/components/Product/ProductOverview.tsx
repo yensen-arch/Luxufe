@@ -11,7 +11,7 @@ function StarIcon({ className }: { className?: string }) {
 
 interface ProductOverviewProps {
   hotel?: Hotel;
-  brand?: Brand;
+  brand?: Brand | null;
 }
 
 const defaultFeatures = [
@@ -24,18 +24,14 @@ const defaultFeatures = [
 ];
 
 export default function ProductOverview({ hotel, brand }: ProductOverviewProps) {
-  // Get features from brand data or use defaults
-  const features = brand?.key_features ? 
-    (typeof brand.key_features === 'string' ? 
-      brand.key_features.split(',').map((f: string) => f.trim()) : 
-      brand.key_features) : 
-    defaultFeatures;
+  // Use default features since the brand table doesn't have key_features
+  const features = defaultFeatures;
 
   // Get hotel description (limited to 7 lines)
   const hotelDescription = hotel?.description || "Experience luxury and tranquility in this exceptional destination.";
   
-  // Get brand description
-  const brandDescription = brand?.description || "A serene sanctuary offering unparalleled luxury and exceptional service.";
+  // Get brand description - use brand name since description doesn't exist
+  const brandDescription = brand?.brand_name ? `${brand.brand_name} - A serene sanctuary offering unparalleled luxury and exceptional service.` : "A serene sanctuary offering unparalleled luxury and exceptional service.";
 
   return (
     <section className="w-full flex flex-col items-center justify-center py-24 bg-white">

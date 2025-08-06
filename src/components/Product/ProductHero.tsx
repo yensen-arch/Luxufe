@@ -8,7 +8,13 @@ const navLinks = [
   { label: "Information", href: "#" },
 ];
 
-const ProductHero = () => {
+import { Hotel } from "@/lib/database";
+
+interface ProductHeroProps {
+  hotel: Hotel;
+}
+
+const ProductHero = ({ hotel }: ProductHeroProps) => {
   return (
     <section className="relative w-full h-screen flex items-center justify-center overflow-hidden mb-10">
       {/* Background Image */}
@@ -21,10 +27,10 @@ const ProductHero = () => {
       <div className="relative z-20 flex flex-col items-center justify-center h-full w-full max-w-7xl mx-auto px-8">
         <div>
           <h1 className="text-5xl md:text-7xl w-full font-arpona text-white font-bold mb-4 gap-4 text-center">
-            Amangiri
+            {hotel.hotel_name}
           </h1>
           <p className="text-lg md:text-md text-white font-bold font-inter mb-8 max-w-2xl text-center">
-            CANYON POINT, UTAH, UNITED STATES
+            {hotel.city}, {hotel.country}
           </p>
           {/* Stats Row replaced with buttons */}
           <div className="flex items-center gap-8 mb-2 ">
