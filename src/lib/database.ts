@@ -14,6 +14,23 @@ export interface BrandResponse {
   error: any;
 }
 
+export interface Hotel {
+  id: string;
+  hotel_name: string;
+  brand: string;
+  room_type: string;
+  latitude?: number;
+  longitude?: number;
+  map_link?: string;
+  hotel_link?: string;
+  country: string;
+  city: string;
+  address?: string;
+  description?: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export const fetchBrands = async (
   page: number = 1,
   pageSize: number = 8,
@@ -52,6 +69,47 @@ export const fetchBrands = async (
   }
 };
 
+// Get all brands (for brand listing)
+export const getBrands = async (): Promise<Brand[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('brands')
+      .select('id, name, logo, brand_image, created_at')
+      .order('name', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching brands:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching brands:', error);
+    return [];
+  }
+};
+
+// Get a single brand by name
+export const getBrandByName = async (brandName: string): Promise<Brand | null> => {
+  try {
+    const { data, error } = await supabase
+      .from('brands')
+      .select('id, name, logo, brand_image, created_at')
+      .eq('name', brandName)
+      .single();
+
+    if (error) {
+      console.error('Error fetching brand:', error);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching brand:', error);
+    return null;
+  }
+};
+
 // Fetch hotel counts for brands
 export const fetchHotelCounts = async (brandNames: string[]): Promise<Record<string, number>> => {
   try {
@@ -78,6 +136,74 @@ export const fetchHotelCounts = async (brandNames: string[]): Promise<Record<str
   } catch (error) {
     console.error('Error fetching hotel counts:', error);
     return {};
+  }
+};
+
+// Get hotels with filters and gallery
+export const getHotelsWithFiltersAndGallery = async (filters: {
+  brand?: string;
+  search?: string;
+  countries?: string[];
+  typeOfTravel?: string[];
+}): Promise<Hotel[]> => {
+  try {
+    let query = supabase
+      .from('hotels')
+      .select('*');
+
+    // Apply brand filter
+    if (filters.brand) {
+      query = query.eq('brand', filters.brand);
+    }
+
+    // Apply search filter
+    if (filters.search) {
+      query = query.or(`hotel_name.ilike.%${filters.search}%,description.ilike.%${filters.search}%`);
+    }
+
+    // Apply country filter
+    if (filters.countries && filters.countries.length > 0) {
+      query = query.in('country', filters.countries);
+    }
+
+    // Apply room type filter (typeOfTravel)
+    if (filters.typeOfTravel && filters.typeOfTravel.length > 0) {
+      query = query.in('room_type', filters.typeOfTravel);
+    }
+
+    const { data, error } = await query.order('hotel_name', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching hotels:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching hotels:', error);
+    return [];
+  }
+};
+
+// Get unique countries
+export const getUniqueCountries = async (): Promise<string[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('hotels')
+      .select('country')
+      .not('country', 'is', null);
+
+    if (error) {
+      console.error('Error fetching countries:', error);
+      return [];
+    }
+
+    // Get unique countries and sort them
+    const uniqueCountries = [...new Set(data?.map(hotel => hotel.country) || [])];
+    return uniqueCountries.sort();
+  } catch (error) {
+    console.error('Error fetching countries:', error);
+    return [];
   }
 };
 

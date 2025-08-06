@@ -1,5 +1,7 @@
 import React from "react";
 import { Bed, Lock, Plane, MapPin } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { brandNameToSlug } from "@/lib/utils";
 
 interface BrandCardProps {
   brand: {
@@ -24,6 +26,8 @@ interface BrandCardProps {
 }
 
 export default function BrandCard({ brand, travelType, index, hotelCounts, loadingHotelCounts }: BrandCardProps) {
+  const router = useRouter();
+  
   // Get the correct brand name and hotel name based on data source
   const brandName = brand.name || brand.brand_name || '';
   const hotelName = brand.hotel_name || '';
@@ -43,6 +47,13 @@ export default function BrandCard({ brand, travelType, index, hotelCounts, loadi
 
   const getDefaultLogo = () => {
     return 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Silversea_Cruises_logo.svg';
+  };
+
+  const handleCardClick = () => {
+    if (travelType === 'hotels' && brandName) {
+      const brandSlug = brandNameToSlug(brandName);
+      router.push(`/brand/${brandSlug}`);
+    }
   };
 
   const getStats = () => {
@@ -97,7 +108,12 @@ export default function BrandCard({ brand, travelType, index, hotelCounts, loadi
   };
 
   return (
-    <div className="bg-white shadow-lg overflow-hidden flex flex-col">
+    <div 
+      className={`bg-white shadow-lg overflow-hidden flex flex-col ${
+        travelType === 'hotels' ? 'cursor-pointer hover:shadow-xl transition-shadow duration-300' : ''
+      }`}
+      onClick={handleCardClick}
+    >
       <div className="relative h-48 md:h-64 w-full">
         <img 
           src={brand.brand_image || brand.image || getDefaultImage()} 
