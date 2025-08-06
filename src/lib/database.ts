@@ -57,31 +57,22 @@ export const fetchHotelCounts = async (brandNames: string[]): Promise<Record<str
   try {
     if (brandNames.length === 0) return {};
 
-    // Get all hotels from the database
-    const { data, error } = await supabase
-      .from('hotels')
-      .select('hotel_name');
-
-    if (error) {
-      console.error('Error fetching hotel counts:', error);
-      return {};
-    }
-
-    // Count hotels by brand name
+    // Get hotel counts for each brand using exact name matching
     const hotelCounts: Record<string, number> = {};
-    brandNames.forEach(brandName => {
-      hotelCounts[brandName] = 0;
-    });
+    
+    for (const brandName of brandNames) {
+      const { count, error } = await supabase
+        .from('hotels')
+        .select('*', { count: 'exact', head: true })
+        .eq('brand', brandName);
 
-    data?.forEach(hotel => {
-      // Find which brand this hotel belongs to by checking if hotel name contains brand name
-      const brandName = brandNames.find(brand => 
-        hotel.hotel_name.toLowerCase().includes(brand.toLowerCase())
-      );
-      if (brandName) {
-        hotelCounts[brandName] = (hotelCounts[brandName] || 0) + 1;
+      if (error) {
+        console.error(`Error fetching hotel count for ${brandName}:`, error);
+        hotelCounts[brandName] = 0;
+      } else {
+        hotelCounts[brandName] = count || 0;
       }
-    });
+    }
 
     return hotelCounts;
   } catch (error) {
