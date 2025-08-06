@@ -13,6 +13,7 @@ interface BrandCardProps {
 export default function BrandCard({ name, location, logo, description }: BrandCardProps) {
   const router = useRouter();
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState({
     top: true,
     bottomLeft: true,
@@ -27,11 +28,14 @@ export default function BrandCard({ name, location, logo, description }: BrandCa
   // Fetch hotel gallery images
   useEffect(() => {
     const fetchGalleryImages = async () => {
+      setIsLoading(true);
       try {
         const images = await getHotelGallery(name);
         setGalleryImages(images);
       } catch (error) {
         console.error('Error fetching gallery images for', name, error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -57,27 +61,30 @@ export default function BrandCard({ name, location, logo, description }: BrandCa
     router.push(`/product/${encodedHotelName}`);
   };
 
+  // Skeleton component
+  const ImageSkeleton = ({ className }: { className: string }) => (
+    <div className={`bg-gray-200 animate-pulse ${className}`}>
+      <div className="w-full h-full bg-gray-300"></div>
+    </div>
+  );
+
   return (
     <div className="bg-white shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300" onClick={handleCardClick}>
       {/* Image Section - Three images layout */}
       <div className="relative">
         {/* Large Top Image - Use image 2 from gallery */}
         <div className="h-44 w-full mb-0.5 relative">
-          {imageLoading.top && (
-            <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#a8d1cf]"></div>
-            </div>
-          )}
-          {!imageError.top && (
+          {isLoading || imageLoading.top ? (
+            <ImageSkeleton className="w-full h-full" />
+          ) : !imageError.top ? (
             <img 
               src={getImageUrl(1, "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80")} 
               alt={`${name} main view`} 
-              className={`w-full h-full object-cover ${imageLoading.top ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+              className="w-full h-full object-cover"
               onLoad={() => handleImageLoad('top')}
               onError={() => handleImageError('top')}
             />
-          )}
-          {imageError.top && (
+          ) : (
             <div className="w-full h-full bg-gray-200 flex items-center justify-center">
               <span className="text-gray-500 text-sm">Image unavailable</span>
             </div>
@@ -87,42 +94,34 @@ export default function BrandCard({ name, location, logo, description }: BrandCa
         {/* Two Smaller Bottom Images - Side by side */}
         <div className="flex h-44">
           <div className="flex-1 mr-0.5 relative">
-            {imageLoading.bottomLeft && (
-              <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#a8d1cf]"></div>
-              </div>
-            )}
-            {!imageError.bottomLeft && (
+            {isLoading || imageLoading.bottomLeft ? (
+              <ImageSkeleton className="w-full h-full" />
+            ) : !imageError.bottomLeft ? (
               <img 
                 src={getImageUrl(2, "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80")} 
                 alt={`${name} view 1`} 
-                className={`w-full h-full object-cover ${imageLoading.bottomLeft ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+                className="w-full h-full object-cover"
                 onLoad={() => handleImageLoad('bottomLeft')}
                 onError={() => handleImageError('bottomLeft')}
               />
-            )}
-            {imageError.bottomLeft && (
+            ) : (
               <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                 <span className="text-gray-500 text-xs">Image unavailable</span>
               </div>
             )}
           </div>
           <div className="flex-1 relative">
-            {imageLoading.bottomRight && (
-              <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#a8d1cf]"></div>
-              </div>
-            )}
-            {!imageError.bottomRight && (
+            {isLoading || imageLoading.bottomRight ? (
+              <ImageSkeleton className="w-full h-full" />
+            ) : !imageError.bottomRight ? (
               <img 
                 src={getImageUrl(3, "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80")} 
                 alt={`${name} view 2`} 
-                className={`w-full h-full object-cover ${imageLoading.bottomRight ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+                className="w-full h-full object-cover"
                 onLoad={() => handleImageLoad('bottomRight')}
                 onError={() => handleImageError('bottomRight')}
               />
-            )}
-            {imageError.bottomRight && (
+            ) : (
               <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                 <span className="text-gray-500 text-xs">Image unavailable</span>
               </div>
@@ -134,35 +133,60 @@ export default function BrandCard({ name, location, logo, description }: BrandCa
       {/* Hotel Information Section */}
       <div className="px-6 py-4 bg-white">
         <div className="flex justify-between items-start">
-          <div>
-            <h3 className="text-2xl font-arpona font-bold text-gray-800 mb-1">
-              {name}
-            </h3>
-            <p className="text-xs font-inter font-bold text-gray-500 tracking-widest uppercase">
-              {location}
-            </p>
+          <div className="flex-1">
+            {isLoading ? (
+              <div className="space-y-2">
+                <div className="h-6 bg-gray-200 animate-pulse rounded w-3/4"></div>
+                <div className="h-4 bg-gray-200 animate-pulse rounded w-1/2"></div>
+              </div>
+            ) : (
+              <>
+                <h3 className="text-2xl font-arpona font-bold text-gray-800 mb-1">
+                  {name}
+                </h3>
+                <p className="text-xs font-inter font-bold text-gray-500 tracking-widest uppercase">
+                  {location}
+                </p>
+              </>
+            )}
           </div>
-          <img 
-            src={logo} 
-            alt={`${name} Logo`} 
-            className="h-8 object-contain"
-          />
+          {isLoading ? (
+            <div className="h-8 w-16 bg-gray-200 animate-pulse rounded"></div>
+          ) : (
+            <img 
+              src={logo} 
+              alt={`${name} Logo`} 
+              className="h-8 object-contain"
+            />
+          )}
         </div>
       </div>
       
       {/* Description Section */}
       <div className="px-6 py-4 bg-white">
-        <p className="text-sm font-inter text-gray-600 leading-relaxed line-clamp-3">
-          {description}
-        </p>
+        {isLoading ? (
+          <div className="space-y-2">
+            <div className="h-4 bg-gray-200 animate-pulse rounded w-full"></div>
+            <div className="h-4 bg-gray-200 animate-pulse rounded w-5/6"></div>
+            <div className="h-4 bg-gray-200 animate-pulse rounded w-4/6"></div>
+          </div>
+        ) : (
+          <p className="text-sm font-inter text-gray-600 leading-relaxed line-clamp-3">
+            {description}
+          </p>
+        )}
       </div>
       
       {/* Call-to-Action Button Section */}
       <div className="px-6 py-4 bg-white">
-        <button className="w-full border border-gray-800 bg-white text-gray-800 font-inter font-bold text-sm py-3 px-4 flex items-center justify-center gap-2 hover:bg-gray-50 transition">
-          EXPLORE HOTEL
-          <ArrowRight className="w-4 h-4" />
-        </button>
+        {isLoading ? (
+          <div className="w-full h-12 bg-gray-200 animate-pulse rounded"></div>
+        ) : (
+          <button className="w-full border border-gray-800 bg-white text-gray-800 font-inter font-bold text-sm py-3 px-4 flex items-center justify-center gap-2 hover:bg-gray-50 transition">
+            EXPLORE HOTEL
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        )}
       </div>
     </div>
   );
