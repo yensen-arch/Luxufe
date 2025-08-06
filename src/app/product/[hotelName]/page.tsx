@@ -10,6 +10,7 @@ import ProductGrid from "@/components/Product/Grid";
 import MapProduct from "@/components/Product/MapProduct";
 import OtherAmanHotels from "@/components/Product/OtherAmanHotels";
 import HotelCarousel from "@/components/Product/HotelCarousel";
+import WhatToDoHere from "@/components/Product/WhatToDoHere";
 import { getHotelByName, getBrandByName } from "@/lib/database";
 
 interface PageProps {
@@ -39,6 +40,7 @@ export default async function ProductPage({ params }: PageProps) {
       <Navbar />
       <ProductHero hotel={hotel} />
       <ProductOverview hotel={hotel} brand={brand} />
+      <WhatToDoHere />
       <HotelCarousel hotel={hotel} />
       <ProductGrid hotel={hotel} />
       <MapProduct hotel={hotel} />
