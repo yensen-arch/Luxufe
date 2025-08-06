@@ -129,7 +129,7 @@ export default function BrandCard({ name, location, logo, images, description }:
       
       {/* Description Section */}
       <div className="px-6 py-4 bg-white">
-        <p className="text-sm font-inter text-gray-600 leading-relaxed">
+        <p className="text-sm font-inter text-gray-600 leading-relaxed line-clamp-3">
           {description}
         </p>
       </div>
