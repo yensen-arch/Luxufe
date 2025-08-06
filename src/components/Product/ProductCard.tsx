@@ -1,5 +1,5 @@
 import React from "react";
-import { Building2, BookOpen } from "lucide-react";
+import { Building2, Users } from "lucide-react";
 
 interface ProductCardProps {
   name: string;
@@ -18,25 +18,34 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, type, bed, image }) => 
         className="absolute inset-0 w-full h-full object-cover object-center z-0 transition-transform duration-300 group-hover:scale-105"
       />
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
-      {/* Room Name */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10" />
+      
+      {/* Top Section - Room Type Badge */}
       <div className="relative z-20 p-6">
-        <h3 className="text-white text-2xl font-arpona font-normal mb-2 drop-shadow-lg">{name}</h3>
-        <p className="text-white text-sm font-inter opacity-90">{type}</p>
-      </div>
-      {/* Stats & Button Row */}
-      <div className="relative z-20 flex items-end justify-between w-full px-6 pb-6">
-        <div className="flex flex-col gap-1">
-          <span className="flex items-center gap-2 text-white text-sm font-inter">
-            <Building2 className="w-4 h-4" /> {type}
+        <div className="inline-block bg-white/20 backdrop-blur-sm px-3 py-1 rounded">
+          <span className="text-white text-xs font-inter font-semibold tracking-widest uppercase">
+            {type}
           </span>
-          {bed && (
-            <span className="flex items-center gap-2 text-white text-sm font-inter">
-              <BookOpen className="w-4 h-4" /> {bed}
-            </span>
-          )}
         </div>
-        <button className="bg-white text-black font-inter font-semibold px-6 py-2 text-xs rounded-none shadow hover:bg-gray-100 transition-all">EXPLORE</button>
+      </div>
+      
+      {/* Bottom Section - Room Info and Button */}
+      <div className="relative z-20 p-6">
+        {/* Room Name */}
+        <h3 className="text-white text-2xl font-arpona font-normal mb-2 drop-shadow-lg">
+          {name}
+        </h3>
+        
+        {/* Sleep Capacity */}
+        <div className="flex items-center gap-2 text-white text-sm font-inter mb-4">
+          <Users className="w-4 h-4" />
+          <span>SLEEPS 2 ADULTS</span>
+        </div>
+        
+        {/* Action Button */}
+        <button className="bg-white text-black font-inter font-semibold px-6 py-3 text-xs rounded-none shadow hover:bg-gray-100 transition-all tracking-widest">
+          READ MORE
+        </button>
       </div>
     </div>
   );
