@@ -40,7 +40,15 @@ interface TailorMadeProcessProps {
       title: string;
       description: string;
       image: {
-        url: string;
+        asset: {
+          url: string;
+          metadata: {
+            dimensions: {
+              width: number;
+              height: number;
+            };
+          };
+        };
         alt: string | null;
       };
     }>;
@@ -62,7 +70,7 @@ export default function TailorMadeProcess({ data }: TailorMadeProcessProps) {
   const steps = data?.steps?.map(step => ({
     title: step.title,
     description: step.description,
-    imageUrl: step.image?.url,
+    imageUrl: step.image?.asset?.url,
   })) || defaultSteps;
 
   const handleNext = () => {

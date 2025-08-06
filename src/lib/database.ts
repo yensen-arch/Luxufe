@@ -263,14 +263,14 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
       .trim();
 
     // Try exact match first
-    let { data, error } = await supabase
+    let { data, error: constError } = await supabase
       .from('hotelgallery')
       .select('hotel_image')
       .eq('hotel_name', hotelName)
       .maybeSingle();
 
     // If no exact match, try case-insensitive exact match
-    if (!data && !error) {
+    if (!data && !constError) {
       const { data: caseInsensitiveData, error: caseError } = await supabase
         .from('hotelgallery')
         .select('hotel_image')
@@ -285,7 +285,7 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
     }
 
     // If still no match, try partial matching with normalized names
-    if (!data && !error) {
+    if (!data && !constError) {
       // Get all gallery entries and find the best match
       const { data: allGalleryData, error: allError } = await supabase
         .from('hotelgallery')
@@ -326,8 +326,8 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
       }
     }
 
-    if (error) {
-      console.error('Error fetching hotel gallery:', error);
+    if (constError) {
+      console.error('Error fetching hotel gallery:', constError);
       return [];
     }
 
@@ -413,7 +413,7 @@ export const getRoomsByHotel = async (hotelName: string): Promise<any[]> => {
       .trim();
 
     // Try exact match first
-    let { data, error } = await supabase
+    let { data, error: constError } = await supabase
       .from('rooms')
       .select('id, room_name, accommodation_type, bed, hotel_name')
       .eq('hotel_name', hotelName)
@@ -473,8 +473,8 @@ export const getRoomsByHotel = async (hotelName: string): Promise<any[]> => {
       }
     }
 
-    if (error) {
-      console.error('Error fetching rooms:', error);
+    if (constError) {
+      console.error('Error fetching rooms:', constError);
       return [];
     }
 
@@ -502,7 +502,7 @@ export const getRoomGallery = async (roomName: string, hotelName: string): Promi
       .trim();
 
     // Try exact match first
-    let { data, error } = await supabase
+    let { data, error: constError } = await supabase
       .from('roomgallery')
       .select('room_image')
       .eq('room_name', roomName)
@@ -510,7 +510,7 @@ export const getRoomGallery = async (roomName: string, hotelName: string): Promi
       .maybeSingle();
 
     // If no exact match, try case-insensitive search
-    if (!data && !error) {
+    if (!data && !constError) {
       const { data: caseInsensitiveData, error: caseError } = await supabase
         .from('roomgallery')
         .select('room_image')
@@ -526,7 +526,7 @@ export const getRoomGallery = async (roomName: string, hotelName: string): Promi
     }
 
     // If still no match, try partial matching
-    if (!data && !error) {
+    if (!data && !constError) {
       const { data: allGalleryData, error: allError } = await supabase
         .from('roomgallery')
         .select('room_name, hotel_name, room_image');
@@ -562,8 +562,8 @@ export const getRoomGallery = async (roomName: string, hotelName: string): Promi
       }
     }
 
-    if (error) {
-      console.error('Error fetching room gallery:', error);
+    if (constError) {
+      console.error('Error fetching room gallery:', constError);
       return [];
     }
 

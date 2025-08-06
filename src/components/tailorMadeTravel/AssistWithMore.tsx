@@ -44,7 +44,15 @@ interface AssistWithMoreProps {
       title: string;
       description: string;
       image: {
-        url: string;
+        asset: {
+          url: string;
+          metadata: {
+            dimensions: {
+              width: number;
+              height: number;
+            };
+          };
+        };
         alt: string | null;
       };
     }>;
@@ -65,7 +73,7 @@ export default function AssistWithMore({ data }: AssistWithMoreProps) {
   const assistItems = data?.items?.map((item: any) => ({
     title: item.title,
     description: item.description,
-    imageUrl: item.image?.url,
+    imageUrl: item.image?.asset?.url,
   })) || defaultAssistItems;
 
   const handleAnimationEnd = () => {
