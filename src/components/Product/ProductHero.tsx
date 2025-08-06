@@ -26,18 +26,18 @@ const ProductHero = ({ hotel }: ProductHeroProps) => {
       {/* Content */}
       <div className="relative z-20 flex flex-col items-center justify-center h-full w-full max-w-7xl mx-auto px-8">
         <div>
-          <h1 className="text-5xl md:text-7xl w-full font-arpona text-white font-bold mb-4 gap-4 text-center">
+          <h1 className="text-5xl md:text-7xl w-full font-arpona text-white font-bold mb-8 gap-4 text-center">
             {hotel.hotel_name}
           </h1>
-          <p className="text-lg md:text-md text-white font-bold font-inter mb-8 max-w-2xl text-center">
+          <p className="text-lg md:text-sm uppercase text-white font-bold font-inter mb-12 max-w-2xl text-center">
             {hotel.city}, {hotel.country}
           </p>
           {/* Stats Row replaced with buttons */}
           <div className="flex items-center gap-8 mb-2 ">
-            <button className="border-2 border-gray-300 text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest">
+            <button className="border-2 border-gray-400 text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest">
               BOOK THIS HOTEL <span className="ml-2">→</span>
             </button>
-            <button className="border-2 border-gray-300 text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest">
+            <button className="border-2 border-gray-400 text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest">
               ADD TO MY JOURNEY <span className="ml-2">→</span>
             </button>
           </div>
