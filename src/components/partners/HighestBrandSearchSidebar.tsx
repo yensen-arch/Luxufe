@@ -57,7 +57,7 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
   };
 
   const updateFilters = (destinations: string[], experiences: string[]) => {
-    onFiltersChange({
+    const filters = {
       search: searchTerm,
       travelType,
       cruiseLine,
@@ -65,7 +65,8 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
       destinations,
       experiences,
       specialOffers
-    });
+    };
+    onFiltersChange(filters);
   };
 
   return (
@@ -123,8 +124,24 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
             className="w-full bg-white border border-gray-200 rounded-full px-3 md:px-4 py-2 text-xs font-inter font-bold text-gray-400"
             value={travelType}
             onChange={(e) => {
-              setTravelType(e.target.value);
-              updateFilters(selectedDestinations, selectedExperiences);
+              const newTravelType = e.target.value;
+              setTravelType(newTravelType);
+              // Reset cruise-specific fields when switching travel types
+              if (newTravelType !== 'cruises') {
+                setCruiseLine('');
+                setShipName('');
+              }
+              // Use the new travel type value directly instead of the state variable
+              const updatedFilters = {
+                search: searchTerm,
+                travelType: newTravelType,
+                cruiseLine: newTravelType !== 'cruises' ? '' : cruiseLine,
+                shipName: newTravelType !== 'cruises' ? '' : shipName,
+                destinations: selectedDestinations,
+                experiences: selectedExperiences,
+                specialOffers
+              };
+              onFiltersChange(updatedFilters);
             }}
           >
             <option value="hotels">Hotels</option>
