@@ -45,7 +45,7 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
 
   const [filters, setFilters] = useState<Filters>({
     search: "",
-    travelType: "",
+    travelType: "hotels", // Set hotels as default
     cruiseLine: "",
     shipName: "",
     destinations: [],
@@ -75,25 +75,15 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
           setTotalCount(response.count);
           setTotalPages(Math.ceil(response.count / 4));
         } else if (filters.travelType === 'cruises') {
-          // Use dummy cruise data
-          const filtered = dummyCruiseBrands.filter(brand => 
-            !debouncedSearch || 
-            brand.brand_name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-            brand.hotel_name.toLowerCase().includes(debouncedSearch.toLowerCase())
-          );
-          setBrandData(filtered);
-          setTotalCount(filtered.length);
-          setTotalPages(Math.ceil(filtered.length / 4));
+          // Show empty state for cruises (not populated yet)
+          setBrandData([]);
+          setTotalCount(0);
+          setTotalPages(0);
         } else if (filters.travelType === 'private-jets') {
-          // Use dummy private jet data
-          const filtered = dummyPrivateJetBrands.filter(brand => 
-            !debouncedSearch || 
-            brand.brand_name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-            brand.hotel_name.toLowerCase().includes(debouncedSearch.toLowerCase())
-          );
-          setBrandData(filtered);
-          setTotalCount(filtered.length);
-          setTotalPages(Math.ceil(filtered.length / 4));
+          // Show empty state for private jets (not populated yet)
+          setBrandData([]);
+          setTotalCount(0);
+          setTotalPages(0);
         } else {
           // No travel type selected
           setBrandData([]);
@@ -132,7 +122,7 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
   const handleClearAllFilters = () => {
     setFilters({
       search: "",
-      travelType: "",
+      travelType: "hotels", // Keep hotels as default
       cruiseLine: "",
       shipName: "",
       destinations: [],

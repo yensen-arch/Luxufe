@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar, Filter, X } from "lucide-react";
 
 interface HighestBrandSearchSidebarProps {
@@ -27,13 +27,18 @@ const experienceOptions = [
 
 export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: HighestBrandSearchSidebarProps) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [travelType, setTravelType] = useState("");
+  const [travelType, setTravelType] = useState("hotels"); // Set hotels as default
   const [cruiseLine, setCruiseLine] = useState("");
   const [shipName, setShipName] = useState("");
   const [selectedDestinations, setSelectedDestinations] = useState<string[]>([]);
   const [selectedExperiences, setSelectedExperiences] = useState<string[]>([]);
   const [specialOffers, setSpecialOffers] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Trigger initial filter update when component mounts
+  useEffect(() => {
+    updateFilters(selectedDestinations, selectedExperiences);
+  }, []);
 
   const handleDestinationToggle = (destination: string) => {
     const newDestinations = selectedDestinations.includes(destination)
@@ -122,7 +127,6 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
               updateFilters(selectedDestinations, selectedExperiences);
             }}
           >
-            <option value="">Select a type...</option>
             <option value="hotels">Hotels</option>
             <option value="cruises">Cruises</option>
             <option value="private-jets">Private Jets</option>
