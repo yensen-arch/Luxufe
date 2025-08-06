@@ -185,6 +185,29 @@ export const getHotelsWithFiltersAndGallery = async (filters: {
   }
 };
 
+// Get unique countries for a specific brand
+export const getBrandCountries = async (brandName: string): Promise<string[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('hotels')
+      .select('country')
+      .eq('brand', brandName)
+      .not('country', 'is', null);
+
+    if (error) {
+      console.error('Error fetching brand countries:', error);
+      return [];
+    }
+
+    // Get unique countries and sort them
+    const uniqueCountries = [...new Set(data?.map(hotel => hotel.country) || [])];
+    return uniqueCountries.sort();
+  } catch (error) {
+    console.error('Error fetching brand countries:', error);
+    return [];
+  }
+};
+
 // Get unique countries
 export const getUniqueCountries = async (): Promise<string[]> => {
   try {

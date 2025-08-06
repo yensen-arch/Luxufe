@@ -10,6 +10,7 @@ interface BrandSidebarProps {
   }) => void;
   availableCountries?: string[];
   loading?: boolean;
+  loadingCountries?: boolean;
 }
 
 const typeOfTravelOptions = [
@@ -21,7 +22,7 @@ const regionOptions = [
   "Australia & New Zealand", "Caribbean Islands", "Central America & Mexico", "Asia"
 ];
 
-export default function BrandSidebar({ onFiltersChange, availableCountries, loading }: BrandSidebarProps) {
+export default function BrandSidebar({ onFiltersChange, availableCountries, loading, loadingCountries }: BrandSidebarProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
@@ -144,21 +145,32 @@ export default function BrandSidebar({ onFiltersChange, availableCountries, load
         <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4 ">
           Region
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-          {(availableCountries || regionOptions).map((region) => (
-            <button
-              key={region}
-              onClick={() => handleRegionToggle(region)}
-              className={`px-2 py-2 rounded-full text-xs font-inter font-bold transition cursor-pointer ${
-                selectedRegions.includes(region)
-                  ? 'bg-[#23263a] text-white'
-                  : 'bg-gray-200 text-gray-400 hover:bg-gray-300'
-              }`}
-            >
-              {region}
-            </button>
-          ))}
-        </div>
+        {loadingCountries ? (
+          <div className="flex items-center justify-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#23263a]"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+            {(availableCountries || []).map((region) => (
+              <button
+                key={region}
+                onClick={() => handleRegionToggle(region)}
+                className={`px-2 py-2 rounded-full text-xs font-inter font-bold transition cursor-pointer ${
+                  selectedRegions.includes(region)
+                    ? 'bg-[#23263a] text-white'
+                    : 'bg-gray-200 text-gray-400 hover:bg-gray-300'
+                }`}
+              >
+                {region}
+              </button>
+            ))}
+          </div>
+        )}
+        {!loadingCountries && availableCountries && availableCountries.length === 0 && (
+          <p className="text-gray-500 text-sm font-inter text-center py-4">
+            No countries available for this brand
+          </p>
+        )}
       </div>
       </aside>
     </>

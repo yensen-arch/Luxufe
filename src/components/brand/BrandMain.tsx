@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import BrandSidebar from "@/components/brand/BrandSidebar";
 import BrandGrid from "@/components/brand/BrandGrid";
-import { getHotelsWithFiltersAndGallery, getUniqueCountries } from "@/lib/database";
+import { getHotelsWithFiltersAndGallery, getBrandCountries } from "@/lib/database";
 import { Hotel } from "@/lib/database";
 
 // Debounce hook for search optimization
@@ -50,22 +50,34 @@ const BrandMain = ({ data, brandName }: BrandMainProps) => {
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [loading, setLoading] = useState(true);
   const [availableCountries, setAvailableCountries] = useState<string[]>([]);
+  const [loadingCountries, setLoadingCountries] = useState(true);
 
   // Debounce search term to prevent too many API calls
   const debouncedSearch = useDebounce(filters.search, 500);
 
-  // Fetch available countries for filtering
+  // Fetch available countries for the specific brand
   useEffect(() => {
-    const fetchCountries = async () => {
+    const fetchBrandCountries = async () => {
+      if (!brandName) {
+        setAvailableCountries([]);
+        setLoadingCountries(false);
+        return;
+      }
+
+      setLoadingCountries(true);
       try {
-        const countries = await getUniqueCountries();
+        const countries = await getBrandCountries(brandName);
         setAvailableCountries(countries);
       } catch (error) {
-        console.error('Error fetching countries:', error);
+        console.error('Error fetching brand countries:', error);
+        setAvailableCountries([]);
+      } finally {
+        setLoadingCountries(false);
       }
     };
-    fetchCountries();
-  }, []);
+
+    fetchBrandCountries();
+  }, [brandName]);
 
   // Fetch hotels based on filters with debounced search
   useEffect(() => {
@@ -129,6 +141,7 @@ const BrandMain = ({ data, brandName }: BrandMainProps) => {
           onFiltersChange={handleFiltersChange}
           availableCountries={availableCountries}
           loading={loading}
+          loadingCountries={loadingCountries}
         />
         <BrandGrid 
           hotels={hotels}
