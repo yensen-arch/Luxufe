@@ -23,7 +23,7 @@ export default function BrandCard({ name, location, logo, description }: BrandCa
     top: false,
     bottomLeft: false,
     bottomRight: false
-  });
+  }); 
 
   // Fetch hotel gallery images
   useEffect(() => {
