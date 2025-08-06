@@ -2,25 +2,31 @@
 import React, { useCallback, useState } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
-
-const defaultTestimonials = [
+const defaultImages = [
   {
-    quote: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.",
-    supporting: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.",
-    name: "John Doe",
-    avatar: {
-      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
-      alt: "John Doe"
-    }
+    id: 1,
+    url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+    alt: "Hotel pool area at dusk"
   },
   {
-    quote: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.",
-    supporting: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.",
-    name: "Jane Smith",
-    avatar: {
-      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
-      alt: "Jane Smith"
-    }
+    id: 2,
+    url: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80",
+    alt: "Luxury bedroom with wooden headboard"
+  },
+  {
+    id: 3,
+    url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+    alt: "Hotel interior with mountain views"
+  },
+  {
+    id: 4,
+    url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+    alt: "Hotel spa and wellness area"
+  },
+  {
+    id: 5,
+    url: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80",
+    alt: "Hotel dining experience"
   }
 ];
 
@@ -33,18 +39,18 @@ export default function WhatToDoHere() {
     },
     title: 'What You Can Do Here',
     description: 'Tailored experiences that enhance your stay',
-    testimonials: defaultTestimonials
+    images: defaultImages
   }
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const scrollPrev = useCallback(() => {
-    setCurrentIndex((prev) => prev === 0 ? journeysData.testimonials.length - 1 : prev - 1);
-  }, [journeysData.testimonials.length]);
+    setCurrentIndex((prev) => prev === 0 ? journeysData.images.length - 1 : prev - 1);
+  }, [journeysData.images.length]);
 
   const scrollNext = useCallback(() => {
-    setCurrentIndex((prev) => prev === journeysData.testimonials.length - 1 ? 0 : prev + 1);
-  }, [journeysData.testimonials.length]);
+    setCurrentIndex((prev) => prev === journeysData.images.length - 1 ? 0 : prev + 1);
+  }, [journeysData.images.length]);
 
   return (
     <section className="my-12 md:my-16 lg:my-24 h-auto md:h-screen ">
@@ -87,14 +93,15 @@ export default function WhatToDoHere() {
                 className="flex transition-transform duration-500 ease-in-out m-4 md:m-6 lg:m-10 gap-4 md:gap-6 lg:gap-10"
                 style={{ transform: `translateX(-${currentIndex * 50}%)` }}
               >
-                {journeysData.testimonials.map((testimonial, index) => (
-                  <div className="flex-[0_0_70%]" key={index}>
-                    <TestimonialCard 
-                      quote={testimonial.quote} 
-                      supporting={testimonial.supporting} 
-                      avatar={testimonial.avatar?.url || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"} 
-                      name={testimonial.name} 
-                    />
+                {journeysData.images.map((image, index) => (
+                  <div className="flex-[0_0_70%]" key={image.id}>
+                    <div className="bg-white mx-auto flex flex-col gap-4 md:gap-5 lg:gap-6">
+                      <img 
+                        src={image.url} 
+                        alt={image.alt} 
+                        className="w-full h-64 md:h-88 lg:h-100 object-cover"
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
