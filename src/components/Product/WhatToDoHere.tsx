@@ -72,13 +72,13 @@ export default function WhatToDoHere() {
               <div className="flex gap-4 md:gap-5 lg:gap-6 mt-6 md:mt-7 lg:mt-8 mx-auto lg:mx-0">
                 <button 
                   onClick={scrollPrev} 
-                  className="bg-white rounded-full p-4 md:p-5 lg:p-6 shadow-md hover:bg-white transition"
+                  className="bg-white border border-gray-300 rounded-full p-4 md:p-5 lg:p-7 shadow-md hover:bg-white transition"
                 >
                   <ArrowLeft className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
                 </button>
                 <button 
                   onClick={scrollNext} 
-                  className="bg-white rounded-full p-4 md:p-5 lg:p-6 shadow-md hover:bg-white transition"
+                  className="bg-white border border-gray-300 rounded-full p-4 md:p-5 lg:p-7 shadow-md hover:bg-white transition"
                 >
                   <ArrowRight className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
                 </button>
