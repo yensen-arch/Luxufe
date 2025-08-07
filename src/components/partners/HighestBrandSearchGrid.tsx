@@ -117,6 +117,35 @@ export default function HighestBrandSearchGrid({
     }
   };
 
+  // Skeleton component for loading state
+  const BrandCardSkeleton = () => (
+    <div className="shadow-lg overflow-hidden flex flex-col">
+      <div className="relative h-48 md:h-64 w-full bg-gray-200 animate-pulse">
+        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-center w-full z-10">
+          <div className="bg-white px-4 md:px-8 py-2 md:py-3 flex flex-col items-center">
+            <div className="h-6 md:h-8 w-24 md:w-32 bg-gray-300 animate-pulse rounded"></div>
+          </div>
+        </div>
+      </div>
+      <div className="bg-white flex flex-col flex-1 items-center justify-between px-3 md:px-4 pt-8 md:pt-10 pb-4 md:pb-6">
+        <div className="text-center mb-4 w-full">
+          <div className="h-6 bg-gray-200 animate-pulse rounded w-3/4 mx-auto mb-2"></div>
+          <div className="h-4 bg-gray-200 animate-pulse rounded w-1/2 mx-auto"></div>
+        </div>
+        <div className="flex justify-center gap-4 md:gap-8 w-full border-t border-gray-200 pt-4 md:pt-6">
+          <div className="flex items-center gap-1 md:gap-2">
+            <div className="w-4 h-4 md:w-5 md:h-5 bg-gray-300 animate-pulse rounded"></div>
+            <div className="h-4 bg-gray-200 animate-pulse rounded w-20"></div>
+          </div>
+          <div className="flex items-center gap-1 md:gap-2">
+            <div className="w-4 h-4 md:w-5 md:h-5 bg-gray-300 animate-pulse rounded"></div>
+            <div className="h-4 bg-gray-200 animate-pulse rounded w-16"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <section className="flex-1 bg-[#f5f6f7] max-h-[170vh] py-3 md:py-5">
       {/* Search Bar - Always visible */}
@@ -194,27 +223,24 @@ export default function HighestBrandSearchGrid({
         )}
       </div>
 
-      {/* Content Area with Loader */}
-      <div className="relative">
-        {/* Loading state - only affects the content area */}
-        {loading && (
-          <div className="absolute inset-0 bg-[#f5f6f7] bg-opacity-75 flex items-center justify-center z-10">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#a8d1cf] mx-auto mb-4"></div>
-            </div>
+      {/* Content Area */}
+      <div className="mx-4 md:mx-14">
+        {loading ? (
+          // Show skeleton loading state
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-8 md:mb-16">
+            {[...Array(4)].map((_, i) => <BrandCardSkeleton key={i} />)}
           </div>
-        )}
-
-        {/* Brand Cards Grid */}
-        {brands.length === 0 ? (
-          <div className="flex items-center justify-center py-8 md:py-16 mx-4 md:mx-14">
+        ) : brands.length === 0 ? (
+          // Show empty state
+          <div className="flex items-center justify-center py-8 md:py-16">
             <div className="text-center">
               <p className="text-gray-600 font-inter text-base md:text-lg mb-2">No brands found</p>
               <p className="text-gray-500 font-inter text-sm">Try adjusting your filters to see more results</p>
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-8 md:mb-16 mx-4 md:mx-14">
+          // Show actual brand cards
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-8 md:mb-16">
             {currentBrands.map((brand, idx) => (
               <BrandCard 
                 key={brand.id || idx} 
@@ -223,6 +249,7 @@ export default function HighestBrandSearchGrid({
                 index={idx} 
                 hotelCounts={hotelCounts}
                 loadingHotelCounts={loadingHotelCounts}
+                isLoading={false}
               />
             ))}
           </div>
