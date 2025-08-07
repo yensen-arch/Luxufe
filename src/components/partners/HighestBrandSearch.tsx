@@ -40,7 +40,7 @@ interface Filters {
 
 const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
   // Fallback content if no data is provided
-  const heading = data?.heading || "Highest Brand Search";
+  const heading = data?.heading || "Luxufe's Complete Brand Search";
   const description = data?.description || "Find your perfect luxury experience";
 
   const [filters, setFilters] = useState<Filters>({
@@ -176,7 +176,7 @@ const HighestBrandSearch = ({ data }: HighestBrandSearchProps) => {
           <h2 className="text-2xl md:text-4xl lg:text-6xl font-arpona text-[#23263a] font-bold mb-4 md:mb-6">
             {heading}
           </h2>
-          <p className="text-base md:text-lg lg:text-xl text-[#23263a] font-inter font-bold">
+          <p className="text-base md:text-md lg:text-lg text-[#23263a] font-inter font-bold">
             {description}
           </p>
         </div>

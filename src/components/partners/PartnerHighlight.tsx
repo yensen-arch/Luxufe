@@ -16,8 +16,8 @@ export default function PartnerHighlight({ data }: PartnerHighlightProps) {
   // Fallback content if no data is provided
   const heading = data?.heading || "Partner highlight - a Luxufe favorite";
   const partner = data?.partners?.[0] || {
-    name: "Regent Seven Seas Cruises",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/2e/Regent_Seven_Seas_Cruises_logo.svg",
+    name: "St. Regis Hotels & Resorts",
+    logo: "https://res.cloudinary.com/dqh2tacov/image/upload/v1754488206/St._Regis_hotels_resorts_logo_toflm9.png",
     description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum"
   };
 
