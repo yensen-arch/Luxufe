@@ -258,7 +258,7 @@ export default function HighestBrandSearchGrid({
             <button 
               onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
               disabled={currentPage === 1}
-              className={`hover:underline ${currentPage === 1 ? 'text-gray-300 cursor-not-allowed' : ''}`}
+              className={`hover:underline ${currentPage === 1 ? 'text-gray-300 cursor-not-allowed' : 'cursor-pointer'}`}
             >
               &lt; Previous
             </button>
@@ -267,7 +267,7 @@ export default function HighestBrandSearchGrid({
               <button 
                 key={page} 
                 onClick={() => handlePageChange(page)}
-                className={`px-2 ${page === currentPage ? "text-[#23263a] font-bold" : ""}`}
+                className={`px-2 ${page === currentPage ? "text-[#23263a] font-bold" : "cursor-pointer"}`}
               >
                 {String(page).padStart(2, "0")}
               </button>
@@ -276,7 +276,7 @@ export default function HighestBrandSearchGrid({
             <button 
               onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
               disabled={currentPage === totalPages}
-              className={`hover:underline ${currentPage === totalPages ? 'text-gray-300 cursor-not-allowed' : ''}`}
+              className={`hover:underline ${currentPage === totalPages ? 'text-gray-300 cursor-not-allowed' : 'cursor-pointer'}`}
             >
               Next &gt;
             </button>
