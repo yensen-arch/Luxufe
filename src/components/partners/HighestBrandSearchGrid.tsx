@@ -120,26 +120,23 @@ export default function HighestBrandSearchGrid({
   // Skeleton component for loading state
   const BrandCardSkeleton = () => (
     <div className="shadow-lg overflow-hidden flex flex-col">
-      <div className="relative h-48 md:h-64 w-full bg-gray-200 animate-pulse">
-        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-center w-full z-10">
-          <div className="bg-white px-4 md:px-8 py-2 md:py-3 flex flex-col items-center">
-            <div className="h-6 md:h-8 w-24 md:w-32 bg-gray-300 animate-pulse rounded"></div>
-          </div>
-        </div>
+      {/* Logo area skeleton - white background with centered logo placeholder */}
+      <div className="relative h-48 md:h-64 w-full bg-white flex items-center justify-center">
+        <div className="h-16 md:h-24 w-24 md:w-32 bg-gray-200 animate-pulse rounded"></div>
       </div>
       <div className="bg-white flex flex-col flex-1 items-center justify-between px-3 md:px-4 pt-8 md:pt-10 pb-4 md:pb-6">
-        <div className="text-center mb-4 w-full">
-          <div className="h-6 bg-gray-200 animate-pulse rounded w-3/4 mx-auto mb-2"></div>
-          <div className="h-4 bg-gray-200 animate-pulse rounded w-1/2 mx-auto"></div>
+        <div className="text-center mb-4">
+          <div className="h-6 md:h-7 w-32 md:w-40 bg-gray-200 animate-pulse rounded mx-auto mb-2"></div>
+          <div className="h-4 md:h-5 w-24 md:w-28 bg-gray-200 animate-pulse rounded mx-auto mb-2"></div>
         </div>
         <div className="flex justify-center gap-4 md:gap-8 w-full border-t border-gray-200 pt-4 md:pt-6">
           <div className="flex items-center gap-1 md:gap-2">
-            <div className="w-4 h-4 md:w-5 md:h-5 bg-gray-300 animate-pulse rounded"></div>
-            <div className="h-4 bg-gray-200 animate-pulse rounded w-20"></div>
+            <div className="w-4 h-4 md:w-5 md:h-5 bg-gray-200 animate-pulse rounded"></div>
+            <div className="h-4 md:h-5 w-16 md:w-20 bg-gray-200 animate-pulse rounded"></div>
           </div>
           <div className="flex items-center gap-1 md:gap-2">
-            <div className="w-4 h-4 md:w-5 md:h-5 bg-gray-300 animate-pulse rounded"></div>
-            <div className="h-4 bg-gray-200 animate-pulse rounded w-16"></div>
+            <div className="w-4 h-4 md:w-5 md:h-5 bg-gray-200 animate-pulse rounded"></div>
+            <div className="h-4 md:h-5 w-20 md:w-24 bg-gray-200 animate-pulse rounded"></div>
           </div>
         </div>
       </div>
