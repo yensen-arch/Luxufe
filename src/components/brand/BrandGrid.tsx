@@ -15,23 +15,7 @@ interface BrandGridProps {
   onClearAllFilters: () => void;
 }
 
-// Helper function to get images from gallery
-const getImagesFromGallery = (gallery: string[] = []) => {
-  if (gallery.length === 0) {
-    // Fallback images if no gallery data
-    return {
-      top: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
-      bottomLeft: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80",
-      bottomRight: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=400&q=80"
-    };
-  }
-  
-  return {
-    top: gallery[0] || "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
-    bottomLeft: gallery[1] || "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80",
-    bottomRight: gallery[2] || "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=400&q=80"
-  };
-};
+
 
 export default function BrandGrid({ hotels, loading, filters, onClearFilter, onClearAllFilters }: BrandGridProps) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -129,19 +113,16 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 px-16 pb-8">
-          {currentHotels.map((hotel, index) => {
-            const images = getImagesFromGallery(hotel.gallery);
-            return (
-              <BrandCard
-                key={hotel.id}
-                name={hotel.hotel_name}
-                location={`${hotel.city} . ${hotel.country}`.toUpperCase()}
-                logo={`https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Aman_Resorts_logo.svg/1200px-Aman_Resorts_logo.svg.png`}
-                images={images}
-                description={hotel.description || "Experience luxury and tranquility in this exceptional destination."}
-              />
-            );
-          })}
+          {currentHotels.map((hotel, index) => (
+            <BrandCard
+              key={hotel.id}
+              name={hotel.hotel_name}
+              location={`${hotel.city} . ${hotel.country}`.toUpperCase()}
+              logo={`https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Aman_Resorts_logo.svg/1200px-Aman_Resorts_logo.svg.png`}
+              brand={hotel.brand}
+              description={hotel.description || "Experience luxury and tranquility in this exceptional destination."}
+            />
+          ))}
         </div>
       )}
 

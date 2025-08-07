@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { getHotelGallery } from "@/lib/database";
+import { getHotelGallery, getBrandByName } from "@/lib/database";
 
 interface BrandCardProps {
   name: string;
   location: string;
   logo: string;
   description: string;
+  brand?: string; // Add brand name to fetch brand logo
 }
 
-export default function BrandCard({ name, location, logo, description }: BrandCardProps) {
+export default function BrandCard({ name, location, logo, description, brand }: BrandCardProps) {
   const router = useRouter();
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [brandLogo, setBrandLogo] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState({
     top: true,
@@ -25,22 +27,41 @@ export default function BrandCard({ name, location, logo, description }: BrandCa
     bottomRight: false
   }); 
 
-  // Fetch hotel gallery images
+  // Get default brand logo fallback
+  const getDefaultBrandLogo = () => {
+    return 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Silversea_Cruises_logo.svg';
+  };
+
+  // Fetch hotel gallery images and brand logo
   useEffect(() => {
-    const fetchGalleryImages = async () => {
+    const fetchData = async () => {
       setIsLoading(true);
       try {
+        // Fetch gallery images
         const images = await getHotelGallery(name);
         setGalleryImages(images);
+
+        // Fetch brand logo if brand name is provided
+        if (brand) {
+          const brandData = await getBrandByName(brand);
+          if (brandData?.logo) {
+            setBrandLogo(brandData.logo);
+          } else {
+            setBrandLogo(getDefaultBrandLogo());
+          }
+        } else {
+          setBrandLogo(logo || getDefaultBrandLogo());
+        }
       } catch (error) {
-        console.error('Error fetching gallery images for', name, error);
+        console.error('Error fetching data for', name, error);
+        setBrandLogo(logo || getDefaultBrandLogo());
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchGalleryImages();
-  }, [name]);
+    fetchData();
+  }, [name, brand, logo]);
 
   // Get images 2, 3, 4 from the gallery array (with fallbacks)
   const getImageUrl = (index: number, fallbackUrl: string) => {
@@ -154,8 +175,8 @@ export default function BrandCard({ name, location, logo, description }: BrandCa
             <div className="h-8 w-16 bg-gray-200 animate-pulse rounded"></div>
           ) : (
             <img 
-              src={logo} 
-              alt={`${name} Logo`} 
+              src={brandLogo} 
+              alt={`${brand || name} Logo`} 
               className="h-8 object-contain"
             />
           )}
