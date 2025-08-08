@@ -255,29 +255,15 @@ export const getHotelByName = async (hotelName: string): Promise<Hotel | null> =
 // Get hotel gallery by hotel name
 export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
   try {
-    // Normalize the hotel name for better matching
-    const normalizedHotelName = hotelName
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, '') // Remove special characters
-      .replace(/\s+/g, ' ') // Normalize spaces
-      .trim();
-
-    // Create slug version of hotel name (e.g., "abc hotel" -> "abc-hotel")
-    const slugHotelName = hotelName
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, '') // Remove special characters
-      .replace(/\s+/g, '-') // Replace spaces with hyphens
-      .trim();
-
     // Try exact match first
-    let { data, error: constError } = await supabase
+    let { data, error } = await supabase
       .from('hotelgallery')
       .select('hotel_image')
       .eq('hotel_name', hotelName)
       .maybeSingle();
 
     // If no exact match, try case-insensitive exact match
-    if (!data && !constError) {
+    if (!data && !error) {
       const { data: caseInsensitiveData, error: caseError } = await supabase
         .from('hotelgallery')
         .select('hotel_image')
@@ -291,84 +277,13 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
       }
     }
 
-    // If still no match, try partial matching with normalized names and slug variations
-    if (!data && !constError) {
-      // Get all gallery entries and find the best match
-      const { data: allGalleryData, error: allError } = await supabase
-        .from('hotelgallery')
-        .select('hotel_name, hotel_image');
-      
-      if (!allError && allGalleryData) {
-        // Find the best matching hotel name
-        const bestMatch = allGalleryData.find(gallery => {
-          const galleryName = gallery.hotel_name
-            .toLowerCase()
-            .replace(/[^a-z0-9\s]/g, '')
-            .replace(/\s+/g, ' ')
-            .trim();
-          
-          // Create slug version of gallery name
-          const gallerySlug = gallery.hotel_name
-            .toLowerCase()
-            .replace(/[^a-z0-9\s]/g, '')
-            .replace(/\s+/g, '-')
-            .trim();
-          
-          // Check for exact normalized match
-          if (galleryName === normalizedHotelName) return true;
-          
-          // Check for slug match
-          if (gallerySlug === slugHotelName) return true;
-          
-          // Check if hotel name contains the gallery name or vice versa
-          if (galleryName.includes(normalizedHotelName) || normalizedHotelName.includes(galleryName)) return true;
-          
-          // Check if slug contains the other slug
-          if (gallerySlug.includes(slugHotelName) || slugHotelName.includes(gallerySlug)) return true;
-          
-          // Check for common variations (e.g., "Amanbagh" vs "Aman Bagh")
-          const hotelWords = normalizedHotelName.split(' ');
-          const galleryWords = galleryName.split(' ');
-          
-          // If at least 2 words match, consider it a match
-          const matchingWords = hotelWords.filter(word => 
-            galleryWords.some((galleryWord: string) => 
-              galleryWord.includes(word) || word.includes(galleryWord)
-            )
-          );
-          
-          if (matchingWords.length >= Math.min(2, hotelWords.length, galleryWords.length)) return true;
-          
-          // Check for exact match with original names (case-insensitive)
-          if (gallery.hotel_name.toLowerCase() === hotelName.toLowerCase()) return true;
-          
-          return false;
-        });
-        
-        if (bestMatch) {
-          data = bestMatch;
-        }
-      }
-    }
-
-    if (constError) {
-      console.error('Error fetching hotel gallery:', constError);
+    if (error) {
+      console.error('Error fetching hotel gallery:', error);
       return [];
     }
 
     if (!data || !data.hotel_image) {
-      console.log(`No gallery found for hotel: ${hotelName} (normalized: ${normalizedHotelName}, slug: ${slugHotelName})`);
-      
-      // Debug: Let's see what's actually in the hotelgallery table
-      const { data: debugData, error: debugError } = await supabase
-        .from('hotelgallery')
-        .select('hotel_name')
-        .limit(10);
-      
-      if (!debugError && debugData) {
-        console.log('Available hotel names in gallery:', debugData.map(item => item.hotel_name));
-      }
-      
+      console.log(`No gallery found for hotel: ${hotelName}`);
       return [];
     }
 
@@ -558,34 +473,8 @@ export const getRoomsByHotel = async (hotelName: string): Promise<any[]> => {
 // Get room gallery by room name and hotel name
 export const getRoomGallery = async (roomName: string, hotelName: string): Promise<string[]> => {
   try {
-    // Normalize the names for better matching
-    const normalizedRoomName = roomName
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, '')
-      .replace(/\s+/g, ' ')
-      .trim();
-
-    const normalizedHotelName = hotelName
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, '')
-      .replace(/\s+/g, ' ')
-      .trim();
-
-    // Create slug versions for better matching
-    const slugRoomName = roomName
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, '')
-      .replace(/\s+/g, '-')
-      .trim();
-
-    const slugHotelName = hotelName
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, '')
-      .replace(/\s+/g, '-')
-      .trim();
-
     // Try exact match first
-    let { data, error: constError } = await supabase
+    let { data, error } = await supabase
       .from('roomgallery')
       .select('room_image')
       .eq('room_name', roomName)
@@ -593,12 +482,12 @@ export const getRoomGallery = async (roomName: string, hotelName: string): Promi
       .maybeSingle();
 
     // If no exact match, try case-insensitive search
-    if (!data && !constError) {
+    if (!data && !error) {
       const { data: caseInsensitiveData, error: caseError } = await supabase
         .from('roomgallery')
         .select('room_image')
-        .ilike('room_name', `%${roomName}%`)
-        .ilike('hotel_name', `%${hotelName}%`)
+        .ilike('room_name', roomName)
+        .ilike('hotel_name', hotelName)
         .maybeSingle();
       
       if (caseError) {
@@ -608,65 +497,8 @@ export const getRoomGallery = async (roomName: string, hotelName: string): Promi
       }
     }
 
-    // If still no match, try partial matching with slug variations
-    if (!data && !constError) {
-      const { data: allGalleryData, error: allError } = await supabase
-        .from('roomgallery')
-        .select('room_name, hotel_name, room_image');
-      
-      if (!allError && allGalleryData) {
-        // Find the best matching room
-        const bestMatch = allGalleryData.find(gallery => {
-          const galleryRoomName = gallery.room_name
-            .toLowerCase()
-            .replace(/[^a-z0-9\s]/g, '')
-            .replace(/\s+/g, ' ')
-            .trim();
-          
-          const galleryHotelName = gallery.hotel_name
-            .toLowerCase()
-            .replace(/[^a-z0-9\s]/g, '')
-            .replace(/\s+/g, ' ')
-            .trim();
-          
-          // Create slug versions of gallery names
-          const galleryRoomSlug = gallery.room_name
-            .toLowerCase()
-            .replace(/[^a-z0-9\s]/g, '')
-            .replace(/\s+/g, '-')
-            .trim();
-          
-          const galleryHotelSlug = gallery.hotel_name
-            .toLowerCase()
-            .replace(/[^a-z0-9\s]/g, '')
-            .replace(/\s+/g, '-')
-            .trim();
-          
-          // Check for exact normalized match
-          if (galleryRoomName === normalizedRoomName && galleryHotelName === normalizedHotelName) return true;
-          
-          // Check for slug match
-          if (galleryRoomSlug === slugRoomName && galleryHotelSlug === slugHotelName) return true;
-          
-          // Check if names contain each other
-          if ((galleryRoomName.includes(normalizedRoomName) || normalizedRoomName.includes(galleryRoomName)) &&
-              (galleryHotelName.includes(normalizedHotelName) || normalizedHotelName.includes(galleryHotelName))) return true;
-          
-          // Check if slugs contain each other
-          if ((galleryRoomSlug.includes(slugRoomName) || slugRoomName.includes(galleryRoomSlug)) &&
-              (galleryHotelSlug.includes(slugHotelName) || slugHotelName.includes(galleryHotelSlug))) return true;
-          
-          return false;
-        });
-        
-        if (bestMatch) {
-          data = bestMatch;
-        }
-      }
-    }
-
-    if (constError) {
-      console.error('Error fetching room gallery:', constError);
+    if (error) {
+      console.error('Error fetching room gallery:', error);
       return [];
     }
 
