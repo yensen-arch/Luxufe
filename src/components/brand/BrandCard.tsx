@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { getHotelGallery, getBrandByName } from "@/lib/database";
+import { getHotelGallery, getBrandByName, debugHotelGallery } from "@/lib/database";
 
 interface BrandCardProps {
   name: string;
@@ -37,9 +37,21 @@ export default function BrandCard({ name, location, logo, description, brand }: 
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        // Debug: Log what we're trying to fetch
+        console.log('BrandCard: Attempting to fetch gallery for hotel:', name);
+        await debugHotelGallery(name);
+        
         // Fetch gallery images
         const images = await getHotelGallery(name);
+        console.log('BrandCard: Gallery images fetched:', images.length);
         setGalleryImages(images);
+        
+        // Reset image loading states when we get new images
+        setImageLoading({
+          top: false,
+          bottomLeft: false,
+          bottomRight: false
+        });
 
         // Fetch brand logo if brand name is provided
         if (brand) {
@@ -65,14 +77,18 @@ export default function BrandCard({ name, location, logo, description, brand }: 
 
   // Get images 2, 3, 4 from the gallery array (with fallbacks)
   const getImageUrl = (index: number, fallbackUrl: string) => {
-    return galleryImages[index] || fallbackUrl;
+    const imageUrl = galleryImages[index] || fallbackUrl;
+    console.log(`BrandCard: Image ${index} URL:`, imageUrl);
+    return imageUrl;
   };
 
   const handleImageLoad = (imageType: 'top' | 'bottomLeft' | 'bottomRight') => {
+    console.log(`BrandCard: Image loaded successfully for ${imageType}`);
     setImageLoading(prev => ({ ...prev, [imageType]: false }));
   };
 
   const handleImageError = (imageType: 'top' | 'bottomLeft' | 'bottomRight') => {
+    console.log(`BrandCard: Image failed to load for ${imageType}`);
     setImageLoading(prev => ({ ...prev, [imageType]: false }));
     setImageError(prev => ({ ...prev, [imageType]: true }));
   };
@@ -95,7 +111,7 @@ export default function BrandCard({ name, location, logo, description, brand }: 
       <div className="relative">
         {/* Large Top Image - Use image 2 from gallery */}
         <div className="h-44 w-full mb-0.5 relative">
-          {isLoading || imageLoading.top ? (
+          {isLoading ? (
             <ImageSkeleton className="w-full h-full" />
           ) : !imageError.top ? (
             <img 
@@ -115,7 +131,7 @@ export default function BrandCard({ name, location, logo, description, brand }: 
         {/* Two Smaller Bottom Images - Side by side */}
         <div className="flex h-44">
           <div className="flex-1 mr-0.5 relative">
-            {isLoading || imageLoading.bottomLeft ? (
+            {isLoading ? (
               <ImageSkeleton className="w-full h-full" />
             ) : !imageError.bottomLeft ? (
               <img 
@@ -132,7 +148,7 @@ export default function BrandCard({ name, location, logo, description, brand }: 
             )}
           </div>
           <div className="flex-1 relative">
-            {isLoading || imageLoading.bottomRight ? (
+            {isLoading ? (
               <ImageSkeleton className="w-full h-full" />
             ) : !imageError.bottomRight ? (
               <img 
