@@ -255,6 +255,8 @@ export const getHotelByName = async (hotelName: string): Promise<Hotel | null> =
 // Get hotel gallery by hotel name
 export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
   try {
+    console.log('🔍 getHotelGallery: Searching for hotel:', hotelName);
+    
     // Try exact match first
     let { data, error } = await supabase
       .from('hotelgallery')
@@ -262,8 +264,11 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
       .eq('hotel_name', hotelName)
       .maybeSingle();
 
+    console.log('🔍 getHotelGallery: Exact match result:', { data: !!data, error: !!error, hotelName });
+
     // If no exact match, try case-insensitive exact match
     if (!data && !error) {
+      console.log('🔍 getHotelGallery: Trying case-insensitive match for:', hotelName);
       const { data: caseInsensitiveData, error: caseError } = await supabase
         .from('hotelgallery')
         .select('hotel_image')
@@ -274,6 +279,7 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
         console.error('Error fetching hotel gallery (case-insensitive):', caseError);
       } else {
         data = caseInsensitiveData;
+        console.log('🔍 getHotelGallery: Case-insensitive match result:', { data: !!data, hotelName });
       }
     }
 
@@ -283,24 +289,41 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
     }
 
     if (!data || !data.hotel_image) {
-      console.log(`No gallery found for hotel: ${hotelName}`);
+      console.log('❌ getHotelGallery: No data found for hotel:', hotelName);
       return [];
     }
 
+    console.log('✅ getHotelGallery: Found data for hotel:', hotelName, 'Image string length:', data.hotel_image?.length);
+
     // Parse the Python-style string array and extract URLs
     try {
+      console.log('🔍 getHotelGallery: Starting to parse image string');
       // The data is stored as a Python-style string, not JSON
       // Remove the outer quotes and split by ', ' to get individual URLs
       const imageString = data.hotel_image;
+      console.log('🔍 getHotelGallery: Raw image string:', imageString.substring(0, 100) + '...');
       
       // Remove the outer brackets and quotes
       const cleanString = imageString.slice(2, -2); // Remove "['" and "']"
+      console.log('🔍 getHotelGallery: Cleaned string length:', cleanString.length);
       
-      // Split by "', '" to get individual URLs
-      const imageUrls = cleanString.split("', '");
+      // Try different splitting strategies to handle both formats
+      let imageUrls: string[] = [];
       
-      // Clean up each URL (remove any remaining quotes)
-      const cleanedUrls = imageUrls.map((url: string) => url.replace(/['"]/g, ''));
+      // First try the current format: ", "
+      imageUrls = cleanString.split(", ");
+      console.log('🔍 getHotelGallery: Split by ", " - count:', imageUrls.length);
+      
+      // If only 1 URL found, try the original expected format: "', '"
+      if (imageUrls.length <= 1) {
+        imageUrls = cleanString.split("', '");
+        console.log('🔍 getHotelGallery: Split by "', '" - count:', imageUrls.length);
+      }
+      
+      // Clean up each URL (remove any remaining quotes and trim whitespace)
+      const cleanedUrls = imageUrls.map((url: string) => url.replace(/['"]/g, '').trim());
+      console.log('🔍 getHotelGallery: Final cleaned URLs count:', cleanedUrls.length);
+      console.log('🔍 getHotelGallery: First URL:', cleanedUrls[0]);
       
       return cleanedUrls;
     } catch (parseError) {
@@ -313,39 +336,7 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
   }
 };
 
-// Debug function to test hotel gallery fetching
-export const debugHotelGallery = async (hotelName: string) => {
-  console.log('=== DEBUG: Hotel Gallery Fetching ===');
-  console.log('Input hotel name:', hotelName);
-  
-  try {
-    // Get all gallery entries
-    const { data: allGalleryData, error: allError } = await supabase
-      .from('hotelgallery')
-      .select('hotel_name, hotel_image');
-    
-    if (allError) {
-      console.error('Error fetching all gallery data:', allError);
-      return;
-    }
-    
-    console.log('All hotel names in gallery:', allGalleryData?.map(item => item.hotel_name));
-    
-    // Try to find a match
-    const match = allGalleryData?.find(gallery => 
-      gallery.hotel_name.toLowerCase() === hotelName.toLowerCase()
-    );
-    
-    if (match) {
-      console.log('Found exact match:', match.hotel_name);
-    } else {
-      console.log('No exact match found');
-    }
-    
-  } catch (error) {
-    console.error('Debug error:', error);
-  }
-};
+
 
 // Dummy data for cruises and private jets
 export const dummyCruiseBrands = [

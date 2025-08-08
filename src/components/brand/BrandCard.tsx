@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { getHotelGallery, getBrandByName, debugHotelGallery } from "@/lib/database";
+import { getHotelGallery, getBrandByName } from "@/lib/database";
 
 interface BrandCardProps {
   name: string;
@@ -37,13 +37,10 @@ export default function BrandCard({ name, location, logo, description, brand }: 
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        // Debug: Log what we're trying to fetch
-        console.log('BrandCard: Attempting to fetch gallery for hotel:', name);
-        await debugHotelGallery(name);
-        
+        console.log('🎯 BrandCard: Fetching gallery for hotel name:', name);
         // Fetch gallery images
         const images = await getHotelGallery(name);
-        console.log('BrandCard: Gallery images fetched:', images.length);
+        console.log('🎯 BrandCard: Gallery images received:', images.length, 'images');
         setGalleryImages(images);
         
         // Reset image loading states when we get new images
@@ -78,17 +75,14 @@ export default function BrandCard({ name, location, logo, description, brand }: 
   // Get images 2, 3, 4 from the gallery array (with fallbacks)
   const getImageUrl = (index: number, fallbackUrl: string) => {
     const imageUrl = galleryImages[index] || fallbackUrl;
-    console.log(`BrandCard: Image ${index} URL:`, imageUrl);
     return imageUrl;
   };
 
   const handleImageLoad = (imageType: 'top' | 'bottomLeft' | 'bottomRight') => {
-    console.log(`BrandCard: Image loaded successfully for ${imageType}`);
     setImageLoading(prev => ({ ...prev, [imageType]: false }));
   };
 
   const handleImageError = (imageType: 'top' | 'bottomLeft' | 'bottomRight') => {
-    console.log(`BrandCard: Image failed to load for ${imageType}`);
     setImageLoading(prev => ({ ...prev, [imageType]: false }));
     setImageError(prev => ({ ...prev, [imageType]: true }));
   };
