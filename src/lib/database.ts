@@ -306,6 +306,7 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
       // Remove the outer brackets and quotes
       const cleanString = imageString.slice(2, -2); // Remove "['" and "']"
       console.log('🔍 getHotelGallery: Cleaned string length:', cleanString.length);
+      console.log('🔍 getHotelGallery: Cleaned string preview:', cleanString.substring(0, 200));
       
       // Try different splitting strategies to handle both formats
       let imageUrls: string[] = [];
@@ -320,8 +321,23 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
         console.log('🔍 getHotelGallery: Split by "', '" - count:', imageUrls.length);
       }
       
+      // If still only 1 URL, try splitting by just comma
+      if (imageUrls.length <= 1) {
+        imageUrls = cleanString.split(",");
+        console.log('🔍 getHotelGallery: Split by "," - count:', imageUrls.length);
+      }
+      
+      // If still only 1 URL, try a more aggressive approach - split by "https://"
+      if (imageUrls.length <= 1) {
+        const httpsParts = cleanString.split("https://");
+        if (httpsParts.length > 1) {
+          imageUrls = httpsParts.slice(1).map((part: string) => "https://" + part);
+          console.log('🔍 getHotelGallery: Split by "https://" - count:', imageUrls.length);
+        }
+      }
+      
       // Clean up each URL (remove any remaining quotes and trim whitespace)
-      const cleanedUrls = imageUrls.map((url: string) => url.replace(/['"]/g, '').trim());
+      const cleanedUrls = imageUrls.map((url: string) => url.replace(/['"]/g, '').trim()).filter(url => url.length > 0);
       console.log('🔍 getHotelGallery: Final cleaned URLs count:', cleanedUrls.length);
       console.log('🔍 getHotelGallery: First URL:', cleanedUrls[0]);
       
