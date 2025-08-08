@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Hotel } from "@/lib/database";
 import { getHotelsWithFiltersAndGallery, getHotelGallery } from "@/lib/database";
+import Link from "next/link";
 
 interface OtherAmanHotelsProps {
   hotel: Hotel;
@@ -105,7 +106,8 @@ export default function OtherAmanHotels({ hotel }: OtherAmanHotelsProps) {
         ) : otherHotels.length > 0 ? (
           // Show actual hotels
           otherHotels.map((hotelData, i) => (
-            <div key={i} className="relative group overflow-hidden rounded-none shadow-lg h-[320px] flex items-end justify-center">
+            <div key={i} className="cursor-pointer relative group overflow-hidden rounded-none shadow-lg h-[320px] flex items-end justify-center">
+              <Link href={`/product/${hotelData.hotel_name}`}>
               <img 
                 src={hotelData.image} 
                 alt={hotelData.hotel_name} 
@@ -117,6 +119,7 @@ export default function OtherAmanHotels({ hotel }: OtherAmanHotelsProps) {
                 <h3 className="text-white text-2xl font-arpona font-normal mb-1 drop-shadow-lg">{hotelData.hotel_name}</h3>
                 <p className="text-white text-sm font-inter opacity-90">{hotelData.city}, {hotelData.country}</p>
               </div>
+              </Link>
             </div>
           ))
         ) : (
