@@ -47,9 +47,6 @@ const ProductHero = async ({ hotel }: ProductHeroProps) => {
           {/* Buttons - Responsive layout */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-8 px-4">
             <button className="w-full sm:w-auto border border-white text-white font-inter font-bold px-6 sm:px-8 py-3 sm:py-4 bg-transparent hover:bg-white hover:text-gray-900 transition-all duration-300 text-xs sm:text-sm flex items-center justify-center gap-2 tracking-widest rounded-none">
-              BOOK THIS HOTEL <span className="ml-2">→</span>
-            </button>
-            <button className="w-full sm:w-auto border border-white text-white font-inter font-bold px-6 sm:px-8 py-3 sm:py-4 bg-transparent hover:bg-white hover:text-gray-900 transition-all duration-300 text-xs sm:text-sm flex items-center justify-center gap-2 tracking-widest rounded-none">
               ADD TO MY JOURNEY <span className="ml-2">→</span>
             </button>
           </div>
