@@ -36,7 +36,7 @@ export default function Hero({ data }: HeroProps) {
       </div>
       <div className="relative p-4 md:p-6 lg:p-8">
         <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl italic mb-2 md:mb-3 lg:mb-4 font-bellarina">{heroData.tagline}</p>
-        <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight font-arpona">
+        <h1 className="text-3xl md:w-3/5 mx-auto md:text-4xl lg:text-5xl xl:text-6xl leading-tight font-arpona">
           {heroData.mainHeading.split('\n').map((line, index) => (
             <span key={index}>
               {line}

@@ -85,10 +85,9 @@ export default function Voyages({ data }: VoyagesProps) {
   const currentVoyage = sectionData.voyages[currentIndex]
 
   return (
-    <section className="py-12 lg:py-24 overflow-hidden">
-      <div className="container mx-auto px-4 lg:px-0">
-        <div className="relative flex flex-col lg:flex-row items-center lg:justify-start min-h-[400px] lg:min-h-[650px]">
-          
+    <section className="overflow-hidden">
+      <div className="container mx-auto px-4 lg:px-0 ">
+        <div className="relative flex flex-col lg:flex-row items-center lg:justify-start min-h-[400px] lg:min-h-[850px]">
           {/* Image Section */}
           <div className="w-full lg:w-3/6 h-full z-10 lg:ml-20 order-2 lg:order-1">
             <div className="relative overflow-hidden shadow-2xl">
@@ -142,7 +141,7 @@ export default function Voyages({ data }: VoyagesProps) {
           </div>
 
           {/* Content Section */}
-          <div className="bg-gray-100 w-full lg:w-6/8 mt-6 lg:mt-0 lg:absolute lg:right-0 p-6 lg:p-12 order-1 lg:order-2">
+          <div className="bg-gray-100 w-full h-full lg:w-6/8 mt-6 lg:mt-0 lg:absolute lg:right-0 p-6 lg:p-12 order-1 lg:order-2">
             <div
               className={`transition-all duration-700 ease-in-out  ${
                 isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
