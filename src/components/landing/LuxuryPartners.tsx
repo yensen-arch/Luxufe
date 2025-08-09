@@ -1,7 +1,8 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { getBrands, Brand } from '@/lib/database';
 
 interface Partner {
   name: string;
@@ -52,21 +53,45 @@ const defaultPartnersData = {
 type Tab = keyof typeof defaultPartnersData;
 
 export default function LuxuryPartners({ data }: LuxuryPartnersProps) {
+  const [activeTab, setActiveTab] = useState<Tab>('HOTEL PARTNERS');
+  const [hotelBrands, setHotelBrands] = useState<Brand[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  // Fetch hotel brands from database
+  useEffect(() => {
+    const fetchHotelBrands = async () => {
+      try {
+        setLoading(true);
+        const brands = await getBrands();
+        // Get first 10 brands that have logos
+        const brandsWithLogos = brands.filter(brand => brand.logo).slice(0, 10);
+        setHotelBrands(brandsWithLogos);
+      } catch (error) {
+        console.error('Error fetching hotel brands:', error);
+        // Fallback to empty array if fetch fails
+        setHotelBrands([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHotelBrands();
+  }, []);
+
   // Fallback to hardcoded content if no data is provided
   const sectionData = data || {
     heading: "Our trusted, luxury partners",
     description: "Excellence elevated",
-    partners: defaultPartnersData['HOTEL PARTNERS'].map(partner => ({
-      name: partner.name,
+    partners: hotelBrands.map(brand => ({
+      name: brand.name,
       logo: {
-        url: partner.logoUrl,
-        alt: partner.name
+        url: brand.logo || '',
+        alt: brand.name
       },
-      description: ""
+      description: brand.description || ""
     }))
   };
 
-  const [activeTab, setActiveTab] = useState<Tab>('HOTEL PARTNERS');
   const tabs = Object.keys(defaultPartnersData) as Tab[];
 
   return (
@@ -93,11 +118,38 @@ export default function LuxuryPartners({ data }: LuxuryPartnersProps) {
         </div>
 
         <div className="w-full sm:w-5/6 lg:w-3/4 mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-y-8 sm:gap-y-12 lg:gap-y-24 items-center justify-items-center">
-          {defaultPartnersData[activeTab].map(partner => (
-            <div key={partner.name} className="my-1 sm:my-2 h-12 sm:h-14 lg:h-16 flex items-center justify-center px-2 sm:px-4">
-               <img src={partner.logoUrl} alt={partner.name} className="max-h-full max-w-full h-auto w-auto opacity-600 transition-all duration-900" />
-            </div>
-          ))}
+          {activeTab === 'HOTEL PARTNERS' ? (
+            loading ? (
+              // Loading skeleton for hotel partners
+              Array.from({ length: 10 }).map((_, index) => (
+                <div key={`skeleton-${index}`} className="my-1 sm:my-2 h-12 sm:h-14 lg:h-16 flex items-center justify-center px-2 sm:px-4">
+                  <div className="max-h-full max-w-full h-auto w-auto bg-gray-200 animate-pulse rounded" style={{ width: '80px', height: '40px' }} />
+                </div>
+              ))
+            ) : (
+              // Real hotel brand logos from database
+              hotelBrands.map(brand => (
+                <div key={brand.id} className="my-1 sm:my-2 h-12 sm:h-14 lg:h-16 flex items-center justify-center px-2 sm:px-4">
+                  <img 
+                    src={brand.logo} 
+                    alt={brand.name} 
+                    className="max-h-full max-w-full h-auto w-auto opacity-600 transition-all duration-900"
+                    onError={(e) => {
+                      // Fallback to a placeholder or hide the image if it fails to load
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                </div>
+              ))
+            )
+          ) : (
+            // Use hardcoded data for cruises and jets
+            defaultPartnersData[activeTab].map(partner => (
+              <div key={partner.name} className="my-1 sm:my-2 h-12 sm:h-14 lg:h-16 flex items-center justify-center px-2 sm:px-4">
+                <img src={partner.logoUrl} alt={partner.name} className="max-h-full max-w-full h-auto w-auto opacity-600 transition-all duration-900" />
+              </div>
+            ))
+          )}
         </div>
         
         <div className="text-center mt-12 sm:mt-16 lg:mt-20">
