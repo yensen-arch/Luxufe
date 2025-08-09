@@ -1,4 +1,6 @@
 import React from 'react';
+import Link from 'next/link';
+import { brandNameToSlug } from '@/lib/utils';
 
 const hotels = [
   'The Ritz-Carlton', 'Four Seasons Hotels and Resorts', 'St. Regis', 'Mandarin Oriental', 'Aman Resorts', 'The Red Carnation Hotel Collection', 'Waldorf Astoria',
@@ -30,9 +32,19 @@ const PartnersSection: React.FC = () => (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-4 sm:gap-x-6 lg:gap-x-10 gap-y-4">
         {hotelColumns.map((col, i) => (
           <ul key={i} className={`space-y-2 sm:space-y-3 ${i >= 3 ? 'hidden lg:block' : ''}`}>
-            {col.map((hotel) => (
-              <li key={hotel} className="text-xs font-inter text-gray-500 hover:text-gray-900 transition-colors duration-200 cursor-pointer break-words">{hotel}</li>
-            ))}
+            {col.map((hotel) => {
+              const hotelSlug = brandNameToSlug(hotel);
+              return (
+                <li key={hotel} className="break-words">
+                  <Link 
+                    href={`/brand/${hotelSlug}`}
+                    className="text-xs font-inter text-gray-500 hover:text-gray-900 transition-colors duration-200 cursor-pointer block"
+                  >
+                    {hotel}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         ))}
       </div>
