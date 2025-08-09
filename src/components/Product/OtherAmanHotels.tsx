@@ -27,6 +27,67 @@ function StarRow() {
   );
 }
 
+// Convert brand name to slug format
+function brandNameToSlug(brandName: string): string {
+  const nameToSlugMap: { [key: string]: string } = {
+    'Aman': 'aman',
+    'Anantara': 'anantara',
+    'Auberge Resorts': 'auberge-resorts',
+    'Banyan Tree Hotels': 'banyan-tree-hotels',
+    '&Beyond': 'andbeyond',
+    'COMO Hotel and Resorts': 'como-hotel-and-resorts',
+    'Fairmont Hotels': 'fairmont-hotels',
+    'Four Seasons': 'four-seasons',
+    'Kempinski Hotels': 'kempinski-hotels',
+    'Marriott': 'marriott',
+    'Mandarin Oriental': 'mandarin-oriental',
+    'Oberoi Hotels': 'oberoi-hotels',
+    'Raffles Hotels & Resorts': 'raffles-hotels-and-resorts',
+    'Relais and Chateau': 'relais-and-chateau',
+    'Ritz Carlton': 'ritz-carlton',
+    'Rosewood': 'rosewood',
+    'Shangri La Hotels': 'shangri-la-hotels',
+    'Singita Hotels': 'singita-hotels',
+    'Six Senses Hotels': 'six-senses-hotels',
+    'Sofitel': 'sofitel',
+    'Soneva': 'soneva',
+    'Saint Regis Hotels': 'saint-regis-hotels',
+    'Taj Hotels': 'taj-hotels',
+    'Waldorf Astoria': 'waldorf-astoria',
+    'Belmond': 'belmond',
+    'The Ritz-Carlton': 'the-ritz-carlton',
+    'St. Regis': 'st-regis',
+    'The Red Carnation Hotel Collection': 'the-red-carnation-hotel-collection',
+    'Waldorf Astoria Hotels & Resorts': 'waldorf-astoria-hotels-and-resorts',
+    'Jumeirah Hotels & Resorts': 'jumeirah-hotels-and-resorts',
+    'Sofitel Luxury Hotels': 'sofitel-luxury-hotels',
+    'The Langham Hotels and Resorts': 'the-langham-hotels-and-resorts',
+    'Kimpton Hotels': 'kimpton-hotels',
+    'InterContinental Hotels & Resorts': 'intercontinental-hotels-and-resorts',
+    'Hyatt Regency': 'hyatt-regency',
+    'The Luxury Collection': 'the-luxury-collection',
+    'Occidental Hotels & Resorts': 'occidental-hotels-and-resorts',
+    'Fairmont Hotels & Resorts': 'fairmont-hotels-and-resorts',
+    'Banyan Tree Hotels & Resorts': 'banyan-tree-hotels-and-resorts',
+    'Casa Tua Hotel': 'casa-tua-hotel',
+    'Shangri-La Hotels and Resorts': 'shangri-la-hotels-and-resorts',
+    'Bvlgari Hotels & Resorts': 'bvlgari-hotels-and-resorts',
+    'Park Hyatt': 'park-hyatt',
+    'Le Meridien': 'le-meridien',
+    'The Leading Hotels of the World': 'the-leading-hotels-of-the-world',
+    'SLS Hotels': 'sls-hotels',
+    'Six Senses Hotels Resorts Spas': 'six-senses-hotels-resorts-spas',
+    'Ritz Paris': 'ritz-paris',
+    'The Savoy': 'the-savoy',
+    'COMO Hotels and Resorts': 'como-hotels-and-resorts',
+    'Capella Hotels and Resorts': 'capella-hotels-and-resorts',
+    'Thompson Hotels': 'thompson-hotels',
+    'Ace Hotel': 'ace-hotel',
+    'The NoMad Hotel': 'the-nomad-hotel'
+  }
+  return nameToSlugMap[brandName] || brandName.toLowerCase().replace(/\s+/g, '-')
+}
+
 export default function OtherAmanHotels({ hotel }: OtherAmanHotelsProps) {
   const [otherHotels, setOtherHotels] = useState<OtherHotel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -143,9 +204,13 @@ export default function OtherAmanHotels({ hotel }: OtherAmanHotelsProps) {
       </div>
       
       {/* Button */}
-      <button className="mt-4 px-12 py-5 border-2 border-gray-300 font-inter font-bold text-[#23263a] text-base flex items-center justify-center gap-2 tracking-widest hover:bg-gray-100 transition-all" style={{ minWidth: 320 }}>
+      <Link 
+        href={`/brand/${brandNameToSlug(hotel.brand)}`}
+        className="mt-4 px-12 py-5 cursor-pointer border-2 border-gray-300 font-inter font-bold text-[#23263a] text-base flex items-center justify-center gap-2 tracking-widest hover:bg-gray-100 transition-all" 
+        style={{ minWidth: 320 }}
+      >
         EXPLORE ALL {hotel.brand.toUpperCase()} HOTELS <span className="ml-2">→</span>
-      </button>
+      </Link>
     </section>
   );
 } 
