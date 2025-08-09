@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 import { getBrands, Brand } from '@/lib/database';
 
 interface Partner {
@@ -153,10 +154,12 @@ export default function LuxuryPartners({ data }: LuxuryPartnersProps) {
         </div>
         
         <div className="text-center mt-12 sm:mt-16 lg:mt-20">
-          <button className="group flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-inter font-bold tracking-widest border border-gray-400 px-4 sm:px-6 py-2 sm:py-3 hover:bg-gray-800 hover:text-white transition-colors mx-auto">
-            ELITE PARTNERS
-            <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
-          </button>
+          <Link href="/partners"> 
+            <button className="group cursor-pointer flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-inter font-bold tracking-widest border border-gray-400 px-4 sm:px-6 py-2 sm:py-3 hover:bg-gray-800 hover:text-white transition-colors mx-auto">
+              ELITE PARTNERS
+              <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
+            </button>
+          </Link>
         </div>
       </div>
     </section>

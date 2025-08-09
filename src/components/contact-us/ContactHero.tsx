@@ -114,7 +114,7 @@ export default function ContactHero({ data }: ContactHeroProps) {
 
   return (
     <>
-      <section className="relative w-full h-[70vh] md:h-[90vh] min-h-[500px] md:min-h-[600px] mb-0 flex items-center justify-center">
+      <section className="relative w-full h-screen mb-0 flex items-center justify-center">
         {/* Background image */}
         <img
           src={displayBackgroundImage}
