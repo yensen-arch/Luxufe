@@ -1,5 +1,4 @@
 import React from 'react';
-import { X } from 'lucide-react';
 
 const hotels = [
   'The Ritz-Carlton', 'Four Seasons Hotels and Resorts', 'St. Regis', 'Mandarin Oriental', 'Aman Resorts', 'The Red Carnation Hotel Collection', 'Waldorf Astoria',

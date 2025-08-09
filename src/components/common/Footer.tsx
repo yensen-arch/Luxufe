@@ -2,6 +2,7 @@ import { ArrowRight, Facebook, Instagram, Twitter } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { brandNameToSlug } from '@/lib/utils';
 
 const galleryImages = [
     'https://picsum.photos/seed/footer1/400/300',
@@ -44,13 +45,23 @@ const megaLinks = {
     Jets: ['NetJets', 'Flexjet', 'Sentient Jet', 'Wheels Up', 'VistaJet', 'PrivateFly', 'Skyjet'],
 };
 
-const brands = [
+// Hotel brands that should have links to brand pages
+const hotelBrands = [
     'The Ritz-Carlton', 'Four Seasons Hotels and Resorts', 'St. Regis', 'Mandarin Oriental', 'Aman Resorts', 'The Red Carnation Hotel Collection', 'Waldorf Astoria',
     'Rosewood Hotels & Resorts', 'Belmond', 'Waldorf Astoria Hotels & Resorts', 'Jumeirah Hotels & Resorts', 'Sofitel Luxury Hotels', 'The Langham Hotels and Resorts', 'Kimpton Hotels',
     'InterContinental Hotels & Resorts', 'Hyatt Regency', 'The Luxury Collection', 'Occidental Hotels & Resorts', 'Fairmont Hotels & Resorts', 'Banyan Tree Hotels & Resorts', 'Casa Tua Hotel',
     'Shangri-La Hotels and Resorts', 'Bvlgari Hotels & Resorts', 'Park Hyatt', 'Le Meridien', 'The Leading Hotels of the World', 'SLS Hotels', 'Six Senses Hotels Resorts Spas',
     'Ritz Paris', 'The Savoy', 'COMO Hotels and Resorts', 'Capella Hotels and Resorts', 'Thompson Hotels', 'Ace Hotel', 'The NoMad Hotel',
 ];
+
+// Non-hotel brands (cruises, airlines, etc.) that should not have links
+const otherBrands = [
+    'Emirates', 'Singapore Airlines', 'Qatar Airways', 'British Airways', 'Lufthansa', 'Cathay Pacific', 'Etihad Airways',
+    'NetJets', 'Flexjet', 'Sentient Jet', 'Wheels Up', 'VistaJet', 'PrivateFly', 'Skyjet',
+    'Silversea Cruises', 'Regent Seven Seas', 'Crystal Cruises', 'Seabourn'
+];
+
+const brands = [...hotelBrands, ...otherBrands];
 
 export default function Footer() {
     return (
@@ -121,9 +132,33 @@ export default function Footer() {
                     </div>
                      <h3 className="font-bold text-lg sm:text-xl mb-4 sm:mb-6">Brands & Partners</h3>
                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-y-1 sm:gap-y-2 text-xs sm:text-sm">
-                        {brands.map(brand => (
-                             <Link key={brand} href='#' className="text-gray-400 hover:text-white transition-colors font-inter font-bold">{brand}</Link>
-                        ))}
+                        {brands.map(brand => {
+                            // Check if this is a hotel brand that should have a link
+                            const isHotelBrand = hotelBrands.includes(brand);
+                            
+                            if (isHotelBrand) {
+                                const brandSlug = brandNameToSlug(brand);
+                                return (
+                                    <Link 
+                                        key={brand} 
+                                        href={`/brand/${brandSlug}`} 
+                                        className="text-gray-400 hover:text-white transition-colors font-inter font-bold"
+                                    >
+                                        {brand}
+                                    </Link>
+                                );
+                            } else {
+                                // Non-hotel brands (cruises, airlines, jets) - no link
+                                return (
+                                    <span 
+                                        key={brand} 
+                                        className="text-gray-400 font-inter font-bold"
+                                    >
+                                        {brand}
+                                    </span>
+                                );
+                            }
+                        })}
                      </div>
                 </div>
 

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { getBrands, Brand } from '@/lib/database';
+import { brandNameToSlug } from '@/lib/utils';
 
 interface Partner {
   name: string;
@@ -129,19 +130,24 @@ export default function LuxuryPartners({ data }: LuxuryPartnersProps) {
               ))
             ) : (
               // Real hotel brand logos from database
-              hotelBrands.map(brand => (
-                <div key={brand.id} className="my-1 sm:my-2 h-12 sm:h-14 lg:h-16 flex items-center justify-center px-2 sm:px-4">
-                  <img 
-                    src={brand.logo} 
-                    alt={brand.name} 
-                    className="max-h-full max-w-full h-auto w-auto opacity-600 transition-all duration-900"
-                    onError={(e) => {
-                      // Fallback to a placeholder or hide the image if it fails to load
-                      e.currentTarget.style.display = 'none';
-                    }}
-                  />
-                </div>
-              ))
+              hotelBrands.map(brand => {
+                const brandSlug = brandNameToSlug(brand.name);
+                return (
+                  <div key={brand.id} className="my-1 sm:my-2 h-12 sm:h-14 lg:h-16 flex items-center justify-center px-2 sm:px-4">
+                    <Link href={`/brand/${brandSlug}`} className="block w-full h-full flex items-center justify-center">
+                      <img 
+                        src={brand.logo} 
+                        alt={brand.name} 
+                        className="max-h-full max-w-full h-auto w-auto opacity-600 hover:opacity-800 transition-all duration-300 cursor-pointer"
+                        onError={(e) => {
+                          // Fallback to a placeholder or hide the image if it fails to load
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
+                    </Link>
+                  </div>
+                );
+              })
             )
           ) : (
             // Use hardcoded data for cruises and jets
