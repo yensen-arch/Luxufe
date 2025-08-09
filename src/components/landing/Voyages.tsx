@@ -102,17 +102,17 @@ export default function Voyages({ data }: VoyagesProps) {
           </div>
 
           {/* Navigation Arrows */}
-          <div className="absolute left-15 top-1/2 -translate-y-1/2 flex flex-col gap-8 z-10 hidden lg:flex">
+          <div className="absolute left-15 top-1/2 -translate-y-1/2 flex flex-col gap-8 z-20 hidden lg:flex">
             <button
               onClick={goToPrevious}
-              className="bg-white rounded-full p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+              className="bg-white rounded-full p-7 cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
               disabled={isTransitioning}
             >
               <ArrowLeft className="h-5 w-5 text-gray-700 transition-transform group-hover:-translate-x-0.5" />
             </button>
             <button
               onClick={goToNext}
-              className="bg-white rounded-full p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+              className="bg-white rounded-full p-7 cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
               disabled={isTransitioning}
             >
               <ArrowRight className="h-5 w-5 text-gray-700 transition-transform group-hover:translate-x-0.5" />
@@ -147,19 +147,19 @@ export default function Voyages({ data }: VoyagesProps) {
                 isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
               }`}
             >
-              <div className="w-full lg:w-1/2 lg:ml-auto">
+              <div className="w-full lg:w-1/2 lg:ml-auto mt-20">
                 {/* Icon - Hidden on mobile for cleaner look */}
                 <div className="hidden lg:inline-flex items-center justify-center w-16 h-16 border border-gray-300 rounded-full mb-8">
                   <Anchor className="h-7 w-7 text-gray-600" />
                 </div>
 
-                <h2 className="text-2xl lg:text-4xl xl:text-5xl font-light leading-tight mb-4 lg:mb-8 text-gray-900 font-arpona lg:ml-auto">
+                <h2 className="text-2xl lg:text-3xl xl:text-4xl font-light leading-tight mb-4 lg:mb-8 text-gray-900 font-arpona lg:ml-auto">
                   {currentVoyage.titlePart1}
                   <br />
                   unparalleled <span className="italic font-serif text-3xl lg:text-6xl xl:text-7xl font-bellarina ">{currentVoyage.titlePart2}</span>
                 </h2>
 
-                <p className="text-base lg:text-lg leading-relaxed mb-6 lg:mb-10 max-w-full lg:max-w-lg font-inter font-bold">{currentVoyage.description}</p>
+                <p className="text-base lg:text-md leading-relaxed mb-6 lg:mb-10 max-w-full lg:max-w-md font-inter font-bold">{currentVoyage.description}</p>
 
                 <button className="group inline-flex items-center gap-3 text-xs lg:text-sm font-semibold tracking-widest border border-gray-400 px-6 lg:px-8 py-3 lg:py-4 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 font-inter font-bold">
                   {currentVoyage.buttonText}
