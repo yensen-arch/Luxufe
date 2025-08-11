@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Trophy, Heart, Mail, Instagram, Facebook, Globe, ChevronDown } from 'lucide-react';
+import { Trophy, Heart, Mail, Instagram, Facebook, Globe, ChevronDown } from 'lucide-react';
 import ExploreBySection from './expandedNavbarSections/ExploreBySection';
 import ExperiencesSection from './expandedNavbarSections/ExperiencesSection';
 import AboutUsSection from './expandedNavbarSections/AboutUsSection';
@@ -134,7 +134,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
                   onClick={() => setSelected(item.label)}
                 >
                   {item.label}
-                  {selected === item.label && <ArrowRight className="ml-2 w-4 h-4 lg:w-6 lg:h-6 flex-shrink-0" />}
+                  {selected === item.label && <img src="/luxufe-icon-simple-arrow-dark.svg" alt="Arrow right" className="ml-2 w-4 h-4 lg:w-4 lg:h-4 flex-shrink-0" />}
                 </li>
               ))}
             </ul>
