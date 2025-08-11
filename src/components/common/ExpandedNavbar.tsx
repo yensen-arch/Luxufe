@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Trophy, Heart, Mail, Instagram, Facebook, Globe, ChevronDown } from 'lucide-react';
+import { Heart, Mail, Instagram, Facebook, Globe, ChevronDown } from 'lucide-react';
 import ExploreBySection from './expandedNavbarSections/ExploreBySection';
 import ExperiencesSection from './expandedNavbarSections/ExperiencesSection';
 import AboutUsSection from './expandedNavbarSections/AboutUsSection';
@@ -24,16 +24,16 @@ const navItems = [
 ];
 
 const quickLinks = [
-  { icon: <Trophy className="w-4 h-4 mr-2" />, label: 'Become a member', href: '/eleve' },
-  { icon: <Heart className="w-4 h-4 mr-2" />, label: 'Offers & Promotions', href: '/offers' },
-  { icon: <Mail className="w-4 h-4 mr-2" />, label: 'Subscribe for news', href: '/newsletter' },
+  { icon: <img src="/luxufe-icon-metro-trophy.svg" alt="Trophy" className="w-4 h-4 mr-2" />, label: 'Become a member', href: '/eleve' },
+  { icon: <img src="/luxufe-icon-ionic-ios-heart.svg" alt="Heart" className="w-4 h-4 mr-2" />, label: 'Offers & Promotions', href: '/offers' },
+  { icon: <img src="/luxufe-icon-ionic-md-mail.svg" alt="Mail" className="w-4 h-4 mr-2" />, label: 'Subscribe for news', href: '/newsletter' },
 ];
 
 const socials = [
-  { icon: <Instagram className="w-5 h-5" />, href: '#' },
-  { icon: <Facebook className="w-5 h-5" />, href: '#' },
-  { icon: <Globe className="w-5 h-5" />, href: '#' },
-  { icon: <Globe className="w-5 h-5" />, href: '#' }, // Google icon - using Globe as placeholder
+  { icon: <img src="/Icon simple-instagram.svg" alt="Instagram" className="w-5 h-5" />, href: '#' },
+  { icon: <img src="/Icon awesome-facebook-f.svg" alt="Facebook" className="w-5 h-5" />, href: '#' },
+  { icon: <img src="/Icon awesome-tripadvisor.svg" alt="Tripadvisor" className="w-5 h-5" />, href: '#' },
+  { icon: <img src="/Icon ionic-logo-google.svg" alt="Google" className="w-5 h-5" />, href: '#' }, // Google icon - using Globe as placeholder
 ];
 
 const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
