@@ -70,7 +70,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
         </div>
 
         {/* Left nav */}
-        <div className="w-full lg:w-1/4 flex flex-col justify-between py-6 lg:py-0 lg:mb-8 lg:mt-12 px-4 sm:px-6 lg:px-10 bg-white border-b-2 lg:border-b-0 lg:border-r-2 border-gray-200 min-h-0 lg:min-h-full">
+        <div className="w-full lg:w-1/4 flex flex-col justify-between py-6 lg:py-0 lg:mb-8 lg:mt-12 px-4 sm:px-6 lg:px-10 bg-white border-b-2 lg:border-b-0 lg:border-r-2 border-gray-200 min-h-0 ">
           {/* Mobile Navigation Toggle */}
           <div className="lg:hidden mb-6">
             <button
@@ -110,7 +110,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
               {navItems.map((item) => (
                 <li
                   key={item.label}
-                  className={`text-lg sm:text-xl lg:text-3xl font-arpona font-bold transition-colors duration-200 flex items-center justify-between cursor-pointer ${selected === item.label ? 'text-gray-900' : 'text-gray-300'}`}
+                  className={`text-lg sm:text-xl lg:text-3xl font-arpona font-bold transition-colors duration-200 flex items-center justify-between cursor-pointer ${selected === item.label ? 'text-gray-900' : 'text-gray-400'}`}
                   onClick={() => setSelected(item.label)}
                 >
                   {item.label}
