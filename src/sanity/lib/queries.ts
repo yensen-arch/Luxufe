@@ -111,15 +111,14 @@ export const landingPageQuery = groq`
       perks[] {
         icon,
         title,
-        content
+        description,
+        image {
+          "url": asset->url,
+          "metadata": asset->metadata,
+          alt
+        }
       },
-      ctaText,
-      ctaLink,
-      backgroundImage {
-        "url": asset->url,
-        "metadata": asset->metadata,
-        alt
-      }
+      ctaText
     },
     exclusiveOffers {
       heading,
@@ -144,12 +143,8 @@ export const landingPageQuery = groq`
         excerpt,
         slug,
         image {
-          asset->{
-            url,
-            metadata {
-              dimensions
-            }
-          },
+          "url": asset->url,
+          "metadata": asset->metadata,
           alt
         }
       }
