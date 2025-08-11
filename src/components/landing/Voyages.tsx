@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowLeft, ArrowRight, Anchor } from "lucide-react"
 
 interface Voyage {
   titlePart1: string;
@@ -108,14 +107,14 @@ export default function Voyages({ data }: VoyagesProps) {
               className="bg-white rounded-full p-7 cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
               disabled={isTransitioning}
             >
-              <ArrowLeft className="h-5 w-5 text-gray-700 transition-transform group-hover:-translate-x-0.5" />
+              <img src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" className="h-8 w-8 text-gray-700 transition-transform group-hover:-translate-x-0.5" />
             </button>
             <button
               onClick={goToNext}
               className="bg-white rounded-full p-7 cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
               disabled={isTransitioning}
             >
-              <ArrowRight className="h-5 w-5 text-gray-700 transition-transform group-hover:translate-x-0.5" />
+              <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-8 w-8 text-gray-700 transition-transform group-hover:translate-x-0.5" />
             </button>
           </div>
 
@@ -149,8 +148,8 @@ export default function Voyages({ data }: VoyagesProps) {
             >
               <div className="w-full lg:w-1/2 lg:ml-auto mt-20">
                 {/* Icon - Hidden on mobile for cleaner look */}
-                <div className="hidden lg:inline-flex items-center justify-center w-16 h-16 border border-gray-300 rounded-full mb-8">
-                  <Anchor className="h-7 w-7 text-gray-600" />
+                <div className="hidden lg:inline-flex items-center justify-center w-20 h-20 border border-gray-300 rounded-full mb-8">
+                  <img src="/luxufe-travel-style-cruises.svg" alt="Boat" className="h-10 w-10 text-gray-600" />
                 </div>
 
                 <h2 className="text-2xl lg:text-3xl xl:text-4xl font-light leading-tight mb-4 lg:mb-8 text-gray-900 font-arpona lg:ml-auto">
@@ -163,7 +162,7 @@ export default function Voyages({ data }: VoyagesProps) {
 
                 <button className="group inline-flex items-center gap-3 text-xs lg:text-sm font-semibold tracking-widest border border-gray-400 px-6 lg:px-8 py-3 lg:py-4 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 font-inter font-bold">
                   {currentVoyage.buttonText}
-                  <ArrowRight className="h-3 w-3 lg:h-4 lg:w-4 transition-transform group-hover:translate-x-1" />
+                  <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-3 w-3 lg:h-4 lg:w-4 transition-transform group-hover:translate-x-1" />
                 </button>
               </div>
             </div>

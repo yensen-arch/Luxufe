@@ -195,8 +195,8 @@ export default function CuratedForYou({ data }: CuratedForYouProps) {
 
       <div className="text-center mt-8 md:mt-12 lg:mt-16 flex flex-col md:flex-row justify-center gap-3 md:gap-4 px-4">
         {sectionData.ctaButtons.map((button, index) => (
-          <button key={index} className="border border-gray-800 text-gray-800 px-4 md:px-6 py-2 md:py-3 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-sm md:text-base">
-            {button.text} <ArrowRight className="h-3 w-3 md:h-4 md:w-4" />
+          <button key={index} className="border-2 border-gray-300 text-gray-800 px-4 md:px-8 py-3 md:py-4 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-sm md:text-xs">
+            {button.text} <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-3 w-3 md:h-6 md:w-6" />
           </button>
         ))}
       </div>

@@ -28,10 +28,10 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
   return (
     <div
       className={`
-        relative flex-shrink-0 group overflow-hidden mx-1 md:mx-4 cursor-pointer transition-all duration-500 ease-out
+        relative flex-shrink-0 group overflow-hidden mx-1 md:mx-4 border border-gray-400 cursor-pointer transition-all duration-500 ease-out
         ${isExpanded 
-          ? 'h-[450px] md:h-[550px] lg:h-[650px] sm:w-80 md:w-84 lg:w-94 bg-white transform' 
-          : 'w-full sm:w-80 md:w-84 lg:w-94 h-[450px] md:h-[550px] lg:h-[650px] hover:shadow-lg'
+          ? 'h-[450px] md:h-[550px] lg:h-[650px] sm:w-80 md:w-84 lg:w-94 bg-white transform shadow-lg' 
+          : 'w-full sm:w-80 md:w-84 lg:w-94 h-[450px] md:h-[550px] lg:h-[650px] hover:shadow-2xl'
         }
       `}
       onClick={onClick}
