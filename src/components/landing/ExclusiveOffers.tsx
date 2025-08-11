@@ -35,13 +35,8 @@ export default function ExclusiveOffers({ data }: ExclusiveOffersProps) {
         <div className="inline-block border border-gray-200 rounded-full p-3 sm:p-4 mb-4 sm:mb-6 bg-gray-50 shadow-lg">
           <Trophy className="h-8 w-8 sm:h-10 sm:w-10 text-gray-500" />
         </div>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-arpona font-bold text-gray-800 mb-3 sm:mb-4">
-          {sectionData.heading.split('\n').map((line, index) => (
-            <span key={index}>
-              {line}
-              {index < sectionData.heading.split('\n').length - 1 && <br />}
-            </span>
-          ))}
+        <h2 className="text-2xl md:w-xl  mx-auto sm:text-3xl md:text-4xl lg:text-5xl font-arpona font-bold text-gray-800 mb-5 sm:mb-16">
+          <span>{sectionData.heading}</span>
         </h2>
         <p className="max-w-xl mx-auto my-6 sm:my-8 lg:my-10 font-inter font-bold text-sm sm:text-base px-4 sm:px-0">
           {sectionData.description}
