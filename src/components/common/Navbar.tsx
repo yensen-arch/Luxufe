@@ -1,5 +1,5 @@
 'use client';
-import { Menu, User, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -32,14 +32,14 @@ export default function Navbar() {
           <a href="/contact-us" className={`hover:font-normal font-bold ${textColor}`}>ENQUIRE</a>
           <span className={`text-sm font-bold ${textColor}`}>+12 34 567 8900</span>
           <div className="flex items-center gap-4">
-            <a href="#"><User className={`h-6 w-6 font-bold ${textColor}`} /></a>
+            <a href="#"><img src="/luxufe-icon-profile-user-light.svg" alt="User" className={`h-6 w-6 font-bold ${textColor}`} /></a>
             <button onClick={() => setExpanded(true)}><Menu className={`h-6 w-6 cursor-pointer ${textColor}`} /></button>
           </div>
         </div>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center gap-4">
-          <a href="#"><User className={`h-6 w-6 font-bold ${textColor}`} /></a>
+          <a href="#"><img src="/luxufe-icon-profile-user-light.svg" alt="User" className={`h-6 w-6 font-bold ${textColor}`} /></a>
           <button 
             onClick={() => setExpanded(true)}
             className="flex items-center"

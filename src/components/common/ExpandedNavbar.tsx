@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ArrowRight, Trophy, Heart, Mail, Instagram, Facebook, Globe, ChevronDown } from 'lucide-react';
+import { ArrowRight, Trophy, Heart, Mail, Instagram, Facebook, Globe, ChevronDown } from 'lucide-react';
 import ExploreBySection from './expandedNavbarSections/ExploreBySection';
 import ExperiencesSection from './expandedNavbarSections/ExperiencesSection';
 import AboutUsSection from './expandedNavbarSections/AboutUsSection';
