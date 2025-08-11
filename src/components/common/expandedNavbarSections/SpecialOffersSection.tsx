@@ -60,13 +60,13 @@ const SpecialOffersSection: React.FC = () => (
           <div key={card.label} className="relative h-52 overflow-hidden shadow group cursor-pointer flex items-end">
             <img src={card.img} alt={card.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 absolute inset-0" />
             <div className="w-full absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end justify-center">
-              <span className="text-white text-sm font-arpona font-bold flex gap-2 mb-6 ml-6">{card.label} <ArrowRight className="w-6 h-6" /></span>
+              <span className="text-white text-sm font-arpona font-bold flex gap-2 mb-6 ml-6">{card.label} <img src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" className="w-7 h-7" /></span>
             </div>
           </div>
         ))}
       </div>
       <button className="w-full border border-gray-400 py-3 font-inter font-bold text-gray-900 hover:bg-gray-200 transition-all mt-10 flex items-center justify-center gap-2 text-xs bg-transparent">
-        ALL OFFERS & PROMOTIONS <ArrowRight className="w-5 h-5" />
+        ALL OFFERS & PROMOTIONS <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="w-5 h-5" />
       </button>
     </div>
   </div>
