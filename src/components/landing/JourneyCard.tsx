@@ -10,9 +10,9 @@ interface JourneyCardProps {
 }
 
 const icons: { [key: string]: React.ReactNode } = {
-  DESTINATIONS: <MapPin className="w-6 h-6 md:w-8 md:h-8 text-white" />,
-  EXPERIENCES: <Heart className="w-6 h-6 md:w-8 md:h-8 text-white" />,
-  JOURNEYS: <Video className="w-6 h-6 md:w-8 md:h-8 text-white" />,
+  DESTINATIONS: <img src="/luxufe-icon-destinations-light.svg" alt="bridge" className="w-6 h-6 md:w-8 md:h-8 text-white" />,
+  EXPERIENCES: <img src="/luxufe-icon-experiences-light.svg" alt="ship" className="w-6 h-6 md:w-8 md:h-8 text-white" />,
+  JOURNEYS: <img src="/luxufe-icon-journeys-light.svg" alt="glass" className="w-6 h-6 md:w-8 md:h-8 text-white" />,
 };
 
 const JourneyCard: React.FC<JourneyCardProps> = ({ category, title, description, imageUrl, link }) => {

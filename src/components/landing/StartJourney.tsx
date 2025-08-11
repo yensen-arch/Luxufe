@@ -78,7 +78,7 @@ export default function StartJourney({ data }: StartJourneyProps) {
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="text-center mb-8 md:mb-12 lg:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-6 md:mb-8 lg:mb-10 text-gray-900 font-arpona font-bold">{sectionData.heading}</h2>
-          <p className="max-w-2xl mx-auto text-sm md:text-base lg:text-lg leading-relaxed text-gray-700 font-inter font-bold px-4">
+          <p className="max-w-xl mx-auto text-sm md:text-base lg:text-md leading-relaxed text-gray-700 font-inter font-bold px-4">
             {sectionData.description}
           </p>
         </div>
