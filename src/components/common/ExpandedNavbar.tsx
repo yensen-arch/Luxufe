@@ -49,12 +49,12 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
 
   return (
     <div
-      className={`fixed left-0 right-0 transition-all duration-700 ease-in-out transform ${
+      className={`fixed left-0 right-0 transition-all duration-700 ease-in-out transform h-screen lg:h-[90vh] ${
         open 
           ? 'translate-y-0 pointer-events-auto' 
           : '-translate-y-full pointer-events-none'
       }`}
-      style={{ top: 0, height: '90vh' }}
+      style={{ top: 0 }}
     >
       <div className="flex flex-col lg:flex-row w-full z-50 mx-auto bg-white shadow-2xl border border-gray-200 h-full overflow-hidden">
         {/* Mobile Header - Only visible on mobile */}
