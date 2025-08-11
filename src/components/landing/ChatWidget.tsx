@@ -1,11 +1,10 @@
-import { Send } from 'lucide-react';
 
 export default function ChatWidget() {
   return (
     <div className="w-full font-inter font-bold">
-      <div className="bg-white flex items-center p-2 md:p-3 shadow-sm">
+      <div className="bg-white flex items-center p-2 md:p-2 shadow-sm">
         {/* Avatar and Text - Hidden on mobile for sleek look */}
-        <div className="hidden md:flex items-center gap-2 pl-2 pr-4 border-r border-gray-300">
+        <div className="hidden md:flex items-center gap-2 pl-2 pr-4 border-r-2 border-gray-300">
           <img
             src="https://i.pravatar.cc/48?u=albert"
             alt="Albert"
@@ -18,7 +17,7 @@ export default function ChatWidget() {
         </div>
         
         {/* Mobile placeholder text - Only visible on mobile */}
-        <div className="md:hidden flex items-center gap-2 pl-2 pr-4 border-r border-gray-300">
+        <div className="md:hidden flex items-center gap-2 pl-2 pr-4 border-r-2 border-gray-300">
           <div className="leading-tight">
             <p className="text-sm font-semibold text-gray-800">Ask me anything...</p>
           </div>
@@ -45,8 +44,8 @@ export default function ChatWidget() {
         </div>
 
         {/* Send Button */}
-        <button className="mr-1 md:mr-2 bg-gray-900 text-white rounded-full p-1.5 md:p-2 hover:bg-gray-700">
-          <Send className="w-4 h-4 md:w-6 md:h-6" />
+        <button className=" bg-gray-900 text-white rounded-full p-1.5 md:p-3 hover:bg-gray-700">
+          <img src="/luxufe-icon-ai-send-arrow-light.svg" alt="Send" className="w-4 h-4 md:w-5 md:h-5" />
         </button>
       </div>
     </div>
