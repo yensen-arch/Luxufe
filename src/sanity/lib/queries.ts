@@ -8,12 +8,8 @@ export const landingPageQuery = groq`
       mainHeading,
       description,
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
@@ -25,12 +21,8 @@ export const landingPageQuery = groq`
         title,
         description,
         image {
-          asset->{
-            url,
-            metadata {
-              dimensions
-            }
-          },
+          "url": asset->url,
+          "metadata": asset->metadata,
           alt
         },
         link {
@@ -46,12 +38,8 @@ export const landingPageQuery = groq`
       ctaText,
       ctaLink,
       image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
@@ -68,12 +56,8 @@ export const landingPageQuery = groq`
         description,
         price,
         image {
-          asset->{
-            url,
-            metadata {
-              dimensions
-            }
-          },
+          "url": asset->url,
+          "metadata": asset->metadata,
           alt
         }
       },
@@ -88,12 +72,8 @@ export const landingPageQuery = groq`
         titlePart2,
         description,
         image {
-          asset->{
-            url,
-            metadata {
-              dimensions
-            }
-          },
+          "url": asset->url,
+          "metadata": asset->metadata,
           alt
         },
         buttonText
@@ -107,12 +87,8 @@ export const landingPageQuery = groq`
         supporting,
         name,
         avatar {
-          asset->{
-            url,
-            metadata {
-              dimensions
-            }
-          },
+          "url": asset->url,
+          "metadata": asset->metadata,
           alt
         }
       }
@@ -123,12 +99,8 @@ export const landingPageQuery = groq`
       partners[] {
         name,
         logo {
-          asset->{
-            url,
-            metadata {
-              dimensions
-            }
-          },
+          "url": asset->url,
+          "metadata": asset->metadata,
           alt
         }
       }
@@ -144,12 +116,8 @@ export const landingPageQuery = groq`
       ctaText,
       ctaLink,
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
@@ -160,12 +128,8 @@ export const landingPageQuery = groq`
         title,
         description,
         image {
-          asset->{
-            url,
-            metadata {
-              dimensions
-            }
-          },
+          "url": asset->url,
+          "metadata": asset->metadata,
           alt
         },
         ctaText,
@@ -196,12 +160,8 @@ export const landingPageQuery = groq`
       placeholder,
       ctaText,
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
@@ -222,12 +182,8 @@ export const aboutPageQuery = groq`
     title,
     hero {
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       },
       subtitle,
@@ -238,23 +194,15 @@ export const aboutPageQuery = groq`
       title,
       description,
       image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
     wallpaper {
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       },
       title,
@@ -264,12 +212,8 @@ export const aboutPageQuery = groq`
       title,
       description,
       image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
@@ -286,12 +230,8 @@ export const aboutPageQuery = groq`
       title,
       description,
       image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
@@ -314,12 +254,8 @@ export const aboutPageQuery = groq`
     },
     speakingJourneys {
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       },
       title,
@@ -356,12 +292,8 @@ export const beforeYouTravelPageQuery = groq`
     title,
     hero {
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       },
       subtitle,
@@ -381,12 +313,8 @@ export const beforeYouTravelPageQuery = groq`
       title,
       description,
       image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
@@ -434,12 +362,8 @@ export const elevePageQuery = groq`
     title,
     hero {
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       },
       subtitle,
@@ -465,23 +389,15 @@ export const elevePageQuery = groq`
       description,
       buttonText,
       image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
     speakingJourneys {
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       },
       title,
@@ -508,12 +424,8 @@ export const elevePageQuery = groq`
       paragraph2,
       buttonText,
       image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
@@ -554,12 +466,8 @@ export const storiesAndInsightsPageQuery = groq`
     title,
     hero {
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       },
       subtitle,
@@ -570,12 +478,8 @@ export const storiesAndInsightsPageQuery = groq`
       title,
       description,
       image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
@@ -585,12 +489,8 @@ export const storiesAndInsightsPageQuery = groq`
       buttonText,
       buttonLink,
       image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     }
@@ -602,12 +502,8 @@ export const experienceMorePageQuery = groq`
     title,
     hero {
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       },
       title,
@@ -625,12 +521,8 @@ export const blogPageQuery = groq`
     title,
     hero {
       image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
@@ -640,12 +532,8 @@ export const blogPageQuery = groq`
       buttonText,
       buttonLink,
       image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     }
@@ -657,12 +545,8 @@ export const tailorMadeTravelPageQuery = groq`
     title,
     hero {
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       },
       subtitle,
@@ -701,12 +585,8 @@ export const tailorMadeTravelPageQuery = groq`
       title,
       description,
       image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
@@ -736,12 +616,8 @@ export const contactUsPageQuery = groq`
     title,
     contactHero {
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       },
       subtitle,
@@ -782,12 +658,8 @@ export const linkInBioPageQuery = groq`
     title,
     hero {
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       },
       subtitle,
@@ -801,12 +673,8 @@ export const waysToTravelPageQuery = groq`
     title,
     hero {
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       },
       subtitle,
@@ -819,12 +687,8 @@ export const waysToTravelPageQuery = groq`
       title,
       description,
       image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
@@ -850,12 +714,8 @@ export const waysToTravelPageQuery = groq`
       title,
       description,
       image {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
@@ -878,12 +738,8 @@ export const notFoundPageQuery = groq`
     title,
     hero {
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       },
       subtitle,
@@ -898,12 +754,8 @@ export const privacyPolicyPageQuery = groq`
     title,
     hero {
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       },
       title
@@ -1010,12 +862,8 @@ export const hotelsPageQuery = groq`
       mainHeading,
       subHeading,
       backgroundImage {
-        asset->{
-          url,
-          metadata {
-            dimensions
-          }
-        },
+        "url": asset->url,
+        "metadata": asset->metadata,
         alt
       }
     },
