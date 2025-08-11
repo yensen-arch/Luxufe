@@ -1,5 +1,4 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 const cards = [
@@ -46,8 +45,8 @@ const ExploreBySection: React.FC = () => (
         Our team is always available to guide you through the process and ensure your experience is perfectly matched to your preferences.
       </p>
       <div className="w-full space-y-4">
-        <button className="w-full border border-gray-400 py-3 font-inter font-bold text-gray-900 hover:bg-gray-200 transition-all text-sm">START PLANNING <ArrowRight className="inline w-4 h-4 ml-2" /></button>
-        <button className="w-full border border-gray-400 py-3 font-inter font-bold text-gray-900 hover:bg-gray-200 transition-all text-sm">TRY THE TRIP WIZARD <ArrowRight className="inline w-4 h-4 ml-2" /></button>
+        <button className="w-full border border-gray-400 py-3 font-inter font-bold text-gray-900 hover:bg-gray-200 transition-all text-sm">START PLANNING <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="inline w-4 h-4 ml-2" /></button>
+        <button className="w-full border border-gray-400 py-3 font-inter font-bold text-gray-900 hover:bg-gray-200 transition-all text-sm">TRY THE TRIP WIZARD <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="inline w-4 h-4 ml-2" /></button>
       </div>
     </div>
   </div>
