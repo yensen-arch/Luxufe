@@ -82,7 +82,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
             </button>
             
             {/* Mobile Dropdown Menu */}
-            <div className={`mt-2 bg-white border border-gray-200 overflow-hidden transition-all duration-300 ${mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+            <div className={`mt-2 bg-white border border-gray-200 overflow-hidden transition-all duration-300 ${mobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
               <ul className="py-2">
                 {navItems.map((item) => (
                   <li
@@ -101,6 +101,25 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
                   </li>
                 ))}
               </ul>
+              
+              {/* Quick Links in Dropdown - Only visible when dropdown is open */}
+              <div className={`px-4 py-4 border-t border-gray-200 ${mobileMenuOpen ? 'block' : 'hidden'}`}>
+                <div className="space-y-3 mb-4">
+                  {quickLinks.map((link) => (
+                    <div key={link.label} className="font-inter font-bold flex items-center text-gray-600 hover:text-gray-900 text-sm cursor-pointer p-2 hover:bg-gray-50 transition-colors rounded-lg">
+                      {link.icon}
+                      <Link href={link.href}>{link.label}</Link>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Social Links in Dropdown */}
+                <div className="flex justify-center gap-4 pt-4 border-t border-gray-200">
+                  {socials.map((s, i) => (
+                    <a key={i} href={s.href} className="cursor-pointer transition-colors text-[#a8d1cf] hover:text-[#8bc1bf] p-2 bg-gray-50 rounded-full hover:bg-gray-100">{s.icon}</a>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -135,26 +154,11 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
             </div>
           </div>
 
-          {/* Mobile Quick Links - Only visible on mobile */}
-          <div className="lg:hidden mt-6 space-y-3">
-            {quickLinks.map((link) => (
-              <div key={link.label} className="font-inter font-bold flex items-center text-gray-600 hover:text-gray-900 text-sm cursor-pointer p-2 hover:bg-gray-50 transition-colors">
-                {link.icon}
-                <Link href={link.href}>{link.label}</Link>
-              </div>
-            ))}
-          </div>
 
-          {/* Mobile Social Links - Only visible on mobile */}
-          <div className="lg:hidden flex justify-center gap-4 mt-6 pt-4 border-t border-gray-200">
-            {socials.map((s, i) => (
-              <a key={i} href={s.href} className="cursor-pointer transition-colors text-[#a8d1cf] hover:text-[#8bc1bf] p-1">{s.icon}</a>
-            ))}
-          </div>
         </div>
         
         {/* Center section (dynamic) */}
-        <div className="w-full lg:w-3/4 flex flex-col justify-center items-center px-2 sm:px-4 lg:px-0 h-full overflow-y-auto">
+        <div className={`w-full lg:w-3/4 flex flex-col justify-center items-center px-2 sm:px-4 lg:px-0 h-full overflow-y-auto ${mobileMenuOpen ? 'lg:flex hidden' : 'flex'}`}>
           <div className="w-full h-full">
             {CenterSection}
           </div>
