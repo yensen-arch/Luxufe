@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useCallback, useState, useEffect } from 'react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 import BlogCard from './BlogCard';
 
 interface BlogPost {
@@ -107,7 +106,7 @@ export default function Inspiration({ data }: InspirationProps) {
               </p>
               <button className="group flex items-center gap-2 text-xs sm:text-sm font-inter font-bold tracking-widest border border-gray-400 justify-center py-3 sm:py-4 px-6 sm:px-8 hover:bg-gray-800 hover:text-white transition-colors mx-auto lg:mx-0">
                 {sectionData.ctaText}
-                <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
+                <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
               </button>
             </div>
           </div>
@@ -140,13 +139,13 @@ export default function Inspiration({ data }: InspirationProps) {
                 onClick={scrollPrev} 
                 className="bg-white rounded-full p-6 shadow-md hover:bg-white transition pointer-events-auto"
               >
-                <ArrowLeft className="h-6 w-6 text-gray-800" />
+                <img src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" className="h-6 w-6 text-gray-800" />
               </button>
               <button 
                 onClick={scrollNext} 
                 className="bg-white rounded-full p-6 shadow-md hover:bg-white transition pointer-events-auto"
               >
-                <ArrowRight className="h-6 w-6 text-gray-800" />
+                <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-6 w-6 text-gray-800" />
               </button>
             </div>
 

@@ -1,4 +1,4 @@
-import { ArrowRight, Mail, CalendarDays, Info } from 'lucide-react';
+
 
 interface ContactInfo {
   phone: string;
@@ -45,21 +45,21 @@ export default function ContactUs({ data }: ContactUsProps) {
           <div className="flex flex-col items-center w-full md:w-5/6">
             <div className="flex flex-col sm:flex-row items-center justify-between mb-6 sm:mb-8 font-inter font-bold w-full gap-4 sm:gap-6">
               <a href={`mailto:${sectionData.contactInfo.email}`} className="flex items-center gap-2 sm:gap-3 hover:underline text-sm sm:text-base">
-                <Mail className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                <img src="/luxufe-icons-email-dark.svg" alt="Mail" className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
                 <span className="break-all">{sectionData.contactInfo.email}</span>
               </a>
               <a href="#" className="flex items-center gap-2 sm:gap-3 hover:underline text-sm sm:text-base">
-                <CalendarDays className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                <img src="/luxufe-icon-calendar.svg" alt="Calendar" className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
                 <span>Book an appointment</span>
               </a>
               <a href="#" className="flex items-center gap-2 sm:gap-3 hover:underline text-sm sm:text-base">
-                <Info className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                <img src="/luxufe-icon-call.svg" alt="Info" className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
                 <span>FAQ & Info</span>
               </a>
             </div>
             <button className="w-full group bg-[#1a233a] text-white py-3 sm:py-4 flex items-center justify-center gap-2 sm:gap-3 font-inter font-semibold tracking-widest hover:bg-opacity-90 transition-all text-sm sm:text-base">
               ENQUIRE WITH US
-              <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
+              <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
             </button>
           </div>
         </div>

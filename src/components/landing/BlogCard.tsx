@@ -1,4 +1,3 @@
-import { ArrowRight } from 'lucide-react';
 import React from 'react';
 
 interface BlogCardProps {
@@ -34,7 +33,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
           <h3 className="text-lg sm:text-xl font-arpona font-bold text-gray-800 mt-2 mb-3 h-auto sm:h-16 w-full sm:w-2/4">{title}</h3>
           <p className="text-xs sm:text-sm text-gray-600 w-full sm:w-3/4 leading-relaxed h-auto sm:h-24 font-inter font-bold mb-3 sm:mb-4">{description}</p>
           <a href={buttonLink} className="mt-3 sm:mt-4 text-xs inline-flex items-center gap-1 sm:gap-2 font-inter font-bold text-gray-800 hover:underline">
-            {buttonText} <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+            {buttonText} <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
           </a>
         </div>
       </div>

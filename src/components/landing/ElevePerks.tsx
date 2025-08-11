@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react';
-import { ArrowLeft, ArrowRight, Star } from 'lucide-react';
 
 interface Perk {
   title: string;
@@ -112,10 +111,10 @@ export default function ElevePerks({ data }: ElevePerksProps) {
           {/* Navigation Buttons - Hidden on mobile for cleaner look */}
           <div className="hidden lg:flex absolute bottom-6 left-6 gap-3">
             <button onClick={goToPrevious} className="bg-white/80 rounded-full p-3 shadow-md hover:bg-white transition">
-              <ArrowLeft className="h-6 w-6 text-gray-800" />
+              <img src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" className="h-6 w-6 text-gray-800" />
             </button>
             <button onClick={goToNext} className="bg-white/80 rounded-full p-3 shadow-md hover:bg-white transition">
-              <ArrowRight className="h-6 w-6 text-gray-800" />
+              <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-6 w-6 text-gray-800" />
             </button>
           </div>
         </div>
@@ -133,7 +132,7 @@ export default function ElevePerks({ data }: ElevePerksProps) {
             <ul className="hidden lg:block space-y-4 font-inter font-bold text-green-200 opacity-60">
               {defaultPerksData[currentIndex].perks.map((perk, index) => (
                 <li key={index} className="flex items-center gap-4 border-b border-white/40 pb-4">
-                  <Star className="h-5 w-5" />
+                  <img src="/luxufe-icon-star-light.svg" alt="Star" className="h-5 w-5" />
                   <span>{perk}</span>
                 </li>
               ))}
@@ -141,7 +140,7 @@ export default function ElevePerks({ data }: ElevePerksProps) {
             
             <button className="mt-6 sm:mt-8 lg:mt-10 group font-inter font-bold flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold tracking-widest border border-white/40 px-4 sm:px-6 py-2 sm:py-3 hover:bg-white hover:text-[#1a233a] transition-colors">
               {sectionData.ctaText}
-              <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
+              <img src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" className="h-3 w-3 sm:h-6 sm:w-6 transition-transform group-hover:translate-x-1 flex-shrink-0" />
             </button>
           </div>
         </div>
