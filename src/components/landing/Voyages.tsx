@@ -92,7 +92,7 @@ export default function Voyages({ data }: VoyagesProps) {
           <div className="w-full lg:w-3/6 h-full z-10 lg:ml-20 order-2 lg:order-1">
             <div className="relative overflow-hidden shadow-2xl">
               <img
-                src={currentVoyage.image.url || "/placeholder.svg"}
+                src={currentVoyage.image.url || "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"}
                 alt={currentVoyage.image.alt}
                 className={`w-full h-[300px] lg:h-[600px] object-cover transition-all duration-700 ease-in-out ${
                   isTransitioning ? "opacity-0 scale-105" : "opacity-100 scale-100"

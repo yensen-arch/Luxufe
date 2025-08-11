@@ -63,7 +63,7 @@ export default function SetSail() {
           <div className="w-3/6 h-full z-10 ml-20">
             <div className="relative overflow-hidden shadow-2xl">
               <img
-                src={currentVoyage.imageUrl || "/placeholder.svg"}
+                src={currentVoyage.imageUrl || "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"}
                 alt={currentVoyage.titlePart1}
                 className={`w-full h-[600px] object-cover transition-all duration-700 ease-in-out ${
                   isTransitioning ? "opacity-0 scale-105" : "opacity-100 scale-100"
