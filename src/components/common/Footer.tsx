@@ -1,4 +1,3 @@
-import { ArrowRight, Facebook, Instagram, Twitter } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -81,9 +80,10 @@ export default function Footer() {
                             Seamless luxury travel, tailored to you -<br className="hidden sm:block"/>effortless, personal, <span className="font-bellarina text-4xl sm:text-5xl lg:text-6xl font-medium">unforgettable.</span>
                         </p>
                         <div className="flex gap-3 sm:gap-4 mt-6 sm:mt-8">
-                            <Link target='_blank' href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><Instagram className="h-4 w-4 sm:h-5 sm:w-5" /></Link>
-                            <Link target='_blank' href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><Facebook className="h-4 w-4 sm:h-5 sm:w-5" /></Link>
-                            <Link target='_blank' href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><Twitter className="h-4 w-4 sm:h-5 sm:w-5" /></Link>
+                            <Link target='_blank' href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><img src="/luxufe-icon-instagram.svg" alt="Instagram" className="h-4 w-4 sm:h-5 sm:w-5" /></Link>
+                            <Link target='_blank' href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><img src="/Icon awesome-facebook-white.svg" alt="Facebook" className="h-4 w-4 sm:h-5 sm:w-5" /></Link>
+                            <Link target='_blank' href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><img src="/Icon awesome-tripadvisor-white.svg" alt="Tripadvisor" className="h-4 w-4 sm:h-5 sm:w-5" /></Link>
+                            <Link target='_blank' href="#" className="border border-white/30 rounded-full p-2 hover:bg-white/10"><img src="/Icon awesome-youtube-white.svg" alt="X" className="h-4 w-4 sm:h-5 sm:w-5" /></Link>
                         </div>
                     </div>
                     <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
