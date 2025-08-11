@@ -30,10 +30,10 @@ const quickLinks = [
 ];
 
 const socials = [
-  { icon: <img src="/Icon simple-instagram.svg" alt="Instagram" className="w-5 h-5" />, href: '#' },
-  { icon: <img src="/Icon awesome-facebook-f.svg" alt="Facebook" className="w-5 h-5" />, href: '#' },
-  { icon: <img src="/Icon awesome-tripadvisor.svg" alt="Tripadvisor" className="w-5 h-5" />, href: '#' },
-  { icon: <img src="/Icon ionic-logo-google.svg" alt="Google" className="w-5 h-5" />, href: '#' }, // Google icon - using Globe as placeholder
+  { icon: <img src="/Icon simple-instagram.svg" alt="Instagram" className="w-4 h-4" />, href: '#' },
+  { icon: <img src="/Icon awesome-facebook-f.svg" alt="Facebook" className="w-4 h-4" />, href: '#' },
+  { icon: <img src="/Icon awesome-tripadvisor.svg" alt="Tripadvisor" className="w-4 h-4" />, href: '#' },
+  { icon: <img src="/Icon ionic-logo-google.svg" alt="Google" className="w-4 h-4" />, href: '#' }, // Google icon - using Globe as placeholder
 ];
 
 const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
