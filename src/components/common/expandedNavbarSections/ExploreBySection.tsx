@@ -29,7 +29,7 @@ const ExploreBySection: React.FC = () => (
           <img src={card.img} alt={card.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
           <div className="absolute inset-0 bg-black/30 flex items-end p-3 sm:p-4 lg:p-6">
             <span className="text-white text-lg sm:text-xl lg:text-2xl font-arpona">{card.label}</span>
-            <ArrowRight className="ml-auto text-white w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 flex-shrink-0" />
+            <img src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" className="ml-auto text-white w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 flex-shrink-0" />
           </div>
         </Link>
       ))}
