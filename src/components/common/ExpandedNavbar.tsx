@@ -14,7 +14,7 @@ interface ExpandedNavbarProps {
 
 const navItems = [
   { label: 'Explore by' },
-  { label: 'Experiences' },
+  { label: 'Journeys' },
   { label: 'About Us' },
   { label: 'Partners' },
   { label: 'Special Offers' },
@@ -32,6 +32,7 @@ const socials = [
   { icon: <Instagram className="w-5 h-5" />, href: '#' },
   { icon: <Facebook className="w-5 h-5" />, href: '#' },
   { icon: <Globe className="w-5 h-5" />, href: '#' },
+  { icon: <Globe className="w-5 h-5" />, href: '#' }, // Google icon - using Globe as placeholder
 ];
 
 const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
@@ -40,7 +41,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
 
   let CenterSection = null;
   if (selected === 'Explore by') CenterSection = <ExploreBySection />;
-  else if (selected === 'Experiences') CenterSection = <ExperiencesSection />;
+  else if (selected === 'Journeys') CenterSection = <ExperiencesSection />;
   else if (selected === 'About Us') CenterSection = <AboutUsSection />;
   else if (selected === 'Partners') CenterSection = <PartnersSection />;
   else if (selected === 'Special Offers') CenterSection = <SpecialOffersSection />;
@@ -118,12 +119,18 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
               ))}
             </ul>
             {/* Quick links - hidden on mobile for cleaner look */}
-            <div className="hidden lg:block space-y-4">
+            <div className="hidden lg:block space-y-4 mb-4">
               {quickLinks.map((link) => (
                 <div key={link.label} className="font-inter font-bold flex items-center text-gray-400 hover:text-gray-600 text-sm cursor-pointer">
                   {link.icon}
                   <Link href={link.href}>{link.label}</Link>
                 </div>
+              ))}
+            </div>
+            {/* Social links - hidden on mobile for cleaner look */}
+            <div className="hidden lg:flex gap-0 mt-4">
+              {socials.map((s, i) => (
+                <a key={i} href={s.href} className="cursor-pointer transition-colors text-[#a8d1cf] hover:text-[#8bc1bf] p-1">{s.icon}</a>
               ))}
             </div>
           </div>
@@ -138,17 +145,10 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
             ))}
           </div>
 
-          {/* Social links - hidden on mobile for cleaner look */}
-          <div className="hidden lg:flex gap-6 mt-0">
-            {socials.map((s, i) => (
-              <a key={i} href={s.href} className="cursor-pointer transition-colors text-[#a8d1cf] hover:text-[#8bc1bf]">{s.icon}</a>
-            ))}
-          </div>
-
           {/* Mobile Social Links - Only visible on mobile */}
-          <div className="lg:hidden flex justify-center gap-6 mt-6 pt-4 border-t border-gray-200">
+          <div className="lg:hidden flex justify-center gap-4 mt-6 pt-4 border-t border-gray-200">
             {socials.map((s, i) => (
-              <a key={i} href={s.href} className="cursor-pointer transition-colors text-[#a8d1cf] hover:text-[#8bc1bf] p-2">{s.icon}</a>
+              <a key={i} href={s.href} className="cursor-pointer transition-colors text-[#a8d1cf] hover:text-[#8bc1bf] p-1">{s.icon}</a>
             ))}
           </div>
         </div>
