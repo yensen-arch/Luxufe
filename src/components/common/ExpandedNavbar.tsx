@@ -7,6 +7,7 @@ import PartnersSection from './expandedNavbarSections/PartnersSection';
 import SpecialOffersSection from './expandedNavbarSections/SpecialOffersSection';
 import Link from 'next/link';
 
+
 interface ExpandedNavbarProps {
   open: boolean;
   onClose: () => void;
@@ -65,7 +66,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
             className="p-2 text-gray-500 hover:text-gray-900 transition-colors" 
             aria-label="Close"
           >
-            <X className="w-6 h-6" />
+            <img src="/luxufe-icon-close-dark.svg" alt="Close icon" className="w-6 h-6" />
           </button>
         </div>
 
@@ -170,7 +171,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
           className="hidden lg:block cursor-pointer absolute top-3 right-3 sm:top-4 sm:right-4 lg:top-7 lg:right-9 text-gray-500 hover:text-gray-900 z-10 p-1" 
           aria-label="Close"
         >
-          <X className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8" />
+            <img src="/luxufe-icon-close-dark.svg" alt="Close icon" className="w-6 h-6" />
         </button>
       </div>
     </div> 
