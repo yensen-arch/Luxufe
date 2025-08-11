@@ -181,15 +181,15 @@ export default function CuratedForYou({ data }: CuratedForYouProps) {
         {/* Navigation arrows - Hidden on mobile for cleaner look */}
         <button
           onClick={scrollPrev}
-          className="hidden md:block absolute top-1/2 left-4 -translate-y-1/2 bg-white/80 rounded-full p-3 md:p-4 lg:p-5 shadow-md hover:bg-white z-0 transition-colors"
+          className="hidden md:block absolute top-1/2 left-4 -translate-y-1/2 bg-white/80 rounded-full p-4 md:p-5 lg:p-7 shadow-md hover:bg-white z-0 transition-colors"
         >
-          <ArrowLeft className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
+          <img src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
         </button>
         <button
           onClick={scrollNext}
-          className="hidden md:block absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 rounded-full p-3 md:p-4 lg:p-5 shadow-md hover:bg-white z-0 transition-colors"
+          className="hidden md:block absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 rounded-full p-4 md:p-5 lg:p-7 shadow-md hover:bg-white z-0 transition-colors"
         >
-          <ArrowRight className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
+          <img src="luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
         </button>
       </div>
 
