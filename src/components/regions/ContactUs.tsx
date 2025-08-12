@@ -1,5 +1,3 @@
-import { ArrowRight, Mail, CalendarDays, Info } from 'lucide-react';
-
 interface ContactUsProps {
   brandName?: string;
 }
@@ -27,21 +25,21 @@ export default function ContactUs({ brandName }: ContactUsProps) {
           <div className="flex flex-col items-center flex-1 w-full gap-4 md:gap-6">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8 font-inter font-bold text-sm md:text-base w-full">
               <a href="mailto:info@luxufe.com" className="flex items-center gap-2 hover:underline w-full md:w-auto justify-center md:justify-start">
-                <Mail className="h-4 w-4 md:h-5 md:w-5" />
+                <img src="/luxufe-icons-email-dark.svg" alt="Mail" className="h-4 w-4 md:h-5 md:w-5" />
                 <span>info@luxufe.com</span>
               </a>
               <a href="#" className="flex items-center gap-2 hover:underline w-full md:w-auto justify-center md:justify-start">
-                <CalendarDays className="h-4 w-4 md:h-5 md:w-5" />
+                <img src="/luxufe-icon-calendar.svg" alt="Calendar" className="h-4 w-4 md:h-5 md:w-5" />
                 <span>Book an appointment</span>
               </a>
               <a href="#" className="flex items-center gap-2 hover:underline w-full md:w-auto justify-center md:justify-start">
-                <Info className="h-4 w-4 md:h-5 md:w-5" />
+                <img src="/luxufe-icon-call.svg" alt="Info" className="h-4 w-4 md:h-5 md:w-5" />
                 <span>FAQ & Info</span>
               </a>
             </div>
             <button className="w-full group bg-[#23263B] text-white py-3 md:py-4 flex items-center justify-center gap-3 font-inter font-semibold text-xs hover:bg-opacity-90 transition-all rounded-none">
               ENQUIRE WITH US
-              <ArrowRight className="h-4 w-4 md:h-5 md:w-5 transition-transform group-hover:translate-x-1" />
+              <img src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" className="h-4 w-4 md:h-5 md:w-5 transition-transform group-hover:translate-x-1" />
             </button>
           </div>
         </div>
