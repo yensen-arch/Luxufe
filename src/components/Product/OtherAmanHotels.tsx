@@ -97,18 +97,21 @@ export default function OtherAmanHotels({ hotel }: OtherAmanHotelsProps) {
       setIsLoading(true);
       try {
         // Fetch other hotels from the same brand, excluding the current hotel
-        const hotels = await getHotelsWithFiltersAndGallery({
+        const hotelsResponse = await getHotelsWithFiltersAndGallery({
           brand: hotel.brand
         });
 
+        // Extract the hotels array from the response
+        const hotels = hotelsResponse.data || [];
+
         // Filter out the current hotel and take up to 3 others
         const otherHotelsData = hotels
-          .filter(h => h.hotel_name !== hotel.hotel_name)
+          .filter((h: Hotel) => h.hotel_name !== hotel.hotel_name)
           .slice(0, 3);
 
         // Fetch gallery images for each hotel
         const hotelsWithImages = await Promise.all(
-          otherHotelsData.map(async (hotelData) => {
+          otherHotelsData.map(async (hotelData: Hotel) => {
             const galleryImages = await getHotelGallery(hotelData.hotel_name);
             return {
               hotel_name: hotelData.hotel_name,
