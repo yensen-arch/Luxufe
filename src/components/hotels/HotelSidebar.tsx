@@ -1,68 +1,178 @@
-import React from "react";
-import { Calendar, Search } from "lucide-react";
+"use client"
+import React, { useState } from "react";
+import { Send, Filter, X } from "lucide-react";
 
-const brandPartners = [
-  "Aman Hotels", "Brand here", "Another brand here", "Brand", "Another Brand", "Brand Here", "Brand", "Another Brand goes here"
-];
-const destinations = [
-  "South Africa", "Antarctica", "Alaska", "Arctic Circle & Greenland", "Asia", "Australia & New Zealand", "Caribbean Islands", "Central America & Mexico"
-];
-const experiences = [
-  "Family Friendly", "Adults Only", "Villas", "Beach & Resorts", "Safari & Wilderness", "Ski Resorts", "Sport & Hobbies", "Hotels"
+interface HotelSidebarProps {
+  onFiltersChange: (filters: {
+    search: string;
+    typeOfTravel: string[];
+    region: string[];
+  }) => void;
+  availableCountries?: string[];
+  loading?: boolean;
+  loadingCountries?: boolean;
+}
+
+const typeOfTravelOptions = [
+  "Family Friendly", "Adults Only", "Villas", "Beach & Resorts", 
+  "Safari & Wilderness", "Ski Resorts", "Sport & Hobbies", "Hotels", "Food & Wine"
 ];
 
-export default function HotelSidebar() {
+const regionOptions = [
+  "Australia & New Zealand", "Caribbean Islands", "Central America & Mexico", "Asia"
+];
+
+export default function HotelSidebar({ onFiltersChange, availableCountries, loading, loadingCountries }: HotelSidebarProps) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleTypeToggle = (type: string) => {
+    const newTypes = selectedTypes.includes(type)
+      ? selectedTypes.filter(t => t !== type)
+      : [...selectedTypes, type];
+    setSelectedTypes(newTypes);
+    onFiltersChange({
+      search: searchTerm,
+      typeOfTravel: newTypes,
+      region: selectedRegions
+    });
+  };
+
+  const handleRegionToggle = (region: string) => {
+    const newRegions = selectedRegions.includes(region)
+      ? selectedRegions.filter(r => r !== region)
+      : [...selectedRegions, region];
+    setSelectedRegions(newRegions);
+    onFiltersChange({
+      search: searchTerm,
+      typeOfTravel: selectedTypes,
+      region: newRegions
+    });
+  };
+
+  const handleSearch = () => {
+    onFiltersChange({
+      search: searchTerm,
+      typeOfTravel: selectedTypes,
+      region: selectedRegions
+    });
+  };
+
   return (
-    <aside className="w-full max-w-sm bg-[#f7f7fa] border-r-2 border-gray-300 flex flex-col gap-8">
-      {/* Travel Dates */}
-      <div className="border-b-2 border-gray-300 px-4 py-6">
-        <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">TRAVEL DATES</h3>
-        <div className="flex gap-3 mb-2">
-          <button className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-xs font-inter font-bold text-gray-400">
-            <Calendar className="w-4 h-4" /> Departure
+    <>
+      {/* Mobile Filter Button */}
+      <div className="md:hidden fixed top-4 left-4 z-50">
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="bg-[#23263a] text-white p-3 rounded-full shadow-lg"
+        >
+          {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Filter className="w-5 h-5" />}
+        </button>
+      </div>
+
+      {/* Mobile Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      <aside className={`w-full min-h-[250vh] max-w-md bg-[#f7f7fa] border-r-2 border-gray-300 flex flex-col transition-transform duration-300 ease-in-out ${
+        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+      } md:translate-x-0 md:relative fixed md:static top-0 left-0 h-full z-50`}>
+      {/* Mobile Close Button */}
+      <div className="md:hidden flex justify-end p-4">
+        <button
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="text-gray-600 hover:text-gray-800"
+        >
+          <X className="w-6 h-6" />
+        </button>
+      </div>
+      
+      {/* Search */}
+      <div className="border-b-2 border-gray-300 p-6 h-30">
+        <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-3 shadow-xl">
+          <input
+            type="text"
+            placeholder="What are you looking for?"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+            className="flex-1 bg-transparent outline-none text-sm font-inter text-gray-700 placeholder:text-gray-400 font-bold"
+          />
+          <button 
+            onClick={handleSearch}
+            disabled={loading}
+            className="ml-2 bg-[#23263a] text-white rounded-full p-3 flex items-center justify-center hover:bg-black transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? (
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+            ) : (
+              <Send className="w-5 h-5" />
+            )}
           </button>
-          <span className="text-gray-400 flex items-center">→</span>
-          <button className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-xs font-inter font-bold text-gray-400">
-            <Calendar className="w-4 h-4" /> Return
-          </button>
         </div>
       </div>
-      {/* Brand Partner */}
-      <div className="border-b-2 border-gray-300 px-4 py-6">
-        <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">BRAND PARTNER</h3>
-        <div className="flex flex-wrap gap-2 mb-2">
-          {brandPartners.map((brand, i) => (
-            <button key={i} className="bg-white border border-gray-200 rounded-full px-4 py-2 text-xs font-inter font-bold text-gray-400 flex items-center gap-2">
-              {brand}
-              {i === 0 && <span className="ml-1 text-gray-400">×</span>}
-            </button>
-          ))}
-        </div>
-        <button className="text-xs font-inter font-bold text-gray-400 mt-2">LOAD MORE +</button>
-      </div>
-      {/* Destination */}
-      <div className="border-b-2 border-gray-300 px-4 py-6">
-        <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">DESTINATION</h3>
-        <div className="flex flex-wrap gap-2">
-          {destinations.map((dest, i) => (
-            <button key={i} className={`bg-white border border-gray-200 rounded-full px-4 py-2 text-xs font-inter font-bold ${i === 0 ? "text-[#23263a] border-[#23263a]" : "text-gray-400"} flex items-center gap-2`}>
-              {dest}
-              {i === 0 && <span className="ml-1 text-gray-400">×</span>}
+
+      {/* Type of Travel */}
+      <div className="border-b-2 border-gray-300 p-6">
+        <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4 ">
+          Type of Travel
+        </h3>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          {typeOfTravelOptions.map((type) => (
+            <button
+              key={type}
+              onClick={() => handleTypeToggle(type)}
+              className={`px-2 py-2 rounded-full text-xs font-inter font-bold transition cursor-pointer ${
+                selectedTypes.includes(type)
+                  ? 'bg-[#23263a] text-white'
+                  : 'bg-gray-200 text-gray-400 hover:bg-gray-300'
+              }`}
+            >
+              {type}
             </button>
           ))}
         </div>
       </div>
-      {/* Experience */}
-      <div className="border-b-2 border-gray-300 px-4 py-6">
-        <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">EXPERIENCE</h3>
-        <div className="flex flex-wrap gap-2">
-          {experiences.map((exp, i) => (
-            <button key={i} className="bg-white border border-gray-200 rounded-full px-4 py-2 text-xs font-inter font-bold text-gray-400 flex items-center gap-2">
-              {exp}
-            </button>
-          ))}
-        </div>
+
+      {/* Region */}
+      <div className="p-6">
+        <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4 ">
+          Region
+        </h3>
+        {loadingCountries ? (
+          <div className="flex items-center justify-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#23263a]"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+            {(availableCountries || []).map((region) => (
+              <button
+                key={region}
+                onClick={() => handleRegionToggle(region)}
+                className={`px-2 py-2 rounded-full text-xs font-inter font-bold transition cursor-pointer ${
+                  selectedRegions.includes(region)
+                    ? 'bg-[#23263a] text-white'
+                    : 'bg-gray-200 text-gray-400 hover:bg-gray-300'
+                }`}
+              >
+                {region}
+              </button>
+            ))}
+          </div>
+        )}
+        {!loadingCountries && availableCountries && availableCountries.length === 0 && (
+          <p className="text-gray-500 text-sm font-inter text-center py-4">
+            No countries available for this brand
+          </p>
+        )}
       </div>
-    </aside>
+      </aside>
+    </>
   );
 } 
