@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
+import RoomModal from "./RoomModal";
 import { Hotel } from "@/lib/database";
 import { getRoomsByHotel, getRoomGallery } from "@/lib/database";
 
@@ -16,15 +17,35 @@ interface RoomData {
   image: string;
 }
 
+interface CompleteRoomData {
+  id: string;
+  room_name: string;
+  accommodation_type: string;
+  amenities: string;
+  description: string;
+  features: string;
+  room_size?: string | null;
+  occupancy?: string | null;
+  bed?: string | null;
+  bath?: string | null;
+  view?: string | null;
+  floors?: string | null;
+  hotel_name: string;
+}
+
 const ProductGrid = ({ hotel }: ProductGridProps) => {
   const [rooms, setRooms] = useState<RoomData[]>([]);
+  const [completeRooms, setCompleteRooms] = useState<CompleteRoomData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedRoom, setSelectedRoom] = useState<CompleteRoomData | null>(null);
+  const [selectedRoomImages, setSelectedRoomImages] = useState<string[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchRooms = async () => {
       setIsLoading(true);
       try {
-        // Fetch rooms for the hotel
+        // Fetch complete room data for the hotel
         const roomsData = await getRoomsByHotel(hotel.hotel_name);
 
         // Fetch gallery images for each room
@@ -43,10 +64,29 @@ const ProductGrid = ({ hotel }: ProductGridProps) => {
           })
         );
 
+        // Store complete room data for modal
+        const completeRoomsData = roomsData.map(room => ({
+          id: room.id,
+          room_name: room.room_name,
+          accommodation_type: room.accommodation_type,
+          amenities: room.amenities || "",
+          description: room.description || "",
+          features: room.features || "",
+          room_size: room.room_size,
+          occupancy: room.occupancy,
+          bed: room.bed,
+          bath: room.bath,
+          view: room.view,
+          floors: room.floors,
+          hotel_name: room.hotel_name
+        }));
+
         setRooms(roomsWithImages);
+        setCompleteRooms(completeRoomsData);
       } catch (error) {
         console.error('Error fetching rooms:', error);
         setRooms([]);
+        setCompleteRooms([]);
       } finally {
         setIsLoading(false);
       }
@@ -54,6 +94,23 @@ const ProductGrid = ({ hotel }: ProductGridProps) => {
 
     fetchRooms();
   }, [hotel.hotel_name]);
+
+  const handleRoomClick = async (roomId: string) => {
+    const room = completeRooms.find(r => r.id === roomId);
+    if (room) {
+      // Fetch images for the selected room
+      const images = await getRoomGallery(room.room_name, hotel.hotel_name);
+      setSelectedRoom(room);
+      setSelectedRoomImages(images.length > 0 ? images : ["https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80"]);
+      setIsModalOpen(true);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedRoom(null);
+    setSelectedRoomImages([]);
+  };
 
   // Skeleton component for loading state
   const RoomSkeleton = () => (
@@ -74,38 +131,51 @@ const ProductGrid = ({ hotel }: ProductGridProps) => {
   );
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 md:px-8 py-10">
-      <h2 className="text-5xl text-center text-slate-700 font-arpona font-bold mb-14">Rooms & Suites</h2>
-      
-      {isLoading ? (
-        // Show skeletons while loading
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-          {[...Array(6)].map((_, i) => <RoomSkeleton key={i} />)}
+    <>
+      <section className="w-full max-w-7xl mx-auto px-4 md:px-8 py-10">
+        <h2 className="text-5xl text-center text-slate-700 font-arpona font-bold mb-14">Rooms & Suites</h2>
+        
+        {isLoading ? (
+          // Show skeletons while loading
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+            {[...Array(6)].map((_, i) => <RoomSkeleton key={i} />)}
+          </div>
+        ) : rooms.length > 0 ? (
+          // Show actual rooms
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+            {rooms.map((room) => (
+              <div key={room.id} onClick={() => handleRoomClick(room.id)} className="cursor-pointer">
+                <ProductCard 
+                  name={room.room_name}
+                  type={room.accommodation_type}
+                  bed={room.bed}
+                  image={room.image}
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          // Show fallback if no rooms found
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No rooms available for this hotel.</p>
+          </div>
+        )}
+        
+        <div className="flex justify-center mb-10">
+          <button className="text-[#23263a] font-inter font-semibold text-sm px-6 py-2 bg-transparent border-none hover:underline tracking-widest">LOAD MORE +</button>
         </div>
-      ) : rooms.length > 0 ? (
-        // Show actual rooms
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-          {rooms.map((room) => (
-            <ProductCard 
-              key={room.id} 
-              name={room.room_name}
-              type={room.accommodation_type}
-              bed={room.bed}
-              image={room.image}
-            />
-          ))}
-        </div>
-      ) : (
-        // Show fallback if no rooms found
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">No rooms available for this hotel.</p>
-        </div>
+      </section>
+
+      {/* Room Modal */}
+      {selectedRoom && (
+        <RoomModal
+          room={selectedRoom}
+          images={selectedRoomImages}
+          isOpen={isModalOpen}
+          onClose={closeModal}
+        />
       )}
-      
-      <div className="flex justify-center mb-10">
-        <button className="text-[#23263a] font-inter font-semibold text-sm px-6 py-2 bg-transparent border-none hover:underline tracking-widest">LOAD MORE +</button>
-      </div>
-    </section>
+    </>
   );
 };
 

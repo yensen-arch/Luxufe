@@ -209,7 +209,7 @@ export default function OtherAmanHotels({ hotel }: OtherAmanHotelsProps) {
       {/* Button */}
       <Link 
         href={`/brand/${brandNameToSlug(hotel.brand)}`}
-        className="mt-4 px-12 py-5 cursor-pointer border-2 border-gray-300 font-inter font-bold text-[#23263a] text-base flex items-center justify-center gap-2 tracking-widest hover:bg-gray-100 transition-all" 
+        className="mt-4 px-12 py-5 cursor-pointer border-2 border-gray-300 font-inter font-bold text-[#23263a] text-xs flex items-center justify-center gap-2 tracking-widest hover:bg-gray-100 transition-all" 
         style={{ minWidth: 320 }}
       >
         EXPLORE ALL {hotel.brand.toUpperCase()} HOTELS <span className="ml-2">→</span>
