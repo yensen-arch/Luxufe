@@ -90,7 +90,10 @@ const BrandMain = ({ data, brandName }: BrandMainProps) => {
           countries: filters.region.length > 0 ? filters.region : undefined,
           typeOfTravel: filters.typeOfTravel.length > 0 ? filters.typeOfTravel : undefined
         });
-        setHotels(hotelData);
+        // Ensure hotels is always an array
+        const hotelsArray = Array.isArray(hotelData.data) ? hotelData.data : 
+                           Array.isArray(hotelData) ? hotelData : [];
+        setHotels(hotelsArray);
       } catch (error) {
         console.error('Error fetching hotels:', error);
         setHotels([]);

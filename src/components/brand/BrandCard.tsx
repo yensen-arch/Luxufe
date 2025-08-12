@@ -213,7 +213,7 @@ export default function BrandCard({ name, location, logo, description, brand }: 
         {isLoading ? (
           <div className="w-full h-12 bg-gray-200 animate-pulse rounded"></div>
         ) : (
-          <button className="w-full border border-gray-800 bg-white text-gray-800 font-inter font-bold text-sm py-3 px-4 flex items-center justify-center gap-2 hover:bg-gray-50 transition">
+          <button onClick={handleCardClick} className="cursor-pointer w-full border border-gray-800 bg-white text-gray-800 font-inter font-bold text-sm py-3 px-4 flex items-center justify-center gap-2 hover:bg-gray-50 transition">
             EXPLORE HOTEL
             <ArrowRight className="w-4 h-4" />
           </button>

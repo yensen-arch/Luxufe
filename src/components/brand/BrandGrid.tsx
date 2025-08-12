@@ -21,19 +21,22 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 4;
   
+  // Ensure hotels is always an array
+  const hotelsArray = Array.isArray(hotels) ? hotels : [];
+  
   const allSelectedFilters = [...filters.typeOfTravel, ...filters.region];
   const hasFilters = allSelectedFilters.length > 0;
 
   // Calculate pagination
-  const totalPages = Math.ceil(hotels.length / cardsPerPage);
+  const totalPages = Math.ceil(hotelsArray.length / cardsPerPage);
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
-  const currentHotels = hotels.slice(startIndex, endIndex);
+  const currentHotels = hotelsArray.slice(startIndex, endIndex);
 
   // Reset to first page when hotels change
   React.useEffect(() => {
     setCurrentPage(1);
-  }, [hotels.length]);
+  }, [hotelsArray.length]);
 
   // Loading state
   if (loading) {
@@ -99,12 +102,12 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
       {/* Results Count */}
       <div className="px-8 py-6">
         <p className="text-sm font-inter font-bold text-gray-500">
-          Showing {startIndex + 1}-{Math.min(endIndex, hotels.length)} of {hotels.length} Results
+          Showing {startIndex + 1}-{Math.min(endIndex, hotelsArray.length)} of {hotelsArray.length} Results
         </p>
       </div>
 
       {/* Hotel Cards Grid */}
-      {hotels.length === 0 ? (
+      {hotelsArray.length === 0 ? (
         <div className="flex items-center justify-center py-16">
           <div className="text-center">
             <p className="text-gray-600 font-inter text-lg mb-2">No hotels found</p>
