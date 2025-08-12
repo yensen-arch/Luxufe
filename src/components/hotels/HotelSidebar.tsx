@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from "react";
-import { Send, Filter, X, Search } from "lucide-react";
+import { Send, Filter, X } from "lucide-react";
 import { Brand } from "@/lib/database";
 
 interface HotelSidebarProps {
@@ -42,7 +42,6 @@ export default function HotelSidebar({
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
   const [selectedBrand, setSelectedBrand] = useState<string>(currentBrand);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [showBrandSearch, setShowBrandSearch] = useState(false);
 
   const handleTypeToggle = (type: string) => {
     const newTypes = selectedTypes.includes(type)
@@ -70,16 +69,16 @@ export default function HotelSidebar({
     });
   };
 
-  const handleBrandSelect = (brandName: string) => {
-    setSelectedBrand(brandName);
-    setShowBrandSearch(false);
-    setBrandSearchTerm("");
-    onFiltersChange({
-      search: searchTerm,
-      typeOfTravel: selectedTypes,
-      region: selectedRegions,
-      brand: brandName
-    });
+  const handleBrandSearch = () => {
+    if (brandSearchTerm.trim()) {
+      setSelectedBrand(brandSearchTerm.trim());
+      onFiltersChange({
+        search: searchTerm,
+        typeOfTravel: selectedTypes,
+        region: selectedRegions,
+        brand: brandSearchTerm.trim()
+      });
+    }
   };
 
   const handleSearch = () => {
@@ -90,11 +89,6 @@ export default function HotelSidebar({
       brand: selectedBrand
     });
   };
-
-  // Filter brands based on search term
-  const filteredBrands = availableBrands?.filter(brand =>
-    brand.name.toLowerCase().includes(brandSearchTerm.toLowerCase())
-  ) || [];
 
   return (
     <>
@@ -154,63 +148,6 @@ export default function HotelSidebar({
         </div>
       </div>
 
-      {/* Brand Selection */}
-      <div className="border-b-2 border-gray-300 p-6">
-        <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4">
-          Brand
-        </h3>
-        <div className="relative">
-          <button
-            onClick={() => setShowBrandSearch(!showBrandSearch)}
-            className="w-full flex items-center justify-between bg-white border border-gray-200 rounded-lg px-4 py-3 text-left hover:bg-gray-50 transition"
-          >
-            <span className="text-sm font-inter font-bold text-gray-700">
-              {selectedBrand}
-            </span>
-            <Search className="w-4 h-4 text-gray-400" />
-          </button>
-          
-          {showBrandSearch && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto">
-              <div className="p-3 border-b border-gray-200">
-                <input
-                  type="text"
-                  placeholder="Search brands..."
-                  value={brandSearchTerm}
-                  onChange={(e) => setBrandSearchTerm(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-md text-sm font-inter focus:outline-none focus:ring-2 focus:ring-[#23263a]"
-                />
-              </div>
-              <div className="max-h-48 overflow-y-auto">
-                {loadingBrands ? (
-                  <div className="p-3 text-center text-sm text-gray-500">
-                    Loading brands...
-                  </div>
-                ) : filteredBrands.length > 0 ? (
-                  filteredBrands.map((brand) => (
-                    <button
-                      key={brand.id}
-                      onClick={() => handleBrandSelect(brand.name)}
-                      className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition ${
-                        selectedBrand === brand.name ? 'bg-[#23263a] text-white' : 'text-gray-700'
-                      }`}
-                    >
-                      <span className="text-sm font-inter font-bold">
-                        {brand.name}
-                      </span>
-                    </button>
-                  ))
-                ) : (
-                  <div className="p-3 text-center text-sm text-gray-500">
-                    No brands found
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
       {/* Type of Travel */}
       <div className="border-b-2 border-gray-300 p-6">
         <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4 ">
@@ -234,7 +171,7 @@ export default function HotelSidebar({
       </div>
 
       {/* Region */}
-      <div className="p-6">
+      <div className="border-b-2 border-gray-300 p-6">
         <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4 ">
           Region
         </h3>
@@ -262,6 +199,39 @@ export default function HotelSidebar({
         {!loadingCountries && availableCountries && availableCountries.length === 0 && (
           <p className="text-gray-500 text-sm font-inter text-center py-4">
             No countries available for this brand
+          </p>
+        )}
+      </div>
+
+      {/* Brand Search */}
+      <div className="p-6">
+        <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4">
+          Brand
+        </h3>
+        <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-3 shadow-xl">
+          <input
+            type="text"
+            placeholder="Search for a brand..."
+            value={brandSearchTerm}
+            onChange={(e) => setBrandSearchTerm(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleBrandSearch()}
+            className="flex-1 bg-transparent outline-none text-sm font-inter text-gray-700 placeholder:text-gray-400 font-bold"
+          />
+          <button 
+            onClick={handleBrandSearch}
+            disabled={loading}
+            className="ml-2 bg-[#23263a] text-white rounded-full p-3 flex items-center justify-center hover:bg-black transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? (
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+            ) : (
+              <Send className="w-5 h-5" />
+            )}
+          </button>
+        </div>
+        {selectedBrand && (
+          <p className="text-sm font-inter text-gray-600 mt-2">
+            Current brand: <span className="font-bold">{selectedBrand}</span>
           </p>
         )}
       </div>

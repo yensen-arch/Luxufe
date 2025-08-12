@@ -32,6 +32,7 @@ export default function BrandGrid({
   onPageChange
 }: BrandGridProps) {
   const cardsPerPage = 4;
+  const maxVisiblePages = 4;
   
   const allSelectedFilters = [...filters.typeOfTravel, ...filters.region];
   const hasFilters = allSelectedFilters.length > 0;
@@ -39,6 +40,26 @@ export default function BrandGrid({
   // Calculate pagination display
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = Math.min(startIndex + cardsPerPage, totalCount);
+
+  // Calculate which pages to show (max 4 pages at a time)
+  const getVisiblePages = () => {
+    if (totalPages <= maxVisiblePages) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    // Show pages around current page
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    // Adjust if we're near the end
+    if (endPage - startPage < maxVisiblePages - 1) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+  };
+
+  const visiblePages = getVisiblePages();
 
   // Loading state
   if (loading) {
@@ -150,7 +171,7 @@ export default function BrandGrid({
             
             {/* Page Numbers */}
             <div className="flex items-center gap-4">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+              {visiblePages.map((pageNum) => (
                 <button
                   key={pageNum}
                   onClick={() => onPageChange(pageNum)}
@@ -166,6 +187,11 @@ export default function BrandGrid({
                   )}
                 </button>
               ))}
+              
+              {/* Show ellipsis if there are more pages */}
+              {visiblePages[visiblePages.length - 1] < totalPages && (
+                <span className="text-gray-400 font-inter text-sm">...</span>
+              )}
             </div>
             
             {/* Next Link */}
