@@ -23,17 +23,12 @@ const typeOfTravelOptions = [
   "Safari & Wilderness", "Ski Resorts", "Sport & Hobbies", "Hotels", "Food & Wine"
 ];
 
-const regionOptions = [
-  "Australia & New Zealand", "Caribbean Islands", "Central America & Mexico", "Asia"
-];
 
 export default function HotelSidebar({ 
   onFiltersChange, 
   availableCountries, 
-  availableBrands,
   loading, 
   loadingCountries,
-  loadingBrands,
   currentBrand = "Aman"
 }: HotelSidebarProps) {
   const [searchTerm, setSearchTerm] = useState("");
