@@ -12,7 +12,7 @@ interface BrandGridProps {
     region: string[];
     brand: string;
   };
-  onClearFilter: (filterType: 'typeOfTravel' | 'region', value: string) => void;
+  onClearFilter: (filterType: 'typeOfTravel' | 'region' | 'brand', value: string) => void;
   onClearAllFilters: () => void;
   currentPage: number;
   totalPages: number;
@@ -34,7 +34,7 @@ export default function BrandGrid({
   const cardsPerPage = 4;
   const maxVisiblePages = 4;
   
-  const allSelectedFilters = [...filters.typeOfTravel, ...filters.region];
+  const allSelectedFilters = [...filters.typeOfTravel, ...filters.region, filters.brand];
   const hasFilters = allSelectedFilters.length > 0;
 
   // Calculate pagination display
@@ -79,6 +79,20 @@ export default function BrandGrid({
       <div className="border-b-2 border-gray-300 px-8 py-4 h-30">
         <div className="flex items-center gap-4">
           <div className="flex flex-wrap gap-2 mt-6">
+            {/* Brand Filter */}
+            {filters.brand && (
+              <span className="bg-[#23263a] text-white px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2">
+                Brand: {filters.brand}
+                <button
+                  onClick={() => onClearFilter('brand', filters.brand)}
+                  className="hover:text-gray-300"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            )}
+            
+            {/* Type of Travel Filters */}
             {filters.typeOfTravel.map((type) => (
               <span
                 key={type}
@@ -93,6 +107,8 @@ export default function BrandGrid({
                 </button>
               </span>
             ))}
+            
+            {/* Region Filters */}
             {filters.region.map((region) => (
               <span
                 key={region}

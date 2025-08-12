@@ -148,10 +148,10 @@ const HotelsMain = ({ data, brandName }: HotelsMainProps) => {
     setFilters(prev => ({ ...prev, ...newFilters }));
   };
 
-  const handleClearFilter = (filterType: 'typeOfTravel' | 'region', value: string) => {
+  const handleClearFilter = (filterType: 'typeOfTravel' | 'region' | 'brand', value: string) => {
     setFilters(prev => ({
       ...prev,
-      [filterType]: prev[filterType].filter(item => item !== value)
+      [filterType]: filterType === 'brand' ? defaultBrand : prev[filterType].filter(item => item !== value)
     }));
   };
 

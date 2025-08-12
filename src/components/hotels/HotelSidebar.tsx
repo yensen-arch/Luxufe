@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Send, Filter, X } from "lucide-react";
 import { Brand } from "@/lib/database";
 
@@ -23,12 +23,13 @@ const typeOfTravelOptions = [
   "Safari & Wilderness", "Ski Resorts", "Sport & Hobbies", "Hotels", "Food & Wine"
 ];
 
-
 export default function HotelSidebar({ 
   onFiltersChange, 
   availableCountries, 
+  availableBrands,
   loading, 
   loadingCountries,
+  loadingBrands,
   currentBrand = "Aman"
 }: HotelSidebarProps) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,6 +38,40 @@ export default function HotelSidebar({
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
   const [selectedBrand, setSelectedBrand] = useState<string>(currentBrand);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [matchingBrands, setMatchingBrands] = useState<Brand[]>([]);
+
+  // Fuzzy search function for brands
+  const fuzzySearch = (searchTerm: string, brands: Brand[]): Brand[] => {
+    if (!searchTerm.trim()) return [];
+    
+    const searchLower = searchTerm.toLowerCase();
+    return brands.filter(brand => {
+      const brandName = brand.name.toLowerCase();
+      
+      // Exact match
+      if (brandName === searchLower) return true;
+      
+      // Starts with search term
+      if (brandName.startsWith(searchLower)) return true;
+      
+      // Contains search term
+      if (brandName.includes(searchLower)) return true;
+      
+      // Word boundary match (e.g., "aman" matches "Aman Resorts")
+      const words = brandName.split(/\s+/);
+      return words.some(word => word.startsWith(searchLower));
+    }).slice(0, 10); // Limit to 10 results
+  };
+
+  // Update matching brands when search term changes
+  useEffect(() => {
+    if (availableBrands && brandSearchTerm.trim()) {
+      const matches = fuzzySearch(brandSearchTerm, availableBrands);
+      setMatchingBrands(matches);
+    } else {
+      setMatchingBrands([]);
+    }
+  }, [brandSearchTerm, availableBrands]);
 
   const handleTypeToggle = (type: string) => {
     const newTypes = selectedTypes.includes(type)
@@ -64,15 +99,27 @@ export default function HotelSidebar({
     });
   };
 
+  const handleBrandSelect = (brandName: string) => {
+    setSelectedBrand(brandName);
+    setBrandSearchTerm("");
+    setMatchingBrands([]);
+    onFiltersChange({
+      search: searchTerm,
+      typeOfTravel: selectedTypes,
+      region: selectedRegions,
+      brand: brandName
+    });
+  };
+
   const handleBrandSearch = () => {
     if (brandSearchTerm.trim()) {
-      setSelectedBrand(brandSearchTerm.trim());
-      onFiltersChange({
-        search: searchTerm,
-        typeOfTravel: selectedTypes,
-        region: selectedRegions,
-        brand: brandSearchTerm.trim()
-      });
+      // If there are matching brands, select the first one
+      if (matchingBrands.length > 0) {
+        handleBrandSelect(matchingBrands[0].name);
+      } else {
+        // Otherwise, use the search term as the brand name
+        handleBrandSelect(brandSearchTerm.trim());
+      }
     }
   };
 
@@ -203,7 +250,7 @@ export default function HotelSidebar({
         <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4">
           Brand
         </h3>
-        <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-3 shadow-xl">
+        <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-3 shadow-xl mb-4">
           <input
             type="text"
             placeholder="Search for a brand..."
@@ -224,10 +271,41 @@ export default function HotelSidebar({
             )}
           </button>
         </div>
+
+        {/* Matching Brands Tags */}
+        {matchingBrands.length > 0 && (
+          <div className="mb-4">
+            <h4 className="text-sm font-inter font-bold text-gray-600 mb-2">
+              Matching Brands:
+            </h4>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+              {matchingBrands.map((brand) => (
+                <button
+                  key={brand.id}
+                  onClick={() => handleBrandSelect(brand.name)}
+                  className={`px-2 py-2 rounded-full text-xs font-inter font-bold transition cursor-pointer ${
+                    selectedBrand === brand.name
+                      ? 'bg-[#23263a] text-white'
+                      : 'bg-gray-200 text-gray-400 hover:bg-gray-300'
+                  }`}
+                >
+                  {brand.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Current Brand Display */}
         {selectedBrand && (
-          <p className="text-sm font-inter text-gray-600 mt-2">
-            Current brand: <span className="font-bold">{selectedBrand}</span>
-          </p>
+          <div className="mt-4">
+            <h4 className="text-sm font-inter font-bold text-gray-600 mb-2">
+              Current Brand:
+            </h4>
+            <div className="bg-[#23263a] text-white px-3 py-2 rounded-full text-xs font-inter font-bold inline-block">
+              {selectedBrand}
+            </div>
+          </div>
         )}
       </div>
       </aside>
