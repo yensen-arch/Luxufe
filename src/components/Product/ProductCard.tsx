@@ -43,7 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, type, bed, image }) => 
         </div>
         
         {/* Action Button */}
-        <button className="bg-white text-black font-inter font-semibold px-6 py-3 text-xs rounded-none shadow hover:bg-gray-100 transition-all tracking-widest">
+        <button className="cursor-pointer bg-white text-black font-inter font-semibold px-6 py-3 text-xs rounded-none shadow hover:bg-gray-100 transition-all tracking-widest">
           READ MORE
         </button>
       </div>
