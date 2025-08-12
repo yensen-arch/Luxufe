@@ -1,5 +1,4 @@
 import React from "react";
-import { Star } from "lucide-react";
 
 interface PropertyCardProps {
   name: string;
@@ -33,20 +32,22 @@ export default function PropertyCard({
         {/* Star Rating */}
         <div className="flex justify-center mb-2 md:mb-3">
           {[...Array(rating)].map((_, index) => (
-            <Star 
+            <img 
               key={index} 
-              className="w-4 h-4 md:w-5 md:h-5 fill-white text-white" 
+              src="/luxufe-icon-star-ratings-solid-white.svg" 
+              alt="Star" 
+              className="w-4 h-3 md:w-5 md:h-4 text-white" 
             />
           ))}
         </div>
         
         {/* Property Name */}
-        <h3 className="text-lg md:text-xl lg:text-2xl font-arpona font-bold text-center mb-1 md:mb-2">
+        <h3 className="text-lg md:text-xl lg:text-xl font-arpona text-center mb-1 md:mb-2">
           {name}
         </h3>
         
         {/* Location */}
-        <p className="text-sm md:text-base font-inter text-center text-white/90">
+        <p className="text-sm font-bold font-inter text-center text-white/90">
           {location}
         </p>
       </div>
