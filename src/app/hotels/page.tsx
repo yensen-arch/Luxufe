@@ -16,7 +16,7 @@ export default async function Hotels() {
   ]);
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <Navbar />
       <HotelHero data={hotelsData?.hero} />
       <HotelBrands data={hotelsData?.brands} />
