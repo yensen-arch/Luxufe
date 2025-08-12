@@ -216,15 +216,15 @@ export default function HotelBrands({ data }: HotelBrandsProps) {
           {/* Navigation Arrows */}
           <button
             onClick={scrollPrev}
-            className="absolute top-1/2 left-55 -translate-y-1/2 bg-white/90 rounded-full p-3 md:p-8 shadow-lg hover:bg-white transition-colors z-10"
+            className="absolute top-1/2 left-55 -translate-y-1/2 bg-white border border-gray-200 rounded-full p-3 md:p-8 shadow-lg hover:bg-white transition-colors z-10"
           >
-            <ArrowLeft className="h-4 w-4 md:h-5 md:w-5 text-gray-800" />
+            <img src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" className="h-4 w-4 md:h-7 md:w-7 text-gray-800" />
           </button>
           <button
             onClick={scrollNext}
-            className="absolute top-1/2 right-55 -translate-y-1/2 bg-white/90 rounded-full p-3 md:p-8 shadow-lg hover:bg-white transition-colors z-10"
+            className="absolute top-1/2 right-55 -translate-y-1/2 bg-white border border-gray-200 rounded-full p-3 md:p-8 shadow-lg hover:bg-white transition-colors z-10"
           >
-            <ArrowRight className="h-4 w-4 md:h-5 md:w-5 text-gray-800" />
+            <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-4 w-4 md:h-7 md:w-7 text-gray-800" />
           </button>
         </div>
       </div>
