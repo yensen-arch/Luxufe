@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Map, { Marker, Popup, NavigationControl } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { MapPin, Search, ZoomIn, ZoomOut } from "lucide-react";
+import { MapPin, ZoomIn, ZoomOut } from "lucide-react";
 
 const LOCATIONS = [
   { name: "CANADA", lng: -106.3468, lat: 56.1304 },
@@ -44,16 +44,16 @@ export default function HotelMap({ className = "" }: HotelMapProps) {
         </div>
 
         {/* Instructional Tooltip */}
-        <div className="absolute top-4 left-4 z-10 bg-white shadow-lg px-3 md:px-4 py-2 md:py-3 rounded-lg border border-gray-200 flex items-center gap-2 md:gap-3">
-          <Search className="w-3 h-3 md:w-4 md:h-4 text-gray-700" />
-          <span className="font-inter text-gray-700 text-xs md:text-sm font-bold">
+        <div className="absolute top-8 left-6 z-10 bg-white shadow-lg px-3 md:px-4 py-2 md:py-3 border border-gray-200 flex items-center gap-2 md:gap-3">
+          <img src="/luxufe-icon-pointer-dark.svg" alt="Pointer" className="w-3 h-3 md:w-4 md:h-4 text-gray-700" />
+          <span className="font-inter text-gray-700 text-xs font-bold">
             Click on a region to explore further
           </span>
         </div>
 
         {/* View All Properties Button */}
         <div className="absolute top-4 right-4 z-10">
-          <button className="bg-gray-800 text-white px-4 md:px-6 py-2 md:py-3 font-inter text-xs md:text-sm font-bold hover:bg-gray-900 transition-colors shadow-lg">
+          <button className="bg-gray-800 text-white px-4 md:px-6 py-2 md:py-3 font-inter text-xs font-bold hover:bg-gray-900 transition-colors shadow-lg">
             View All Properties
           </button>
         </div>
@@ -65,7 +65,7 @@ export default function HotelMap({ className = "" }: HotelMapProps) {
               className="bg-white px-3 md:px-4 py-1.5 md:py-2 rounded-full shadow-lg flex items-center gap-1 md:gap-2 font-inter text-xs md:text-sm font-bold text-gray-900 hover:bg-gray-100 border border-gray-200 transition-colors"
               onClick={() => setSelected(loc)}
             >
-              <MapPin className="w-3 h-3 md:w-4 md:h-4" />
+              <img src="/luxufe-map-icon-large-location-pin-dark.svg" alt="Map pin" className="w-3 h-3 md:w-4 md:h-4" />
               <span>{loc.name}</span>
             </button>
             {selected && selected.name === loc.name && (
