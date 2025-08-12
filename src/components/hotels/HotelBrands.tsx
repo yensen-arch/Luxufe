@@ -1,7 +1,10 @@
 "use client";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
+import { getBrands, Brand } from "@/lib/database";
+import { brandNameToSlug } from "@/lib/utils";
+import Link from "next/link";
 
 interface HotelBrandsData {
   title: string;
@@ -63,8 +66,52 @@ export default function HotelBrands({ data }: HotelBrandsProps) {
     containScroll: "trimSnaps",
   });
 
+  const [brandLogosRef, brandLogosApi] = useEmblaCarousel({
+    loop: true,
+    align: "center",
+    containScroll: "trimSnaps",
+    dragFree: true,
+  });
+
+  const [hotelBrands, setHotelBrands] = useState<Brand[]>([]);
+  const [loading, setLoading] = useState(true);
+
   const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+
+  // Fetch hotel brands from database
+  useEffect(() => {
+    const fetchHotelBrands = async () => {
+      try {
+        setLoading(true);
+        const brands = await getBrands();
+        // Get brands that have logos
+        const brandsWithLogos = brands.filter(brand => brand.logo);
+        setHotelBrands(brandsWithLogos);
+      } catch (error) {
+        console.error('Error fetching hotel brands:', error);
+        // Fallback to empty array if fetch fails
+        setHotelBrands([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHotelBrands();
+  }, []);
+
+  // Auto-scroll for brand logos carousel
+  useEffect(() => {
+    if (!brandLogosApi) return;
+
+    const autoScroll = () => {
+      brandLogosApi.scrollNext();
+    };
+
+    const interval = setInterval(autoScroll, 3000); // Scroll every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [brandLogosApi]);
 
   // Fallback to hardcoded content if no data is provided
   const sectionData = data || {
@@ -91,17 +138,51 @@ export default function HotelBrands({ data }: HotelBrandsProps) {
           </p>
         </div>
 
-        {/* Brand Logos */}
-        <div className="flex justify-center items-center gap-8 md:gap-12 lg:gap-16 mb-16 md:mb-20 lg:mb-24 flex-wrap">
-          {sectionData.brandLogos.map((brand, index) => (
-            <div key={index} className="flex-shrink-0">
-              <img 
-                src={brand.logo.url} 
-                alt={brand.logo.alt}
-                className="h-8 md:h-10 lg:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity"
-              />
+        {/* Brand Logos - Auto-scrolling Carousel */}
+        <div className="mb-16 md:mb-20 lg:mb-24">
+          <div ref={brandLogosRef} className="overflow-hidden">
+            <div className="flex">
+              {loading ? (
+                // Loading skeleton
+                Array.from({ length: 10 }).map((_, index) => (
+                  <div key={`skeleton-${index}`} className="flex-shrink-0 mx-4 md:mx-6 lg:mx-8">
+                    <div className="h-8 md:h-10 lg:h-12 w-20 md:w-24 lg:w-32 bg-gray-200 animate-pulse rounded"></div>
+                  </div>
+                ))
+              ) : hotelBrands.length > 0 ? (
+                // Real hotel brand logos from database
+                hotelBrands.map((brand, index) => {
+                  const brandSlug = brandNameToSlug(brand.name);
+                  return (
+                    <div key={brand.id} className="flex-shrink-0 mx-4 md:mx-6 lg:mx-8">
+                      <Link href={`/brand/${brandSlug}`} className="block">
+                        <img 
+                          src={brand.logo} 
+                          alt={brand.name}
+                          className="h-10 md:h-14 lg:h-18 w-auto opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
+                          onError={(e) => {
+                            // Fallback to a placeholder or hide the image if it fails to load
+                            e.currentTarget.style.display = 'none';
+                          }}
+                        />
+                      </Link>
+                    </div>
+                  );
+                })
+              ) : (
+                // Fallback to hardcoded brands if no data from database
+                sectionData.brandLogos.map((brand, index) => (
+                  <div key={index} className="flex-shrink-0 mx-4 md:mx-6 lg:mx-8">
+                    <img 
+                      src={brand.logo.url} 
+                      alt={brand.logo.alt}
+                      className="h-8 md:h-10 lg:h-12 w-auto opacity-80 hover:opacity-100 transition-opacity"
+                    />
+                  </div>
+                ))
+              )}
             </div>
-          ))}
+          </div>
         </div>
 
         {/* Image Carousel */}
