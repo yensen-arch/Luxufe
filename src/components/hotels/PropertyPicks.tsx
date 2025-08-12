@@ -65,7 +65,7 @@ export default function PropertyPicks({ data }: PropertyPicksProps) {
   // Fallback to hardcoded content if no data is provided
   const sectionData = data || {
     tagline: "Worth Travelling for",
-    title: "Luxufe's Property Picks",
+    title: "Luxufe's Hotel Picks",
     properties: defaultProperties,
     ctaButtons: [
       { text: "ENQUIRE WITH US", link: "#" },
@@ -78,10 +78,10 @@ export default function PropertyPicks({ data }: PropertyPicksProps) {
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
-          <p className="text-lg md:text-xl lg:text-2xl font-bellarina text-gray-600 mb-2 md:mb-3">
+          <p className="text-lg md:text-xl lg:text-5xl font-bellarina text-gray-600 mb-10 md:mb-12">
             {sectionData.tagline}
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-arpona font-bold text-gray-800">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-arpona font-bold text-gray-800">
             {sectionData.title}
           </h2>
         </div>
@@ -89,7 +89,7 @@ export default function PropertyPicks({ data }: PropertyPicksProps) {
         {/* Properties Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 mb-16 md:mb-20 lg:mb-24">
           {sectionData.properties.map((property, index) => (
-            <div key={index} className="h-[300px] md:h-[350px] lg:h-[400px]">
+            <div key={index} className="h-[200px] md:h-[250px] lg:h-[300px]">
               <PropertyCard
                 name={property.name}
                 location={property.location}
@@ -106,10 +106,10 @@ export default function PropertyPicks({ data }: PropertyPicksProps) {
           {sectionData.ctaButtons.map((button, index) => (
             <button
               key={index}
-              className="border border-gray-800 text-gray-800 px-6 md:px-8 py-3 md:py-4 hover:bg-gray-800 hover:text-white transition-colors duration-300 flex items-center justify-center gap-2 text-sm md:text-base font-inter font-bold"
+              className="border-2 border-gray-300 text-gray-800 px-4 md:px-5 py-2 md:py-3 hover:bg-black hover:text-white transition-colors duration-300 flex items-center justify-center gap-2 text-xs font-inter font-bold"
             >
               {button.text}
-              <ArrowRight className="h-4 w-4" />
+              <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-4 w-4 md:h-7 md:w-7 text-gray-800" />
             </button>
           ))}
         </div>
