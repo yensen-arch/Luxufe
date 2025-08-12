@@ -146,11 +146,13 @@ export const getHotelsWithFiltersAndGallery = async (filters: {
   search?: string;
   countries?: string[];
   typeOfTravel?: string[];
-}): Promise<Hotel[]> => {
+  page?: number;
+  pageSize?: number;
+}): Promise<{ data: Hotel[]; count: number }> => {
   try {
     let query = supabase
       .from('hotels')
-      .select('*');
+      .select('*', { count: 'exact' });
 
     // Apply brand filter
     if (filters.brand) {
@@ -172,17 +174,24 @@ export const getHotelsWithFiltersAndGallery = async (filters: {
       query = query.in('room_type', filters.typeOfTravel);
     }
 
-    const { data, error } = await query.order('hotel_name', { ascending: true });
+    // Apply pagination
+    if (filters.page && filters.pageSize) {
+      const from = (filters.page - 1) * filters.pageSize;
+      const to = from + filters.pageSize - 1;
+      query = query.range(from, to);
+    }
+
+    const { data, error, count } = await query.order('hotel_name', { ascending: true });
 
     if (error) {
       console.error('Error fetching hotels:', error);
-      return [];
+      return { data: [], count: 0 };
     }
 
-    return data || [];
+    return { data: data || [], count: count || 0 };
   } catch (error) {
     console.error('Error fetching hotels:', error);
-    return [];
+    return { data: [], count: 0 };
   }
 };
 

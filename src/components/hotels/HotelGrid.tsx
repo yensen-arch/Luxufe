@@ -10,30 +10,35 @@ interface BrandGridProps {
     search: string;
     typeOfTravel: string[];
     region: string[];
+    brand: string;
   };
   onClearFilter: (filterType: 'typeOfTravel' | 'region', value: string) => void;
   onClearAllFilters: () => void;
+  currentPage: number;
+  totalPages: number;
+  totalCount: number;
+  onPageChange: (page: number) => void;
 }
 
-
-
-export default function BrandGrid({ hotels, loading, filters, onClearFilter, onClearAllFilters }: BrandGridProps) {
-  const [currentPage, setCurrentPage] = useState(1);
+export default function BrandGrid({ 
+  hotels, 
+  loading, 
+  filters, 
+  onClearFilter, 
+  onClearAllFilters,
+  currentPage,
+  totalPages,
+  totalCount,
+  onPageChange
+}: BrandGridProps) {
   const cardsPerPage = 4;
   
   const allSelectedFilters = [...filters.typeOfTravel, ...filters.region];
   const hasFilters = allSelectedFilters.length > 0;
 
-  // Calculate pagination
-  const totalPages = Math.ceil(hotels.length / cardsPerPage);
+  // Calculate pagination display
   const startIndex = (currentPage - 1) * cardsPerPage;
-  const endIndex = startIndex + cardsPerPage;
-  const currentHotels = hotels.slice(startIndex, endIndex);
-
-  // Reset to first page when hotels change
-  React.useEffect(() => {
-    setCurrentPage(1);
-  }, [hotels.length]);
+  const endIndex = Math.min(startIndex + cardsPerPage, totalCount);
 
   // Loading state
   if (loading) {
@@ -99,7 +104,7 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
       {/* Results Count */}
       <div className="px-8 py-6">
         <p className="text-sm font-inter font-bold text-gray-500">
-          Showing {startIndex + 1}-{Math.min(endIndex, hotels.length)} of {hotels.length} Results
+          Showing {startIndex + 1}-{endIndex} of {totalCount} Results
         </p>
       </div>
 
@@ -113,7 +118,7 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 px-16 pb-8">
-          {currentHotels.map((hotel, index) => (
+          {hotels.map((hotel, index) => (
             <HotelCard
               key={hotel.id}
               name={hotel.hotel_name}
@@ -132,7 +137,7 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
           <div className="flex items-center gap-8">
             {/* Previous Link */}
             <button 
-              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+              onClick={() => onPageChange(Math.max(1, currentPage - 1))}
               disabled={currentPage === 1}
               className={`font-inter text-sm transition ${
                 currentPage === 1 
@@ -148,7 +153,7 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
                 <button
                   key={pageNum}
-                  onClick={() => setCurrentPage(pageNum)}
+                  onClick={() => onPageChange(pageNum)}
                   className={`flex flex-col items-center ${
                     pageNum === currentPage ? 'text-gray-800' : 'text-gray-500 hover:text-gray-700'
                   }`}
@@ -165,7 +170,7 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
             
             {/* Next Link */}
             <button 
-              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+              onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
               disabled={currentPage === totalPages}
               className={`font-inter text-sm transition ${
                 currentPage === totalPages 

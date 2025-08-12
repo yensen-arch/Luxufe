@@ -1,16 +1,21 @@
 "use client"
 import React, { useState } from "react";
-import { Send, Filter, X } from "lucide-react";
+import { Send, Filter, X, Search } from "lucide-react";
+import { Brand } from "@/lib/database";
 
 interface HotelSidebarProps {
   onFiltersChange: (filters: {
     search: string;
     typeOfTravel: string[];
     region: string[];
+    brand: string;
   }) => void;
   availableCountries?: string[];
+  availableBrands?: Brand[];
   loading?: boolean;
   loadingCountries?: boolean;
+  loadingBrands?: boolean;
+  currentBrand?: string;
 }
 
 const typeOfTravelOptions = [
@@ -22,11 +27,22 @@ const regionOptions = [
   "Australia & New Zealand", "Caribbean Islands", "Central America & Mexico", "Asia"
 ];
 
-export default function HotelSidebar({ onFiltersChange, availableCountries, loading, loadingCountries }: HotelSidebarProps) {
+export default function HotelSidebar({ 
+  onFiltersChange, 
+  availableCountries, 
+  availableBrands,
+  loading, 
+  loadingCountries,
+  loadingBrands,
+  currentBrand = "Aman"
+}: HotelSidebarProps) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [brandSearchTerm, setBrandSearchTerm] = useState("");
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const [selectedBrand, setSelectedBrand] = useState<string>(currentBrand);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showBrandSearch, setShowBrandSearch] = useState(false);
 
   const handleTypeToggle = (type: string) => {
     const newTypes = selectedTypes.includes(type)
@@ -36,7 +52,8 @@ export default function HotelSidebar({ onFiltersChange, availableCountries, load
     onFiltersChange({
       search: searchTerm,
       typeOfTravel: newTypes,
-      region: selectedRegions
+      region: selectedRegions,
+      brand: selectedBrand
     });
   };
 
@@ -48,7 +65,20 @@ export default function HotelSidebar({ onFiltersChange, availableCountries, load
     onFiltersChange({
       search: searchTerm,
       typeOfTravel: selectedTypes,
-      region: newRegions
+      region: newRegions,
+      brand: selectedBrand
+    });
+  };
+
+  const handleBrandSelect = (brandName: string) => {
+    setSelectedBrand(brandName);
+    setShowBrandSearch(false);
+    setBrandSearchTerm("");
+    onFiltersChange({
+      search: searchTerm,
+      typeOfTravel: selectedTypes,
+      region: selectedRegions,
+      brand: brandName
     });
   };
 
@@ -56,9 +86,15 @@ export default function HotelSidebar({ onFiltersChange, availableCountries, load
     onFiltersChange({
       search: searchTerm,
       typeOfTravel: selectedTypes,
-      region: selectedRegions
+      region: selectedRegions,
+      brand: selectedBrand
     });
   };
+
+  // Filter brands based on search term
+  const filteredBrands = availableBrands?.filter(brand =>
+    brand.name.toLowerCase().includes(brandSearchTerm.toLowerCase())
+  ) || [];
 
   return (
     <>
@@ -115,6 +151,63 @@ export default function HotelSidebar({ onFiltersChange, availableCountries, load
               <Send className="w-5 h-5" />
             )}
           </button>
+        </div>
+      </div>
+
+      {/* Brand Selection */}
+      <div className="border-b-2 border-gray-300 p-6">
+        <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4">
+          Brand
+        </h3>
+        <div className="relative">
+          <button
+            onClick={() => setShowBrandSearch(!showBrandSearch)}
+            className="w-full flex items-center justify-between bg-white border border-gray-200 rounded-lg px-4 py-3 text-left hover:bg-gray-50 transition"
+          >
+            <span className="text-sm font-inter font-bold text-gray-700">
+              {selectedBrand}
+            </span>
+            <Search className="w-4 h-4 text-gray-400" />
+          </button>
+          
+          {showBrandSearch && (
+            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto">
+              <div className="p-3 border-b border-gray-200">
+                <input
+                  type="text"
+                  placeholder="Search brands..."
+                  value={brandSearchTerm}
+                  onChange={(e) => setBrandSearchTerm(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-md text-sm font-inter focus:outline-none focus:ring-2 focus:ring-[#23263a]"
+                />
+              </div>
+              <div className="max-h-48 overflow-y-auto">
+                {loadingBrands ? (
+                  <div className="p-3 text-center text-sm text-gray-500">
+                    Loading brands...
+                  </div>
+                ) : filteredBrands.length > 0 ? (
+                  filteredBrands.map((brand) => (
+                    <button
+                      key={brand.id}
+                      onClick={() => handleBrandSelect(brand.name)}
+                      className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition ${
+                        selectedBrand === brand.name ? 'bg-[#23263a] text-white' : 'text-gray-700'
+                      }`}
+                    >
+                      <span className="text-sm font-inter font-bold">
+                        {brand.name}
+                      </span>
+                    </button>
+                  ))
+                ) : (
+                  <div className="p-3 text-center text-sm text-gray-500">
+                    No brands found
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

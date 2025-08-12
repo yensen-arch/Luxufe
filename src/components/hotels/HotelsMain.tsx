@@ -2,8 +2,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import HotelSidebar from "@/components/hotels/HotelSidebar";
 import HotelGrid from "@/components/hotels/HotelGrid";
-import { getHotelsWithFiltersAndGallery, getBrandCountries } from "@/lib/database";
-import { Hotel } from "@/lib/database";
+import { getHotelsWithFiltersAndGallery, getBrandCountries, getBrands } from "@/lib/database";
+import { Hotel, Brand } from "@/lib/database";
 
 // Debounce hook for search optimization
 const useDebounce = (value: any, delay: number) => {
@@ -34,31 +34,61 @@ interface Filters {
   search: string;
   typeOfTravel: string[];
   region: string[];
+  brand: string;
 }
 
 const HotelsMain = ({ data, brandName }: HotelsMainProps) => {
+  // Set default brand to "Aman" if no brand is provided
+  const defaultBrand = brandName || "Aman";
+  
   // Fallback content if no data is provided
-  const heading = data?.heading || `${brandName || 'Luxury'} Hotels, Lodges & more`;
+  const heading = data?.heading || `${defaultBrand} Hotels, Lodges & more`;
   const description = data?.description || "Handpicked for their setting, silence, and soul";
 
   const [filters, setFilters] = useState<Filters>({
     search: "",
     typeOfTravel: [],
-    region: []
+    region: [],
+    brand: defaultBrand
   });
 
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [loading, setLoading] = useState(true);
   const [availableCountries, setAvailableCountries] = useState<string[]>([]);
   const [loadingCountries, setLoadingCountries] = useState(true);
+  const [availableBrands, setAvailableBrands] = useState<Brand[]>([]);
+  const [loadingBrands, setLoadingBrands] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const cardsPerPage = 4;
 
   // Debounce search term to prevent too many API calls
   const debouncedSearch = useDebounce(filters.search, 500);
 
-  // Fetch available countries for the specific brand
+  // Fetch available brands for search
+  useEffect(() => {
+    const fetchBrands = async () => {
+      setLoadingBrands(true);
+      try {
+        const brands = await getBrands();
+        setAvailableBrands(brands);
+      } catch (error) {
+        console.error('Error fetching brands:', error);
+        setAvailableBrands([]);
+      } finally {
+        setLoadingBrands(false);
+      }
+    };
+
+    fetchBrands();
+  }, []);
+
+  // Fetch available countries for the selected brand
   useEffect(() => {
     const fetchBrandCountries = async () => {
-      if (!brandName) {
+      if (!filters.brand) {
         setAvailableCountries([]);
         setLoadingCountries(false);
         return;
@@ -66,7 +96,7 @@ const HotelsMain = ({ data, brandName }: HotelsMainProps) => {
 
       setLoadingCountries(true);
       try {
-        const countries = await getBrandCountries(brandName);
+        const countries = await getBrandCountries(filters.brand);
         setAvailableCountries(countries);
       } catch (error) {
         console.error('Error fetching brand countries:', error);
@@ -77,33 +107,45 @@ const HotelsMain = ({ data, brandName }: HotelsMainProps) => {
     };
 
     fetchBrandCountries();
-  }, [brandName]);
+  }, [filters.brand]);
 
-  // Fetch hotels based on filters with debounced search
+  // Fetch hotels based on filters with debounced search and pagination
   useEffect(() => {
     const fetchHotels = async () => {
       setLoading(true);
       try {
         const hotelData = await getHotelsWithFiltersAndGallery({
-          brand: brandName,
+          brand: filters.brand,
           search: debouncedSearch,
           countries: filters.region.length > 0 ? filters.region : undefined,
-          typeOfTravel: filters.typeOfTravel.length > 0 ? filters.typeOfTravel : undefined
+          typeOfTravel: filters.typeOfTravel.length > 0 ? filters.typeOfTravel : undefined,
+          page: currentPage,
+          pageSize: cardsPerPage
         });
-        setHotels(hotelData);
+        
+        setHotels(hotelData.data || []);
+        setTotalCount(hotelData.count || 0);
+        setTotalPages(Math.ceil((hotelData.count || 0) / cardsPerPage));
       } catch (error) {
         console.error('Error fetching hotels:', error);
         setHotels([]);
+        setTotalCount(0);
+        setTotalPages(0);
       } finally {
         setLoading(false);
       }
     };
 
     fetchHotels();
-  }, [brandName, debouncedSearch, filters.region, filters.typeOfTravel]);
+  }, [filters.brand, debouncedSearch, filters.region, filters.typeOfTravel, currentPage]);
 
-  const handleFiltersChange = (newFilters: Filters) => {
-    setFilters(newFilters);
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters.brand, debouncedSearch, filters.region, filters.typeOfTravel]);
+
+  const handleFiltersChange = (newFilters: Partial<Filters>) => {
+    setFilters(prev => ({ ...prev, ...newFilters }));
   };
 
   const handleClearFilter = (filterType: 'typeOfTravel' | 'region', value: string) => {
@@ -117,8 +159,13 @@ const HotelsMain = ({ data, brandName }: HotelsMainProps) => {
     setFilters({
       search: "",
       typeOfTravel: [],
-      region: []
+      region: [],
+      brand: defaultBrand
     });
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -140,8 +187,11 @@ const HotelsMain = ({ data, brandName }: HotelsMainProps) => {
         <HotelSidebar 
           onFiltersChange={handleFiltersChange}
           availableCountries={availableCountries}
+          availableBrands={availableBrands}
           loading={loading}
           loadingCountries={loadingCountries}
+          loadingBrands={loadingBrands}
+          currentBrand={filters.brand}
         />
         <HotelGrid 
           hotels={hotels}
@@ -149,6 +199,10 @@ const HotelsMain = ({ data, brandName }: HotelsMainProps) => {
           filters={filters}
           onClearFilter={handleClearFilter}
           onClearAllFilters={handleClearAllFilters}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalCount={totalCount}
+          onPageChange={handlePageChange}
         />
       </div>
     </div>
