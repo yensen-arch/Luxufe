@@ -41,31 +41,31 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, type, bed, image, image
             ))}
           </div>
         </div>
-
-        {/* Navigation Arrows - Show on hover */}
-        {displayImages.length > 1 && (
-          <>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                scrollPrev();
-              }}
-              className="absolute top-1/2 left-4 -translate-y-1/2 bg-white rounded-full py-4 px-3 shadow-lg hover:bg-white transition-colors z-10 opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              <img src="/luxufe-icon-slider-arrow-dark.svg" alt="Left" width={16} height={16} />
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                scrollNext();
-              }}
-              className="absolute top-1/2 right-4 -translate-y-1/2 bg-white rounded-full py-4 px-3 shadow-lg hover:bg-white transition-colors z-20 opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              <img src="/luxufe-icon-button-arrow-dark.svg" alt="Right" width={16} height={16} />
-            </button>
-          </>
-        )}
       </div>
+
+      {/* Navigation Arrows - Show on hover */}
+      {displayImages.length > 1 && (
+        <>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              scrollPrev();
+            }}
+            className="absolute cursor-pointer top-1/2 left-4 -translate-y-1/2 bg-white rounded-full py-4 px-3 shadow-lg hover:bg-white transition-colors z-30 opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+            <img src="/luxufe-icon-slider-arrow-dark.svg" alt="Left" width={16} height={16} />
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              scrollNext();
+            }}
+            className="absolute cursor-pointer top-1/2 right-4 -translate-y-1/2 bg-white rounded-full py-4 px-3 shadow-lg hover:bg-white transition-colors z-30 opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+            <img src="/luxufe-icon-button-arrow-dark.svg" alt="Right" width={16} height={16} />
+          </button>
+        </>
+      )}
 
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10" />
