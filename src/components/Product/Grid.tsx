@@ -36,6 +36,7 @@ interface CompleteRoomData {
 const ProductGrid = ({ hotel }: ProductGridProps) => {
   const [rooms, setRooms] = useState<RoomData[]>([]);
   const [completeRooms, setCompleteRooms] = useState<CompleteRoomData[]>([]);
+  const [roomImages, setRoomImages] = useState<{ [roomId: string]: string[] }>({});
   const [isLoading, setIsLoading] = useState(true);
   const [selectedRoom, setSelectedRoom] = useState<CompleteRoomData | null>(null);
   const [selectedRoomImages, setSelectedRoomImages] = useState<string[]>([]);
@@ -81,12 +82,23 @@ const ProductGrid = ({ hotel }: ProductGridProps) => {
           hotel_name: room.hotel_name
         }));
 
+        // Store all images for each room
+        const imagesMap: { [roomId: string]: string[] } = {};
+        for (const room of roomsData) {
+          const galleryImages = await getRoomGallery(room.room_name, hotel.hotel_name);
+          imagesMap[room.id] = galleryImages.length > 0 
+            ? galleryImages 
+            : ["https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80"];
+        }
+
         setRooms(roomsWithImages);
         setCompleteRooms(completeRoomsData);
+        setRoomImages(imagesMap);
       } catch (error) {
         console.error('Error fetching rooms:', error);
         setRooms([]);
         setCompleteRooms([]);
+        setRoomImages({});
       } finally {
         setIsLoading(false);
       }
@@ -98,10 +110,10 @@ const ProductGrid = ({ hotel }: ProductGridProps) => {
   const handleRoomClick = async (roomId: string) => {
     const room = completeRooms.find(r => r.id === roomId);
     if (room) {
-      // Fetch images for the selected room
-      const images = await getRoomGallery(room.room_name, hotel.hotel_name);
+      // Use stored images for the selected room
+      const images = roomImages[roomId] || [];
       setSelectedRoom(room);
-      setSelectedRoomImages(images.length > 0 ? images : ["https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80"]);
+      setSelectedRoomImages(images);
       setIsModalOpen(true);
     }
   };
@@ -143,16 +155,21 @@ const ProductGrid = ({ hotel }: ProductGridProps) => {
         ) : rooms.length > 0 ? (
           // Show actual rooms
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-            {rooms.map((room) => (
-              <div key={room.id} onClick={() => handleRoomClick(room.id)} className="cursor-pointer">
-                <ProductCard 
-                  name={room.room_name}
-                  type={room.accommodation_type}
-                  bed={room.bed}
-                  image={room.image}
-                />
-              </div>
-            ))}
+            {rooms.map((room) => {
+              // Get stored images for this room
+              const images = roomImages[room.id] || [];
+              return (
+                <div key={room.id} onClick={() => handleRoomClick(room.id)} className="cursor-pointer">
+                  <ProductCard 
+                    name={room.room_name}
+                    type={room.accommodation_type}
+                    bed={room.bed}
+                    image={room.image}
+                    images={images}
+                  />
+                </div>
+              );
+            })}
           </div>
         ) : (
           // Show fallback if no rooms found

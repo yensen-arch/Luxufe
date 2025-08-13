@@ -1,28 +1,78 @@
-import React from "react";
+"use client";
+import React, { useState, useCallback } from "react";
 import { Building2, Users } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
 
 interface ProductCardProps {
   name: string;
   type: string;
   bed: string | null;
   image: string;
+  images?: string[];
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ name, type, bed, image }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ name, type, bed, image, images = [] }) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: "center",
+    containScroll: "trimSnaps",
+  });
+
+  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+
+  // Use provided images array or fallback to single image
+  const displayImages = images.length > 0 ? images : [image];
+
   return (
     <div className="relative rounded-none overflow-hidden shadow-lg h-[500px] flex flex-col justify-between group cursor-pointer">
-      {/* Background Image */}
-      <img
-        src={image}
-        alt={name}
-        className="absolute inset-0 w-full h-full object-cover object-center z-0 transition-transform duration-300 group-hover:scale-105"
-      />
+      {/* Image Carousel */}
+      <div className="absolute inset-0 z-0">
+        <div ref={emblaRef} className="overflow-hidden h-full">
+          <div className="flex h-full">
+            {displayImages.map((img, index) => (
+              <div className="flex-[0_0_100%] min-w-0 h-full" key={index}>
+                <img
+                  src={img}
+                  alt={`${name} - Image ${index + 1}`}
+                  className="w-full h-full object-cover object-center"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation Arrows - Show on hover */}
+        {displayImages.length > 1 && (
+          <>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                scrollPrev();
+              }}
+              className="absolute top-1/2 left-4 -translate-y-1/2 bg-white rounded-full py-4 px-3 shadow-lg hover:bg-white transition-colors z-10 opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <img src="/luxufe-icon-slider-arrow-dark.svg" alt="Left" width={16} height={16} />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                scrollNext();
+              }}
+              className="absolute top-1/2 right-4 -translate-y-1/2 bg-white rounded-full py-4 px-3 shadow-lg hover:bg-white transition-colors z-20 opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <img src="/luxufe-icon-button-arrow-dark.svg" alt="Right" width={16} height={16} />
+            </button>
+          </>
+        )}
+      </div>
+
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10" />
       
       {/* Top Section - Room Type Badge */}
       <div className="relative z-20 p-6">
-        <div className="inline-block bg-white/20 backdrop-blur-sm px-3 py-1 rounded">
+        <div className="inline-block px-3 py-1">
           <span className="text-white text-xs font-inter font-semibold tracking-widest uppercase">
             {type}
           </span>
@@ -37,7 +87,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, type, bed, image }) => 
         </h3>
         
         {/* Sleep Capacity */}
-        <div className="flex items-center gap-2 text-white text-sm font-inter mb-4">
+        <div className="flex items-center gap-2 text-white text-xs font-inter mb-4">
           <Users className="w-4 h-4" />
           <span>SLEEPS 2 ADULTS</span>
         </div>
