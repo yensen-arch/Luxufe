@@ -66,14 +66,14 @@ export default function PricingOptions() {
       <div className="text-gray-600 font-inter text-sm mb-6">Select year & month. Unavailable dates are greyed out</div>
       
       {/* Year Selection */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex">
         {years.map((year) => (
           <button
             key={year}
             className={`px-6 md:px-8 py-2 md:py-3  font-inter font-bold text-base md:text-lg transition-colors duration-300 ${
               selectedYear === year 
                 ? "bg-[#f5f6f7] text-gray-900" 
-                : "bg-white text-gray-900 hover:bg-gray-50"
+                : "bg-white text-gray-900 cursor-pointer"
             }`}
             onClick={() => handleYear(year)}
           >
@@ -81,9 +81,9 @@ export default function PricingOptions() {
           </button>
         ))}
       </div>
-
+      <div className="bg-[#f5f6f7] p-4 mb-6">
       {/* Month Selection */}
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-6 p-4">
         {months.map((month) => {
           const isAvailable = monthsAvailable.includes(month);
           const isSelected = selectedMonth === month;
@@ -129,11 +129,12 @@ export default function PricingOptions() {
           )}
         </div>
       </div>
+      </div>
 
       {/* Port-to-Port Fare Sections */}
       <div className="space-y-6">
         {/* First Fare Section */}
-        <div className="border border-gray-200  p-6 bg-white">
+        <div className="bg-[#f5f6f7] p-6">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
             <div className="flex-1 mb-4 md:mb-0">
               <h3 className="text-xl md:text-2xl font-arpona font-bold text-gray-900 mb-2">Port-to-Port</h3>
@@ -176,7 +177,7 @@ export default function PricingOptions() {
             </div>
             
             {inclusionsOpen && (
-              <div className="mt-4 bg-gray-50 p-4">
+              <div className="mt-4 bg-[#f5f6f7] p-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <div className="flex items-center gap-2 mb-3">
@@ -241,7 +242,7 @@ export default function PricingOptions() {
         </div>
 
         {/* Second Fare Section (Duplicate) */}
-        <div className="border border-gray-200 p-6 bg-white">
+        <div className="bg-[#f5f6f7] p-6">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
             <div className="flex-1 mb-4 md:mb-0">
               <h3 className="text-xl md:text-2xl font-arpona font-bold text-gray-900 mb-2">Port-to-Port</h3>
