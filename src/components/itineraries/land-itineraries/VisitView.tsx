@@ -53,13 +53,6 @@ export default function VisitView() {
         </button>
       </div>
       <div className="text-2xl font-arpona text-gray-900 mb-4 px-2 md:px-0">Deck Plan</div>
-      <div className="flex justify-center">
-        <img
-          src={deckPlanImg}
-          alt="Deck Plan"
-          className="w-full h-auto"
-        />
-      </div>
     </div>
   );
 } 
