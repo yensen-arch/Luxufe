@@ -45,14 +45,14 @@ export default function PricingOptions() {
         {years.map((year) => (
           <button
             key={year}
-            className={`px-3 py-1 rounded font-inter font-bold text-lg transition-colors duration-300 ${selectedYear === year ? "bg-gray-50" : "bg-white"}`}
+            className={`px-3 py-1 rounded font-inter font-bold text-lg transition-colors duration-300 ${selectedYear === year ? "bg-[#f5f6f7]" : "bg-white"}`}
             onClick={() => handleYear(year)}
           >
             {year}
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-4 gap-2 mb-6 bg-gray-50 p-4">
+      <div className="grid grid-cols-4 gap-2 mb-6 bg-[#f5f6f7] p-4">
         {months.map((month) => {
           const isAvailable = monthsAvailable.includes(month);
           const isSelected = selectedMonth === month;
