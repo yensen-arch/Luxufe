@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Heart } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -29,9 +30,9 @@ export default function Hero() {
         </div>
       </section>
       {/* Details Section */}
-      <section className="w-full bg-white shadow-xl">
+      <section className="w-full bg-white  z-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between px-4 md:px-10 py-6 md:py-8">
-          <div className="flex flex-col md:flex-row gap-6 md:gap-16 w-full md:w-auto mb-4 md:mb-0">
+          <div className="flex flex-col md:flex-row gap-6 md:gap-30 w-full md:w-auto mb-4 md:mb-0">
             {/* Destinations */}
             <div>
               <div className="text-xs text-gray-500 font-bold mb-1">DESTINATIONS</div>
@@ -58,7 +59,10 @@ export default function Hero() {
               <div className="text-sm md:text-md font-inter font-bold">Scenic Azure</div>
             </div>
           </div>
-          <button className="bg-[#A5C8CE] text-white text-base md:text-lg cursor-pointer font-arpona font-semibold px-6 md:px-8 py-2 md:py-3 shadow hover:bg-[#8bb3b8] transition w-full md:w-auto">Book this Journey</button>
+          <button className="bg-[#A5C8CE] flex items-center gap-2 text-white text-base md:text-lg cursor-pointer font-arpona font-semibold px-6 md:px-8 py-2 md:py-3 shadow hover:bg-[#8bb3b8] transition w-full md:w-auto">
+            <Heart className="text-white" />
+            Add to Wishlist
+          </button>
         </div>
       </section>
     </>
