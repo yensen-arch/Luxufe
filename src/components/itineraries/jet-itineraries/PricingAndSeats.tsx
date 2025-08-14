@@ -1,5 +1,4 @@
 import PricingOptions from "./PricingOptions";
-import AvailableSeats from "./AvailableSeats";
 import PlaneView from "./PlaneView";
 
 export default function PricingAndSeatsSection() {
@@ -10,7 +9,6 @@ export default function PricingAndSeatsSection() {
           <PricingOptions />
         </div>
         <div className="md:w-3/4 w-full p-6 md:p-12">
-          <AvailableSeats />
           <PlaneView />
         </div>
       </div>
