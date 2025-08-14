@@ -38,7 +38,7 @@ export default function PricingOptions() {
   };
 
   return (
-    <div className="min-w-[320px]">
+    <div className="w-full">
       <h2 className="text-3xl font-arpona font-bold text-gray-900 mb-2">Pricing & Options</h2>
       <div className="text-gray-700 font-inter text-sm mb-4 font-bold">Select year & month. Unavailable dates are greyed out</div>
       <div className="flex gap-4">
