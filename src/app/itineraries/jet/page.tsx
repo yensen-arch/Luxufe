@@ -3,6 +3,7 @@ import Navbar from "@/components/common/Navbar";
 import Hero from "@/components/itineraries/jet-itineraries/Hero";
 import ItineraryDetails from "@/components/itineraries/jet-itineraries/ItineraryDetails";
 import PricingAndSeatsSection from "@/components/itineraries/jet-itineraries/PricingAndSeats";
+import ContactUsJourneys from "@/components/landing/ContactUsJourneys";
 
 export default function JetItineraries() {
   return (
@@ -11,6 +12,7 @@ export default function JetItineraries() {
       <Hero />
       <ItineraryDetails />
       <PricingAndSeatsSection />
+      <ContactUsJourneys />
       <Footer />
     </main>
   );
