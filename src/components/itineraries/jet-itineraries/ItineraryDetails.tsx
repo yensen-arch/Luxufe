@@ -48,8 +48,8 @@ export default function ItineraryDetails() {
           <div className="grid w-full md:w-4/5 grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-10">
             {[1,2,3,4].map((i) => (
               <div key={i} className="flex items-start gap-3 md:gap-4">
-                <svg className="w-6 h-6 md:w-8 md:h-8 text-[#A5C8CE] mt-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polygon points="12,2 15,8.5 22,9.3 17,14.1 18.2,21 12,17.8 5.8,21 7,14.1 2,9.3 9,8.5" /></svg>
-                <span className="text-gray-800 font-inter font-bold text-sm md:text-md">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore</span>
+                  <img src="/luxufe-icon-star-ratings-solid-teal.svg" alt="bullet-point" className="w-4 h-4 md:w-5 md:h-5 text-[#A5C8CE] mt-1" />                
+                  <span className="text-gray-800 font-inter font-bold text-sm md:text-md">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore</span>
               </div>
             ))}
           </div>
