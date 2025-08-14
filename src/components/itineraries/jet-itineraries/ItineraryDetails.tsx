@@ -44,6 +44,7 @@ export default function ItineraryDetails() {
             <span className="text-gray-400 font-inter font-bold text-sm md:text-base">[Map Image]</span>
           </div>
           {/* Journey Highlights */}
+          <div className="w-full mb-8 md:mb-20">
           <h2 className="text-2xl md:text-3xl w-full md:w-4/5 font-arpona font-bold text-gray-900 mb-4 md:mb-6">Journey Highlights</h2>
           <div className="grid w-full md:w-4/5 grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-10">
             {[1,2,3,4].map((i) => (
@@ -52,6 +53,7 @@ export default function ItineraryDetails() {
                   <span className="text-gray-800 font-inter font-bold text-sm md:text-md">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore</span>
               </div>
             ))}
+          </div>
           </div>
           {/* Itinerary Options */}
           <ItineraryOptions />

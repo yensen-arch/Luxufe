@@ -48,7 +48,7 @@ export default function ItineraryOptions() {
             key={dep.label}
             className={`px-8 py-4 text-lg font-inter font-bold tracking-widest uppercase focus:outline-none transition ${
               selectedTab === idx
-                ? "bg-gray-50 text-black font-bold text-xs"
+                ? "bg-[#f5f6f7] text-black font-bold text-xs"
                 : "border-transparent bg-white text-gray-500 hover:text-black font-bold text-xs"
             }`}
             onClick={() => setSelectedTab(idx)}
@@ -58,7 +58,7 @@ export default function ItineraryOptions() {
         ))}
       </div>
       {/* Accordion */}
-      <div className="bg-gray-50 divide-y divide-gray-600">
+      <div className="bg-[#f5f6f7] divide-y divide-gray-600">
         {itinerary.map((item, idx) => {
           const isOpen = openIndex === idx;
           return (
