@@ -1,5 +1,7 @@
 import PricingOptions from "./PricingOptions";
 import PlaneView from "./PlaneView";
+import Accommodation from "./Accommodation";
+import GoodToKnowAccordion from "./GoodToKnowAccordion";
 
 export default function PricingAndSeatsSection() {
   return (
@@ -10,6 +12,8 @@ export default function PricingAndSeatsSection() {
         <div className="md:w-3/4 w-full p-6 md:p-12 ">
           <PricingOptions />
           <PlaneView />
+          <Accommodation />
+          <GoodToKnowAccordion />
          </div>
       </div>
     </section>
