@@ -60,7 +60,7 @@ export default function PricingOptions() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 md:px-0">
+    <div className="w-full max-w-4xl px-4 md:px-12">
       {/* Header */}
       <h2 className="text-2xl md:text-3xl font-arpona font-bold text-gray-900 mb-2">Pricing & Options</h2>
       <div className="text-gray-600 font-inter text-sm mb-6">Select year & month. Unavailable dates are greyed out</div>
