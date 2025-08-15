@@ -1,4 +1,5 @@
 import ItineraryOptions from "./ItineraryOptions";
+import ItineraryMap from "./ItineraryMap";
 import { LandItinerary } from "@/lib/database";
 
 interface ItineraryDetailsProps {
@@ -47,9 +48,8 @@ export default function ItineraryDetails({ itinerary }: ItineraryDetailsProps) {
           </div>
           {/* Journey at a Glance */}
           <h2 className="text-2xl md:text-3xl w-full md:w-4/5 font-arpona font-bold text-gray-900 mb-3 md:mb-4">Your journey at a glance</h2>
-          <div className="h-60 md:h-90 w-full md:w-4/5 bg-gray-100 rounded-md mb-8 md:mb-10 flex items-center justify-center">
-            {/* Placeholder for map image */}
-            <span className="text-gray-400 font-inter font-bold text-sm md:text-base">[Map Image]</span>
+          <div className="w-full md:w-4/5 mb-8 md:mb-10">
+            <ItineraryMap mapData={itinerary.map} itineraryName={itinerary.itinerary_name} />
           </div>
           {/* Journey Highlights */}
           <div className="w-full mb-8 md:mb-20">
