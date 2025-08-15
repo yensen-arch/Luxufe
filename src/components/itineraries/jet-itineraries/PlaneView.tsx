@@ -33,7 +33,7 @@ export default function PlaneView() {
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 md:px-12 py-8 md:py-12">
+    <div className="w-full max-w-4xl px-4 md:px-12 py-8 md:py-12">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 md:mb-12">
         <h2 className="text-2xl md:text-3xl font-arpona font-bold text-gray-900 mb-4 md:mb-0">The Jet: Boeing 757</h2>
