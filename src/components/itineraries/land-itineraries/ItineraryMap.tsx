@@ -47,13 +47,19 @@ export default function ItineraryMap({ mapData, itineraryName }: ItineraryMapPro
   const validMapData = React.useMemo(() => {
     if (!mapData || !Array.isArray(mapData)) return [];
     
-    return mapData.filter(location => 
+    const filtered = mapData.filter(location => 
       location && 
       location.latitude && 
       location.longitude && 
       !isNaN(parseFloat(location.latitude)) && 
       !isNaN(parseFloat(location.longitude))
     );
+    
+    // Debug logging
+    console.log('Map data received:', mapData);
+    console.log('Valid map data:', filtered);
+    
+    return filtered;
   }, [mapData]);
 
   // Parse coordinates and determine initial view state
@@ -64,6 +70,7 @@ export default function ItineraryMap({ mapData, itineraryName }: ItineraryMapPro
       const lng = parseFloat(firstLocation.longitude);
       
       if (!isNaN(lat) && !isNaN(lng)) {
+        console.log('Setting initial view state:', { longitude: lng, latitude: lat, zoom: 6 });
         return {
           longitude: lng,
           latitude: lat,
@@ -72,6 +79,7 @@ export default function ItineraryMap({ mapData, itineraryName }: ItineraryMapPro
       }
     }
     // Fallback to default view (Maldives area)
+    console.log('Using fallback view state');
     return {
       longitude: 73.2207,
       latitude: 3.2028,
@@ -82,7 +90,7 @@ export default function ItineraryMap({ mapData, itineraryName }: ItineraryMapPro
   // Don't render map until client-side and we have valid data
   if (!isClient) {
     return (
-      <div className="w-full h-[400px] md:h-[500px] rounded-md overflow-hidden shadow-lg relative bg-gray-100 flex items-center justify-center">
+      <div className="w-full h-[400px] md:h-[500px] overflow-hidden shadow-lg relative bg-gray-100 flex items-center justify-center">
         <div className="text-gray-500 font-inter font-bold">Loading map...</div>
       </div>
     );
@@ -91,24 +99,27 @@ export default function ItineraryMap({ mapData, itineraryName }: ItineraryMapPro
   // Don't render if no valid data
   if (validMapData.length === 0) {
     return (
-      <div className="w-full h-[400px] md:h-[500px] rounded-md overflow-hidden shadow-lg relative bg-gray-100 flex items-center justify-center">
+      <div className="w-full h-[400px] md:h-[500px] overflow-hidden shadow-lg relative bg-gray-100 flex items-center justify-center">
         <div className="text-gray-500 font-inter font-bold">No map data available</div>
       </div>
     );
   }
 
   return (
-    <div className="w-full h-[400px] md:h-[500px] rounded-md overflow-hidden shadow-lg relative">
+    <div className="w-full h-[400px] md:h-[500px] overflow-hidden shadow-lg relative">
       <Map
         initialViewState={getInitialViewState}
         mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
         style={{ width: "100%", height: "100%" }}
-        onLoad={() => setIsMapReady(true)}
+        onLoad={() => {
+          console.log('Map loaded successfully');
+          setIsMapReady(true);
+        }}
       >
         <NavigationControl position="bottom-left" showCompass={false} />
         
         {/* Journey Title Overlay */}
-        <div className="absolute top-4 left-4 z-10 bg-white shadow-lg px-4 py-2 rounded-md">
+        <div className="absolute top-4 left-4 z-10 bg-white shadow-lg px-4 py-2 rounded">
           <div className="font-inter text-gray-700 text-sm font-bold">
             {itineraryName} Journey
           </div>
@@ -136,6 +147,8 @@ export default function ItineraryMap({ mapData, itineraryName }: ItineraryMapPro
             date = `Day ${dayNumber}`;
           }
 
+          console.log(`Rendering marker ${index + 1}:`, { lat, lng, dayNumber, date });
+
           return (
             <Marker 
               key={`location-${index}`}
@@ -143,37 +156,40 @@ export default function ItineraryMap({ mapData, itineraryName }: ItineraryMapPro
               latitude={lat} 
               anchor="bottom"
             >
-              <button
-                className="bg-[#A5C8CE] px-3 py-2 rounded-full shadow-lg flex items-center gap-2 font-inter text-sm font-bold text-white hover:bg-[#8bb3b8] border-2 border-white transition-colors"
-                onClick={() => setSelectedLocation(location)}
-              >
-                <MapPin className="w-4 h-4" />
-                Day {dayNumber}
-              </button>
-              
-              {selectedLocation === location && (
-                <Popup
-                  longitude={lng}
-                  latitude={lat}
-                  anchor="top"
-                  onClose={() => setSelectedLocation(null)}
-                  closeButton={true}
-                  className="z-20"
-                  maxWidth="250px"
+              <div className="relative z-50">
+                <button
+                  className="bg-[#A5C8CE] px-3 py-2 rounded-full shadow-lg flex items-center gap-2 font-inter text-sm font-bold text-white hover:bg-[#8bb3b8] border-2 border-white transition-colors cursor-pointer"
+                  onClick={() => {
+                    console.log('Marker clicked:', { lat, lng, dayNumber });
+                    setSelectedLocation(location);
+                  }}
                 >
-                  <div className="font-inter text-sm">
-                    <div className="font-bold text-[#23263a] mb-1">
-                      Day {dayNumber}
+                  <MapPin className="w-4 h-4" />
+                  Day {dayNumber}
+                </button>
+                
+                {selectedLocation === location && (
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 bg-white border border-gray-300 rounded-lg shadow-lg p-3 z-50 min-w-[200px]">
+                    <div className="font-inter text-sm">
+                      <div className="font-bold text-[#23263a] mb-1">
+                        Day {dayNumber}
+                      </div>
+                      <div className="text-gray-600 text-xs mb-1">
+                        {date}
+                      </div>
+                      <div className="text-gray-500 text-xs">
+                        {lat.toFixed(4)}, {lng.toFixed(4)}
+                      </div>
                     </div>
-                    <div className="text-gray-600 text-xs mb-1">
-                      {date}
-                    </div>
-                    <div className="text-gray-500 text-xs">
-                      {lat.toFixed(4)}, {lng.toFixed(4)}
-                    </div>
+                    <button 
+                      className="absolute top-1 right-1 text-gray-400 hover:text-gray-600"
+                      onClick={() => setSelectedLocation(null)}
+                    >
+                      ×
+                    </button>
                   </div>
-                </Popup>
-              )}
+                )}
+              </div>
             </Marker>
           );
         })}

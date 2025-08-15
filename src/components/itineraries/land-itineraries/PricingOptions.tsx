@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { LandItineraryDate } from "@/lib/database";
 
 interface PricingOptionsProps {
@@ -9,8 +9,28 @@ interface PricingOptionsProps {
 export default function PricingOptions({ itineraryDates }: PricingOptionsProps) {
   const [selectedDate, setSelectedDate] = useState<LandItineraryDate | null>(itineraryDates[0] || null);
 
+  // Debug logging
+  useEffect(() => {
+    console.log('PricingOptions - itineraryDates received:', itineraryDates);
+    console.log('PricingOptions - selectedDate:', selectedDate);
+  }, [itineraryDates, selectedDate]);
+
   // Extract unique pricing categories from the first date
   const pricingCategories = selectedDate ? Object.keys(selectedDate.pricing) : [];
+
+  console.log('PricingOptions - pricingCategories:', pricingCategories);
+
+  // Don't render if no data
+  if (!itineraryDates || itineraryDates.length === 0) {
+    return (
+      <div className="w-full max-w-4xl px-4 md:px-8 py-8 md:py-12">
+        <h2 className="text-2xl md:text-3xl font-arpona font-bold text-gray-900 mb-4">
+          Pricing & Options
+        </h2>
+        <div className="text-gray-500 font-inter font-bold">No pricing data available</div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-4xl px-4 md:px-8 py-8 md:py-12">
@@ -50,12 +70,12 @@ export default function PricingOptions({ itineraryDates }: PricingOptionsProps) 
           </div>
           <div className="p-4 md:p-6 text-center">
             <h3 className="text-gray-700 font-inter font-bold text-xs uppercase tracking-wider">
-              {selectedDate?.date || "Low Season"}
+              {selectedDate?.date || "Select Date"}
             </h3>
           </div>
           <div className="p-4 md:p-6 text-center">
             <h3 className="text-gray-700 font-inter font-bold text-xs uppercase tracking-wider">
-              {selectedDate?.date || "High Season"}
+              {selectedDate?.date || "Select Date"}
             </h3>
           </div>
         </div>
