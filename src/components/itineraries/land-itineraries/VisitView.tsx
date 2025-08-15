@@ -3,26 +3,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 
-const journeyImages = [
-  {
-    src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80",
-    alt: "Mountain landscape with scenic views"
-  },
-  {
-    src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
-    alt: "Forest trail and nature scenery"
-  },
-  {
-    src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80",
-    alt: "Sunset over mountains and valleys"
-  },
-  {
-    src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80",
-    alt: "Aerial view of mountain ranges"
-  }
-];
+interface VisitViewProps {
+  gallery?: string;
+}
 
-export default function VisitView() {
+export default function VisitView({ gallery }: VisitViewProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: "center"
@@ -30,6 +15,18 @@ export default function VisitView() {
 
   const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+
+  // Parse gallery string to get images
+  const galleryImages = gallery ? JSON.parse(gallery.replace(/'/g, '"')) : [];
+  
+  // Fallback images if no gallery data
+  const fallbackImages = [
+    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80",
+    "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
+    "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80"
+  ];
+
+  const images = galleryImages.length > 0 ? galleryImages : fallbackImages;
 
   return (
     <div className="w-full max-w-4xl px-4 md:px-12 py-8 md:py-12 ">
@@ -42,11 +39,11 @@ export default function VisitView() {
       <div className="relative mb-12 md:mb-16">
         <div ref={emblaRef} className="overflow-hidden">
           <div className="flex">
-            {journeyImages.map((image, index) => (
+            {images.map((image: string, index: number) => (
               <div key={index} className="flex-[0_0_100%] min-w-0">
                 <img
-                  src={image.src}
-                  alt={image.alt}
+                  src={image}
+                  alt={`Journey image ${index + 1}`}
                   className="w-full h-[300px] md:h-[500px] object-cover"
                 />
               </div>

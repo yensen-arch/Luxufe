@@ -110,24 +110,24 @@ export default function PricingOptions() {
       <div className="mb-8">
         <div className="text-gray-900 font-inter font-bold text-sm mb-3">Available departure dates:</div>
         <div className="flex flex-wrap gap-2">
-          {dates.length === 0 ? (
-            <span className="text-gray-400 text-sm">No available dates</span>
-          ) : (
+        {dates.length === 0 ? (
+          <span className="text-gray-400 text-sm">No available dates</span>
+        ) : (
             dates.map((date: string) => (
-              <button
-                key={date}
+            <button
+              key={date}
                 className={`px-4 md:px-6 py-2 md:py-3 rounded-full border font-inter font-bold text-sm transition-all duration-300 ${
                   selectedDate === date
                     ? "bg-white text-[#A5C8CE] border-[#A5C8CE]"
                     : "bg-white text-gray-700 border-gray-300 hover:border-gray-400"
                 }`}
                 onClick={() => setSelectedDate(date)}
-              >
-                {date}
-              </button>
-            ))
-          )}
-        </div>
+            >
+              {date}
+            </button>
+          ))
+        )}
+      </div>
       </div>
       </div>
 

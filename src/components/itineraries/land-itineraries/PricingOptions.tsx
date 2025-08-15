@@ -1,25 +1,17 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
+import { LandItineraryDate } from "@/lib/database";
 
-const pricingData = [
-  {
-    item: "Double Occupancy",
-    lowSeason: "$18,550",
-    highSeason: "$18,550"
-  },
-  {
-    item: "Single Supplement",
-    lowSeason: "$3,050",
-    highSeason: "$3,050"
-  },
-  {
-    item: "Internal Flights",
-    lowSeason: "$750",
-    highSeason: "$750"
-  }
-];
+interface PricingOptionsProps {
+  itineraryDates: LandItineraryDate[];
+}
 
-export default function PricingOptions() {
+export default function PricingOptions({ itineraryDates }: PricingOptionsProps) {
+  const [selectedDate, setSelectedDate] = useState<LandItineraryDate | null>(itineraryDates[0] || null);
+
+  // Extract unique pricing categories from the first date
+  const pricingCategories = selectedDate ? Object.keys(selectedDate.pricing) : [];
+
   return (
     <div className="w-full max-w-4xl px-4 md:px-8 py-8 md:py-12">
       {/* Header */}
@@ -27,16 +19,35 @@ export default function PricingOptions() {
         Pricing & Options
       </h2>
 
+      {/* Date Selection */}
+      <div className="mb-8">
+        <div className="text-gray-900 font-inter font-bold text-sm mb-3">Available departure dates:</div>
+        <div className="flex flex-wrap gap-2">
+          {itineraryDates.map((date) => (
+            <button
+              key={date.id}
+              className={`px-4 md:px-6 py-2 md:py-3 rounded-full border font-inter font-bold text-sm transition-all duration-300 ${
+                selectedDate?.id === date.id
+                  ? "bg-white text-[#A5C8CE] border-[#A5C8CE]"
+                  : "bg-white text-gray-700 border-gray-300 hover:border-gray-400"
+              }`}
+              onClick={() => setSelectedDate(date)}
+            >
+              {date.date}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Pricing Table */}
       <div className="overflow-hidden max-w-4xl">
         {/* Table Header */}
         <div className="grid grid-cols-3 border-b-2 border-gray-300">
           <div className="py-4 md:py-6">
-          <p className="text-gray-700 font-inter font-bold text-xs">
-          Land Arrangements, Per Person (2025)
-          </p>
-        </div>
+            <p className="text-gray-700 font-inter font-bold text-xs">
+              Land Arrangements, Per Person (2025)
+            </p>
+          </div>
           <div className="p-4 md:p-6 text-center">
             <h3 className="text-gray-700 font-inter font-bold text-xs uppercase tracking-wider">
               Low Season
@@ -50,21 +61,21 @@ export default function PricingOptions() {
         </div>
 
         {/* Table Rows */}
-        {pricingData.map((row, index) => (
+        {selectedDate && pricingCategories.map((category, index) => (
           <div key={index} className={'grid grid-cols-3 border-b-2 border-gray-300'}>
             <div className="p-4 md:p-6 flex items-center">
               <span className="text-gray-900 font-inter font-bold text-sm md:text-xl">
-                {row.item}
+                {category}
               </span>
             </div>
             <div className="p-4 md:p-6 text-center">
               <span className="text-gray-900 font-arpona font-bold text-lg md:text-xl">
-                {row.lowSeason}
+                ${selectedDate.pricing[category as keyof typeof selectedDate.pricing].toLocaleString()}
               </span>
             </div>
             <div className="p-4 md:p-6 text-center">
               <span className="text-gray-900 font-arpona font-bold text-lg md:text-xl">
-                {row.highSeason}
+                ${selectedDate.pricing[category as keyof typeof selectedDate.pricing].toLocaleString()}
               </span>
             </div>
           </div>

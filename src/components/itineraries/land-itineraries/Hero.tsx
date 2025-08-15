@@ -1,15 +1,24 @@
 import Image from "next/image";
 import { Heart } from "lucide-react";
+import { LandItinerary } from "@/lib/database";
 
-export default function Hero() {
+interface HeroProps {
+  itinerary: LandItinerary;
+}
+
+export default function Hero({ itinerary }: HeroProps) {
+  // Parse gallery string to get first image for hero
+  const galleryImages = itinerary.gallery ? JSON.parse(itinerary.gallery.replace(/'/g, '"')) : [];
+  const heroImage = galleryImages.length > 0 ? galleryImages[0] : "https://picsum.photos/seed/picsum/1920/1080";
+
   return (
     <>
       <section className="relative w-full flex flex-col justify-end h-screen">
         <div className="w-full ">
           {/* Background image */}
           <Image
-            src="https://picsum.photos/seed/picsum/1920/1080"
-            alt="Delightful Douro Ship"
+            src={heroImage}
+            alt={itinerary.itinerary_name}
             fill
             className="object-cover object-center opacity-90 "
             priority
@@ -20,11 +29,11 @@ export default function Hero() {
           <div className="relative z-10 px-4 md:px-10 pb-6 md:pb-10 max-w-7xl mx-auto w-full">
             {/* Breadcrumb */}
             <div className="text-white text-xs font-inter font-bold mb-2 opacity-80">
-              Home &gt; Journeys &gt; Cruises
+              Home &gt; Journeys &gt; Land
             </div>
             {/* Title */}
             <h1 className="text-white text-3xl md:text-6xl font-arpona font-light mb-6 md:mb-8 leading-tight">
-              Delightful Douro
+              {itinerary.itinerary_name}
             </h1>
           </div>
         </div>
@@ -37,7 +46,7 @@ export default function Hero() {
             <div>
               <div className="text-xs text-gray-500 font-bold mb-1">DESTINATIONS</div>
               <div className="flex items-center gap-2">
-                <span className="text-sm md:text-md font-inter font-bold">12 Destinations</span>
+                <span className="text-sm md:text-md font-inter font-bold">{itinerary.destinations}</span>
                 <span className="text-gray-400 cursor-pointer" title="View all destinations">
                   <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#A0AEC0" strokeWidth="2"/><text x="12" y="16" textAnchor="middle" fontSize="12" fill="#A0AEC0">i</text></svg>
                 </span>
@@ -46,17 +55,17 @@ export default function Hero() {
             {/* Duration */}
             <div>
               <div className="text-xs text-gray-500 font-semibold mb-1">DURATION</div>
-              <div className="text-sm md:text-md font-inter font-bold">24 Nights, 9 Stops</div>
+              <div className="text-sm md:text-md font-inter font-bold">{itinerary.duration}</div>
             </div>
             {/* Price */}
             <div>
               <div className="text-xs text-gray-500 font-semibold mb-1">PRICE</div>
-              <div className="text-sm md:text-md font-inter font-bold">From $4,495 per person</div>
+              <div className="text-sm md:text-md font-inter font-bold">From $18,550 per person</div>
             </div>
-            {/* Ship */}
+            {/* Journey Type */}
             <div>
-              <div className="text-xs text-gray-500 font-semibold mb-1">SHIP</div>
-              <div className="text-sm md:text-md font-inter font-bold">Scenic Azure</div>
+              <div className="text-xs text-gray-500 font-semibold mb-1">JOURNEY TYPE</div>
+              <div className="text-sm md:text-md font-inter font-bold">Land Journey</div>
             </div>
           </div>
           <button className="bg-[#A5C8CE] flex items-center gap-2 text-white text-base md:text-lg cursor-pointer font-arpona font-semibold px-6 md:px-8 py-2 md:py-3 shadow hover:bg-[#8bb3b8] transition w-full md:w-auto">

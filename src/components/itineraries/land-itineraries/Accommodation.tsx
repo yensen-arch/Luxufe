@@ -3,40 +3,22 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 
-const hotels = [
-  {
-    name: "The Fullerton Bay Hotel",
-    location: "SINGAPORE",
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
-    alt: "The Fullerton Bay Hotel in Singapore with Marina Bay Sands in background"
-  },
-  {
-    name: "Sukau Rainforest Lodge",
-    location: "BORNEO",
-    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80",
-    alt: "Sukau Rainforest Lodge in Borneo rainforest"
-  },
-  {
-    name: "Aman-i-Khas",
-    location: "INDIA",
-    image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
-    alt: "Aman-i-Khas luxury tent accommodation in India"
-  },
-  {
-    name: "Raffles Hotel",
-    location: "SINGAPORE",
-    image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=80",
-    alt: "Raffles Hotel Singapore"
-  },
-  {
-    name: "The Ritz-Carlton",
-    location: "HONG KONG",
-    image: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=800&q=80",
-    alt: "The Ritz-Carlton Hong Kong"
-  }
-];
+interface HotelData {
+  types: Array<{
+    category: string;
+    hotels: Array<{
+      name: string;
+      city: string;
+      country: string;
+    }>;
+  }>;
+}
 
-export default function Accommodation() {
+interface AccommodationProps {
+  hotelData: HotelData;
+}
+
+export default function Accommodation({ hotelData }: AccommodationProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: "start",
@@ -46,6 +28,14 @@ export default function Accommodation() {
 
   const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+
+  // Flatten all hotels from all categories
+  const allHotels = hotelData.types.flatMap(category => 
+    category.hotels.map(hotel => ({
+      ...hotel,
+      category: category.category
+    }))
+  );
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 md:px-12 py-8 md:py-12">
@@ -57,13 +47,13 @@ export default function Accommodation() {
         {/* Carousel */}
         <div ref={emblaRef} className="overflow-hidden">
           <div className="flex gap-4 md:gap-6">
-            {hotels.map((hotel, index) => (
+            {allHotels.map((hotel, index) => (
               <div key={index} className="flex-[0_0_300px] md:flex-[0_0_400px] min-w-0">
                 <div className="relative group cursor-pointer">
-                  {/* Hotel Image */}
+                  {/* Hotel Image - Using a placeholder for now */}
                   <img
-                    src={hotel.image}
-                    alt={hotel.alt}
+                    src={`https://images.unsplash.com/photo-${Math.floor(Math.random() * 1000000)}?auto=format&fit=crop&w=800&q=80`}
+                    alt={`${hotel.name} in ${hotel.city}`}
                     className="w-full h-[200px] md:h-[480px] object-cover"
                   />
                   
@@ -82,7 +72,10 @@ export default function Accommodation() {
                         {hotel.name}
                       </h3>
                       <p className="font-inter font-bold text-sm">
-                        {hotel.location}
+                        {hotel.city}, {hotel.country}
+                      </p>
+                      <p className="font-inter text-xs opacity-80 mt-1">
+                        {hotel.category}
                       </p>
                     </div>
                   </div>

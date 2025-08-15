@@ -1,75 +1,59 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
-const ITEMS = [
-  {
-    title: "When to visit South Africa - weather & seasons",
-    content:
-      "Luxury travel should never be hindered by logistics. Luxufe provides personalized visa assistance and takes care of every entry requirement, from fast-track immigration services to VIP airport lounges. Travel with confidence, knowing that your journey has been expertly arranged down to the finest detail."
-  },
-  {
-    title: "Luxufe's top tips for this country",
-    content: "Top tips content goes here."
-  },
-  {
-    title: "Passports, Visas and paperwork",
-    content: "Passport and visa info goes here."
-  },
-  {
-    title: "Currency & payments",
-    content: "Currency and payment info goes here."
-  },
-  {
-    title: "Other information",
-    content: "Other useful info goes here."
-  }
-];
+interface GoodToKnowItem {
+  question: string;
+  answer: string;
+}
 
-export default function GoodToKnowAccordion() {
-  const [openIdx, setOpenIdx] = useState<number | null>(null);
+interface GoodToKnowAccordionProps {
+  goodToKnow: GoodToKnowItem[];
+}
+
+export default function GoodToKnowAccordion({ goodToKnow }: GoodToKnowAccordionProps) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className="w-4/5 py-12 px-12">
-      <h2 className="text-3xl font-arpona font-bold text-gray-900 mb-8">Good to know</h2>
-      <div className="divide-y divide-gray-600">
-        {ITEMS.map((item, idx) => {
-          const isOpen = openIdx === idx;
+    <div className="w-full max-w-4xl px-4 md:px-8 py-8 md:py-12">
+      <h2 className="text-2xl md:text-3xl font-arpona font-bold text-gray-900 mb-8">Good to Know</h2>
+      
+      <div className="space-y-4">
+        {goodToKnow.map((item, index) => {
+          const isOpen = openIndex === index;
+          
           return (
-            <div key={item.title}>
+            <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
               <button
-                className="w-full cursor-pointer flex items-center justify-between py-8 focus:outline-none text-left"
-                onClick={() => setOpenIdx(isOpen ? null : idx)}
-                aria-expanded={isOpen}
+                className="w-full px-6 py-4 text-left bg-white hover:bg-gray-50 transition-colors duration-200 flex items-center justify-between"
+                onClick={() => setOpenIndex(isOpen ? null : index)}
               >
-                <span className="text-xl font-arpona text-gray-900 font-bold">{item.title}</span>
-                <span className={`ml-4 transition-transform duration-300 ${isOpen ? "rotate-45" : "rotate-0"}`}>
-                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                    {isOpen ? (
-                      <>
-                        <line x1="10" y1="10" x2="30" y2="30" stroke="#23263B" strokeWidth="2" />
-                        <line x1="30" y1="10" x2="10" y2="30" stroke="#23263B" strokeWidth="2" />
-                      </>
-                    ) : (
-                      <>
-                        <line x1="20" y1="10" x2="20" y2="30" stroke="#23263B" strokeWidth="2" />
-                        <line x1="10" y1="20" x2="30" y2="20" stroke="#23263B" strokeWidth="2" />
-                      </>
-                    )}
-                  </svg>
+                <span className="font-inter font-bold text-gray-900 text-sm md:text-base">
+                  {item.question}
                 </span>
+                <svg
+                  className={`w-5 h-5 text-gray-500 transition-transform duration-200 ${
+                    isOpen ? 'rotate-180' : ''
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
               </button>
-              <div
-                className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}
-                style={{
-                  maxHeight: isOpen ? 200 : 0,
-                  opacity: isOpen ? 1 : 0
-                }}
-                aria-hidden={!isOpen}
-              >
-                <div className="font-bold text-sm font-inter pl-1 pr-8 pb-8 leading-relaxed">
-                  {item.content}
+              
+              {isOpen && (
+                <div className="px-6 pb-4 bg-gray-50">
+                  <p className="text-gray-700 font-inter text-sm md:text-base leading-relaxed">
+                    {item.answer}
+                  </p>
                 </div>
-              </div>
+              )}
             </div>
           );
         })}

@@ -579,3 +579,113 @@ export const dummyPrivateJetBrands = [
   },
 ];
 
+// Land Itinerary Types
+export interface LandItinerary {
+  id: number;
+  itinerary_name: string;
+  hero: string;
+  destinations: string;
+  duration: string;
+  overview: string;
+  map: Array<{
+    latitude: string;
+    longitude: string;
+    key_dates: string;
+    day_number: number;
+  }>;
+  journey_highlights: string[];
+  daily_itinerary: Array<{
+    days?: string;
+    title: string;
+    description: string;
+  }>;
+  gallery: string;
+  good_to_know: Array<{
+    question: string;
+    answer: string;
+  }>;
+  hotel_name: {
+    types: Array<{
+      category: string;
+      hotels: Array<{
+        name: string;
+        city: string;
+        country: string;
+      }>;
+    }>;
+  };
+}
+
+export interface LandItineraryDate {
+  id: number;
+  linked_itinerary_id: number;
+  date: string;
+  pricing: {
+    Couple: number;
+    Single: number;
+    "Couple with 2 kids": number;
+  };
+}
+
+// Fetch land itinerary by ID
+export const getLandItinerary = async (id: number): Promise<LandItinerary | null> => {
+  try {
+    const { data, error } = await supabase
+      .from('land_itineraries')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) {
+      console.error('Error fetching land itinerary:', error);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching land itinerary:', error);
+    return null;
+  }
+};
+
+// Fetch land itinerary dates by itinerary ID
+export const getLandItineraryDates = async (itineraryId: number): Promise<LandItineraryDate[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('land_itineraries_dates')
+      .select('*')
+      .eq('linked_itinerary_id', itineraryId)
+      .order('date', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching land itinerary dates:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching land itinerary dates:', error);
+    return [];
+  }
+};
+
+// Fetch all land itineraries
+export const getAllLandItineraries = async (): Promise<LandItinerary[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('land_itineraries')
+      .select('*')
+      .order('itinerary_name', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching land itineraries:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching land itineraries:', error);
+    return [];
+  }
+};
+
