@@ -32,10 +32,13 @@ export default function ItineraryDetails() {
           {/* Special Offer Box */}
           <div className="flex flex-col md:flex-row w-full md:w-4/5 items-start md:items-center bg-[#E3EFF1] border border-[#A5C8CE] p-4 md:p-6 mb-8 md:mb-10">
             <div className="flex-1 mb-4 md:mb-0">
-              <div className="font-inter font-bold text-sm md:text-md text-gray-600 mb-1">Special Offer</div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-normal text-gray-600"><img src="/luxufe-icon-metro-trophy.svg" alt="bullet-point" className="w-4 h-4 md:w-5 md:h-5 text-[#A5C8CE]" /></span>
+                <div className="font-inter font-bold text-sm md:text-md text-gray-600 mb-1">Special Offer</div>
+              </div>
               <div className="text-gray-500 text-xs md:text-sm font-inter font-bold">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo.</div>
             </div>
-            <button className="md:ml-6 border-2 text-xs border-gray-400 px-4 md:px-6 py-2 md:py-3 font-inter font-bold text-gray-700 flex items-center gap-2 hover:bg-gray-800 hover:text-white transition w-full md:w-auto justify-center">`VIEW` DETAILS <span><img src="/luxufe-icon-button-arrow-dark.svg" alt="arrow-right" className="w-4 h-4" /></span></button>
+            <button className="md:ml-6 border-2 text-xs border-gray-400 px-4 md:px-6 py-2 md:py-3 font-inter font-bold text-gray-700 flex items-center gap-2 hover:bg-gray-800 hover:text-white transition w-full md:w-auto justify-center">VIEW DETAILS <span><img src="/luxufe-icon-button-arrow-dark.svg" alt="arrow-right" className="w-4 h-4" /></span></button>
           </div>
           {/* Journey at a Glance */}
           <h2 className="text-2xl md:text-3xl w-full md:w-4/5 font-arpona font-bold text-gray-900 mb-3 md:mb-4">Your journey at a glance</h2>

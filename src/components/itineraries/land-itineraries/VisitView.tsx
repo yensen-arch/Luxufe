@@ -2,11 +2,10 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
-const shipImages = [
+const journeyImages = [
   "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80"
 ];
-const deckPlanImg = "https://images.unsplash.com/photo-1631727498498-5dd093268aea?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
 export default function VisitView() {
   const [current, setCurrent] = useState(0);
@@ -20,8 +19,8 @@ export default function VisitView() {
     }, 250);
   };
 
-  const prev = () => changeImage(current === 0 ? shipImages.length - 1 : current - 1);
-  const next = () => changeImage(current === shipImages.length - 1 ? 0 : current + 1);
+  const prev = () => changeImage(current === 0 ? journeyImages.length - 1 : current - 1);
+  const next = () => changeImage(current === journeyImages.length - 1 ? 0 : current + 1);
 
   return (
     <div className="w-4/5 py-12 px-12">
@@ -40,7 +39,7 @@ export default function VisitView() {
           <ChevronLeft className="h-6 w-6" />
         </button>
         <img
-          src={shipImages[current]}
+          src={journeyImages[current]}
           alt="Scenic Azure Ship"
           className={`w-full max-w-3xl h-[320px] object-cover transition-opacity duration-500 ${fade ? 'opacity-100' : 'opacity-0'}`}
         />
