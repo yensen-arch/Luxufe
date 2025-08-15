@@ -1,8 +1,25 @@
 "use client";
-import React, { useState } from "react";
-import Map, { Marker, Popup, NavigationControl } from "react-map-gl/maplibre";
-import "maplibre-gl/dist/maplibre-gl.css";
+import React, { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { MapPin } from "lucide-react";
+
+// Dynamically import the map components to avoid SSR issues
+const Map = dynamic(() => import("react-map-gl/maplibre").then(mod => mod.Map), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-gray-100 flex items-center justify-center">Loading map...</div>
+});
+
+const Marker = dynamic(() => import("react-map-gl/maplibre").then(mod => mod.Marker), {
+  ssr: false
+});
+
+const Popup = dynamic(() => import("react-map-gl/maplibre").then(mod => mod.Popup), {
+  ssr: false
+});
+
+const NavigationControl = dynamic(() => import("react-map-gl/maplibre").then(mod => mod.NavigationControl), {
+  ssr: false
+});
 
 interface MapLocation {
   latitude: string;
@@ -18,48 +35,75 @@ interface ItineraryMapProps {
 
 export default function ItineraryMap({ mapData, itineraryName }: ItineraryMapProps) {
   const [selectedLocation, setSelectedLocation] = useState<MapLocation | null>(null);
+  const [isClient, setIsClient] = useState(false);
+  const [isMapReady, setIsMapReady] = useState(false);
+
+  // Ensure component is mounted on client side
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Validate and parse map data
+  const validMapData = React.useMemo(() => {
+    if (!mapData || !Array.isArray(mapData)) return [];
+    
+    return mapData.filter(location => 
+      location && 
+      location.latitude && 
+      location.longitude && 
+      !isNaN(parseFloat(location.latitude)) && 
+      !isNaN(parseFloat(location.longitude))
+    );
+  }, [mapData]);
 
   // Parse coordinates and determine initial view state
-  const getInitialViewState = () => {
-    if (mapData.length > 0) {
-      const firstLocation = mapData[0];
-      return {
-        longitude: parseFloat(firstLocation.longitude),
-        latitude: parseFloat(firstLocation.latitude),
-        zoom: 6 // Zoom level to show the journey area
-      };
+  const getInitialViewState = React.useMemo(() => {
+    if (validMapData.length > 0) {
+      const firstLocation = validMapData[0];
+      const lat = parseFloat(firstLocation.latitude);
+      const lng = parseFloat(firstLocation.longitude);
+      
+      if (!isNaN(lat) && !isNaN(lng)) {
+        return {
+          longitude: lng,
+          latitude: lat,
+          zoom: 6
+        };
+      }
     }
-    // Fallback to default view
+    // Fallback to default view (Maldives area)
     return {
       longitude: 73.2207,
       latitude: 3.2028,
       zoom: 6
     };
-  };
+  }, [validMapData]);
 
-  // Calculate bounds for all locations
-  const getBounds = () => {
-    if (mapData.length === 0) return null;
+  // Don't render map until client-side and we have valid data
+  if (!isClient) {
+    return (
+      <div className="w-full h-[400px] md:h-[500px] rounded-md overflow-hidden shadow-lg relative bg-gray-100 flex items-center justify-center">
+        <div className="text-gray-500 font-inter font-bold">Loading map...</div>
+      </div>
+    );
+  }
 
-    const lats = mapData.map(loc => parseFloat(loc.latitude));
-    const lngs = mapData.map(loc => parseFloat(loc.longitude));
-
-    return {
-      north: Math.max(...lats) + 0.1,
-      south: Math.min(...lats) - 0.1,
-      east: Math.max(...lngs) + 0.1,
-      west: Math.min(...lngs) - 0.1
-    };
-  };
+  // Don't render if no valid data
+  if (validMapData.length === 0) {
+    return (
+      <div className="w-full h-[400px] md:h-[500px] rounded-md overflow-hidden shadow-lg relative bg-gray-100 flex items-center justify-center">
+        <div className="text-gray-500 font-inter font-bold">No map data available</div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-[400px] md:h-[500px] rounded-md overflow-hidden shadow-lg relative">
       <Map
-        initialViewState={getInitialViewState()}
+        initialViewState={getInitialViewState}
         mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
         style={{ width: "100%", height: "100%" }}
-        bounds={getBounds()}
-        fitBoundsOptions={{ padding: 50 }}
+        onLoad={() => setIsMapReady(true)}
       >
         <NavigationControl position="bottom-left" showCompass={false} />
         
@@ -69,19 +113,28 @@ export default function ItineraryMap({ mapData, itineraryName }: ItineraryMapPro
             {itineraryName} Journey
           </div>
           <div className="font-inter text-gray-500 text-xs">
-            {mapData.length} locations • {mapData.length} days
+            {validMapData.length} locations • {validMapData.length} days
           </div>
         </div>
 
         {/* Journey Markers */}
-        {mapData.map((location, index) => {
+        {isMapReady && validMapData.map((location, index) => {
           const lat = parseFloat(location.latitude);
           const lng = parseFloat(location.longitude);
           const dayNumber = location.day_number || index + 1;
-          const date = new Date(location.key_dates).toLocaleDateString('en-US', { 
-            month: 'short', 
-            day: 'numeric' 
-          });
+          
+          // Skip invalid coordinates
+          if (isNaN(lat) || isNaN(lng)) return null;
+
+          let date;
+          try {
+            date = new Date(location.key_dates).toLocaleDateString('en-US', { 
+              month: 'short', 
+              day: 'numeric' 
+            });
+          } catch (error) {
+            date = `Day ${dayNumber}`;
+          }
 
           return (
             <Marker 

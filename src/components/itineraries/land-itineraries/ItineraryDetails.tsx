@@ -7,6 +7,30 @@ interface ItineraryDetailsProps {
 }
 
 export default function ItineraryDetails({ itinerary }: ItineraryDetailsProps) {
+  // Parse map data - it might be a string or already an array
+  const parseMapData = () => {
+    if (!itinerary.map) return [];
+    
+    // If it's already an array, return it
+    if (Array.isArray(itinerary.map)) {
+      return itinerary.map;
+    }
+    
+    // If it's a string, try to parse it
+    if (typeof itinerary.map === 'string') {
+      try {
+        return JSON.parse(itinerary.map.replace(/'/g, '"'));
+      } catch (error) {
+        console.error('Error parsing map data:', error);
+        return [];
+      }
+    }
+    
+    return [];
+  };
+
+  const mapData = parseMapData();
+
   return (
     <section className="bg-white border-t-2 border-gray-300">
       <div className="mx-auto flex flex-col md:flex-row">
@@ -49,7 +73,7 @@ export default function ItineraryDetails({ itinerary }: ItineraryDetailsProps) {
           {/* Journey at a Glance */}
           <h2 className="text-2xl md:text-3xl w-full md:w-4/5 font-arpona font-bold text-gray-900 mb-3 md:mb-4">Your journey at a glance</h2>
           <div className="w-full md:w-4/5 mb-8 md:mb-10">
-            <ItineraryMap mapData={itinerary.map} itineraryName={itinerary.itinerary_name} />
+            <ItineraryMap mapData={mapData} itineraryName={itinerary.itinerary_name} />
           </div>
           {/* Journey Highlights */}
           <div className="w-full mb-8 md:mb-20">

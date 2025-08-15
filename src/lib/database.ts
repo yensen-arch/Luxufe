@@ -587,7 +587,7 @@ export interface LandItinerary {
   destinations: string;
   duration: string;
   overview: string;
-  map: Array<{
+  map: string | Array<{
     latitude: string;
     longitude: string;
     key_dates: string;
