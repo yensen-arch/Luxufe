@@ -50,12 +50,12 @@ export default function PricingOptions({ itineraryDates }: PricingOptionsProps) 
           </div>
           <div className="p-4 md:p-6 text-center">
             <h3 className="text-gray-700 font-inter font-bold text-xs uppercase tracking-wider">
-              Low Season
+              {selectedDate?.date || "Low Season"}
             </h3>
           </div>
           <div className="p-4 md:p-6 text-center">
             <h3 className="text-gray-700 font-inter font-bold text-xs uppercase tracking-wider">
-              High Season
+              {selectedDate?.date || "High Season"}
             </h3>
           </div>
         </div>
