@@ -17,29 +17,45 @@ export default function AdminLogin() {
     setError("");
 
     try {
+      console.log('Attempting login with:', email);
+      
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (error) {
+        console.error('Auth error:', error);
         setError(error.message);
       } else if (data.user) {
+        console.log('User authenticated:', data.user.id);
+        
         // Check if user has admin role
-        const { data: profile } = await supabase
+        const { data: profile, error: profileError } = await supabase
           .from('profiles')
           .select('role')
           .eq('id', data.user.id)
           .single();
 
-        if (profile?.role === 'admin') {
+        console.log('Profile query result:', { profile, profileError });
+
+        if (profileError) {
+          console.error('Profile error:', profileError);
+          setError('Error checking admin privileges');
+          await supabase.auth.signOut();
+        } else if (profile?.role === 'admin') {
+          console.log('Admin role confirmed, redirecting...');
           router.push('/admin/dashboard');
+          // Force a refresh to ensure the redirect works
+          window.location.href = '/admin/dashboard';
         } else {
+          console.log('Not admin role:', profile?.role);
           setError('Access denied. Admin privileges required.');
           await supabase.auth.signOut();
         }
       }
     } catch (error) {
+      console.error('Unexpected error:', error);
       setError('An unexpected error occurred');
     } finally {
       setLoading(false);
