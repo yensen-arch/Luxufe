@@ -299,9 +299,6 @@ export default function HotelSidebar({
         {/* Current Brand Display */}
         {selectedBrand && (
           <div className="mt-4">
-            <h4 className="text-sm font-inter font-bold text-gray-600 mb-2">
-              Current Brand:
-            </h4>
             <div className="bg-[#23263a] text-white px-3 py-2 rounded-full text-xs font-inter font-bold inline-block">
               {selectedBrand}
             </div>

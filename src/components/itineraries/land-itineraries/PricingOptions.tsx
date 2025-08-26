@@ -7,12 +7,20 @@ interface PricingOptionsProps {
 }
 
 export default function PricingOptions({ itineraryDates }: PricingOptionsProps) {
-  const [selectedDate, setSelectedDate] = useState<LandItineraryDate | null>(itineraryDates[0] || null);
+  const [selectedDate, setSelectedDate] = useState<LandItineraryDate | null>(null);
 
   // Debug logging
   useEffect(() => {
     console.log('PricingOptions - itineraryDates received:', itineraryDates);
     console.log('PricingOptions - selectedDate:', selectedDate);
+  }, [itineraryDates, selectedDate]);
+
+  // Set initial selected date when data is available
+  useEffect(() => {
+    if (itineraryDates && itineraryDates.length > 0 && !selectedDate) {
+      console.log('PricingOptions - Setting initial selected date:', itineraryDates[0]);
+      setSelectedDate(itineraryDates[0]);
+    }
   }, [itineraryDates, selectedDate]);
 
   // Extract unique pricing categories from the first date
