@@ -50,13 +50,14 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, onClose }: I
       const success = await updateHotelCardImages(hotelName, cardImages);
       if (success) {
         setCurrentCardImages(cardImages);
-        // Show success feedback (you could add a toast notification here)
-        console.log('Card images saved successfully!');
+        // Show success feedback
+        alert('Card images saved successfully! The brand card will now display your selected images.');
       } else {
-        console.error('Failed to save card images');
+        alert('Failed to save card images. Please try again.');
       }
     } catch (error) {
       console.error('Error saving card images:', error);
+      alert('Error saving card images. Please try again.');
     } finally {
       setSaving(false);
     }

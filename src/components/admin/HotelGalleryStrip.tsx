@@ -72,9 +72,30 @@ export default function HotelGalleryStrip({
     }
   };
 
+  // Find the index of the currently displayed image in the modal
+  const getCurrentImageIndex = () => {
+    if (!currentCardImages) return selectedIndex;
+    
+    // Check if the current modal image matches any of the card images
+    const currentImageUrl = galleryImages[selectedIndex];
+    if (currentImageUrl === currentCardImages.top) return selectedIndex;
+    if (currentImageUrl === currentCardImages.left) return selectedIndex;
+    if (currentImageUrl === currentCardImages.right) return selectedIndex;
+    
+    return selectedIndex;
+  };
+
+  const [selectedPosition, setSelectedPosition] = useState<'top' | 'left' | 'right'>('top');
+
   const handleSave = () => {
     if (onSave) {
-      onSave(cardImages);
+      // Update the card images with the currently selected image
+      const updatedCardImages = { ...cardImages };
+      
+      // Update the selected position with the current image
+      updatedCardImages[selectedPosition] = galleryImages[selectedIndex];
+      
+      onSave(updatedCardImages);
     }
   };
 
@@ -150,9 +171,41 @@ export default function HotelGalleryStrip({
         </div>
       </div>
 
-      {/* Image Counter and Save Button */}
-      <div className="flex justify-between items-center mt-2 px-2">
-        <div className="flex items-center gap-4">
+      {/* Position Selection and Save */}
+      <div className="mt-3 px-2">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-xs text-gray-600 font-inter font-bold">
+            Select position for brand card:
+          </span>
+          {onSave && (
+            <button
+              onClick={handleSave}
+              className="px-3 py-1 bg-[#A5C8CE] text-white text-xs font-inter font-bold hover:bg-[#A5C8CE]/90 transition-colors"
+            >
+              Save to {selectedPosition}
+            </button>
+          )}
+        </div>
+        
+        {/* Position Buttons */}
+        <div className="flex gap-2">
+          {(['top', 'left', 'right'] as const).map((position) => (
+            <button
+              key={position}
+              onClick={() => setSelectedPosition(position)}
+              className={`px-3 py-1 text-xs font-inter font-bold transition-colors ${
+                selectedPosition === position
+                  ? 'bg-[#A5C8CE] text-white'
+                  : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+              }`}
+            >
+              {position.charAt(0).toUpperCase() + position.slice(1)}
+            </button>
+          ))}
+        </div>
+        
+        {/* Image Counter */}
+        <div className="flex justify-between items-center mt-2">
           <span className="text-xs text-gray-500 font-inter">
             {selectedIndex + 1} of {galleryImages.length} images
           </span>
@@ -160,14 +213,6 @@ export default function HotelGalleryStrip({
             Green border = currently in brand card
           </span>
         </div>
-        {onSave && (
-          <button
-            onClick={handleSave}
-            className="px-3 py-1 bg-[#A5C8CE] text-white text-xs font-inter font-bold hover:bg-[#A5C8CE]/90 transition-colors"
-          >
-            Save
-          </button>
-        )}
       </div>
     </div>
   );
