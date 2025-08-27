@@ -11,7 +11,7 @@ interface ImageModalProps {
 export default function ImageModal({ imageUrl, imageAlt, hotelName, onClose }: ImageModalProps) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-      <div className="relative max-w-4xl max-h-[90vh] bg-white rounded-lg overflow-hidden shadow-2xl">
+      <div className="relative max-w-4xl max-h-[90vh] bg-white overflow-hidden shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <h3 className="text-lg font-arpona font-bold text-gray-900">
@@ -32,21 +32,6 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, onClose }: I
             alt={imageAlt}
             className="w-full h-auto max-h-[70vh] object-contain"
           />
-        </div>
-        
-        {/* Footer */}
-        <div className="p-4 border-t border-gray-200">
-          <div className="flex justify-between items-center">
-            <p className="text-sm text-gray-600 font-inter">
-              Click outside or press ESC to close
-            </p>
-            <button
-              onClick={onClose}
-              className="px-4 py-2 bg-[#A5C8CE] text-white font-inter font-bold rounded-lg hover:bg-[#A5C8CE]/90 transition-colors"
-            >
-              Close
-            </button>
-          </div>
         </div>
       </div>
     </div>
