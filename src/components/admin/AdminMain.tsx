@@ -97,7 +97,7 @@ function HotelImagesSection({
         {selectedBrand && (
           <div className="flex-1 flex flex-col">
             <h3 className="text-lg font-arpona font-bold text-gray-900 mb-4">
-              Manage Images for {selectedBrand.name}
+              Manage brand card images for {selectedBrand.name}
             </h3>
             <div className="flex-1">
               <BrandImageManager selectedBrand={selectedBrand} />
