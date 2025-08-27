@@ -174,7 +174,12 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
   }
 
   return (
-    <div className="flex h-full">
+    <div className={`flex h-full ${editMode ? 'relative' : ''}`}>
+      {/* Blurred overlay when in edit mode */}
+      {editMode && (
+        <div className="fixed inset-0 bg-opacity-30 backdrop-blur-sm z-40 pointer-events-none"></div>
+      )}
+      
       {/* Sidebar */}
       <AdminBrandSidebar
         onFiltersChange={handleFiltersChange}
@@ -405,7 +410,7 @@ function AdminBrandGrid({
   }
 
   return (
-    <div className={`flex-1 bg-[#f7f7fa] overflow-y-auto ${editMode ? 'opacity-50 pointer-events-none' : ''}`}>
+    <div className="flex-1 bg-[#f7f7fa] overflow-y-auto">
       {/* Selected Filters */}
       <div className="border-b-2 border-gray-300 px-8 py-4">
         <div className="flex items-center gap-4">
@@ -594,7 +599,7 @@ function AdminBrandCard({
   return (
     <div 
       className={`bg-white shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300 relative ${
-        editMode && !isEditing ? 'opacity-50 pointer-events-none' : ''
+        editMode && !isEditing ? 'z-50' : ''
       }`}
       onMouseEnter={() => setShowEditButton(true)}
       onMouseLeave={() => setShowEditButton(false)}
