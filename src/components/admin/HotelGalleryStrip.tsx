@@ -184,7 +184,7 @@ export default function HotelGalleryStrip({
                 onClick={handleSave}
                 className="px-3 py-1 bg-[#A5C8CE] text-white text-xs font-inter font-bold hover:bg-[#A5C8CE]/90 transition-colors"
               >
-                Save to {selectedPosition}
+                Save
               </button>
             )}
           </div>

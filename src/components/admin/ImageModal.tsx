@@ -104,21 +104,6 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, position, on
             selectedPosition={position}
           />
         </div>
-        
-        {/* Footer */}
-        <div className="p-4 border-t border-gray-200">
-          <div className="flex justify-between items-center">
-            <p className="text-sm text-gray-600 font-inter">
-              {saving ? 'Saving...' : 'Click Save in gallery strip to update brand card images'}
-            </p>
-            <button
-              onClick={onClose}
-              className="px-4 py-2 bg-[#A5C8CE] text-white font-inter font-bold hover:bg-[#A5C8CE]/90 transition-colors"
-            >
-              Close
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );
