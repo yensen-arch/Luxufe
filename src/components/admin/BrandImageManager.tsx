@@ -156,13 +156,22 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
   };
 
   const handleImageClick = (imageUrl: string, imageAlt: string, hotelName: string) => {
-    // For now, we'll determine position based on the image URL or other logic
-    // This is a temporary fix until we can update the interfaces properly
+    // Determine position based on the image alt text or URL
+    let position: 'top' | 'left' | 'right' = 'top';
+    
+    if (imageAlt.includes('main view') || imageAlt.includes('top')) {
+      position = 'top';
+    } else if (imageAlt.includes('view 1') || imageAlt.includes('left')) {
+      position = 'left';
+    } else if (imageAlt.includes('view 2') || imageAlt.includes('right')) {
+      position = 'right';
+    }
+    
     setSelectedImage({
       url: imageUrl,
       alt: imageAlt,
       hotelName,
-      position: 'top' // Default to top for now
+      position
     });
   };
 

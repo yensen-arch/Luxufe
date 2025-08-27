@@ -174,17 +174,20 @@ export default function HotelGalleryStrip({
       </div>
 
       {/* Position Selection and Save */}
-      <div className="mt-3 px-2">
-        <div className="flex items-center justify-between mb-2">
-          {onSave && (
-            <button
-              onClick={handleSave}
-              className="px-3 py-1 bg-[#A5C8CE] text-white text-xs font-inter font-bold hover:bg-[#A5C8CE]/90 transition-colors"
-            >
-              Save
-            </button>
-          )}
-        </div>
+              <div className="mt-3 px-2">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs text-gray-600 font-inter font-bold">
+              Updating {selectedPosition.charAt(0).toUpperCase() + selectedPosition.slice(1)} position
+            </span>
+            {onSave && (
+              <button
+                onClick={handleSave}
+                className="px-3 py-1 bg-[#A5C8CE] text-white text-xs font-inter font-bold hover:bg-[#A5C8CE]/90 transition-colors"
+              >
+                Save to {selectedPosition}
+              </button>
+            )}
+          </div>
         
         
         {/* Image Counter */}
