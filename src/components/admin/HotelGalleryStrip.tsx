@@ -209,9 +209,6 @@ export default function HotelGalleryStrip({
           <span className="text-xs text-gray-500 font-inter">
             {selectedIndex + 1} of {galleryImages.length} images
           </span>
-          <span className="text-xs text-gray-400 font-inter">
-            Green border = currently in brand card
-          </span>
         </div>
       </div>
     </div>
