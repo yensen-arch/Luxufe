@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Edit, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
-import { getHotelsWithFiltersAndGallery, getBrandCountries } from "@/lib/database";
+import { getHotelsWithFiltersAndGallery, getBrandCountries, getHotelGallery, getBrandByName } from "@/lib/database";
 import ImageModal from "./ImageModal";
 
 interface Hotel {
@@ -559,35 +559,84 @@ function AdminBrandCard({
   onImageClick?: (imageUrl: string, imageAlt: string, hotelName: string) => void;
 }) {
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [brandLogo, setBrandLogo] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [showEditButton, setShowEditButton] = useState(false);
+  const [imageLoading, setImageLoading] = useState({
+    top: true,
+    bottomLeft: true,
+    bottomRight: true
+  });
+  const [imageError, setImageError] = useState({
+    top: false,
+    bottomLeft: false,
+    bottomRight: false
+  });
 
-  // Fetch hotel gallery images
+  // Get default brand logo fallback
+  const getDefaultBrandLogo = () => {
+    return 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Silversea_Cruises_logo.svg';
+  };
+
+  // Fetch hotel gallery images and brand logo
   useEffect(() => {
-    const fetchGallery = async () => {
+    const fetchData = async () => {
+      setIsLoading(true);
       try {
-        setIsLoading(true);
-        // This would need to be implemented based on your gallery structure
-        // For now, using placeholder images
-        setGalleryImages([
-          "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"
-        ]);
+        console.log('🎯 AdminBrandCard: Fetching gallery for hotel name:', hotel.hotel_name);
+        // Fetch gallery images
+        const images = await getHotelGallery(hotel.hotel_name);
+        console.log('🎯 AdminBrandCard: Gallery images received:', images.length, 'images');
+        setGalleryImages(images);
+        
+        // Reset image loading states when we get new images
+        setImageLoading({
+          top: false,
+          bottomLeft: false,
+          bottomRight: false
+        });
+
+        // Fetch brand logo if brand name is provided
+        if (hotel.brand) {
+          const brandData = await getBrandByName(hotel.brand);
+          if (brandData?.logo) {
+            setBrandLogo(brandData.logo);
+          } else {
+            setBrandLogo(getDefaultBrandLogo());
+          }
+        } else {
+          setBrandLogo(getDefaultBrandLogo());
+        }
       } catch (error) {
-        console.error('Error fetching gallery:', error);
+        console.error('Error fetching data for', hotel.hotel_name, error);
+        setBrandLogo(getDefaultBrandLogo());
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchGallery();
-  }, [hotel.hotel_name]);
+    fetchData();
+  }, [hotel.hotel_name, hotel.brand]);
 
   const handleEditClick = () => {
     if (onEditClick) {
       onEditClick(hotel.id);
     }
+  };
+
+  // Get images from the gallery array (with fallbacks)
+  const getImageUrl = (index: number, fallbackUrl: string) => {
+    const imageUrl = galleryImages[index] || fallbackUrl;
+    return imageUrl;
+  };
+
+  const handleImageLoad = (imageType: 'top' | 'bottomLeft' | 'bottomRight') => {
+    setImageLoading(prev => ({ ...prev, [imageType]: false }));
+  };
+
+  const handleImageError = (imageType: 'top' | 'bottomLeft' | 'bottomRight') => {
+    setImageLoading(prev => ({ ...prev, [imageType]: false }));
+    setImageError(prev => ({ ...prev, [imageType]: true }));
   };
 
   const handleImageClick = (imageUrl: string, imageAlt: string) => {
@@ -630,18 +679,24 @@ function AdminBrandCard({
         <div className="h-44 w-full mb-0.5 relative">
           {isLoading ? (
             <div className="w-full h-full bg-gray-200 animate-pulse"></div>
-          ) : (
+          ) : !imageError.top ? (
             <img 
-              src={galleryImages[0] || "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80"} 
+              src={getImageUrl(1, "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80")} 
               alt={`${hotel.hotel_name} main view`} 
               className={`w-full h-full object-cover transition-all duration-200 ${
                 isEditing ? 'hover:border-4 hover:border-[#A5C8CE] hover:border-opacity-80 cursor-pointer' : ''
               }`}
+              onLoad={() => handleImageLoad('top')}
+              onError={() => handleImageError('top')}
               onClick={() => handleImageClick(
-                galleryImages[0] || "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+                getImageUrl(1, "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80"),
                 `${hotel.hotel_name} main view`
               )}
             />
+          ) : (
+            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+              <span className="text-gray-500 text-sm">Image unavailable</span>
+            </div>
           )}
         </div>
         
@@ -650,35 +705,47 @@ function AdminBrandCard({
           <div className="flex-1 mr-0.5 relative">
             {isLoading ? (
               <div className="w-full h-full bg-gray-200 animate-pulse"></div>
-            ) : (
+            ) : !imageError.bottomLeft ? (
               <img 
-                src={galleryImages[1] || "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80"} 
+                src={getImageUrl(2, "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80")} 
                 alt={`${hotel.hotel_name} view 1`} 
                 className={`w-full h-full object-cover transition-all duration-200 ${
                   isEditing ? 'hover:border-4 hover:border-[#A5C8CE] hover:border-opacity-80 cursor-pointer' : ''
                 }`}
+                onLoad={() => handleImageLoad('bottomLeft')}
+                onError={() => handleImageError('bottomLeft')}
                 onClick={() => handleImageClick(
-                  galleryImages[1] || "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80",
+                  getImageUrl(2, "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80"),
                   `${hotel.hotel_name} view 1`
                 )}
               />
+            ) : (
+              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                <span className="text-gray-500 text-xs">Image unavailable</span>
+              </div>
             )}
           </div>
           <div className="flex-1 relative">
             {isLoading ? (
               <div className="w-full h-full bg-gray-200 animate-pulse"></div>
-            ) : (
+            ) : !imageError.bottomRight ? (
               <img 
-                src={galleryImages[2] || "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"} 
+                src={getImageUrl(3, "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80")} 
                 alt={`${hotel.hotel_name} view 2`} 
                 className={`w-full h-full object-cover transition-all duration-200 ${
                   isEditing ? 'hover:border-4 hover:border-[#A5C8CE] hover:border-opacity-80 cursor-pointer' : ''
                 }`}
+                onLoad={() => handleImageLoad('bottomRight')}
+                onError={() => handleImageError('bottomRight')}
                 onClick={() => handleImageClick(
-                  galleryImages[2] || "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+                  getImageUrl(3, "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"),
                   `${hotel.hotel_name} view 2`
                 )}
               />
+            ) : (
+              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                <span className="text-gray-500 text-xs">Image unavailable</span>
+              </div>
             )}
           </div>
         </div>
@@ -706,9 +773,12 @@ function AdminBrandCard({
           </div>
           {!isLoading && (
             <img 
-              src={`https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Aman_Resorts_logo.svg/1200px-Aman_Resorts_logo.svg.png`}
+              src={brandLogo}
               alt={`${hotel.brand} Logo`} 
               className="h-8 object-contain"
+              onError={(e) => {
+                e.currentTarget.src = getDefaultBrandLogo();
+              }}
             />
           )}
         </div>
