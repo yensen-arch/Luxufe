@@ -1,5 +1,6 @@
 "use client";
-import { LogOut, Settings, Users, Hotel, MapPin, Calendar, BarChart3, Image as ImageIcon } from "lucide-react";
+import { useState } from "react";
+import { LogOut, Settings, Users, Hotel, MapPin, Calendar, BarChart3, Image as ImageIcon, Menu, X } from "lucide-react";
 import Image from "next/image";
 
 interface AdminSidebarProps {
@@ -15,6 +16,8 @@ export default function AdminSidebar({
   onSignOut, 
   userEmail 
 }: AdminSidebarProps) {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
   const menuItems = [
     {
       id: 'dashboard',
@@ -60,35 +63,50 @@ export default function AdminSidebar({
     }
   ];
 
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
-    <div className="w-64 bg-white shadow-lg border-r border-gray-200 h-screen flex flex-col">
+    <div className={`bg-white shadow-lg border-r border-gray-200 h-screen flex flex-col transition-all duration-300 ease-in-out ${
+      isCollapsed ? 'w-16' : 'w-64'
+    }`}>
       {/* Header */}
-      <div className="p-6 border-b border-gray-200">
+      <div className="p-6 border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center">
-          <Image 
-            src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750509663/LUXUFE_-_Wordmark_Logo_2_fqjqq2.png" 
-            alt="Luxufe" 
-            width={100} 
-            height={32}
-          />
+          {!isCollapsed && (
+            <Image 
+              src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750509663/LUXUFE_-_Wordmark_Logo_2_fqjqq2.png" 
+              alt="Luxufe" 
+              width={100} 
+              height={32}
+            />
+          )}
         </div>
-        <p className="text-gray-500 font-inter text-xs mt-2">Admin Dashboard</p>
+        <button
+          onClick={toggleSidebar}
+          className="p-1 rounded-lg hover:bg-gray-100 transition-colors"
+        >
+          {isCollapsed ? <Menu className="w-5 h-5 text-gray-600" /> : <X className="w-5 h-5 text-gray-600" />}
+        </button>
       </div>
 
       {/* User Info */}
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-[#A5C8CE] rounded-full flex items-center justify-center">
+          <div className="w-8 h-8 bg-[#A5C8CE] rounded-full flex items-center justify-center flex-shrink-0">
             <span className="text-white font-inter text-sm font-bold">
               {userEmail?.charAt(0).toUpperCase() || 'A'}
             </span>
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-inter font-bold text-gray-900 truncate">
-              {userEmail || 'Admin User'}
-            </p>
-            <p className="text-xs text-gray-500 font-inter">Administrator</p>
-          </div>
+          {!isCollapsed && (
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-inter font-bold text-gray-900 truncate">
+                {userEmail || 'Admin User'}
+              </p>
+              <p className="text-xs text-gray-500 font-inter">Administrator</p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -107,16 +125,19 @@ export default function AdminSidebar({
                   ? 'bg-[#A5C8CE] text-white' 
                   : 'text-gray-700 hover:bg-gray-100'
               }`}
+              title={isCollapsed ? item.label : undefined}
             >
-              <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-500'}`} />
-              <div className="flex-1">
-                <p className={`font-inter font-bold text-sm ${isActive ? 'text-white' : 'text-gray-900'}`}>
-                  {item.label}
-                </p>
-                <p className={`text-xs ${isActive ? 'text-white/80' : 'text-gray-500'}`}>
-                  {item.description}
-                </p>
-              </div>
+              <Icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-white' : 'text-gray-500'}`} />
+              {!isCollapsed && (
+                <div className="flex-1">
+                  <p className={`font-inter font-bold text-sm ${isActive ? 'text-white' : 'text-gray-900'}`}>
+                    {item.label}
+                  </p>
+                  <p className={`text-xs ${isActive ? 'text-white/80' : 'text-gray-500'}`}>
+                    {item.description}
+                  </p>
+                </div>
+              )}
             </button>
           );
         })}
@@ -127,9 +148,12 @@ export default function AdminSidebar({
         <button
           onClick={onSignOut}
           className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+          title={isCollapsed ? 'Sign Out' : undefined}
         >
-          <LogOut className="w-5 h-5 text-gray-500" />
-          <span className="font-inter font-bold text-sm">Sign Out</span>
+          <LogOut className="w-5 h-5 text-gray-500 flex-shrink-0" />
+          {!isCollapsed && (
+            <span className="font-inter font-bold text-sm">Sign Out</span>
+          )}
         </button>
       </div>
     </div>

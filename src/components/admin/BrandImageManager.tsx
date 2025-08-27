@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Edit, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { getHotelsWithFiltersAndGallery, getBrandCountries } from "@/lib/database";
+import ImageModal from "./ImageModal";
 
 interface Hotel {
   id: string;
@@ -44,6 +45,15 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  
+  // Edit mode states
+  const [editMode, setEditMode] = useState(false);
+  const [editingHotelId, setEditingHotelId] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<{
+    url: string;
+    alt: string;
+    hotelName: string;
+  } | null>(null);
 
   const cardsPerPage = 4;
 
@@ -132,6 +142,29 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
     });
   };
 
+  // Edit mode handlers
+  const handleEditClick = (hotelId: string) => {
+    setEditMode(true);
+    setEditingHotelId(hotelId);
+  };
+
+  const handleExitEditMode = () => {
+    setEditMode(false);
+    setEditingHotelId(null);
+  };
+
+  const handleImageClick = (imageUrl: string, imageAlt: string, hotelName: string) => {
+    setSelectedImage({
+      url: imageUrl,
+      alt: imageAlt,
+      hotelName
+    });
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImage(null);
+  };
+
   if (!selectedBrand) {
     return (
       <div className="text-center py-12">
@@ -149,6 +182,7 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
         loading={loading}
         loadingCountries={loadingCountries}
         filters={filters}
+        editMode={editMode}
       />
       
       {/* Main Content */}
@@ -163,7 +197,22 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
         totalCount={totalCount}
         onPageChange={setCurrentPage}
         cardsPerPage={cardsPerPage}
+        editMode={editMode}
+        editingHotelId={editingHotelId}
+        onEditClick={handleEditClick}
+        onExitEditMode={handleExitEditMode}
+        onImageClick={handleImageClick}
       />
+
+      {/* Image Modal */}
+      {selectedImage && (
+        <ImageModal
+          imageUrl={selectedImage.url}
+          imageAlt={selectedImage.alt}
+          hotelName={selectedImage.hotelName}
+          onClose={handleCloseModal}
+        />
+      )}
     </div>
   );
 }
@@ -174,13 +223,15 @@ function AdminBrandSidebar({
   availableCountries, 
   loading, 
   loadingCountries,
-  filters 
+  filters,
+  editMode
 }: {
   onFiltersChange: (filters: any) => void;
   availableCountries?: string[];
   loading?: boolean;
   loadingCountries?: boolean;
   filters: any;
+  editMode?: boolean;
 }) {
   const [searchTerm, setSearchTerm] = useState(filters.search);
   const [selectedTypes, setSelectedTypes] = useState<string[]>(filters.typeOfTravel);
@@ -314,7 +365,12 @@ function AdminBrandGrid({
   totalPages,
   totalCount,
   onPageChange,
-  cardsPerPage
+  cardsPerPage,
+  editMode,
+  editingHotelId,
+  onEditClick,
+  onExitEditMode,
+  onImageClick
 }: {
   hotels: Hotel[];
   loading: boolean;
@@ -326,6 +382,11 @@ function AdminBrandGrid({
   totalCount: number;
   onPageChange: (page: number) => void;
   cardsPerPage: number;
+  editMode?: boolean;
+  editingHotelId?: string | null;
+  onEditClick?: (hotelId: string) => void;
+  onExitEditMode?: () => void;
+  onImageClick?: (imageUrl: string, imageAlt: string, hotelName: string) => void;
 }) {
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
@@ -344,7 +405,7 @@ function AdminBrandGrid({
   }
 
   return (
-    <div className="flex-1 bg-[#f7f7fa] overflow-y-auto">
+    <div className={`flex-1 bg-[#f7f7fa] overflow-y-auto ${editMode ? 'opacity-50 pointer-events-none' : ''}`}>
       {/* Selected Filters */}
       <div className="border-b-2 border-gray-300 px-8 py-4">
         <div className="flex items-center gap-4">
@@ -413,6 +474,11 @@ function AdminBrandGrid({
             <AdminBrandCard
               key={hotel.id}
               hotel={hotel}
+              editMode={editMode}
+              isEditing={editingHotelId === hotel.id}
+              onEditClick={onEditClick}
+              onExitEditMode={onExitEditMode}
+              onImageClick={onImageClick}
             />
           ))}
         </div>
@@ -472,7 +538,21 @@ function AdminBrandGrid({
 }
 
 // Admin Brand Card Component (Editable version)
-function AdminBrandCard({ hotel }: { hotel: Hotel }) {
+function AdminBrandCard({ 
+  hotel, 
+  editMode, 
+  isEditing, 
+  onEditClick, 
+  onExitEditMode, 
+  onImageClick 
+}: { 
+  hotel: Hotel;
+  editMode?: boolean;
+  isEditing?: boolean;
+  onEditClick?: (hotelId: string) => void;
+  onExitEditMode?: () => void;
+  onImageClick?: (imageUrl: string, imageAlt: string, hotelName: string) => void;
+}) {
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showEditButton, setShowEditButton] = useState(false);
@@ -500,23 +580,42 @@ function AdminBrandCard({ hotel }: { hotel: Hotel }) {
   }, [hotel.hotel_name]);
 
   const handleEditClick = () => {
-    // This will be implemented in the next step
-    console.log('Edit clicked for hotel:', hotel.hotel_name);
+    if (onEditClick) {
+      onEditClick(hotel.id);
+    }
+  };
+
+  const handleImageClick = (imageUrl: string, imageAlt: string) => {
+    if (onImageClick && isEditing) {
+      onImageClick(imageUrl, imageAlt, hotel.hotel_name);
+    }
   };
 
   return (
     <div 
-      className="bg-white shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300 relative"
+      className={`bg-white shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300 relative ${
+        editMode && !isEditing ? 'opacity-50 pointer-events-none' : ''
+      }`}
       onMouseEnter={() => setShowEditButton(true)}
       onMouseLeave={() => setShowEditButton(false)}
     >
       {/* Edit Button - Shows on hover */}
-      {showEditButton && (
+      {showEditButton && !editMode && (
         <button
           onClick={handleEditClick}
           className="absolute top-4 right-4 z-10 bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-full shadow-lg transition-all duration-200"
         >
           <Edit className="w-5 h-5 text-gray-700" />
+        </button>
+      )}
+
+      {/* Exit Edit Mode Button */}
+      {isEditing && (
+        <button
+          onClick={onExitEditMode}
+          className="absolute top-4 right-4 z-10 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full shadow-lg transition-all duration-200"
+        >
+          <X className="w-5 h-5" />
         </button>
       )}
 
@@ -530,7 +629,13 @@ function AdminBrandCard({ hotel }: { hotel: Hotel }) {
             <img 
               src={galleryImages[0] || "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80"} 
               alt={`${hotel.hotel_name} main view`} 
-              className="w-full h-full object-cover"
+              className={`w-full h-full object-cover transition-all duration-200 ${
+                isEditing ? 'hover:border-4 hover:border-[#A5C8CE] hover:border-opacity-80 cursor-pointer' : ''
+              }`}
+              onClick={() => handleImageClick(
+                galleryImages[0] || "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+                `${hotel.hotel_name} main view`
+              )}
             />
           )}
         </div>
@@ -544,7 +649,13 @@ function AdminBrandCard({ hotel }: { hotel: Hotel }) {
               <img 
                 src={galleryImages[1] || "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80"} 
                 alt={`${hotel.hotel_name} view 1`} 
-                className="w-full h-full object-cover"
+                className={`w-full h-full object-cover transition-all duration-200 ${
+                  isEditing ? 'hover:border-4 hover:border-[#A5C8CE] hover:border-opacity-80 cursor-pointer' : ''
+                }`}
+                onClick={() => handleImageClick(
+                  galleryImages[1] || "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80",
+                  `${hotel.hotel_name} view 1`
+                )}
               />
             )}
           </div>
@@ -555,7 +666,13 @@ function AdminBrandCard({ hotel }: { hotel: Hotel }) {
               <img 
                 src={galleryImages[2] || "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"} 
                 alt={`${hotel.hotel_name} view 2`} 
-                className="w-full h-full object-cover"
+                className={`w-full h-full object-cover transition-all duration-200 ${
+                  isEditing ? 'hover:border-4 hover:border-[#A5C8CE] hover:border-opacity-80 cursor-pointer' : ''
+                }`}
+                onClick={() => handleImageClick(
+                  galleryImages[2] || "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+                  `${hotel.hotel_name} view 2`
+                )}
               />
             )}
           </div>
@@ -614,10 +731,14 @@ function AdminBrandCard({ hotel }: { hotel: Hotel }) {
         ) : (
           <button 
             onClick={handleEditClick}
-            className="w-full border border-[#A5C8CE] bg-white text-[#A5C8CE] font-inter font-bold text-sm py-3 px-4 flex items-center justify-center gap-2 hover:bg-[#A5C8CE] hover:text-white transition"
+            className={`w-full border font-inter font-bold text-sm py-3 px-4 flex items-center justify-center gap-2 transition ${
+              isEditing 
+                ? 'border-red-500 bg-red-500 text-white hover:bg-red-600' 
+                : 'border-[#A5C8CE] bg-white text-[#A5C8CE] hover:bg-[#A5C8CE] hover:text-white'
+            }`}
           >
-            EDIT IMAGES
-            <Edit className="w-4 h-4" />
+            {isEditing ? 'EXIT EDIT MODE' : 'EDIT IMAGES'}
+            {isEditing ? <X className="w-4 h-4" /> : <Edit className="w-4 h-4" />}
           </button>
         )}
       </div>
