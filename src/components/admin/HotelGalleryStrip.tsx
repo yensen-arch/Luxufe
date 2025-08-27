@@ -9,6 +9,7 @@ interface HotelGalleryStripProps {
   selectedImageIndex?: number;
   onSave?: (cardImages: { top: string | null; left: string | null; right: string | null }) => void;
   currentCardImages?: { top: string | null; left: string | null; right: string | null };
+  selectedPosition?: 'top' | 'left' | 'right';
 }
 
 export default function HotelGalleryStrip({ 
@@ -16,7 +17,8 @@ export default function HotelGalleryStrip({
   onImageSelect, 
   selectedImageIndex = 0,
   onSave,
-  currentCardImages
+  currentCardImages,
+  selectedPosition = 'top'
 }: HotelGalleryStripProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
@@ -85,7 +87,7 @@ export default function HotelGalleryStrip({
     return selectedIndex;
   };
 
-  const [selectedPosition, setSelectedPosition] = useState<'top' | 'left' | 'right'>('top');
+
 
   const handleSave = () => {
     if (onSave) {
@@ -174,35 +176,16 @@ export default function HotelGalleryStrip({
       {/* Position Selection and Save */}
       <div className="mt-3 px-2">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs text-gray-600 font-inter font-bold">
-            Select position for brand card:
-          </span>
           {onSave && (
             <button
               onClick={handleSave}
               className="px-3 py-1 bg-[#A5C8CE] text-white text-xs font-inter font-bold hover:bg-[#A5C8CE]/90 transition-colors"
             >
-              Save to {selectedPosition}
+              Save
             </button>
           )}
         </div>
         
-        {/* Position Buttons */}
-        <div className="flex gap-2">
-          {(['top', 'left', 'right'] as const).map((position) => (
-            <button
-              key={position}
-              onClick={() => setSelectedPosition(position)}
-              className={`px-3 py-1 text-xs font-inter font-bold transition-colors ${
-                selectedPosition === position
-                  ? 'bg-[#A5C8CE] text-white'
-                  : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-              }`}
-            >
-              {position.charAt(0).toUpperCase() + position.slice(1)}
-            </button>
-          ))}
-        </div>
         
         {/* Image Counter */}
         <div className="flex justify-between items-center mt-2">

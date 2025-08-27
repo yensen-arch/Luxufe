@@ -8,10 +8,11 @@ interface ImageModalProps {
   imageUrl: string;
   imageAlt: string;
   hotelName: string;
+  position: 'top' | 'left' | 'right';
   onClose: () => void;
 }
 
-export default function ImageModal({ imageUrl, imageAlt, hotelName, onClose }: ImageModalProps) {
+export default function ImageModal({ imageUrl, imageAlt, hotelName, position, onClose }: ImageModalProps) {
   const [currentImageUrl, setCurrentImageUrl] = useState(imageUrl);
   const [currentImageAlt, setCurrentImageAlt] = useState(imageAlt);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -50,8 +51,9 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, onClose }: I
       const success = await updateHotelCardImages(hotelName, cardImages);
       if (success) {
         setCurrentCardImages(cardImages);
-        // Show success feedback
+        // Show success feedback and close modal
         alert('Card images saved successfully! The brand card will now display your selected images.');
+        onClose(); // Auto-close the modal after successful save
       } else {
         alert('Failed to save card images. Please try again.');
       }
@@ -99,6 +101,7 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, onClose }: I
             selectedImageIndex={selectedImageIndex}
             onSave={handleSave}
             currentCardImages={currentCardImages}
+            selectedPosition={position}
           />
         </div>
         

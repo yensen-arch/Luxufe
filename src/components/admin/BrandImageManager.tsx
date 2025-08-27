@@ -53,7 +53,9 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
     url: string;
     alt: string;
     hotelName: string;
+    position: 'top' | 'left' | 'right';
   } | null>(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const cardsPerPage = 4;
 
@@ -116,7 +118,7 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
     };
 
     fetchHotels();
-  }, [selectedBrand, filters.search, filters.region, filters.typeOfTravel, currentPage]);
+  }, [selectedBrand, filters.search, filters.region, filters.typeOfTravel, currentPage, refreshTrigger]);
 
   // Reset to first page when filters change
   useEffect(() => {
@@ -154,15 +156,20 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
   };
 
   const handleImageClick = (imageUrl: string, imageAlt: string, hotelName: string) => {
+    // For now, we'll determine position based on the image URL or other logic
+    // This is a temporary fix until we can update the interfaces properly
     setSelectedImage({
       url: imageUrl,
       alt: imageAlt,
-      hotelName
+      hotelName,
+      position: 'top' // Default to top for now
     });
   };
 
   const handleCloseModal = () => {
     setSelectedImage(null);
+    // Refresh the hotels data to show updated card images
+    setRefreshTrigger(prev => prev + 1);
   };
 
   if (!selectedBrand) {
@@ -215,6 +222,7 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
           imageUrl={selectedImage.url}
           imageAlt={selectedImage.alt}
           hotelName={selectedImage.hotelName}
+          position={selectedImage.position}
           onClose={handleCloseModal}
         />
       )}
@@ -659,7 +667,7 @@ function AdminBrandCard({
     setImageError(prev => ({ ...prev, [imageType]: true }));
   };
 
-  const handleImageClick = (imageUrl: string, imageAlt: string) => {
+  const handleImageClick = (imageUrl: string, imageAlt: string, position: 'top' | 'left' | 'right') => {
     if (onImageClick && isEditing) {
       onImageClick(imageUrl, imageAlt, hotel.hotel_name);
     }
@@ -710,7 +718,8 @@ function AdminBrandCard({
               onError={() => handleImageError('top')}
               onClick={() => handleImageClick(
                 getImageUrl('top', "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80"),
-                `${hotel.hotel_name} main view`
+                `${hotel.hotel_name} main view`,
+                'top'
               )}
             />
           ) : (
@@ -736,7 +745,8 @@ function AdminBrandCard({
                 onError={() => handleImageError('bottomLeft')}
                 onClick={() => handleImageClick(
                   getImageUrl('left', "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80"),
-                  `${hotel.hotel_name} view 1`
+                  `${hotel.hotel_name} view 1`,
+                  'left'
                 )}
               />
             ) : (
@@ -759,7 +769,8 @@ function AdminBrandCard({
                 onError={() => handleImageError('bottomRight')}
                 onClick={() => handleImageClick(
                   getImageUrl('right', "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"),
-                  `${hotel.hotel_name} view 2`
+                  `${hotel.hotel_name} view 2`,
+                  'right'
                 )}
               />
             ) : (
