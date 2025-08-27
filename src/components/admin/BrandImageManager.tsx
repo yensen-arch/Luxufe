@@ -731,7 +731,6 @@ function AdminBrandCard({
             ) : !imageError.bottomRight ? (
               <img 
                 src={getImageUrl(3, "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80")} 
-                alt={`${hotel.hotel_name} view 2`} 
                 className={`w-full h-full object-cover transition-all duration-200 ${
                   isEditing ? 'hover:border-4 hover:border-[#A5C8CE] hover:border-opacity-80 cursor-pointer' : ''
                 }`}
