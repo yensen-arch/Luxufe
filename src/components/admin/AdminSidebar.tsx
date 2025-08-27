@@ -1,5 +1,6 @@
 "use client";
-import { LogOut, Settings, Users, Hotel, MapPin, Calendar, BarChart3, Image } from "lucide-react";
+import { LogOut, Settings, Users, Hotel, MapPin, Calendar, BarChart3, Image as ImageIcon } from "lucide-react";
+import Image from "next/image";
 
 interface AdminSidebarProps {
   activeSection: string;
@@ -23,8 +24,8 @@ export default function AdminSidebar({
     },
     {
       id: 'hotel-images',
-      label: 'Hotel Images',
-      icon: Image,
+      label: 'Manage Images',
+      icon: ImageIcon,
       description: 'Manage hotel brand images'
     },
     {

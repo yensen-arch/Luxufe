@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { BarChart3, Image, Users, Hotel, MapPin, Calendar, Settings } from "lucide-react";
 import BrandSelector from "./BrandSelector";
+import BrandImageManager from "./BrandImageManager";
 
 interface Brand {
   id: string;
@@ -149,8 +150,8 @@ function HotelImagesSection({
   onBrandSelect: (brand: Brand) => void; 
 }) {
   return (
-    <div>
-      <div className="mb-8">
+    <div className="h-full flex flex-col">
+      <div className="mb-6">
         <h1 className="text-3xl font-arpona font-bold text-gray-900 mb-2">
           Hotel Images Management
         </h1>
@@ -159,7 +160,7 @@ function HotelImagesSection({
         </p>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex-1 flex flex-col">
         <div className="mb-6">
           <h2 className="text-xl font-arpona font-bold text-gray-900 mb-4">
             Select Brand
@@ -171,18 +172,12 @@ function HotelImagesSection({
         </div>
 
         {selectedBrand && (
-          <div className="border-t border-gray-200 pt-6">
+          <div className="flex-1 flex flex-col">
             <h3 className="text-lg font-arpona font-bold text-gray-900 mb-4">
               Manage Images for {selectedBrand.name}
             </h3>
-            <div className="bg-gray-50 rounded-lg p-6 text-center">
-              <Image className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600 font-inter">
-                Image management interface for {selectedBrand.name} will be implemented here.
-              </p>
-              <p className="text-sm text-gray-500 font-inter mt-2">
-                Upload, organize, and manage hotel images for this brand.
-              </p>
+            <div className="flex-1">
+              <BrandImageManager selectedBrand={selectedBrand} />
             </div>
           </div>
         )}

@@ -1,0 +1,626 @@
+"use client";
+import { useState, useEffect } from "react";
+import { Edit, X } from "lucide-react";
+import { supabase } from "@/lib/supabase";
+import { getHotelsWithFiltersAndGallery, getBrandCountries } from "@/lib/database";
+
+interface Hotel {
+  id: string;
+  hotel_name: string;
+  brand: string;
+  room_type: string;
+  latitude?: string;
+  longitude?: string;
+  map_link?: string;
+  hotel_link?: string;
+  country: string;
+  city: string;
+  address?: string;
+  description?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Brand {
+  id: string;
+  name: string;
+  description?: string;
+}
+
+interface BrandImageManagerProps {
+  selectedBrand?: Brand;
+}
+
+export default function BrandImageManager({ selectedBrand }: BrandImageManagerProps) {
+  const [hotels, setHotels] = useState<Hotel[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [availableCountries, setAvailableCountries] = useState<string[]>([]);
+  const [loadingCountries, setLoadingCountries] = useState(false);
+  const [filters, setFilters] = useState({
+    search: "",
+    typeOfTravel: [] as string[],
+    region: [] as string[]
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const cardsPerPage = 4;
+
+  // Fetch available countries for the selected brand
+  useEffect(() => {
+    const fetchBrandCountries = async () => {
+      if (!selectedBrand) {
+        setAvailableCountries([]);
+        setLoadingCountries(false);
+        return;
+      }
+
+      setLoadingCountries(true);
+      try {
+        const countries = await getBrandCountries(selectedBrand.name);
+        setAvailableCountries(countries);
+      } catch (error) {
+        console.error('Error fetching brand countries:', error);
+        setAvailableCountries([]);
+      } finally {
+        setLoadingCountries(false);
+      }
+    };
+
+    fetchBrandCountries();
+  }, [selectedBrand]);
+
+  // Fetch hotels based on filters
+  useEffect(() => {
+    const fetchHotels = async () => {
+      if (!selectedBrand) {
+        setHotels([]);
+        setTotalCount(0);
+        setTotalPages(0);
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const hotelData = await getHotelsWithFiltersAndGallery({
+          brand: selectedBrand.name,
+          search: filters.search,
+          countries: filters.region.length > 0 ? filters.region : undefined,
+          typeOfTravel: filters.typeOfTravel.length > 0 ? filters.typeOfTravel : undefined,
+          page: currentPage,
+          pageSize: cardsPerPage
+        });
+        
+        setHotels(hotelData.data || []);
+        setTotalCount(hotelData.count || 0);
+        setTotalPages(Math.ceil((hotelData.count || 0) / cardsPerPage));
+      } catch (error) {
+        console.error('Error fetching hotels:', error);
+        setHotels([]);
+        setTotalCount(0);
+        setTotalPages(0);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHotels();
+  }, [selectedBrand, filters.search, filters.region, filters.typeOfTravel, currentPage]);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters.search, filters.region, filters.typeOfTravel]);
+
+  const handleFiltersChange = (newFilters: Partial<typeof filters>) => {
+    setFilters(prev => ({ ...prev, ...newFilters }));
+  };
+
+  const handleClearFilter = (filterType: 'typeOfTravel' | 'region', value: string) => {
+    setFilters(prev => ({
+      ...prev,
+      [filterType]: prev[filterType].filter(item => item !== value)
+    }));
+  };
+
+  const handleClearAllFilters = () => {
+    setFilters({
+      search: "",
+      typeOfTravel: [],
+      region: []
+    });
+  };
+
+  if (!selectedBrand) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-600 font-inter">Please select a brand to manage images.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex h-full">
+      {/* Sidebar */}
+      <AdminBrandSidebar
+        onFiltersChange={handleFiltersChange}
+        availableCountries={availableCountries}
+        loading={loading}
+        loadingCountries={loadingCountries}
+        filters={filters}
+      />
+      
+      {/* Main Content */}
+      <AdminBrandGrid
+        hotels={hotels}
+        loading={loading}
+        filters={filters}
+        onClearFilter={handleClearFilter}
+        onClearAllFilters={handleClearAllFilters}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalCount={totalCount}
+        onPageChange={setCurrentPage}
+        cardsPerPage={cardsPerPage}
+      />
+    </div>
+  );
+}
+
+// Admin Brand Sidebar Component
+function AdminBrandSidebar({ 
+  onFiltersChange, 
+  availableCountries, 
+  loading, 
+  loadingCountries,
+  filters 
+}: {
+  onFiltersChange: (filters: any) => void;
+  availableCountries?: string[];
+  loading?: boolean;
+  loadingCountries?: boolean;
+  filters: any;
+}) {
+  const [searchTerm, setSearchTerm] = useState(filters.search);
+  const [selectedTypes, setSelectedTypes] = useState<string[]>(filters.typeOfTravel);
+  const [selectedRegions, setSelectedRegions] = useState<string[]>(filters.region);
+
+  const typeOfTravelOptions = [
+    "Family Friendly", "Adults Only", "Villas", "Beach & Resorts", 
+    "Safari & Wilderness", "Ski Resorts", "Sport & Hobbies", "Hotels", "Food & Wine"
+  ];
+
+  const handleTypeToggle = (type: string) => {
+    const newTypes = selectedTypes.includes(type)
+      ? selectedTypes.filter(t => t !== type)
+      : [...selectedTypes, type];
+    setSelectedTypes(newTypes);
+    onFiltersChange({
+      search: searchTerm,
+      typeOfTravel: newTypes,
+      region: selectedRegions
+    });
+  };
+
+  const handleRegionToggle = (region: string) => {
+    const newRegions = selectedRegions.includes(region)
+      ? selectedRegions.filter(r => r !== region)
+      : [...selectedRegions, region];
+    setSelectedRegions(newRegions);
+    onFiltersChange({
+      search: searchTerm,
+      typeOfTravel: selectedTypes,
+      region: newRegions
+    });
+  };
+
+  const handleSearch = () => {
+    onFiltersChange({
+      search: searchTerm,
+      typeOfTravel: selectedTypes,
+      region: selectedRegions
+    });
+  };
+
+  return (
+    <aside className="w-80 bg-[#f7f7fa] border-r-2 border-gray-300 flex flex-col h-full overflow-y-auto">
+      {/* Search */}
+      <div className="border-b-2 border-gray-300 p-6">
+        <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-3 shadow-xl">
+          <input
+            type="text"
+            placeholder="Search hotels..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+            className="flex-1 bg-transparent outline-none text-sm font-inter text-gray-700 placeholder:text-gray-400 font-bold"
+          />
+          <button 
+            onClick={handleSearch}
+            disabled={loading}
+            className="ml-2 bg-[#23263a] text-white rounded-full p-3 flex items-center justify-center hover:bg-black transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? (
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+            ) : (
+              <span className="text-sm">Search</span>
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Type of Travel */}
+      <div className="border-b-2 border-gray-300 p-6">
+        <h3 className="text-xl font-arpona font-bold text-gray-700 mb-4">
+          Type of Travel
+        </h3>
+        <div className="grid grid-cols-2 gap-2">
+          {typeOfTravelOptions.map((type) => (
+            <button
+              key={type}
+              onClick={() => handleTypeToggle(type)}
+              className={`px-2 py-2 rounded-full text-xs font-inter font-bold transition cursor-pointer ${
+                selectedTypes.includes(type)
+                  ? 'bg-[#23263a] text-white'
+                  : 'bg-gray-200 text-gray-400 hover:bg-gray-300'
+              }`}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Region */}
+      <div className="p-6">
+        <h3 className="text-xl font-arpona font-bold text-gray-700 mb-4">
+          Region
+        </h3>
+        {loadingCountries ? (
+          <div className="flex items-center justify-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#23263a]"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-2">
+            {(availableCountries || []).map((region) => (
+              <button
+                key={region}
+                onClick={() => handleRegionToggle(region)}
+                className={`px-2 py-2 rounded-full text-xs font-inter font-bold transition cursor-pointer ${
+                  selectedRegions.includes(region)
+                    ? 'bg-[#23263a] text-white'
+                    : 'bg-gray-200 text-gray-400 hover:bg-gray-300'
+                }`}
+              >
+                {region}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </aside>
+  );
+}
+
+// Admin Brand Grid Component
+function AdminBrandGrid({ 
+  hotels, 
+  loading, 
+  filters, 
+  onClearFilter, 
+  onClearAllFilters,
+  currentPage,
+  totalPages,
+  totalCount,
+  onPageChange,
+  cardsPerPage
+}: {
+  hotels: Hotel[];
+  loading: boolean;
+  filters: any;
+  onClearFilter: (filterType: 'typeOfTravel' | 'region', value: string) => void;
+  onClearAllFilters: () => void;
+  currentPage: number;
+  totalPages: number;
+  totalCount: number;
+  onPageChange: (page: number) => void;
+  cardsPerPage: number;
+}) {
+  const startIndex = (currentPage - 1) * cardsPerPage;
+  const endIndex = startIndex + cardsPerPage;
+  const allSelectedFilters = [...filters.typeOfTravel, ...filters.region];
+  const hasFilters = allSelectedFilters.length > 0;
+
+  if (loading) {
+    return (
+      <div className="flex-1 bg-[#f7f7fa] flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#a8d1cf] mx-auto mb-4"></div>
+          <p className="text-gray-600 font-inter">Loading hotels...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex-1 bg-[#f7f7fa] overflow-y-auto">
+      {/* Selected Filters */}
+      <div className="border-b-2 border-gray-300 px-8 py-4">
+        <div className="flex items-center gap-4">
+          <div className="flex flex-wrap gap-2">
+            {filters.typeOfTravel.map((type: string) => (
+              <span
+                key={type}
+                className="bg-gray-200 text-gray-500 px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2"
+              >
+                {type}
+                <button
+                  onClick={() => onClearFilter('typeOfTravel', type)}
+                  className="hover:text-gray-900"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            {filters.region.map((region: string) => (
+              <span
+                key={region}
+                className="bg-gray-200 text-gray-500 px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2"
+              >
+                {region}
+                <button
+                  onClick={() => onClearFilter('region', region)}
+                  className="hover:text-gray-900"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+          </div>
+          {hasFilters && (
+            <>
+              <div className="border-l-2 border-gray-700 h-6"></div>
+              <button
+                onClick={onClearAllFilters}
+                className="text-xs font-inter font-bold text-gray-700 hover:text-gray-700"
+              >
+                Clear all filters
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Results Count */}
+      <div className="px-8 py-6">
+        <p className="text-sm font-inter font-bold text-gray-500">
+          Showing {startIndex + 1}-{Math.min(endIndex, totalCount)} of {totalCount} Results
+        </p>
+      </div>
+
+      {/* Hotel Cards Grid */}
+      {hotels.length === 0 ? (
+        <div className="flex items-center justify-center py-16">
+          <div className="text-center">
+            <p className="text-gray-600 font-inter text-lg mb-2">No hotels found</p>
+            <p className="text-gray-500 font-inter text-sm">Try adjusting your filters to see more results</p>
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-8 pb-8">
+          {hotels.map((hotel) => (
+            <AdminBrandCard
+              key={hotel.id}
+              hotel={hotel}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-center items-center py-12">
+          <div className="flex items-center gap-8">
+            <button 
+              onClick={() => onPageChange(Math.max(1, currentPage - 1))}
+              disabled={currentPage === 1}
+              className={`font-inter text-sm transition ${
+                currentPage === 1 
+                  ? 'text-gray-300 cursor-not-allowed' 
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              &lt; Previous
+            </button>
+            
+            <div className="flex items-center gap-4">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                <button
+                  key={pageNum}
+                  onClick={() => onPageChange(pageNum)}
+                  className={`flex flex-col items-center ${
+                    pageNum === currentPage ? 'text-gray-800' : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  <span className={`font-inter text-sm ${pageNum === currentPage ? 'font-medium' : ''}`}>
+                    {pageNum.toString().padStart(2, '0')}
+                  </span>
+                  {pageNum === currentPage && (
+                    <div className="w-full h-0.5 bg-gray-500 mt-1"></div>
+                  )}
+                </button>
+              ))}
+            </div>
+            
+            <button 
+              onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
+              disabled={currentPage === totalPages}
+              className={`font-inter text-sm transition ${
+                currentPage === totalPages 
+                  ? 'text-gray-300 cursor-not-allowed' 
+                  : 'text-gray-800 hover:text-gray-600'
+              }`}
+            >
+              Next &gt;
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Admin Brand Card Component (Editable version)
+function AdminBrandCard({ hotel }: { hotel: Hotel }) {
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showEditButton, setShowEditButton] = useState(false);
+
+  // Fetch hotel gallery images
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        setIsLoading(true);
+        // This would need to be implemented based on your gallery structure
+        // For now, using placeholder images
+        setGalleryImages([
+          "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"
+        ]);
+      } catch (error) {
+        console.error('Error fetching gallery:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchGallery();
+  }, [hotel.hotel_name]);
+
+  const handleEditClick = () => {
+    // This will be implemented in the next step
+    console.log('Edit clicked for hotel:', hotel.hotel_name);
+  };
+
+  return (
+    <div 
+      className="bg-white shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300 relative"
+      onMouseEnter={() => setShowEditButton(true)}
+      onMouseLeave={() => setShowEditButton(false)}
+    >
+      {/* Edit Button - Shows on hover */}
+      {showEditButton && (
+        <button
+          onClick={handleEditClick}
+          className="absolute top-4 right-4 z-10 bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-full shadow-lg transition-all duration-200"
+        >
+          <Edit className="w-5 h-5 text-gray-700" />
+        </button>
+      )}
+
+      {/* Image Section - Three images layout */}
+      <div className="relative">
+        {/* Large Top Image */}
+        <div className="h-44 w-full mb-0.5 relative">
+          {isLoading ? (
+            <div className="w-full h-full bg-gray-200 animate-pulse"></div>
+          ) : (
+            <img 
+              src={galleryImages[0] || "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80"} 
+              alt={`${hotel.hotel_name} main view`} 
+              className="w-full h-full object-cover"
+            />
+          )}
+        </div>
+        
+        {/* Two Smaller Bottom Images - Side by side */}
+        <div className="flex h-44">
+          <div className="flex-1 mr-0.5 relative">
+            {isLoading ? (
+              <div className="w-full h-full bg-gray-200 animate-pulse"></div>
+            ) : (
+              <img 
+                src={galleryImages[1] || "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80"} 
+                alt={`${hotel.hotel_name} view 1`} 
+                className="w-full h-full object-cover"
+              />
+            )}
+          </div>
+          <div className="flex-1 relative">
+            {isLoading ? (
+              <div className="w-full h-full bg-gray-200 animate-pulse"></div>
+            ) : (
+              <img 
+                src={galleryImages[2] || "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"} 
+                alt={`${hotel.hotel_name} view 2`} 
+                className="w-full h-full object-cover"
+              />
+            )}
+          </div>
+        </div>
+      </div>
+      
+      {/* Hotel Information Section */}
+      <div className="px-6 py-4 bg-white">
+        <div className="flex justify-between items-start">
+          <div className="flex-1">
+            {isLoading ? (
+              <div className="space-y-2">
+                <div className="h-6 bg-gray-200 animate-pulse rounded w-3/4"></div>
+                <div className="h-4 bg-gray-200 animate-pulse rounded w-1/2"></div>
+              </div>
+            ) : (
+              <>
+                <h3 className="text-2xl font-arpona font-bold text-gray-800 mb-1">
+                  {hotel.hotel_name}
+                </h3>
+                <p className="text-xs font-inter font-bold text-gray-500 tracking-widest uppercase">
+                  {`${hotel.city} . ${hotel.country}`.toUpperCase()}
+                </p>
+              </>
+            )}
+          </div>
+          {!isLoading && (
+            <img 
+              src={`https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Aman_Resorts_logo.svg/1200px-Aman_Resorts_logo.svg.png`}
+              alt={`${hotel.brand} Logo`} 
+              className="h-8 object-contain"
+            />
+          )}
+        </div>
+      </div>
+      
+      {/* Description Section */}
+      <div className="px-6 py-4 bg-white">
+        {isLoading ? (
+          <div className="space-y-2">
+            <div className="h-4 bg-gray-200 animate-pulse rounded w-full"></div>
+            <div className="h-4 bg-gray-200 animate-pulse rounded w-5/6"></div>
+            <div className="h-4 bg-gray-200 animate-pulse rounded w-4/6"></div>
+          </div>
+        ) : (
+          <p className="text-sm font-inter text-gray-600 leading-relaxed line-clamp-3">
+            {hotel.description || "Experience luxury and tranquility in this exceptional destination."}
+          </p>
+        )}
+      </div>
+      
+      {/* Admin Action Button */}
+      <div className="px-6 py-4 bg-white">
+        {isLoading ? (
+          <div className="w-full h-12 bg-gray-200 animate-pulse rounded"></div>
+        ) : (
+          <button 
+            onClick={handleEditClick}
+            className="w-full border border-[#A5C8CE] bg-white text-[#A5C8CE] font-inter font-bold text-sm py-3 px-4 flex items-center justify-center gap-2 hover:bg-[#A5C8CE] hover:text-white transition"
+          >
+            EDIT IMAGES
+            <Edit className="w-4 h-4" />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
