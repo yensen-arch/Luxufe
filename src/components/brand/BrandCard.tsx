@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { getHotelGallery, getBrandByName } from "@/lib/database";
+import { getHotelGallery, getBrandByName, getHotelCardImages } from "@/lib/database";
 
 interface BrandCardProps {
   name: string;
@@ -14,6 +14,11 @@ interface BrandCardProps {
 export default function BrandCard({ name, location, logo, description, brand }: BrandCardProps) {
   const router = useRouter();
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [cardImages, setCardImages] = useState<{
+    top: string | null;
+    left: string | null;
+    right: string | null;
+  } | null>(null);
   const [brandLogo, setBrandLogo] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState({
@@ -32,16 +37,22 @@ export default function BrandCard({ name, location, logo, description, brand }: 
     return 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Silversea_Cruises_logo.svg';
   };
 
-  // Fetch hotel gallery images and brand logo
+  // Fetch hotel gallery images, card images, and brand logo
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
         console.log('🎯 BrandCard: Fetching gallery for hotel name:', name);
-        // Fetch gallery images
-        const images = await getHotelGallery(name);
+        
+        // Fetch gallery images and card images in parallel
+        const [images, cardImagesData] = await Promise.all([
+          getHotelGallery(name),
+          getHotelCardImages(name)
+        ]);
+        
         console.log('🎯 BrandCard: Gallery images received:', images.length, 'images');
         setGalleryImages(images);
+        setCardImages(cardImagesData);
         
         // Reset image loading states when we get new images
         setImageLoading({
@@ -72,10 +83,19 @@ export default function BrandCard({ name, location, logo, description, brand }: 
     fetchData();
   }, [name, brand, logo]);
 
-  // Get images 2, 3, 4 from the gallery array (with fallbacks)
-  const getImageUrl = (index: number, fallbackUrl: string) => {
-    const imageUrl = galleryImages[index] || fallbackUrl;
-    return imageUrl;
+  // Get images with priority to card images, then fallback to gallery images
+  const getImageUrl = (position: 'top' | 'left' | 'right', fallbackUrl: string) => {
+    // First try to use card images if available
+    if (cardImages) {
+      const cardImage = cardImages[position];
+      if (cardImage) {
+        return cardImage;
+      }
+    }
+    
+    // Fallback to gallery images based on position
+    const galleryIndex = position === 'top' ? 1 : position === 'left' ? 2 : 3;
+    return galleryImages[galleryIndex] || fallbackUrl;
   };
 
   const handleImageLoad = (imageType: 'top' | 'bottomLeft' | 'bottomRight') => {
@@ -109,7 +129,7 @@ export default function BrandCard({ name, location, logo, description, brand }: 
             <ImageSkeleton className="w-full h-full" />
           ) : !imageError.top ? (
             <img 
-              src={getImageUrl(1, "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80")} 
+              src={getImageUrl('top', "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80")} 
               alt={`${name} main view`} 
               className="w-full h-full object-cover"
               onLoad={() => handleImageLoad('top')}
@@ -129,7 +149,7 @@ export default function BrandCard({ name, location, logo, description, brand }: 
               <ImageSkeleton className="w-full h-full" />
             ) : !imageError.bottomLeft ? (
               <img 
-                src={getImageUrl(2, "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80")} 
+                src={getImageUrl('left', "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80")} 
                 alt={`${name} view 1`} 
                 className="w-full h-full object-cover"
                 onLoad={() => handleImageLoad('bottomLeft')}
@@ -146,7 +166,8 @@ export default function BrandCard({ name, location, logo, description, brand }: 
               <ImageSkeleton className="w-full h-full" />
             ) : !imageError.bottomRight ? (
               <img 
-                src={getImageUrl(3, "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80")} 
+                src={getImageUrl('right', "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80")} 
+                alt={`${name} view 2`}
                 className="w-full h-full object-cover"
                 onLoad={() => handleImageLoad('bottomRight')}
                 onError={() => handleImageError('bottomRight')}

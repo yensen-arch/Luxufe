@@ -7,12 +7,16 @@ interface HotelGalleryStripProps {
   hotelName: string;
   onImageSelect?: (imageUrl: string, imageIndex: number) => void;
   selectedImageIndex?: number;
+  onSave?: (cardImages: { top: string | null; left: string | null; right: string | null }) => void;
+  currentCardImages?: { top: string | null; left: string | null; right: string | null };
 }
 
 export default function HotelGalleryStrip({ 
   hotelName, 
   onImageSelect, 
-  selectedImageIndex = 0 
+  selectedImageIndex = 0,
+  onSave,
+  currentCardImages
 }: HotelGalleryStripProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
@@ -24,6 +28,11 @@ export default function HotelGalleryStrip({
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(selectedImageIndex);
+  const [cardImages, setCardImages] = useState<{
+    top: string | null;
+    left: string | null;
+    right: string | null;
+  }>(currentCardImages || { top: null, left: null, right: null });
 
   // Import the function dynamically to avoid circular dependencies
   useEffect(() => {
@@ -61,6 +70,17 @@ export default function HotelGalleryStrip({
     if (onImageSelect) {
       onImageSelect(imageUrl, index);
     }
+  };
+
+  const handleSave = () => {
+    if (onSave) {
+      onSave(cardImages);
+    }
+  };
+
+  // Check if an image is currently used in the brand card
+  const isImageInCard = (imageUrl: string) => {
+    return cardImages.top === imageUrl || cardImages.left === imageUrl || cardImages.right === imageUrl;
   };
 
   if (loading) {
@@ -104,16 +124,18 @@ export default function HotelGalleryStrip({
         {/* Carousel Container */}
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex gap-2 p-2">
-            {galleryImages.map((imageUrl, index) => (
-              <div
-                key={index}
-                className={`flex-shrink-0 w-20 h-16  overflow-hidden cursor-pointer transition-all duration-200 ${
-                  selectedIndex === index 
-                    ? 'ring-2 ring-[#A5C8CE] ring-opacity-80' 
-                    : 'hover:ring-2 hover:ring-gray-300'
-                }`}
-                onClick={() => handleImageClick(imageUrl, index)}
-              >
+                         {galleryImages.map((imageUrl, index) => (
+               <div
+                 key={index}
+                 className={`flex-shrink-0 w-20 h-16 overflow-hidden cursor-pointer transition-all duration-200 ${
+                   selectedIndex === index 
+                     ? 'ring-2 ring-[#A5C8CE] ring-opacity-80' 
+                     : isImageInCard(imageUrl)
+                     ? 'ring-2 ring-green-500 ring-opacity-80'
+                     : 'hover:ring-2 hover:ring-gray-300'
+                 }`}
+                 onClick={() => handleImageClick(imageUrl, index)}
+               >
                 <img
                   src={imageUrl}
                   alt={`${hotelName} image ${index + 1}`}
@@ -128,14 +150,24 @@ export default function HotelGalleryStrip({
         </div>
       </div>
 
-      {/* Image Counter */}
+      {/* Image Counter and Save Button */}
       <div className="flex justify-between items-center mt-2 px-2">
-        <span className="text-xs text-gray-500 font-inter">
-          {selectedIndex + 1} of {galleryImages.length} images
-        </span>
-        <span className="text-xs text-gray-400 font-inter">
-          Click to select main image
-        </span>
+        <div className="flex items-center gap-4">
+          <span className="text-xs text-gray-500 font-inter">
+            {selectedIndex + 1} of {galleryImages.length} images
+          </span>
+          <span className="text-xs text-gray-400 font-inter">
+            Green border = currently in brand card
+          </span>
+        </div>
+        {onSave && (
+          <button
+            onClick={handleSave}
+            className="px-3 py-1 bg-[#A5C8CE] text-white text-xs font-inter font-bold hover:bg-[#A5C8CE]/90 transition-colors"
+          >
+            Save
+          </button>
+        )}
       </div>
     </div>
   );

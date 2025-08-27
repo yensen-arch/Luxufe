@@ -361,6 +361,69 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
   }
 };
 
+// Get hotel card images (the 3 selected images for brand card display)
+export const getHotelCardImages = async (hotelName: string): Promise<{
+  top: string | null;
+  left: string | null;
+  right: string | null;
+} | null> => {
+  try {
+    console.log('🔍 getHotelCardImages: Searching for hotel:', hotelName);
+    
+    const { data, error } = await supabase
+      .from('hotelgallery')
+      .select('hotel_card_images')
+      .eq('hotel_name', hotelName)
+      .maybeSingle();
+
+    if (error) {
+      console.error('Error fetching hotel card images:', error);
+      return null;
+    }
+
+    if (!data || !data.hotel_card_images) {
+      console.log('❌ getHotelCardImages: No card images found for hotel:', hotelName);
+      return null;
+    }
+
+    console.log('✅ getHotelCardImages: Found card images for hotel:', hotelName, data.hotel_card_images);
+    return data.hotel_card_images;
+  } catch (error) {
+    console.error('Error fetching hotel card images:', error);
+    return null;
+  }
+};
+
+// Update hotel card images
+export const updateHotelCardImages = async (
+  hotelName: string, 
+  cardImages: {
+    top?: string | null;
+    left?: string | null;
+    right?: string | null;
+  }
+): Promise<boolean> => {
+  try {
+    console.log('🔍 updateHotelCardImages: Updating for hotel:', hotelName, cardImages);
+    
+    const { error } = await supabase
+      .from('hotelgallery')
+      .update({ hotel_card_images: cardImages })
+      .eq('hotel_name', hotelName);
+
+    if (error) {
+      console.error('Error updating hotel card images:', error);
+      return false;
+    }
+
+    console.log('✅ updateHotelCardImages: Successfully updated for hotel:', hotelName);
+    return true;
+  } catch (error) {
+    console.error('Error updating hotel card images:', error);
+    return false;
+  }
+};
+
 
 
 // Dummy data for cruises and private jets

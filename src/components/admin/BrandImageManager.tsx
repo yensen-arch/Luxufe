@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Edit, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
-import { getHotelsWithFiltersAndGallery, getBrandCountries, getHotelGallery, getBrandByName } from "@/lib/database";
+import { getHotelsWithFiltersAndGallery, getBrandCountries, getHotelGallery, getBrandByName, getHotelCardImages } from "@/lib/database";
 import ImageModal from "./ImageModal";
 
 interface Hotel {
@@ -559,6 +559,11 @@ function AdminBrandCard({
   onImageClick?: (imageUrl: string, imageAlt: string, hotelName: string) => void;
 }) {
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [cardImages, setCardImages] = useState<{
+    top: string | null;
+    left: string | null;
+    right: string | null;
+  } | null>(null);
   const [brandLogo, setBrandLogo] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [showEditButton, setShowEditButton] = useState(false);
@@ -578,16 +583,22 @@ function AdminBrandCard({
     return 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Silversea_Cruises_logo.svg';
   };
 
-  // Fetch hotel gallery images and brand logo
+  // Fetch hotel gallery images, card images, and brand logo
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
         console.log('🎯 AdminBrandCard: Fetching gallery for hotel name:', hotel.hotel_name);
-        // Fetch gallery images
-        const images = await getHotelGallery(hotel.hotel_name);
+        
+        // Fetch gallery images and card images in parallel
+        const [images, cardImagesData] = await Promise.all([
+          getHotelGallery(hotel.hotel_name),
+          getHotelCardImages(hotel.hotel_name)
+        ]);
+        
         console.log('🎯 AdminBrandCard: Gallery images received:', images.length, 'images');
         setGalleryImages(images);
+        setCardImages(cardImagesData);
         
         // Reset image loading states when we get new images
         setImageLoading({
@@ -625,9 +636,18 @@ function AdminBrandCard({
   };
 
   // Get images from the gallery array (with fallbacks)
-  const getImageUrl = (index: number, fallbackUrl: string) => {
-    const imageUrl = galleryImages[index] || fallbackUrl;
-    return imageUrl;
+  const getImageUrl = (position: 'top' | 'left' | 'right', fallbackUrl: string) => {
+    // First try to use card images if available
+    if (cardImages) {
+      const cardImage = cardImages[position];
+      if (cardImage) {
+        return cardImage;
+      }
+    }
+    
+    // Fallback to gallery images based on position
+    const galleryIndex = position === 'top' ? 1 : position === 'left' ? 2 : 3;
+    return galleryImages[galleryIndex] || fallbackUrl;
   };
 
   const handleImageLoad = (imageType: 'top' | 'bottomLeft' | 'bottomRight') => {
@@ -681,7 +701,7 @@ function AdminBrandCard({
             <div className="w-full h-full bg-gray-200 animate-pulse"></div>
           ) : !imageError.top ? (
             <img 
-              src={getImageUrl(1, "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80")} 
+              src={getImageUrl('top', "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80")} 
               alt={`${hotel.hotel_name} main view`} 
               className={`w-full h-full object-cover transition-all duration-200 ${
                 isEditing ? 'hover:border-4 hover:border-[#A5C8CE] hover:border-opacity-80 cursor-pointer' : ''
@@ -689,7 +709,7 @@ function AdminBrandCard({
               onLoad={() => handleImageLoad('top')}
               onError={() => handleImageError('top')}
               onClick={() => handleImageClick(
-                getImageUrl(1, "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80"),
+                getImageUrl('top', "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80"),
                 `${hotel.hotel_name} main view`
               )}
             />
@@ -707,7 +727,7 @@ function AdminBrandCard({
               <div className="w-full h-full bg-gray-200 animate-pulse"></div>
             ) : !imageError.bottomLeft ? (
               <img 
-                src={getImageUrl(2, "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80")} 
+                src={getImageUrl('left', "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80")} 
                 alt={`${hotel.hotel_name} view 1`} 
                 className={`w-full h-full object-cover transition-all duration-200 ${
                   isEditing ? 'hover:border-4 hover:border-[#A5C8CE] hover:border-opacity-80 cursor-pointer' : ''
@@ -715,7 +735,7 @@ function AdminBrandCard({
                 onLoad={() => handleImageLoad('bottomLeft')}
                 onError={() => handleImageError('bottomLeft')}
                 onClick={() => handleImageClick(
-                  getImageUrl(2, "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80"),
+                  getImageUrl('left', "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80"),
                   `${hotel.hotel_name} view 1`
                 )}
               />
@@ -730,14 +750,15 @@ function AdminBrandCard({
               <div className="w-full h-full bg-gray-200 animate-pulse"></div>
             ) : !imageError.bottomRight ? (
               <img 
-                src={getImageUrl(3, "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80")} 
+                src={getImageUrl('right', "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80")} 
+                alt={`${hotel.hotel_name} view 2`}
                 className={`w-full h-full object-cover transition-all duration-200 ${
                   isEditing ? 'hover:border-4 hover:border-[#A5C8CE] hover:border-opacity-80 cursor-pointer' : ''
                 }`}
                 onLoad={() => handleImageLoad('bottomRight')}
                 onError={() => handleImageError('bottomRight')}
                 onClick={() => handleImageClick(
-                  getImageUrl(3, "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"),
+                  getImageUrl('right', "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"),
                   `${hotel.hotel_name} view 2`
                 )}
               />

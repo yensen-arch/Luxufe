@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import HotelGalleryStrip from "./HotelGalleryStrip";
+import { getHotelCardImages, updateHotelCardImages } from "@/lib/database";
 
 interface ImageModalProps {
   imageUrl: string;
@@ -14,11 +15,51 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, onClose }: I
   const [currentImageUrl, setCurrentImageUrl] = useState(imageUrl);
   const [currentImageAlt, setCurrentImageAlt] = useState(imageAlt);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [currentCardImages, setCurrentCardImages] = useState<{
+    top: string | null;
+    left: string | null;
+    right: string | null;
+  }>({ top: null, left: null, right: null });
+  const [saving, setSaving] = useState(false);
+
+  // Fetch current card images on component mount
+  useEffect(() => {
+    const fetchCardImages = async () => {
+      try {
+        const cardImages = await getHotelCardImages(hotelName);
+        if (cardImages) {
+          setCurrentCardImages(cardImages);
+        }
+      } catch (error) {
+        console.error('Error fetching card images:', error);
+      }
+    };
+
+    fetchCardImages();
+  }, [hotelName]);
 
   const handleImageSelect = (imageUrl: string, imageIndex: number) => {
     setCurrentImageUrl(imageUrl);
     setCurrentImageAlt(`${hotelName} image ${imageIndex + 1}`);
     setSelectedImageIndex(imageIndex);
+  };
+
+  const handleSave = async (cardImages: { top: string | null; left: string | null; right: string | null }) => {
+    setSaving(true);
+    try {
+      const success = await updateHotelCardImages(hotelName, cardImages);
+      if (success) {
+        setCurrentCardImages(cardImages);
+        // Show success feedback (you could add a toast notification here)
+        console.log('Card images saved successfully!');
+      } else {
+        console.error('Failed to save card images');
+      }
+    } catch (error) {
+      console.error('Error saving card images:', error);
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -55,12 +96,17 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, onClose }: I
             hotelName={hotelName}
             onImageSelect={handleImageSelect}
             selectedImageIndex={selectedImageIndex}
+            onSave={handleSave}
+            currentCardImages={currentCardImages}
           />
         </div>
         
         {/* Footer */}
         <div className="p-4 border-t border-gray-200">
           <div className="flex justify-between items-center">
+            <p className="text-sm text-gray-600 font-inter">
+              {saving ? 'Saving...' : 'Click Save in gallery strip to update brand card images'}
+            </p>
             <button
               onClick={onClose}
               className="px-4 py-2 bg-[#A5C8CE] text-white font-inter font-bold hover:bg-[#A5C8CE]/90 transition-colors"
