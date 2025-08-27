@@ -177,7 +177,7 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
     <div className={`flex h-full ${editMode ? 'relative' : ''}`}>
       {/* Blurred overlay when in edit mode */}
       {editMode && (
-        <div className="fixed inset-0 bg-opacity-30 backdrop-blur-sm z-40 pointer-events-none"></div>
+        <div className="fixed inset-0 bg-opacity-30 backdrop-blur-sm z-40"></div>
       )}
       
       {/* Sidebar */}
@@ -599,7 +599,7 @@ function AdminBrandCard({
   return (
     <div 
       className={`bg-white shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300 relative ${
-        editMode && !isEditing ? 'z-50' : ''
+        isEditing ? 'z-50' : ''
       }`}
       onMouseEnter={() => setShowEditButton(true)}
       onMouseLeave={() => setShowEditButton(false)}
@@ -726,25 +726,6 @@ function AdminBrandCard({
           <p className="text-sm font-inter text-gray-600 leading-relaxed line-clamp-3">
             {hotel.description || "Experience luxury and tranquility in this exceptional destination."}
           </p>
-        )}
-      </div>
-      
-      {/* Admin Action Button */}
-      <div className="px-6 py-4 bg-white">
-        {isLoading ? (
-          <div className="w-full h-12 bg-gray-200 animate-pulse rounded"></div>
-        ) : (
-          <button 
-            onClick={handleEditClick}
-            className={`w-full border font-inter font-bold text-sm py-3 px-4 flex items-center justify-center gap-2 transition ${
-              isEditing 
-                ? 'border-red-500 bg-red-500 text-white hover:bg-red-600' 
-                : 'border-[#A5C8CE] bg-white text-[#A5C8CE] hover:bg-[#A5C8CE] hover:text-white'
-            }`}
-          >
-            {isEditing ? 'EXIT EDIT MODE' : 'EDIT IMAGES'}
-            {isEditing ? <X className="w-4 h-4" /> : <Edit className="w-4 h-4" />}
-          </button>
         )}
       </div>
     </div>
