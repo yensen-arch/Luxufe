@@ -107,7 +107,7 @@ function HotelImagesSection({
       </div>
     </div>
   );
-}
+};
 
 // Users Section
 function UsersSection() {
