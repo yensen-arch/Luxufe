@@ -424,6 +424,67 @@ export const updateHotelCardImages = async (
   }
 };
 
+// Delete images from hotel gallery
+export const deleteHotelImages = async (hotelName: string, imageUrls: string[]): Promise<boolean> => {
+  try {
+    console.log('🔍 deleteHotelImages: Deleting images for hotel:', hotelName, imageUrls);
+    
+    // First, get the current gallery images
+    const { data: currentData, error: fetchError } = await supabase
+      .from('hotelgallery')
+      .select('hotel_image')
+      .eq('hotel_name', hotelName)
+      .maybeSingle();
+
+    if (fetchError) {
+      console.error('Error fetching current images:', fetchError);
+      return false;
+    }
+
+    if (!currentData || !currentData.hotel_image) {
+      console.error('No current images found for hotel:', hotelName);
+      return false;
+    }
+
+    // Parse the Python array string to get current images
+    let currentImages: string[] = [];
+    try {
+      // Remove the outer quotes and parse the Python array
+      const imageString = currentData.hotel_image.replace(/^'|'$/g, '');
+      // Convert Python array string to JavaScript array
+      currentImages = JSON.parse(imageString.replace(/'/g, '"'));
+    } catch (parseError) {
+      console.error('Error parsing hotel_image string:', parseError);
+      return false;
+    }
+
+    // Filter out the images to be deleted
+    const updatedImages = currentImages.filter((url: string) => !imageUrls.includes(url));
+
+    console.log('🔍 deleteHotelImages: Original images:', currentImages.length, 'After deletion:', updatedImages.length);
+
+    // Convert back to Python array string format
+    const updatedImageString = `[${updatedImages.map(url => `'${url}'`).join(', ')}]`;
+
+    // Update the database with the filtered images
+    const { error: updateError } = await supabase
+      .from('hotelgallery')
+      .update({ hotel_image: updatedImageString })
+      .eq('hotel_name', hotelName);
+
+    if (updateError) {
+      console.error('Error updating images after deletion:', updateError);
+      return false;
+    }
+
+    console.log('✅ deleteHotelImages: Successfully deleted images for hotel:', hotelName);
+    return true;
+  } catch (error) {
+    console.error('Error deleting hotel images:', error);
+    return false;
+  }
+};
+
 
 
 // Dummy data for cruises and private jets

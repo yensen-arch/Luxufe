@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Trash2 } from "lucide-react";
 
 interface HotelGalleryStripProps {
   hotelName: string;
@@ -35,6 +35,11 @@ export default function HotelGalleryStrip({
     left: string | null;
     right: string | null;
   }>(currentCardImages || { top: null, left: null, right: null });
+  
+  // Delete mode states
+  const [deleteMode, setDeleteMode] = useState(false);
+  const [selectedImagesToDelete, setSelectedImagesToDelete] = useState<string[]>([]);
+  const [deleting, setDeleting] = useState(false);
 
   // Import the function dynamically to avoid circular dependencies
   useEffect(() => {
@@ -106,6 +111,71 @@ export default function HotelGalleryStrip({
     return cardImages.top === imageUrl || cardImages.left === imageUrl || cardImages.right === imageUrl;
   };
 
+  // Toggle delete mode
+  const toggleDeleteMode = () => {
+    setDeleteMode(!deleteMode);
+    if (deleteMode) {
+      // Exit delete mode - clear selections
+      setSelectedImagesToDelete([]);
+    }
+  };
+
+  // Handle image selection for deletion
+  const handleImageSelectForDeletion = (imageUrl: string) => {
+    setSelectedImagesToDelete(prev => {
+      if (prev.includes(imageUrl)) {
+        return prev.filter(url => url !== imageUrl);
+      } else {
+        return [...prev, imageUrl];
+      }
+    });
+  };
+
+  // Handle image deletion
+  const handleDeleteImages = async () => {
+    if (selectedImagesToDelete.length === 0) return;
+
+    // Check if any selected images are currently used in the brand card
+    const imagesInUse = selectedImagesToDelete.filter(url => isImageInCard(url));
+    let warningMessage = `Are you sure you want to permanently delete ${selectedImagesToDelete.length} image${selectedImagesToDelete.length > 1 ? 's' : ''} from the database? This action cannot be undone.`;
+    
+    if (imagesInUse.length > 0) {
+      warningMessage += `\n\n⚠️ WARNING: ${imagesInUse.length} of the selected image${imagesInUse.length > 1 ? 's are' : ' is'} currently being used in the brand card. Deleting them will remove them from the card display.`;
+    }
+    
+    if (!confirm(warningMessage)) {
+      return;
+    }
+
+    setDeleting(true);
+    try {
+      // Dynamic import to avoid circular dependency
+      const { deleteHotelImages } = await import("@/lib/database");
+      const success = await deleteHotelImages(hotelName, selectedImagesToDelete);
+      
+      if (success) {
+        // Remove deleted images from local state
+        setGalleryImages(prev => prev.filter(url => !selectedImagesToDelete.includes(url)));
+        setSelectedImagesToDelete([]);
+        setDeleteMode(false);
+        
+        // Show appropriate success message
+        if (imagesInUse.length > 0) {
+          alert(`Images deleted successfully! ${imagesInUse.length} image${imagesInUse.length > 1 ? 's were' : ' was'} removed from the brand card display.`);
+        } else {
+          alert('Images deleted successfully!');
+        }
+      } else {
+        alert('Failed to delete images. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error deleting images:', error);
+      alert('Error deleting images. Please try again.');
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="w-full h-20 bg-gray-100 animate-pulse rounded-lg flex items-center justify-center">
@@ -124,6 +194,31 @@ export default function HotelGalleryStrip({
 
   return (
     <div className="w-full">
+      {/* Delete Mode Controls */}
+      <div className="flex items-center justify-between mb-3 px-2">
+        <button
+          onClick={toggleDeleteMode}
+          className={`px-3 py-1 text-xs font-inter font-bold transition-colors ${
+            deleteMode 
+              ? 'bg-red-500 text-white hover:bg-red-600' 
+              : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+          }`}
+        >
+          {deleteMode ? 'Cancel Delete' : 'Select Images to Delete'}
+        </button>
+        
+        {deleteMode && selectedImagesToDelete.length > 0 && (
+          <button
+            onClick={handleDeleteImages}
+            disabled={deleting}
+            className="px-3 py-1 bg-red-500 text-white text-xs font-inter font-bold hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
+          >
+            <Trash2 className="w-3 h-3" />
+            {deleting ? 'Deleting...' : `Delete ${selectedImagesToDelete.length} image${selectedImagesToDelete.length > 1 ? 's' : ''}`}
+          </button>
+        )}
+      </div>
+
       {/* Gallery Strip */}
       <div className="relative">
         {/* Navigation Buttons */}
@@ -147,18 +242,34 @@ export default function HotelGalleryStrip({
         {/* Carousel Container */}
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex gap-2 p-2">
-                         {galleryImages.map((imageUrl, index) => (
-               <div
-                 key={index}
-                 className={`flex-shrink-0 w-20 h-16 overflow-hidden cursor-pointer transition-all duration-200 ${
-                   selectedIndex === index 
-                     ? 'ring-2 ring-[#A5C8CE] ring-opacity-80' 
-                     : isImageInCard(imageUrl)
-                     ? 'ring-2 ring-green-500 ring-opacity-80'
-                     : 'hover:ring-2 hover:ring-gray-300'
-                 }`}
-                 onClick={() => handleImageClick(imageUrl, index)}
-               >
+                                     {galleryImages.map((imageUrl, index) => (
+              <div
+                key={index}
+                className={`flex-shrink-0 w-20 h-16 overflow-hidden transition-all duration-200 relative ${
+                  selectedIndex === index 
+                    ? 'ring-2 ring-[#A5C8CE] ring-opacity-80' 
+                    : isImageInCard(imageUrl)
+                    ? 'ring-2 ring-green-500 ring-opacity-80'
+                    : 'hover:ring-2 hover:ring-gray-300'
+                }`}
+                onClick={() => !deleteMode && handleImageClick(imageUrl, index)}
+              >
+                {/* Delete Mode Checkbox */}
+                {deleteMode && (
+                  <div className="absolute top-1 left-1 z-10">
+                    <input
+                      type="checkbox"
+                      checked={selectedImagesToDelete.includes(imageUrl)}
+                      onChange={() => handleImageSelectForDeletion(imageUrl)}
+                      className="w-4 h-4 text-red-500 bg-white border-2 border-red-500 rounded focus:ring-red-500 focus:ring-2"
+                    />
+                  </div>
+                )}
+                
+                {/* Delete Mode Overlay */}
+                {deleteMode && selectedImagesToDelete.includes(imageUrl) && (
+                  <div className="absolute inset-0 bg-red-500 bg-opacity-30 z-5"></div>
+                )}
                 <img
                   src={imageUrl}
                   alt={`${hotelName} image ${index + 1}`}
