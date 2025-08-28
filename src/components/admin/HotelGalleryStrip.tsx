@@ -65,14 +65,6 @@ export default function HotelGalleryStrip({
   const [rearrangedImages, setRearrangedImages] = useState<string[]>([]);
   const [savingOrder, setSavingOrder] = useState(false);
 
-  // DnD sensors
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
-
   // Import the function dynamically to avoid circular dependencies
   useEffect(() => {
     const fetchGallery = async () => {
@@ -95,6 +87,23 @@ export default function HotelGalleryStrip({
       fetchGallery();
     }
   }, [hotelName, selectedImageIndex]);
+
+  // DnD sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  // Update carousel options when rearrange mode changes
+  useEffect(() => {
+    if (emblaApi) {
+      if (rearrangeMode) {
+        emblaApi.scrollTo(0); // Reset to start when entering rearrange mode
+      }
+    }
+  }, [rearrangeMode, emblaApi]);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -293,9 +302,7 @@ export default function HotelGalleryStrip({
       <div
         ref={setNodeRef}
         style={style}
-        {...attributes}
-        {...listeners}
-        className={`flex-shrink-0 w-20 h-16 overflow-hidden transition-all duration-200 relative cursor-move ${
+        className={`flex-shrink-0 w-20 h-16 overflow-hidden transition-all duration-200 relative ${
           selectedIndex === index 
             ? 'ring-2 ring-[#A5C8CE] ring-opacity-80' 
             : isImageInCard(imageUrl)
@@ -312,7 +319,11 @@ export default function HotelGalleryStrip({
           }}
         />
         {rearrangeMode && (
-          <div className="absolute top-1 right-1 bg-white bg-opacity-80 rounded-full p-1">
+          <div 
+            {...attributes}
+            {...listeners}
+            className="absolute top-1 right-1 bg-white bg-opacity-80 rounded-full p-1 cursor-move hover:bg-opacity-100 transition-all"
+          >
             <Move className="w-3 h-3 text-gray-600" />
           </div>
         )}
@@ -411,7 +422,7 @@ export default function HotelGalleryStrip({
         )}
 
         {/* Carousel Container */}
-        <div className="overflow-hidden" ref={emblaRef}>
+        <div className={`overflow-hidden ${rearrangeMode ? 'pointer-events-none' : ''}`} ref={emblaRef}>
           {rearrangeMode ? (
             <DndContext
               sensors={sensors}
@@ -422,7 +433,7 @@ export default function HotelGalleryStrip({
                 items={rearrangedImages}
                 strategy={verticalListSortingStrategy}
               >
-                <div className="flex gap-2 p-2">
+                <div className="flex gap-2 p-2 pointer-events-auto">
                   {rearrangedImages.map((imageUrl, index) => (
                     <SortableImage key={imageUrl} imageUrl={imageUrl} index={index} />
                   ))}
