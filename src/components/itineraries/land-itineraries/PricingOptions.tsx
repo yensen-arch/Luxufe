@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { LandItineraryDate } from "@/lib/database";
 
 interface PricingOptionsProps {
@@ -23,8 +23,18 @@ export default function PricingOptions({ itineraryDates }: PricingOptionsProps) 
     }
   }, [itineraryDates, selectedDate]);
 
-  // Extract unique pricing categories from the selected date
-  const pricingCategories = selectedDate ? Object.keys(selectedDate.adult_pricing) : [];
+  // Extract unique pricing categories from ALL dates
+  const pricingCategories = useMemo(() => {
+    const allCategories = new Set<string>();
+    itineraryDates.forEach(date => {
+      if (date.adult_pricing) {
+        Object.keys(date.adult_pricing).forEach(category => {
+          allCategories.add(category);
+        });
+      }
+    });
+    return Array.from(allCategories);
+  }, [itineraryDates]);
 
   console.log('PricingOptions - pricingCategories:', pricingCategories);
 
@@ -89,7 +99,7 @@ export default function PricingOptions({ itineraryDates }: PricingOptionsProps) 
         </div>
 
         {/* Table Rows */}
-        {selectedDate && pricingCategories.map((category, index) => (
+        {selectedDate && pricingCategories.map((category: string, index: number) => (
           <div key={index} className={'grid grid-cols-3 border-b-2 border-gray-300'}>
             <div className="p-4 md:p-6 flex items-center">
               <span className="text-gray-900 font-inter font-bold text-sm md:text-xl">
