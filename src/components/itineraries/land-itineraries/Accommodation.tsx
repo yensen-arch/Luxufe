@@ -109,7 +109,7 @@ export default function Accommodation({ hotelData }: AccommodationProps) {
                   )}
                   
                   {/* Overlay */}
-                  <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300">
+                  <div className="absolute inset-0">
                     {/* View This Hotel Button */}
                     <div className="absolute top-4 left-4">
                       <button className="text-gray-900 font-inter font-bold text-xs px-3 py-1">
