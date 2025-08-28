@@ -33,6 +33,14 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, position, on
           if (heroImage) {
             setCurrentImageUrl(heroImage);
             setCurrentImageAlt(`${hotelName} hero image`);
+          } else {
+            // If no hero image exists, fetch the first image from gallery
+            const { getHotelGallery } = await import("@/lib/database");
+            const galleryImages = await getHotelGallery(hotelName);
+            if (galleryImages.length > 0) {
+              setCurrentImageUrl(galleryImages[0]);
+              setCurrentImageAlt(`${hotelName} hero image (from gallery)`);
+            }
           }
         } else {
           // Fetch current card images
