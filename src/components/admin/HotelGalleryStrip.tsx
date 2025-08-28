@@ -7,9 +7,9 @@ interface HotelGalleryStripProps {
   hotelName: string;
   onImageSelect?: (imageUrl: string, imageIndex: number) => void;
   selectedImageIndex?: number;
-  onSave?: (cardImages: { top: string | null; left: string | null; right: string | null }) => void;
+  onSave?: (cardImages: { top: string | null; left: string | null; right: string | null } | string) => void;
   currentCardImages?: { top: string | null; left: string | null; right: string | null };
-  selectedPosition?: 'top' | 'left' | 'right';
+  selectedPosition?: 'top' | 'left' | 'right' | 'hero';
 }
 
 export default function HotelGalleryStrip({ 
@@ -96,13 +96,18 @@ export default function HotelGalleryStrip({
 
   const handleSave = () => {
     if (onSave) {
-      // Update the card images with the currently selected image
-      const updatedCardImages = { ...cardImages };
-      
-      // Update the selected position with the current image
-      updatedCardImages[selectedPosition] = galleryImages[selectedIndex];
-      
-      onSave(updatedCardImages);
+      if (selectedPosition === 'hero') {
+        // For hero image, just pass the selected image URL
+        onSave(galleryImages[selectedIndex]);
+      } else {
+        // Update the card images with the currently selected image
+        const updatedCardImages = { ...cardImages };
+        
+        // Update the selected position with the current image
+        updatedCardImages[selectedPosition] = galleryImages[selectedIndex];
+        
+        onSave(updatedCardImages);
+      }
     }
   };
 
@@ -288,14 +293,17 @@ export default function HotelGalleryStrip({
               <div className="mt-3 px-2">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs text-gray-600 font-inter font-bold">
-              Updating {selectedPosition.charAt(0).toUpperCase() + selectedPosition.slice(1)} position
+              {selectedPosition === 'hero' 
+                ? 'Updating Hero Image' 
+                : `Updating ${selectedPosition.charAt(0).toUpperCase() + selectedPosition.slice(1)} position`
+              }
             </span>
             {onSave && (
               <button
                 onClick={handleSave}
                 className="px-3 py-1 bg-[#A5C8CE] text-white text-xs font-inter font-bold hover:bg-[#A5C8CE]/90 transition-colors"
               >
-                Save
+                {selectedPosition === 'hero' ? 'Save Hero Image' : 'Save'}
               </button>
             )}
           </div>

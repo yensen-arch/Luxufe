@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Edit, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
-import { getHotelsWithFiltersAndGallery, getBrandCountries, getHotelGallery, getBrandByName, getHotelCardImages } from "@/lib/database";
+import { getHotelsWithFiltersAndGallery, getBrandCountries, getHotelGallery, getBrandByName, getHotelCardImages, getHotelHeroImage, updateHotelHeroImage } from "@/lib/database";
 import ImageModal from "./ImageModal";
 
 interface Hotel {
@@ -53,7 +53,7 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
     url: string;
     alt: string;
     hotelName: string;
-    position: 'top' | 'left' | 'right';
+    position: 'top' | 'left' | 'right' | 'hero';
   } | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
@@ -175,6 +175,18 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
     });
   };
 
+  const handleEditHeroClick = (hotelName: string) => {
+    // Get the first image from gallery as default hero image
+    const defaultHeroImage = "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80";
+    
+    setSelectedImage({
+      url: defaultHeroImage,
+      alt: `${hotelName} hero image`,
+      hotelName,
+      position: 'hero'
+    });
+  };
+
   const handleCloseModal = () => {
     setSelectedImage(null);
     // Refresh the hotels data to show updated card images
@@ -207,23 +219,24 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
       />
       
       {/* Main Content */}
-      <AdminBrandGrid
-        hotels={hotels}
-        loading={loading}
-        filters={filters}
-        onClearFilter={handleClearFilter}
-        onClearAllFilters={handleClearAllFilters}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        totalCount={totalCount}
-        onPageChange={setCurrentPage}
-        cardsPerPage={cardsPerPage}
-        editMode={editMode}
-        editingHotelId={editingHotelId}
-        onEditClick={handleEditClick}
-        onExitEditMode={handleExitEditMode}
-        onImageClick={handleImageClick}
-      />
+              <AdminBrandGrid
+          hotels={hotels}
+          loading={loading}
+          filters={filters}
+          onClearFilter={handleClearFilter}
+          onClearAllFilters={handleClearAllFilters}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalCount={totalCount}
+          onPageChange={setCurrentPage}
+          cardsPerPage={cardsPerPage}
+          editMode={editMode}
+          editingHotelId={editingHotelId}
+          onEditClick={handleEditClick}
+          onExitEditMode={handleExitEditMode}
+          onImageClick={handleImageClick}
+          onEditHeroClick={handleEditHeroClick}
+        />
 
       {/* Image Modal */}
       {selectedImage && (
@@ -392,7 +405,8 @@ function AdminBrandGrid({
   editingHotelId,
   onEditClick,
   onExitEditMode,
-  onImageClick
+  onImageClick,
+  onEditHeroClick
 }: {
   hotels: Hotel[];
   loading: boolean;
@@ -409,6 +423,7 @@ function AdminBrandGrid({
   onEditClick?: (hotelId: string) => void;
   onExitEditMode?: () => void;
   onImageClick?: (imageUrl: string, imageAlt: string, hotelName: string) => void;
+  onEditHeroClick?: (hotelName: string) => void;
 }) {
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
@@ -501,6 +516,7 @@ function AdminBrandGrid({
               onEditClick={onEditClick}
               onExitEditMode={onExitEditMode}
               onImageClick={onImageClick}
+              onEditHeroClick={onEditHeroClick}
             />
           ))}
         </div>
@@ -566,7 +582,8 @@ function AdminBrandCard({
   isEditing, 
   onEditClick, 
   onExitEditMode, 
-  onImageClick 
+  onImageClick,
+  onEditHeroClick
 }: { 
   hotel: Hotel;
   editMode?: boolean;
@@ -574,6 +591,7 @@ function AdminBrandCard({
   onEditClick?: (hotelId: string) => void;
   onExitEditMode?: () => void;
   onImageClick?: (imageUrl: string, imageAlt: string, hotelName: string) => void;
+  onEditHeroClick?: (hotelName: string) => void;
 }) {
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [cardImages, setCardImages] = useState<{
@@ -837,6 +855,16 @@ function AdminBrandCard({
             {hotel.description || "Experience luxury and tranquility in this exceptional destination."}
           </p>
         )}
+      </div>
+
+      {/* Edit Hero Image Button */}
+      <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
+        <button
+          onClick={() => onEditHeroClick && onEditHeroClick(hotel.hotel_name)}
+          className="w-full bg-[#23263a] text-white font-inter font-bold py-2 px-4 transition-all duration-200 hover:bg-[#1a1d2e] text-sm"
+        >
+          Edit Hero Image
+        </button>
       </div>
     </div>
   );

@@ -2,13 +2,13 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import HotelGalleryStrip from "./HotelGalleryStrip";
-import { getHotelCardImages, updateHotelCardImages } from "@/lib/database";
+import { getHotelCardImages, updateHotelCardImages, getHotelHeroImage, updateHotelHeroImage } from "@/lib/database";
 
 interface ImageModalProps {
   imageUrl: string;
   imageAlt: string;
   hotelName: string;
-  position: 'top' | 'left' | 'right';
+  position: 'top' | 'left' | 'right' | 'hero';
   onClose: () => void;
 }
 
@@ -23,21 +23,31 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, position, on
   }>({ top: null, left: null, right: null });
   const [saving, setSaving] = useState(false);
 
-  // Fetch current card images on component mount
+  // Fetch current card images or hero image on component mount
   useEffect(() => {
-    const fetchCardImages = async () => {
+    const fetchData = async () => {
       try {
-        const cardImages = await getHotelCardImages(hotelName);
-        if (cardImages) {
-          setCurrentCardImages(cardImages);
+        if (position === 'hero') {
+          // Fetch current hero image
+          const heroImage = await getHotelHeroImage(hotelName);
+          if (heroImage) {
+            setCurrentImageUrl(heroImage);
+            setCurrentImageAlt(`${hotelName} hero image`);
+          }
+        } else {
+          // Fetch current card images
+          const cardImages = await getHotelCardImages(hotelName);
+          if (cardImages) {
+            setCurrentCardImages(cardImages);
+          }
         }
       } catch (error) {
-        console.error('Error fetching card images:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchCardImages();
-  }, [hotelName]);
+    fetchData();
+  }, [hotelName, position]);
 
   const handleImageSelect = (imageUrl: string, imageIndex: number) => {
     setCurrentImageUrl(imageUrl);
@@ -45,21 +55,38 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, position, on
     setSelectedImageIndex(imageIndex);
   };
 
-  const handleSave = async (cardImages: { top: string | null; left: string | null; right: string | null }) => {
+  const handleSave = async (cardImages: { top: string | null; left: string | null; right: string | null } | string) => {
     setSaving(true);
     try {
-      const success = await updateHotelCardImages(hotelName, cardImages);
-      if (success) {
-        setCurrentCardImages(cardImages);
-        // Show success feedback and close modal
-        alert('Card images saved successfully! The brand card will now display your selected images.');
-        onClose(); // Auto-close the modal after successful save
+      let success = false;
+      
+      if (position === 'hero') {
+        // Handle hero image save
+        const heroImageUrl = cardImages as string;
+        success = await updateHotelHeroImage(hotelName, heroImageUrl);
+        if (success) {
+          alert('Hero image saved successfully! The hotel page will now display your selected hero image.');
+        } else {
+          alert('Failed to save hero image. Please try again.');
+        }
       } else {
-        alert('Failed to save card images. Please try again.');
+        // Handle card images save
+        const cardImagesData = cardImages as { top: string | null; left: string | null; right: string | null };
+        success = await updateHotelCardImages(hotelName, cardImagesData);
+        if (success) {
+          setCurrentCardImages(cardImagesData);
+          alert('Card images saved successfully! The brand card will now display your selected images.');
+        } else {
+          alert('Failed to save card images. Please try again.');
+        }
+      }
+      
+      if (success) {
+        onClose(); // Auto-close the modal after successful save
       }
     } catch (error) {
-      console.error('Error saving card images:', error);
-      alert('Error saving card images. Please try again.');
+      console.error('Error saving images:', error);
+      alert('Error saving images. Please try again.');
     } finally {
       setSaving(false);
     }

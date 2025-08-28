@@ -1,6 +1,6 @@
 import React from "react";
 import { MapPin, Building2, BookOpen } from "lucide-react";
-import { getHotelGallery } from "@/lib/database";
+import { getHotelGallery, getHotelHeroImage } from "@/lib/database";
 
 const navLinks = [
   { label: "Overview", href: "#" },
@@ -16,11 +16,16 @@ interface ProductHeroProps {
 }
 
 const ProductHero = async ({ hotel }: ProductHeroProps) => {
-  // Fetch hotel gallery images
-  const galleryImages = await getHotelGallery(hotel.hotel_name);
-  const backgroundImage = galleryImages.length > 0 
+  // Fetch hotel hero image and gallery images
+  const [heroImage, galleryImages] = await Promise.all([
+    getHotelHeroImage(hotel.hotel_name),
+    getHotelGallery(hotel.hotel_name)
+  ]);
+  
+  // Use hero image if available, otherwise fall back to first gallery image
+  const backgroundImage = heroImage || (galleryImages.length > 0 
     ? galleryImages[0] 
-    : "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80";
+    : "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80");
 
   return (
     <section className="relative w-full h-screen flex items-center justify-center overflow-hidden mb-6 sm:mb-8 md:mb-10">

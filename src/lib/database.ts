@@ -485,6 +485,58 @@ export const deleteHotelImages = async (hotelName: string, imageUrls: string[]):
   }
 };
 
+// Get hotel hero image
+export const getHotelHeroImage = async (hotelName: string): Promise<string | null> => {
+  try {
+    console.log('🔍 getHotelHeroImage: Searching for hotel:', hotelName);
+    
+    const { data, error } = await supabase
+      .from('hotelgallery')
+      .select('hotel_hero')
+      .eq('hotel_name', hotelName)
+      .maybeSingle();
+
+    if (error) {
+      console.error('Error fetching hotel hero image:', error);
+      return null;
+    }
+
+    if (!data || !data.hotel_hero) {
+      console.log('❌ getHotelHeroImage: No hero image found for hotel:', hotelName);
+      return null;
+    }
+
+    console.log('✅ getHotelHeroImage: Found hero image for hotel:', hotelName, data.hotel_hero);
+    return data.hotel_hero;
+  } catch (error) {
+    console.error('Error fetching hotel hero image:', error);
+    return null;
+  }
+};
+
+// Update hotel hero image
+export const updateHotelHeroImage = async (hotelName: string, heroImageUrl: string): Promise<boolean> => {
+  try {
+    console.log('🔍 updateHotelHeroImage: Updating for hotel:', hotelName, heroImageUrl);
+    
+    const { error } = await supabase
+      .from('hotelgallery')
+      .update({ hotel_hero: heroImageUrl })
+      .eq('hotel_name', hotelName);
+
+    if (error) {
+      console.error('Error updating hotel hero image:', error);
+      return false;
+    }
+
+    console.log('✅ updateHotelHeroImage: Successfully updated for hotel:', hotelName);
+    return true;
+  } catch (error) {
+    console.error('Error updating hotel hero image:', error);
+    return false;
+  }
+};
+
 
 
 // Dummy data for cruises and private jets
