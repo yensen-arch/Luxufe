@@ -537,6 +537,32 @@ export const updateHotelHeroImage = async (hotelName: string, heroImageUrl: stri
   }
 };
 
+// Update hotel gallery image order
+export const updateHotelGalleryOrder = async (hotelName: string, imageUrls: string[]): Promise<boolean> => {
+  try {
+    console.log('🔍 updateHotelGalleryOrder: Updating order for hotel:', hotelName, imageUrls);
+    
+    // Convert to Python array string format
+    const updatedImageString = `[${imageUrls.map(url => `'${url}'`).join(', ')}]`;
+    
+    const { error } = await supabase
+      .from('hotelgallery')
+      .update({ hotel_image: updatedImageString })
+      .eq('hotel_name', hotelName);
+
+    if (error) {
+      console.error('Error updating hotel gallery order:', error);
+      return false;
+    }
+
+    console.log('✅ updateHotelGalleryOrder: Successfully updated for hotel:', hotelName);
+    return true;
+  } catch (error) {
+    console.error('Error updating hotel gallery order:', error);
+    return false;
+  }
+};
+
 
 
 // Dummy data for cruises and private jets

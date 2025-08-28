@@ -22,10 +22,12 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, position, on
     right: string | null;
   }>({ top: null, left: null, right: null });
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Fetch current card images or hero image on component mount
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         if (position === 'hero') {
           // Fetch current hero image
@@ -51,6 +53,8 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, position, on
         }
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -118,14 +122,23 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, position, on
         
         {/* Main Image */}
         <div className="relative p-4">
-          <img
-            src={currentImageUrl}
-            alt={currentImageAlt}
-            className="w-full h-auto max-h-[50vh] object-contain mx-auto"
-            onError={(e) => {
-              e.currentTarget.src = "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80";
-            }}
-          />
+          {loading ? (
+            <div className="w-full h-[50vh] bg-gray-100 animate-pulse flex items-center justify-center">
+              <div className="flex flex-col items-center space-y-2">
+                <div className="w-8 h-8 border-4 border-[#A5C8CE] border-t-transparent rounded-full animate-spin"></div>
+                <span className="text-sm text-gray-600 font-inter">Loading image...</span>
+              </div>
+            </div>
+          ) : (
+            <img
+              src={currentImageUrl}
+              alt={currentImageAlt}
+              className="w-full h-auto max-h-[50vh] object-contain mx-auto"
+              onError={(e) => {
+                e.currentTarget.src = "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80";
+              }}
+            />
+          )}
         </div>
 
         {/* Gallery Strip */}
