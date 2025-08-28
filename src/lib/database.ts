@@ -806,7 +806,7 @@ export interface LandItinerary {
     question: string;
     answer: string;
   }>;
-  hotel_name: {
+  hotels_by_categories: {
     types: Array<{
       category: string;
       hotels: Array<{
@@ -822,10 +822,11 @@ export interface LandItineraryDate {
   id: number;
   linked_itinerary_id: number;
   date: string;
-  pricing: {
-    Couple: number;
-    Single: number;
-    "Couple with 2 kids": number;
+  adult_pricing: {
+    [category: string]: number;
+  };
+  children_pricing: {
+    [category: string]: number;
   };
 }
 
@@ -846,6 +847,27 @@ export const getLandItinerary = async (id: number): Promise<LandItinerary | null
     return data;
   } catch (error) {
     console.error('Error fetching land itinerary:', error);
+    return null;
+  }
+};
+
+// Fetch land itinerary by name
+export const getLandItineraryByName = async (name: string): Promise<LandItinerary | null> => {
+  try {
+    const { data, error } = await supabase
+      .from('land_itineraries')
+      .select('*')
+      .eq('itinerary_name', name)
+      .single();
+
+    if (error) {
+      console.error('Error fetching land itinerary by name:', error);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching land itinerary by name:', error);
     return null;
   }
 };

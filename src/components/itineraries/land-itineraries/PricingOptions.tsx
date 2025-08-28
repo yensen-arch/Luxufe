@@ -23,8 +23,8 @@ export default function PricingOptions({ itineraryDates }: PricingOptionsProps) 
     }
   }, [itineraryDates, selectedDate]);
 
-  // Extract unique pricing categories from the first date
-  const pricingCategories = selectedDate ? Object.keys(selectedDate.pricing) : [];
+  // Extract unique pricing categories from the selected date
+  const pricingCategories = selectedDate ? Object.keys(selectedDate.adult_pricing) : [];
 
   console.log('PricingOptions - pricingCategories:', pricingCategories);
 
@@ -78,12 +78,12 @@ export default function PricingOptions({ itineraryDates }: PricingOptionsProps) 
           </div>
           <div className="p-4 md:p-6 text-center">
             <h3 className="text-gray-700 font-inter font-bold text-xs uppercase tracking-wider">
-              {selectedDate?.date || "Select Date"}
+              Adult Pricing
             </h3>
           </div>
           <div className="p-4 md:p-6 text-center">
             <h3 className="text-gray-700 font-inter font-bold text-xs uppercase tracking-wider">
-              {selectedDate?.date || "Select Date"}
+              Children Pricing
             </h3>
           </div>
         </div>
@@ -98,12 +98,12 @@ export default function PricingOptions({ itineraryDates }: PricingOptionsProps) 
             </div>
             <div className="p-4 md:p-6 text-center">
               <span className="text-gray-900 font-arpona font-bold text-lg md:text-xl">
-                ${selectedDate.pricing[category as keyof typeof selectedDate.pricing].toLocaleString()}
+                ${selectedDate.adult_pricing[category]?.toLocaleString() || 'N/A'}
               </span>
             </div>
             <div className="p-4 md:p-6 text-center">
               <span className="text-gray-900 font-arpona font-bold text-lg md:text-xl">
-                ${selectedDate.pricing[category as keyof typeof selectedDate.pricing].toLocaleString()}
+                ${selectedDate.children_pricing[category]?.toLocaleString() || 'N/A'}
               </span>
             </div>
           </div>
