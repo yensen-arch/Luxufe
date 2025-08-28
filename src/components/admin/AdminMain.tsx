@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BarChart3, Image, Users, Hotel, MapPin, Calendar, Settings } from "lucide-react";
 import BrandSelector from "./BrandSelector";
 import BrandImageManager from "./BrandImageManager";
+import ManageLandItineraries from "./ManageLandItineraries";
 
 interface Brand {
   id: string;
@@ -27,6 +28,8 @@ export default function AdminMain({ activeSection }: AdminMainProps) {
         return <DashboardSection />;
       case 'hotel-images':
         return <HotelImagesSection selectedBrand={selectedBrand} onBrandSelect={handleBrandSelect} />;
+      case 'land-itineraries':
+        return <ManageLandItineraries />;
       case 'users':
         return <UsersSection />;
       case 'hotels':
@@ -196,6 +199,8 @@ function BookingsSection() {
     </div>
   );
 }
+
+
 
 // Settings Section
 function SettingsSection() {

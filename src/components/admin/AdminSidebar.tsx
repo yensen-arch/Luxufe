@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { LogOut, Settings, Users, Hotel, MapPin, Calendar, BarChart3, Image as ImageIcon, Menu, X } from "lucide-react";
+import { LogOut, Settings, Users, Hotel, MapPin, Calendar, BarChart3, Image as ImageIcon, Menu, X, Map } from "lucide-react";
 import Image from "next/image";
 
 interface AdminSidebarProps {
@@ -30,6 +30,12 @@ export default function AdminSidebar({
       label: 'Manage Images',
       icon: ImageIcon,
       description: 'Manage hotel brand images'
+    },
+    {
+      id: 'land-itineraries',
+      label: 'Land Itineraries',
+      icon: Map,
+      description: 'Manage land journey itineraries'
     },
     {
       id: 'users',
