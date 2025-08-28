@@ -2,7 +2,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useState, useMemo, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { getHotelHeroImage } from "@/lib/database";
+import { getHotelHeroImage, getHotelGallery } from "@/lib/database";
 
 interface HotelData {
   types: Array<{
@@ -55,9 +55,18 @@ export default function Accommodation({ hotelData }: AccommodationProps) {
       const imagePromises = allHotels.map(async (hotel) => {
         setLoadingImages(prev => ({ ...prev, [hotel.name]: true }));
         try {
+          // First try to get hero image
           const heroImage = await getHotelHeroImage(hotel.name);
+          
           if (heroImage) {
+            // If hero image exists, use it
             setHotelImages(prev => ({ ...prev, [hotel.name]: heroImage }));
+          } else {
+            // If no hero image, get the first image from gallery
+            const galleryImages = await getHotelGallery(hotel.name);
+            if (galleryImages.length > 0) {
+              setHotelImages(prev => ({ ...prev, [hotel.name]: galleryImages[0] }));
+            }
           }
         } catch (error) {
           console.error(`Error fetching hero image for ${hotel.name}:`, error);
