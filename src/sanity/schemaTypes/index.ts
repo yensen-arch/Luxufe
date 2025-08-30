@@ -24,7 +24,8 @@ import {tripWizardPageType} from './tripWizardPageType'
 import {hotelsPageType} from './hotelsPageType'
 import brandPageType from './brandPageType'
 import partnersPageType from './partnersPageType'
+import {landItinerariesPageType} from './landItinerariesPageType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blockContentType, categoryType, postType, authorType, landingPageType, aboutPageType, beforeYouTravelPageType, elevePageType, storiesAndInsightsPageType, experienceMorePageType, blogPageType, tailorMadeTravelPageType, contactUsPageType, linkInBioPageType, waysToTravelPageType, notFoundPageType, privacyPolicyPageType, paymentsPageType, membersLoginPageType, searchPageType, tripWizardPageType, hotelsPageType, brandPageType, partnersPageType],
+  types: [blockContentType, categoryType, postType, authorType, landingPageType, aboutPageType, beforeYouTravelPageType, elevePageType, storiesAndInsightsPageType, experienceMorePageType, blogPageType, tailorMadeTravelPageType, contactUsPageType, linkInBioPageType, waysToTravelPageType, notFoundPageType, privacyPolicyPageType, paymentsPageType, membersLoginPageType, searchPageType, tripWizardPageType, hotelsPageType, brandPageType, partnersPageType, landItinerariesPageType],
 }

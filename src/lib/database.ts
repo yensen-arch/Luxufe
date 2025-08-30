@@ -1052,3 +1052,146 @@ export const getAllLandItineraries = async (): Promise<LandItinerary[]> => {
   }
 };
 
+// Get land itineraries with filters and pagination
+export const getLandItinerariesWithFilters = async (filters: {
+  search?: string;
+  regions?: string[];
+  durationRanges?: string[];
+  journeyTypes?: string[];
+  page?: number;
+  pageSize?: number;
+}): Promise<{ data: LandItinerary[]; count: number }> => {
+  try {
+    let query = supabase
+      .from('land_itineraries')
+      .select('*', { count: 'exact' });
+
+    // Apply search filter
+    if (filters.search) {
+      query = query.or(`itinerary_name.ilike.%${filters.search}%,overview.ilike.%${filters.search}%,destinations.ilike.%${filters.search}%`);
+    }
+
+    // Apply region filter (based on destinations field)
+    if (filters.regions && filters.regions.length > 0) {
+      const regionConditions = filters.regions.map(region => `destinations.ilike.%${region}%`).join(',');
+      query = query.or(regionConditions);
+    }
+
+    // Apply duration filter (based on duration field)
+    if (filters.durationRanges && filters.durationRanges.length > 0) {
+      const durationConditions = filters.durationRanges.map(range => {
+        if (range === '3-5 Days') return `duration.ilike.%3%`;
+        if (range === '6-8 Days') return `duration.ilike.%6%`;
+        if (range === '9-12 Days') return `duration.ilike.%9%`;
+        if (range === '13-16 Days') return `duration.ilike.%13%`;
+        if (range === '17+ Days') return `duration.ilike.%17%`;
+        return `duration.ilike.%${range}%`;
+      }).join(',');
+      query = query.or(durationConditions);
+    }
+
+    // Apply journey type filter (based on journey_highlights field)
+    if (filters.journeyTypes && filters.journeyTypes.length > 0) {
+      const journeyConditions = filters.journeyTypes.map(type => `journey_highlights.ilike.%${type}%`).join(',');
+      query = query.or(journeyConditions);
+    }
+
+    // Apply pagination
+    if (filters.page && filters.pageSize) {
+      const from = (filters.page - 1) * filters.pageSize;
+      const to = from + filters.pageSize - 1;
+      query = query.range(from, to);
+    }
+
+    const { data, error, count } = await query.order('itinerary_name', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching land itineraries with filters:', error);
+      return { data: [], count: 0 };
+    }
+
+    return { data: data || [], count: count || 0 };
+  } catch (error) {
+    console.error('Error fetching land itineraries with filters:', error);
+    return { data: [], count: 0 };
+  }
+};
+
+// Get unique regions from land itineraries
+export const getLandItineraryRegions = async (): Promise<string[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('land_itineraries')
+      .select('destinations')
+      .not('destinations', 'is', null);
+
+    if (error) {
+      console.error('Error fetching land itinerary regions:', error);
+      return [];
+    }
+
+    // Extract unique regions from destinations
+    const regions = new Set<string>();
+    data?.forEach(itinerary => {
+      if (itinerary.destinations) {
+        // Split destinations and extract potential regions
+        const destinations = itinerary.destinations.split(',').map((d: string) => d.trim());
+        destinations.forEach((dest: string) => {
+          // Try to extract region from destination
+          if (dest.includes('Africa')) regions.add('Africa');
+          if (dest.includes('Asia')) regions.add('Asia');
+          if (dest.includes('Europe')) regions.add('Europe');
+          if (dest.includes('North America')) regions.add('North America');
+          if (dest.includes('South America')) regions.add('South America');
+          if (dest.includes('Oceania')) regions.add('Oceania');
+          if (dest.includes('Middle East')) regions.add('Middle East');
+        });
+      }
+    });
+
+    return Array.from(regions).sort();
+  } catch (error) {
+    console.error('Error fetching land itinerary regions:', error);
+    return [];
+  }
+};
+
+// Get unique duration ranges from land itineraries
+export const getLandItineraryDurationRanges = async (): Promise<string[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('land_itineraries')
+      .select('duration')
+      .not('duration', 'is', null);
+
+    if (error) {
+      console.error('Error fetching land itinerary durations:', error);
+      return [];
+    }
+
+    // Extract unique duration ranges
+    const durations = new Set<string>();
+    data?.forEach(itinerary => {
+      if (itinerary.duration) {
+        const duration = itinerary.duration.toLowerCase();
+        if (duration.includes('3') || duration.includes('4') || duration.includes('5')) {
+          durations.add('3-5 Days');
+        } else if (duration.includes('6') || duration.includes('7') || duration.includes('8')) {
+          durations.add('6-8 Days');
+        } else if (duration.includes('9') || duration.includes('10') || duration.includes('11') || duration.includes('12')) {
+          durations.add('9-12 Days');
+        } else if (duration.includes('13') || duration.includes('14') || duration.includes('15') || duration.includes('16')) {
+          durations.add('13-16 Days');
+        } else if (duration.includes('17') || duration.includes('18') || duration.includes('19') || duration.includes('20') || duration.includes('21')) {
+          durations.add('17+ Days');
+        }
+      }
+    });
+
+    return Array.from(durations).sort();
+  } catch (error) {
+    console.error('Error fetching land itinerary duration ranges:', error);
+    return [];
+  }
+};
+
