@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Plus, Edit, Trash, Save, X } from "lucide-react";
 import { LandItinerary, LandItineraryDate, getAllLandItineraries, getLandItineraryDates } from "@/lib/database";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ManageLandItinerariesProps {}
 
 export default function ManageLandItineraries({}: ManageLandItinerariesProps) {

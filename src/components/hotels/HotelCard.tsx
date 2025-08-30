@@ -147,6 +147,7 @@ export default function HotelCard({ name, location, logo, description, brand }: 
             ) : !imageError.bottomRight ? (
               <img 
                 src={getImageUrl(3, "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80")} 
+                alt="Hotel image"
                 className="w-full h-full object-cover"
                 onLoad={() => handleImageLoad('bottomRight')}
                 onError={() => handleImageError('bottomRight')}
