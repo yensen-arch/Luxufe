@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Edit, X } from "lucide-react";
+import { Edit, SearchIcon, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { getHotelsWithFiltersAndGallery, getBrandCountries, getHotelGallery, getBrandByName, getHotelCardImages, getHotelHeroImage, updateHotelHeroImage } from "@/lib/database";
 import ImageModal from "./ImageModal";
@@ -202,7 +202,7 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
   }
 
   return (
-    <div className={`flex h-full ${editMode ? 'relative' : ''}`}>
+    <div className={`flex flex-col lg:flex-row h-full ${editMode ? 'relative' : ''}`}>
       {/* Blurred overlay when in edit mode */}
       {editMode && (
         <div className="fixed inset-0 bg-opacity-30 backdrop-blur-sm z-40"></div>
@@ -219,24 +219,24 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
       />
       
       {/* Main Content */}
-              <AdminBrandGrid
-          hotels={hotels}
-          loading={loading}
-          filters={filters}
-          onClearFilter={handleClearFilter}
-          onClearAllFilters={handleClearAllFilters}
-          currentPage={currentPage}
-          totalPages={totalPages}
-          totalCount={totalCount}
-          onPageChange={setCurrentPage}
-          cardsPerPage={cardsPerPage}
-          editMode={editMode}
-          editingHotelId={editingHotelId}
-          onEditClick={handleEditClick}
-          onExitEditMode={handleExitEditMode}
-          onImageClick={handleImageClick}
-          onEditHeroClick={handleEditHeroClick}
-        />
+      <AdminBrandGrid
+        hotels={hotels}
+        loading={loading}
+        filters={filters}
+        onClearFilter={handleClearFilter}
+        onClearAllFilters={handleClearAllFilters}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalCount={totalCount}
+        onPageChange={setCurrentPage}
+        cardsPerPage={cardsPerPage}
+        editMode={editMode}
+        editingHotelId={editingHotelId}
+        onEditClick={handleEditClick}
+        onExitEditMode={handleExitEditMode}
+        onImageClick={handleImageClick}
+        onEditHeroClick={handleEditHeroClick}
+      />
 
       {/* Image Modal */}
       {selectedImage && (
@@ -310,10 +310,10 @@ function AdminBrandSidebar({
   };
 
   return (
-    <aside className="w-80 bg-[#f7f7fa] border-r-2 border-gray-300 flex flex-col h-full overflow-y-auto">
+    <aside className="w-full lg:w-80 bg-[#f7f7fa] border-b-2 lg:border-b-0 lg:border-r-2 border-gray-300 flex flex-col h-auto lg:h-full overflow-y-auto">
       {/* Search */}
-      <div className="border-b-2 border-gray-300 p-6">
-        <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-3 shadow-xl">
+      <div className="border-b-2 border-gray-300 p-4 lg:p-6">
+        <div className="flex items-center bg-white border border-gray-200 rounded-full px-3 lg:px-4 py-2 lg:py-3 shadow-xl">
           <input
             type="text"
             placeholder="Search hotels..."
@@ -325,23 +325,23 @@ function AdminBrandSidebar({
           <button 
             onClick={handleSearch}
             disabled={loading}
-            className="ml-2 bg-[#23263a] text-white rounded-full p-3 flex items-center justify-center hover:bg-black transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-[#23263a] text-white rounded-full p-2 flex items-center justify-center hover:bg-black transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+              <div className="animate-spin rounded-full h-4 w-4 lg:h-5 lg:w-5 border-white"></div>
             ) : (
-              <span className="text-sm">Search</span>
+              <span className="text-xs lg:text-sm"><SearchIcon className="w-4 h-4" /></span>
             )}
           </button>
         </div>
       </div>
 
       {/* Type of Travel */}
-      <div className="border-b-2 border-gray-300 p-6">
-        <h3 className="text-xl font-arpona font-bold text-gray-700 mb-4">
+      <div className="border-b-2 border-gray-300 p-4 lg:p-6">
+        <h3 className="text-lg lg:text-xl font-arpona font-bold text-gray-700 mb-3 lg:mb-4">
           Type of Travel
         </h3>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {typeOfTravelOptions.map((type) => (
             <button
               key={type}
@@ -359,16 +359,16 @@ function AdminBrandSidebar({
       </div>
 
       {/* Region */}
-      <div className="p-6">
-        <h3 className="text-xl font-arpona font-bold text-gray-700 mb-4">
+      <div className="p-4 lg:p-6">
+        <h3 className="text-lg lg:text-xl font-arpona font-bold text-gray-700 mb-3 lg:mb-4">
           Region
         </h3>
         {loadingCountries ? (
-          <div className="flex items-center justify-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#23263a]"></div>
+          <div className="flex items-center justify-center py-6 lg:py-8">
+            <div className="animate-spin rounded-full h-6 w-6 lg:h-8 lg:w-8 border-b-2 border-[#23263a]"></div>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {(availableCountries || []).map((region) => (
               <button
                 key={region}
@@ -444,13 +444,13 @@ function AdminBrandGrid({
   return (
     <div className="flex-1 bg-[#f7f7fa] overflow-y-auto">
       {/* Selected Filters */}
-      <div className="border-b-2 border-gray-300 px-8 py-4">
-        <div className="flex items-center gap-4">
+      <div className="border-b-2 border-gray-300 px-4 lg:px-8 py-3 lg:py-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 lg:gap-4">
           <div className="flex flex-wrap gap-2">
             {filters.typeOfTravel.map((type: string) => (
               <span
                 key={type}
-                className="bg-gray-200 text-gray-500 px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2"
+                className="bg-gray-200 text-gray-500 px-2 lg:px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-1 lg:gap-2"
               >
                 {type}
                 <button
@@ -464,7 +464,7 @@ function AdminBrandGrid({
             {filters.region.map((region: string) => (
               <span
                 key={region}
-                className="bg-gray-200 text-gray-500 px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-2"
+                className="bg-gray-200 text-gray-500 px-2 lg:px-3 py-1 rounded-full text-xs font-inter font-bold flex items-center gap-1 lg:gap-2"
               >
                 {region}
                 <button
@@ -478,7 +478,7 @@ function AdminBrandGrid({
           </div>
           {hasFilters && (
             <>
-              <div className="border-l-2 border-gray-700 h-6"></div>
+              <div className="hidden sm:block border-l-2 border-gray-700 h-6"></div>
               <button
                 onClick={onClearAllFilters}
                 className="text-xs font-inter font-bold text-gray-700 hover:text-gray-700"
@@ -491,22 +491,22 @@ function AdminBrandGrid({
       </div>
 
       {/* Results Count */}
-      <div className="px-8 py-6">
-        <p className="text-sm font-inter font-bold text-gray-500">
+      <div className="px-4 lg:px-8 py-4 lg:py-6">
+        <p className="text-xs lg:text-sm font-inter font-bold text-gray-500">
           Showing {startIndex + 1}-{Math.min(endIndex, totalCount)} of {totalCount} Results
         </p>
       </div>
 
       {/* Hotel Cards Grid */}
       {hotels.length === 0 ? (
-        <div className="flex items-center justify-center py-16">
+        <div className="flex items-center justify-center py-12 lg:py-16">
           <div className="text-center">
-            <p className="text-gray-600 font-inter text-lg mb-2">No hotels found</p>
-            <p className="text-gray-500 font-inter text-sm">Try adjusting your filters to see more results</p>
+            <p className="text-gray-600 font-inter text-base lg:text-lg mb-2">No hotels found</p>
+            <p className="text-gray-500 font-inter text-xs lg:text-sm">Try adjusting your filters to see more results</p>
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-8 pb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 px-4 lg:px-8 pb-4 lg:pb-8">
           {hotels.map((hotel) => (
             <AdminBrandCard
               key={hotel.id}
@@ -524,12 +524,12 @@ function AdminBrandGrid({
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-center items-center py-12">
-          <div className="flex items-center gap-8">
+        <div className="flex justify-center items-center py-8 lg:py-12">
+          <div className="flex flex-col sm:flex-row items-center gap-4 lg:gap-8">
             <button 
               onClick={() => onPageChange(Math.max(1, currentPage - 1))}
               disabled={currentPage === 1}
-              className={`font-inter text-sm transition ${
+              className={`font-inter text-xs lg:text-sm transition ${
                 currentPage === 1 
                   ? 'text-gray-300 cursor-not-allowed' 
                   : 'text-gray-500 hover:text-gray-700'
@@ -538,7 +538,7 @@ function AdminBrandGrid({
               &lt; Previous
             </button>
             
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 lg:gap-4">
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
                 <button
                   key={pageNum}
@@ -547,7 +547,7 @@ function AdminBrandGrid({
                     pageNum === currentPage ? 'text-gray-800' : 'text-gray-500 hover:text-gray-700'
                   }`}
                 >
-                  <span className={`font-inter text-sm ${pageNum === currentPage ? 'font-medium' : ''}`}>
+                  <span className={`font-inter text-xs lg:text-sm ${pageNum === currentPage ? 'font-medium' : ''}`}>
                     {pageNum.toString().padStart(2, '0')}
                   </span>
                   {pageNum === currentPage && (
@@ -560,7 +560,7 @@ function AdminBrandGrid({
             <button 
               onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
               disabled={currentPage === totalPages}
-              className={`font-inter text-sm transition ${
+              className={`font-inter text-xs lg:text-sm transition ${
                 currentPage === totalPages 
                   ? 'text-gray-300 cursor-not-allowed' 
                   : 'text-gray-800 hover:text-gray-600'
@@ -712,9 +712,9 @@ function AdminBrandCard({
       {showEditButton && !editMode && (
         <button
           onClick={handleEditClick}
-          className="absolute top-4 right-4 z-10 bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-full shadow-lg transition-all duration-200"
+          className="absolute top-2 lg:top-4 right-2 lg:right-4 z-10 bg-white bg-opacity-90 hover:bg-opacity-100 p-1.5 lg:p-2 rounded-full shadow-lg transition-all duration-200"
         >
-          <Edit className="w-5 h-5 text-gray-700" />
+          <Edit className="w-4 h-4 lg:w-5 lg:h-5 text-gray-700" />
         </button>
       )}
 
@@ -722,16 +722,16 @@ function AdminBrandCard({
       {isEditing && (
         <button
           onClick={onExitEditMode}
-          className="absolute top-4 right-4 z-10 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full shadow-lg transition-all duration-200"
+          className="absolute top-2 lg:top-4 right-2 lg:right-4 z-10 bg-red-500 hover:bg-red-600 text-white p-1.5 lg:p-2 rounded-full shadow-lg transition-all duration-200"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4 lg:w-5 lg:h-5" />
         </button>
       )}
 
       {/* Image Section - Three images layout */}
       <div className="relative">
         {/* Large Top Image */}
-        <div className="h-44 w-full mb-0.5 relative">
+        <div className="h-32 sm:h-44 w-full mb-0.5 relative">
           {isLoading ? (
             <div className="w-full h-full bg-gray-200 animate-pulse"></div>
           ) : !imageError.top ? (
@@ -751,13 +751,13 @@ function AdminBrandCard({
             />
           ) : (
             <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-              <span className="text-gray-500 text-sm">Image unavailable</span>
+              <span className="text-gray-500 text-xs sm:text-sm">Image unavailable</span>
             </div>
           )}
         </div>
         
         {/* Two Smaller Bottom Images - Side by side */}
-        <div className="flex h-44">
+        <div className="flex h-32 sm:h-44">
           <div className="flex-1 mr-0.5 relative">
             {isLoading ? (
               <div className="w-full h-full bg-gray-200 animate-pulse"></div>
@@ -810,17 +810,17 @@ function AdminBrandCard({
       </div>
       
       {/* Hotel Information Section */}
-      <div className="px-6 py-4 bg-white">
+      <div className="px-4 lg:px-6 py-3 lg:py-4 bg-white">
         <div className="flex justify-between items-start">
           <div className="flex-1">
             {isLoading ? (
               <div className="space-y-2">
-                <div className="h-6 bg-gray-200 animate-pulse rounded w-3/4"></div>
-                <div className="h-4 bg-gray-200 animate-pulse rounded w-1/2"></div>
+                <div className="h-5 lg:h-6 bg-gray-200 animate-pulse rounded w-3/4"></div>
+                <div className="h-3 lg:h-4 bg-gray-200 animate-pulse rounded w-1/2"></div>
               </div>
             ) : (
               <>
-                <h3 className="text-2xl font-arpona font-bold text-gray-800 mb-1">
+                <h3 className="text-lg lg:text-2xl font-arpona font-bold text-gray-800 mb-1">
                   {hotel.hotel_name}
                 </h3>
                 <p className="text-xs font-inter font-bold text-gray-500 tracking-widest uppercase">
@@ -833,7 +833,7 @@ function AdminBrandCard({
             <img 
               src={brandLogo}
               alt={`${hotel.brand} Logo`} 
-              className="h-8 object-contain"
+              className="h-6 lg:h-8 object-contain"
               onError={(e) => {
                 e.currentTarget.src = getDefaultBrandLogo();
               }}
@@ -843,25 +843,25 @@ function AdminBrandCard({
       </div>
       
       {/* Description Section */}
-      <div className="px-6 py-4 bg-white">
+      <div className="px-4 lg:px-6 py-3 lg:py-4 bg-white">
         {isLoading ? (
           <div className="space-y-2">
-            <div className="h-4 bg-gray-200 animate-pulse rounded w-full"></div>
-            <div className="h-4 bg-gray-200 animate-pulse rounded w-5/6"></div>
-            <div className="h-4 bg-gray-200 animate-pulse rounded w-4/6"></div>
+            <div className="h-3 lg:h-4 bg-gray-200 animate-pulse rounded w-full"></div>
+            <div className="h-3 lg:h-4 bg-gray-200 animate-pulse rounded w-5/6"></div>
+            <div className="h-3 lg:h-4 bg-gray-200 animate-pulse rounded w-4/6"></div>
           </div>
         ) : (
-          <p className="text-sm font-inter text-gray-600 leading-relaxed line-clamp-3">
+          <p className="text-xs lg:text-sm font-inter text-gray-600 leading-relaxed line-clamp-3">
             {hotel.description || "Experience luxury and tranquility in this exceptional destination."}
           </p>
         )}
       </div>
 
       {/* Edit Hero Image Button */}
-      <div className="px-6 py-3 bg-gray-50 border-t border-gray-200">
+      <div className="px-4 lg:px-6 py-2 lg:py-3 bg-gray-50 border-t border-gray-200">
         <button
           onClick={() => onEditHeroClick && onEditHeroClick(hotel.hotel_name)}
-          className="w-full bg-[#23263a] text-white font-inter font-bold py-2 px-4 transition-all duration-200 hover:bg-[#1a1d2e] text-sm"
+          className="w-full bg-[#23263a] text-white font-inter font-bold py-2 px-4 transition-all duration-200 hover:bg-[#1a1d2e] text-xs lg:text-sm"
         >
           Edit Hero Image
         </button>
