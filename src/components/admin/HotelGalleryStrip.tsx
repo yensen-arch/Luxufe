@@ -1,26 +1,8 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, Trash2, Move, Save, X } from "lucide-react";
-import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  DragEndEvent,
-} from '@dnd-kit/core';
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import {
-  useSortable,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import { DragEndEvent } from '@dnd-kit/core';
+import { arrayMove } from '@dnd-kit/sortable';
+import { GalleryActions, GalleryCarousel, GalleryFooter } from './hotel-gallery';
 
 interface HotelGalleryStripProps {
   hotelName: string;
@@ -39,13 +21,6 @@ export default function HotelGalleryStrip({
   currentCardImages,
   selectedPosition = 'top'
 }: HotelGalleryStripProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: false,
-    align: "start",
-    containScroll: "trimSnaps",
-    dragFree: true,
-  });
-
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(selectedImageIndex);
@@ -65,12 +40,11 @@ export default function HotelGalleryStrip({
   const [rearrangedImages, setRearrangedImages] = useState<string[]>([]);
   const [savingOrder, setSavingOrder] = useState(false);
 
-  // Import the function dynamically to avoid circular dependencies
+  // Fetch gallery images
   useEffect(() => {
     const fetchGallery = async () => {
       try {
         setLoading(true);
-        // Dynamic import to avoid circular dependency
         const { getHotelGallery } = await import("@/lib/database");
         const images = await getHotelGallery(hotelName);
         setGalleryImages(images);
@@ -88,30 +62,12 @@ export default function HotelGalleryStrip({
     }
   }, [hotelName, selectedImageIndex]);
 
-  // DnD sensors
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
-
   // Update carousel options when rearrange mode changes
   useEffect(() => {
-    if (emblaApi) {
-      if (rearrangeMode) {
-        emblaApi.scrollTo(0); // Reset to start when entering rearrange mode
-      }
+    if (rearrangeMode) {
+      setRearrangedImages([...galleryImages]);
     }
-  }, [rearrangeMode, emblaApi]);
-
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
+  }, [rearrangeMode, galleryImages]);
 
   const handleImageClick = (imageUrl: string, index: number) => {
     setSelectedIndex(index);
@@ -120,33 +76,13 @@ export default function HotelGalleryStrip({
     }
   };
 
-  // Find the index of the currently displayed image in the modal
-  const getCurrentImageIndex = () => {
-    if (!currentCardImages) return selectedIndex;
-    
-    // Check if the current modal image matches any of the card images
-    const currentImageUrl = galleryImages[selectedIndex];
-    if (currentImageUrl === currentCardImages.top) return selectedIndex;
-    if (currentImageUrl === currentCardImages.left) return selectedIndex;
-    if (currentImageUrl === currentCardImages.right) return selectedIndex;
-    
-    return selectedIndex;
-  };
-
-
-
   const handleSave = () => {
     if (onSave) {
       if (selectedPosition === 'hero') {
-        // For hero image, just pass the selected image URL
         onSave(galleryImages[selectedIndex]);
       } else {
-        // Update the card images with the currently selected image
         const updatedCardImages = { ...cardImages };
-        
-        // Update the selected position with the current image
         updatedCardImages[selectedPosition] = galleryImages[selectedIndex];
-        
         onSave(updatedCardImages);
       }
     }
@@ -161,7 +97,6 @@ export default function HotelGalleryStrip({
   const toggleDeleteMode = () => {
     setDeleteMode(!deleteMode);
     if (deleteMode) {
-      // Exit delete mode - clear selections
       setSelectedImagesToDelete([]);
     }
   };
@@ -181,7 +116,6 @@ export default function HotelGalleryStrip({
   const handleDeleteImages = async () => {
     if (selectedImagesToDelete.length === 0) return;
 
-    // Check if any selected images are currently used in the brand card
     const imagesInUse = selectedImagesToDelete.filter(url => isImageInCard(url));
     let warningMessage = `Are you sure you want to permanently delete ${selectedImagesToDelete.length} image${selectedImagesToDelete.length > 1 ? 's' : ''} from the database? This action cannot be undone.`;
     
@@ -189,23 +123,18 @@ export default function HotelGalleryStrip({
       warningMessage += `\n\n⚠️ WARNING: ${imagesInUse.length} of the selected image${imagesInUse.length > 1 ? 's are' : ' is'} currently being used in the brand card. Deleting them will remove them from the card display.`;
     }
     
-    if (!confirm(warningMessage)) {
-      return;
-    }
+    if (!confirm(warningMessage)) return;
 
     setDeleting(true);
     try {
-      // Dynamic import to avoid circular dependency
       const { deleteHotelImages } = await import("@/lib/database");
       const success = await deleteHotelImages(hotelName, selectedImagesToDelete);
       
       if (success) {
-        // Remove deleted images from local state
         setGalleryImages(prev => prev.filter(url => !selectedImagesToDelete.includes(url)));
         setSelectedImagesToDelete([]);
         setDeleteMode(false);
         
-        // Show appropriate success message
         if (imagesInUse.length > 0) {
           alert(`Images deleted successfully! ${imagesInUse.length} image${imagesInUse.length > 1 ? 's were' : ' was'} removed from the brand card display.`);
         } else {
@@ -225,14 +154,11 @@ export default function HotelGalleryStrip({
   // Toggle rearrange mode
   const toggleRearrangeMode = () => {
     if (rearrangeMode) {
-      // Exit rearrange mode - reset to original order
       setRearrangedImages([]);
       setRearrangeMode(false);
     } else {
-      // Enter rearrange mode - initialize with current order
       setRearrangedImages([...galleryImages]);
       setRearrangeMode(true);
-      // Exit delete mode if active
       if (deleteMode) {
         setDeleteMode(false);
         setSelectedImagesToDelete([]);
@@ -248,7 +174,6 @@ export default function HotelGalleryStrip({
       setRearrangedImages((items) => {
         const oldIndex = items.findIndex(item => item === active.id);
         const newIndex = items.findIndex(item => item === over?.id);
-
         return arrayMove(items, oldIndex, newIndex);
       });
     }
@@ -260,12 +185,10 @@ export default function HotelGalleryStrip({
 
     setSavingOrder(true);
     try {
-      // Dynamic import to avoid circular dependency
       const { updateHotelGalleryOrder } = await import("@/lib/database");
       const success = await updateHotelGalleryOrder(hotelName, rearrangedImages);
       
       if (success) {
-        // Update local state with new order
         setGalleryImages(rearrangedImages);
         setRearrangeMode(false);
         setRearrangedImages([]);
@@ -279,56 +202,6 @@ export default function HotelGalleryStrip({
     } finally {
       setSavingOrder(false);
     }
-  };
-
-  // Sortable Image Component
-  const SortableImage = ({ imageUrl, index }: { imageUrl: string; index: number }) => {
-    const {
-      attributes,
-      listeners,
-      setNodeRef,
-      transform,
-      transition,
-      isDragging,
-    } = useSortable({ id: imageUrl });
-
-    const style = {
-      transform: CSS.Transform.toString(transform),
-      transition,
-      opacity: isDragging ? 0.5 : 1,
-    };
-
-    return (
-      <div
-        ref={setNodeRef}
-        style={style}
-        className={`flex-shrink-0 w-20 h-16 overflow-hidden transition-all duration-200 relative ${
-          selectedIndex === index 
-            ? 'ring-2 ring-[#A5C8CE] ring-opacity-80' 
-            : isImageInCard(imageUrl)
-            ? 'ring-2 ring-green-500 ring-opacity-80'
-            : 'hover:ring-2 hover:ring-gray-300'
-        }`}
-      >
-        <img
-          src={imageUrl}
-          alt={`${hotelName} image ${index + 1}`}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            e.currentTarget.src = "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=200&q=80";
-          }}
-        />
-        {rearrangeMode && (
-          <div 
-            {...attributes}
-            {...listeners}
-            className="absolute top-1 right-1 bg-white bg-opacity-80 rounded-full p-1 cursor-move hover:bg-opacity-100 transition-all"
-          >
-            <Move className="w-3 h-3 text-gray-600" />
-          </div>
-        )}
-      </div>
-    );
   };
 
   if (loading) {
@@ -350,168 +223,39 @@ export default function HotelGalleryStrip({
   return (
     <div className="w-full">
       {/* Action Controls */}
-      <div className="flex items-center justify-between mb-3 px-2">
-        <div className="flex gap-2">
-          <button
-            onClick={toggleRearrangeMode}
-            className={`px-3 py-1 text-xs font-inter font-bold transition-colors ${
-              rearrangeMode 
-                ? 'bg-orange-500 text-white hover:bg-orange-600' 
-                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-            }`}
-          >
-            <Move className="w-3 h-3 inline mr-1" />
-            {rearrangeMode ? 'Cancel' : 'Rearrange Gallery'}
-          </button>
+      <GalleryActions
+        rearrangeMode={rearrangeMode}
+        deleteMode={deleteMode}
+        savingOrder={savingOrder}
+        deleting={deleting}
+        selectedImagesToDelete={selectedImagesToDelete}
+        onToggleRearrange={toggleRearrangeMode}
+        onToggleDelete={toggleDeleteMode}
+        onSaveOrder={handleSaveOrder}
+        onDeleteImages={handleDeleteImages}
+      />
 
-          {rearrangeMode && (
-            <button
-              onClick={handleSaveOrder}
-              disabled={savingOrder}
-              className="px-3 py-1 bg-green-500 text-white text-xs font-inter font-bold hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
-            >
-              <Save className="w-3 h-3" />
-              {savingOrder ? 'Saving...' : 'Save Order'}
-            </button>
-          )}
+      {/* Gallery Carousel */}
+      <GalleryCarousel
+        galleryImages={rearrangeMode ? rearrangedImages : galleryImages}
+        hotelName={hotelName}
+        selectedIndex={selectedIndex}
+        deleteMode={deleteMode}
+        rearrangeMode={rearrangeMode}
+        selectedImagesToDelete={selectedImagesToDelete}
+        isImageInCard={isImageInCard}
+        onImageClick={handleImageClick}
+        onImageSelectForDeletion={handleImageSelectForDeletion}
+        onDragEnd={handleDragEnd}
+      />
 
-          <button
-            onClick={toggleDeleteMode}
-            disabled={rearrangeMode}
-            className={`px-3 py-1 text-xs font-inter font-bold transition-colors ${
-              deleteMode 
-                ? 'bg-red-500 text-white hover:bg-red-600' 
-                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-            } ${rearrangeMode ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            <Trash2 className="w-3 h-3 inline mr-1" />
-            {deleteMode ? 'Cancel Delete' : 'Select Images to Delete'}
-          </button>
-        </div>
-        
-        {deleteMode && selectedImagesToDelete.length > 0 && (
-          <button
-            onClick={handleDeleteImages}
-            disabled={deleting}
-            className="px-3 py-1 bg-red-500 text-white text-xs font-inter font-bold hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
-          >
-            <Trash2 className="w-3 h-3" />
-            {deleting ? 'Deleting...' : `Delete ${selectedImagesToDelete.length} image${selectedImagesToDelete.length > 1 ? 's' : ''}`}
-          </button>
-        )}
-      </div>
-
-      {/* Gallery Strip */}
-      <div className="relative">
-        {/* Navigation Buttons */}
-        {galleryImages.length > 4 && (
-          <>
-            <button
-              onClick={scrollPrev}
-              className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-full shadow-lg transition-all duration-200"
-            >
-              <ChevronLeft className="w-4 h-4 text-gray-700" />
-            </button>
-            <button
-              onClick={scrollNext}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-full shadow-lg transition-all duration-200"
-            >
-              <ChevronRight className="w-4 h-4 text-gray-700" />
-            </button>
-          </>
-        )}
-
-        {/* Carousel Container */}
-        <div className={`overflow-hidden ${rearrangeMode ? 'pointer-events-none' : ''}`} ref={emblaRef}>
-          {rearrangeMode ? (
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleDragEnd}
-            >
-              <SortableContext
-                items={rearrangedImages}
-                strategy={verticalListSortingStrategy}
-              >
-                <div className="flex gap-2 p-2 pointer-events-auto">
-                  {rearrangedImages.map((imageUrl, index) => (
-                    <SortableImage key={imageUrl} imageUrl={imageUrl} index={index} />
-                  ))}
-                </div>
-              </SortableContext>
-            </DndContext>
-          ) : (
-            <div className="flex gap-2 p-2">
-              {galleryImages.map((imageUrl, index) => (
-                <div
-                  key={index}
-                  className={`flex-shrink-0 w-20 h-16 overflow-hidden transition-all duration-200 relative ${
-                    selectedIndex === index 
-                      ? 'ring-2 ring-[#A5C8CE] ring-opacity-80' 
-                      : isImageInCard(imageUrl)
-                      ? 'ring-2 ring-green-500 ring-opacity-80'
-                      : 'hover:ring-2 hover:ring-gray-300'
-                  }`}
-                  onClick={() => !deleteMode && handleImageClick(imageUrl, index)}
-                >
-                  {/* Delete Mode Checkbox */}
-                  {deleteMode && (
-                    <div className="absolute top-1 left-1 z-10">
-                      <input
-                        type="checkbox"
-                        checked={selectedImagesToDelete.includes(imageUrl)}
-                        onChange={() => handleImageSelectForDeletion(imageUrl)}
-                        className="w-4 h-4 text-red-500 bg-white border-2 border-red-500 rounded focus:ring-red-500 focus:ring-2"
-                      />
-                    </div>
-                  )}
-                  
-                  {/* Delete Mode Overlay */}
-                  {deleteMode && selectedImagesToDelete.includes(imageUrl) && (
-                    <div className="absolute inset-0 bg-red-500 bg-opacity-30 z-5"></div>
-                  )}
-                  <img
-                    src={imageUrl}
-                    alt={`${hotelName} image ${index + 1}`}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.src = "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=200&q=80";
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Position Selection and Save */}
-              <div className="mt-3 px-2">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-gray-600 font-inter font-bold">
-              {selectedPosition === 'hero' 
-                ? 'Updating Hero Image' 
-                : `Updating ${selectedPosition.charAt(0).toUpperCase() + selectedPosition.slice(1)} position`
-              }
-            </span>
-            {onSave && (
-              <button
-                onClick={handleSave}
-                className="px-3 py-1 bg-[#A5C8CE] text-white text-xs font-inter font-bold hover:bg-[#A5C8CE]/90 transition-colors"
-              >
-                {selectedPosition === 'hero' ? 'Save Hero Image' : 'Save'}
-              </button>
-            )}
-          </div>
-        
-        
-        {/* Image Counter */}
-        <div className="flex justify-between items-center mt-2">
-          <span className="text-xs text-gray-500 font-inter">
-            {selectedIndex + 1} of {galleryImages.length} images
-          </span>
-        </div>
-      </div>
+      {/* Footer with Save and Counter */}
+      <GalleryFooter
+        selectedPosition={selectedPosition}
+        selectedIndex={selectedIndex}
+        galleryImagesLength={galleryImages.length}
+        onSave={handleSave}
+      />
     </div>
   );
 }

@@ -1,8 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Edit, SearchIcon, X } from "lucide-react";
-import { supabase } from "@/lib/supabase";
-import { getHotelsWithFiltersAndGallery, getBrandCountries, getHotelGallery, getBrandByName, getHotelCardImages, getHotelHeroImage, updateHotelHeroImage } from "@/lib/database";
+import { getHotelsWithFiltersAndGallery, getBrandCountries } from "@/lib/database";
 import ImageModal from "./ImageModal";
 import AdminBrandSidebar from "./AdminBrandSidebar";
 import AdminBrandGrid from "./AdminBrandGrid";
