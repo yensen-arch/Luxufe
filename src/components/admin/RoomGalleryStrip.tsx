@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { DragEndEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
-import { GalleryActions, GalleryCarousel, GalleryFooter } from './hotel-gallery';
+import { GalleryActions, GalleryCarousel } from './hotel-gallery';
 
 interface RoomGalleryStripProps {
   roomName: string;
@@ -224,14 +224,6 @@ export default function RoomGalleryStrip({
         onImageClick={handleImageClick}
         onImageSelectForDeletion={handleImageSelectForDeletion}
         onDragEnd={handleDragEnd}
-      />
-
-      {/* Footer with Save and Counter */}
-      <GalleryFooter
-        selectedPosition="hero" // Use hero for room gallery
-        selectedIndex={selectedIndex}
-        galleryImagesLength={galleryImages.length}
-        onSave={handleSave}
       />
     </div>
   );

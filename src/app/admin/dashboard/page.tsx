@@ -60,7 +60,6 @@ export default function AdminDashboard() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#A5C8CE] mx-auto mb-4"></div>
-          <p className="text-gray-600 font-inter">Loading...</p>
         </div>
       </div>
     );
