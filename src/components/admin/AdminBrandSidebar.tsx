@@ -61,7 +61,7 @@ export default function AdminBrandSidebar({
   };
 
   return (
-    <aside className="w-full lg:w-80 bg-[#f7f7fa] border-b-2 lg:border-b-0 lg:border-r-2 border-gray-300 flex flex-col h-auto lg:h-[calc(210vh)] overflow-y-auto">
+    <aside className="w-full lg:w-80 bg-[#f7f7fa] border-b-2 lg:border-b-0 lg:border-r-2 border-gray-300 flex flex-col h-auto lg:h-[calc(220vh)] overflow-y-auto">
       {/* Search */}
       <div className="border-b-2 border-gray-300 p-4 lg:p-6">
         <div className="flex items-center bg-white border border-gray-200 rounded-full px-3 lg:px-4 py-2 lg:py-3 shadow-xl">

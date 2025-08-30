@@ -86,7 +86,7 @@ function HotelImagesSection({
         </p>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex-1 flex flex-col">
+      <div className="bg-white shadow-sm border border-gray-200 p-6 flex-1 flex flex-col">
         <div className="mb-6">
           <h2 className="text-xl font-arpona font-bold text-gray-900 mb-4">
             Select Brand

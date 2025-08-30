@@ -37,6 +37,7 @@ interface AdminBrandGridProps {
   onExitEditMode?: () => void;
   onImageClick?: (imageUrl: string, imageAlt: string, hotelName: string) => void;
   onEditHeroClick?: (hotelName: string) => void;
+  onManageRoomImages?: (hotelName: string) => void;
 }
 
 export default function AdminBrandGrid({ 
@@ -55,7 +56,8 @@ export default function AdminBrandGrid({
   onEditClick,
   onExitEditMode,
   onImageClick,
-  onEditHeroClick
+  onEditHeroClick,
+  onManageRoomImages
 }: AdminBrandGridProps) {
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
@@ -149,6 +151,7 @@ export default function AdminBrandGrid({
               onExitEditMode={onExitEditMode}
               onImageClick={onImageClick}
               onEditHeroClick={onEditHeroClick}
+              onManageRoomImages={onManageRoomImages}
             />
           ))}
         </div>
@@ -215,7 +218,8 @@ function AdminBrandCard({
   onEditClick, 
   onExitEditMode, 
   onImageClick,
-  onEditHeroClick
+  onEditHeroClick,
+  onManageRoomImages
 }: { 
   hotel: Hotel;
   editMode?: boolean;
@@ -224,6 +228,7 @@ function AdminBrandCard({
   onExitEditMode?: () => void;
   onImageClick?: (imageUrl: string, imageAlt: string, hotelName: string) => void;
   onEditHeroClick?: (hotelName: string) => void;
+  onManageRoomImages?: (hotelName: string) => void;
 }) {
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [cardImages, setCardImages] = useState<{
@@ -489,13 +494,19 @@ function AdminBrandCard({
         )}
       </div>
 
-      {/* Edit Hero Image Button */}
-      <div className="px-4 lg:px-6 py-2 lg:py-3 bg-gray-50 border-t border-gray-200">
+      {/* Action Buttons */}
+      <div className="px-4 lg:px-6 py-2 lg:py-3 bg-gray-50 border-t border-gray-200 space-y-2">
         <button
           onClick={() => onEditHeroClick && onEditHeroClick(hotel.hotel_name)}
           className="w-full bg-[#23263a] text-white font-inter font-bold py-2 px-4 transition-all duration-200 hover:bg-[#1a1d2e] text-xs lg:text-sm"
         >
           Edit Hero Image
+        </button>
+        <button
+          onClick={() => onManageRoomImages && onManageRoomImages(hotel.hotel_name)}
+          className="w-full bg-[#A5C8CE] text-white font-inter font-bold py-2 px-4 transition-all duration-200 hover:bg-[#8bb3b8] text-xs lg:text-sm"
+        >
+          Manage Room Images
         </button>
       </div>
     </div>

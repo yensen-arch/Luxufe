@@ -742,6 +742,145 @@ export const getRoomGallery = async (roomName: string, hotelName: string): Promi
   }
 };
 
+// Get rooms for a hotel with pagination
+export const getRoomsForHotel = async (hotelName: string, page: number = 1, pageSize: number = 12): Promise<{ data: any[]; count: number }> => {
+  try {
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize - 1;
+
+    let query = supabase
+      .from('roomgallery')
+      .select('id, room_name, room_image', { count: 'exact' })
+      .eq('hotel_name', hotelName)
+      .range(from, to)
+      .order('room_name', { ascending: true });
+
+    const { data, error, count } = await query;
+
+    if (error) {
+      console.error('Error fetching rooms for hotel:', error);
+      return { data: [], count: 0 };
+    }
+
+    // Parse room images and get first image for each room
+    const roomsWithImages = (data || []).map(room => {
+      let firstImage = '';
+      try {
+        if (room.room_image) {
+          const imageString = room.room_image;
+          const cleanString = imageString.slice(2, -2); // Remove "['" and "']"
+          const imageUrls = cleanString.split("', '");
+          const cleanedUrls = imageUrls.map((url: string) => url.replace(/['"]/g, ''));
+          firstImage = cleanedUrls[0] || '';
+        }
+      } catch (parseError) {
+        console.error('Error parsing room image string:', parseError);
+      }
+      
+      return {
+        id: room.id,
+        room_name: room.room_name,
+        first_image: firstImage
+      };
+    });
+
+    return { data: roomsWithImages, count: count || 0 };
+  } catch (error) {
+    console.error('Error fetching rooms for hotel:', error);
+    return { data: [], count: 0 };
+  }
+};
+
+// Update room gallery order
+export const updateRoomGalleryOrder = async (roomName: string, hotelName: string, imageUrls: string[]): Promise<boolean> => {
+  try {
+    console.log('🔍 updateRoomGalleryOrder: Updating for room:', roomName, 'hotel:', hotelName);
+    
+    // Convert array to Python-style string format
+    const imageString = `[${imageUrls.map(url => `'${url}'`).join(', ')}]`;
+    
+    const { error } = await supabase
+      .from('roomgallery')
+      .update({ room_image: imageString })
+      .eq('room_name', roomName)
+      .eq('hotel_name', hotelName);
+
+    if (error) {
+      console.error('Error updating room gallery order:', error);
+      return false;
+    }
+
+    console.log('✅ updateRoomGalleryOrder: Successfully updated for room:', roomName);
+    return true;
+  } catch (error) {
+    console.error('Error updating room gallery order:', error);
+    return false;
+  }
+};
+
+// Delete images from room gallery
+export const deleteRoomImages = async (roomName: string, hotelName: string, imageUrls: string[]): Promise<boolean> => {
+  try {
+    console.log('🔍 deleteRoomImages: Deleting images for room:', roomName, 'hotel:', hotelName, imageUrls);
+    
+    // First, get the current room gallery images
+    const { data: currentData, error: fetchError } = await supabase
+      .from('roomgallery')
+      .select('room_image')
+      .eq('room_name', roomName)
+      .eq('hotel_name', hotelName)
+      .maybeSingle();
+
+    if (fetchError) {
+      console.error('Error fetching current room images:', fetchError);
+      return false;
+    }
+
+    if (!currentData || !currentData.room_image) {
+      console.error('No current images found for room:', roomName);
+      return false;
+    }
+
+    // Parse the Python array string to get current images
+    let currentImages: string[] = [];
+    try {
+      const imageString = currentData.room_image;
+      const cleanString = imageString.slice(2, -2); // Remove "['" and "']"
+      const imageUrls = cleanString.split("', '");
+      currentImages = imageUrls.map((url: string) => url.replace(/['"]/g, ''));
+    } catch (parseError) {
+      console.error('Error parsing room_image string:', parseError);
+      return false;
+    }
+
+    // Filter out the images to be deleted
+    const updatedImages = currentImages.filter((url: string) => !imageUrls.includes(url));
+
+    console.log('🔍 deleteRoomImages: Original images:', currentImages.length, 'After deletion:', updatedImages.length);
+
+    // Convert back to Python array string format
+    const updatedImageString = `[${updatedImages.map(url => `'${url}'`).join(', ')}]`;
+
+    // Update the database with the filtered images
+    const { error: updateError } = await supabase
+      .from('roomgallery')
+      .update({ room_image: updatedImageString })
+      .eq('room_name', roomName)
+      .eq('hotel_name', hotelName);
+
+    if (updateError) {
+      console.error('Error updating room images after deletion:', updateError);
+      return false;
+    }
+
+    console.log('✅ deleteRoomImages: Successfully deleted images for room:', roomName);
+    return true;
+  } catch (error) {
+    console.error('Error deleting room images:', error);
+    return false;
+  }
+};
+
 export const dummyPrivateJetBrands = [
   {
     id: 1,

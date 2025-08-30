@@ -4,6 +4,7 @@ import { getHotelsWithFiltersAndGallery, getBrandCountries } from "@/lib/databas
 import ImageModal from "./ImageModal";
 import AdminBrandSidebar from "./AdminBrandSidebar";
 import AdminBrandGrid from "./AdminBrandGrid";
+import RoomImageModal from "./RoomImageModal";
 
 interface Hotel {
   id: string;
@@ -56,6 +57,8 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
     position: 'top' | 'left' | 'right' | 'hero';
   } | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const [roomImageModalOpen, setRoomImageModalOpen] = useState(false);
+  const [selectedHotelForRooms, setSelectedHotelForRooms] = useState<string>('');
 
   const cardsPerPage = 4;
 
@@ -193,6 +196,16 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
     setRefreshTrigger(prev => prev + 1);
   };
 
+  const handleManageRoomImages = (hotelName: string) => {
+    setSelectedHotelForRooms(hotelName);
+    setRoomImageModalOpen(true);
+  };
+
+  const handleCloseRoomModal = () => {
+    setRoomImageModalOpen(false);
+    setSelectedHotelForRooms('');
+  };
+
   if (!selectedBrand) {
     return (
       <div className="text-center py-12">
@@ -236,6 +249,7 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
         onExitEditMode={handleExitEditMode}
         onImageClick={handleImageClick}
         onEditHeroClick={handleEditHeroClick}
+        onManageRoomImages={handleManageRoomImages}
       />
 
       {/* Image Modal */}
@@ -248,6 +262,13 @@ export default function BrandImageManager({ selectedBrand }: BrandImageManagerPr
           onClose={handleCloseModal}
         />
       )}
+
+      {/* Room Image Modal */}
+      <RoomImageModal
+        isOpen={roomImageModalOpen}
+        onClose={handleCloseRoomModal}
+        hotelName={selectedHotelForRooms}
+      />
     </div>
   );
 }
