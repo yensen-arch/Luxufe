@@ -84,7 +84,9 @@ export default function GalleryImage({
         <div 
           {...attributes}
           {...listeners}
-          className="absolute top-1 right-1 bg-white bg-opacity-80 rounded-full p-1 cursor-move hover:bg-opacity-100 transition-all"
+          className="absolute top-1 right-1 bg-white bg-opacity-80 rounded-full p-1 cursor-move hover:bg-opacity-100 transition-all z-20"
+          onMouseDown={(e) => e.stopPropagation()} // Prevent carousel drag
+          onTouchStart={(e) => e.stopPropagation()} // Prevent carousel drag on touch
         >
           <Move className="w-3 h-3 text-gray-600" />
         </div>

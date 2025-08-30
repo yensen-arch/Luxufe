@@ -1,5 +1,5 @@
 "use client";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
@@ -49,6 +49,8 @@ export default function GalleryCarousel({
     align: "start",
     containScroll: "trimSnaps",
     dragFree: true,
+    skipSnaps: rearrangeMode, // Disable carousel dragging in rearrange mode
+    watchDrag: !rearrangeMode, // Disable drag detection in rearrange mode
   });
 
   const sensors = useSensors(
@@ -65,6 +67,33 @@ export default function GalleryCarousel({
   const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
+
+  // Update carousel options when rearrange mode changes
+  useEffect(() => {
+    if (emblaApi) {
+      if (rearrangeMode) {
+        // Disable carousel dragging in rearrange mode
+        emblaApi.reInit({
+          loop: false,
+          align: "start",
+          containScroll: "trimSnaps",
+          dragFree: false, // Disable drag free in rearrange mode
+          skipSnaps: true, // Skip snaps in rearrange mode
+          watchDrag: false, // Disable drag detection
+        });
+      } else {
+        // Re-enable normal carousel behavior
+        emblaApi.reInit({
+          loop: false,
+          align: "start",
+          containScroll: "trimSnaps",
+          dragFree: true,
+          skipSnaps: false,
+          watchDrag: true,
+        });
+      }
+    }
+  }, [rearrangeMode, emblaApi]);
 
   return (
     <div className="relative">
@@ -87,7 +116,11 @@ export default function GalleryCarousel({
       )}
 
       {/* Carousel Container */}
-      <div className={`overflow-hidden ${rearrangeMode ? 'pointer-events-none' : ''}`} ref={emblaRef}>
+      <div 
+        className={`overflow-hidden ${rearrangeMode ? 'pointer-events-none' : ''}`} 
+        ref={emblaRef}
+        style={rearrangeMode ? { touchAction: 'none' } : {}}
+      >
         {rearrangeMode ? (
           <DndContext
             sensors={sensors}
