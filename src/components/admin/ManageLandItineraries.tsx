@@ -221,7 +221,7 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
         </div>
 
         {/* Step Content */}
-        <div className="flex-1 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div className="flex-1 bg-white shadow-sm border border-gray-200 p-6">
           {renderStepContent()}
         </div>
 
@@ -230,7 +230,7 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
           <button
             onClick={prevStep}
             disabled={currentStep === 1}
-            className="flex items-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ChevronLeft className="w-5 h-5" />
             Previous
@@ -238,7 +238,7 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
 
           <button
             onClick={nextStep}
-            className="flex items-center gap-2 px-6 py-3 bg-[#A5C8CE] text-white rounded-lg hover:bg-[#8bb3b8] transition-colors"
+            className="flex items-center gap-2 px-6 py-3 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors"
           >
             {currentStep === totalSteps ? (
               <>
@@ -272,7 +272,7 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
           </div>
           <button
             onClick={handleCreateNew}
-            className="flex items-center gap-2 px-6 py-3 bg-[#A5C8CE] text-white rounded-lg hover:bg-[#8bb3b8] transition-colors"
+            className="flex items-center gap-2 px-6 py-3 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors"
           >
             <Plus className="w-5 h-5" />
             Create New Itinerary
@@ -280,13 +280,13 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
         </div>
       </div>
 
-      <div className="flex-1 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <div className="flex-1 bg-white shadow-sm border border-gray-200 p-6">
         {itineraries.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-600 font-inter mb-4">No itineraries found.</p>
             <button
               onClick={handleCreateNew}
-              className="flex items-center gap-2 px-6 py-3 bg-[#A5C8CE] text-white rounded-lg hover:bg-[#8bb3b8] transition-colors mx-auto"
+              className="flex items-center gap-2 px-6 py-3 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors mx-auto"
             >
               <Plus className="w-5 h-5" />
               Create Your First Itinerary
@@ -295,7 +295,7 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
         ) : (
           <div className="grid gap-6">
             {itineraries.map((itinerary) => (
-              <div key={itinerary.id} className="border border-gray-200 rounded-lg p-6">
+              <div key={itinerary.id} className="border border-gray-200 p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-xl font-arpona font-bold text-gray-900 mb-2">
@@ -307,12 +307,12 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleEdit(itinerary)}
-                      className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
                     >
                       <Edit className="w-4 h-4" />
                       Edit
                     </button>
-                    <button className="flex items-center gap-2 px-4 py-2 border border-red-300 text-red-700 rounded-lg hover:bg-red-50 transition-colors">
+                    <button className="flex items-center gap-2 px-4 py-2 border border-red-300 text-red-700 hover:bg-red-50 transition-colors">
                       <Trash className="w-4 h-4" />
                       Delete
                     </button>
@@ -342,7 +342,7 @@ function BasicInfoStep({ formData, updateFormData }: { formData: any; updateForm
             type="text"
             value={formData.itinerary_name}
             onChange={(e) => updateFormData('itinerary_name', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
             placeholder="e.g., Arabian & Safari Escape"
           />
         </div>
@@ -355,7 +355,7 @@ function BasicInfoStep({ formData, updateFormData }: { formData: any; updateForm
             type="text"
             value={formData.duration}
             onChange={(e) => updateFormData('duration', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
             placeholder="e.g., 10 days"
           />
         </div>
@@ -368,7 +368,7 @@ function BasicInfoStep({ formData, updateFormData }: { formData: any; updateForm
             type="text"
             value={formData.destinations}
             onChange={(e) => updateFormData('destinations', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
             placeholder="e.g., Oman, Cambodia, Tanzania"
           />
         </div>
@@ -381,7 +381,7 @@ function BasicInfoStep({ formData, updateFormData }: { formData: any; updateForm
             type="url"
             value={formData.hero}
             onChange={(e) => updateFormData('hero', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
             placeholder="https://example.com/hero-image.jpg"
           />
         </div>
@@ -394,7 +394,7 @@ function BasicInfoStep({ formData, updateFormData }: { formData: any; updateForm
             value={formData.overview}
             onChange={(e) => updateFormData('overview', e.target.value)}
             rows={4}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+            className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
             placeholder="Describe the itinerary..."
           />
         </div>
@@ -468,7 +468,7 @@ function PricingStep({ formData, updateFormData }: { formData: any; updateFormDa
           <h3 className="text-lg font-arpona font-bold text-gray-900">Departure Dates & Pricing</h3>
           <button
             onClick={addPricingDate}
-            className="flex items-center gap-2 px-4 py-2 bg-[#A5C8CE] text-white rounded-lg hover:bg-[#8bb3b8] transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors"
           >
             <Plus className="w-4 h-4" />
             Add Date
@@ -476,11 +476,11 @@ function PricingStep({ formData, updateFormData }: { formData: any; updateFormDa
         </div>
 
         {pricingDates.length === 0 ? (
-          <div className="text-center py-8 border-2 border-dashed border-gray-300 rounded-lg">
+          <div className="text-center py-8 border-2 border-dashed border-gray-300">
             <p className="text-gray-600 font-inter mb-4">No pricing dates added yet.</p>
             <button
               onClick={addPricingDate}
-              className="flex items-center gap-2 px-4 py-2 bg-[#A5C8CE] text-white rounded-lg hover:bg-[#8bb3b8] transition-colors mx-auto"
+              className="flex items-center gap-2 px-4 py-2 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors mx-auto"
             >
               <Plus className="w-4 h-4" />
               Add First Date
@@ -489,12 +489,12 @@ function PricingStep({ formData, updateFormData }: { formData: any; updateFormDa
         ) : (
           <div className="space-y-6">
             {pricingDates.map((date, index) => (
-              <div key={date.id} className="border border-gray-200 rounded-lg p-6">
+              <div key={date.id} className="border border-gray-200 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-lg font-arpona font-bold text-gray-900">Date {index + 1}</h4>
                   <button
                     onClick={() => removePricingDate(index)}
-                    className="flex items-center gap-2 px-3 py-1 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    className="flex items-center gap-2 px-3 py-1 text-red-600 hover:bg-red-50 transition-colors"
                   >
                     <Trash className="w-4 h-4" />
                     Remove
@@ -510,7 +510,7 @@ function PricingStep({ formData, updateFormData }: { formData: any; updateFormDa
                       type="text"
                       value={date.date}
                       onChange={(e) => updatePricingDate(index, 'date', e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
                       placeholder="e.g., October 2026"
                     />
                   </div>
@@ -520,7 +520,7 @@ function PricingStep({ formData, updateFormData }: { formData: any; updateFormDa
                   <h5 className="text-md font-arpona font-bold text-gray-900 mb-4">Pricing by Category</h5>
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {['Luxury', 'Exclusive', 'Unforgettable'].map((category) => (
-                      <div key={category} className="border border-gray-200 rounded-lg p-4">
+                      <div key={category} className="border border-gray-200 p-4">
                         <h6 className="text-sm font-arpona font-bold text-gray-900 mb-3">{category}</h6>
                         
                         <div className="space-y-3">
@@ -532,7 +532,7 @@ function PricingStep({ formData, updateFormData }: { formData: any; updateFormDa
                               type="number"
                               value={date.adult_pricing[category]}
                               onChange={(e) => updatePricing(index, category, 'adult', parseInt(e.target.value) || 0)}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+                              className="w-full px-3 py-2 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
                               placeholder="0"
                             />
                           </div>
@@ -545,7 +545,7 @@ function PricingStep({ formData, updateFormData }: { formData: any; updateFormDa
                               type="number"
                               value={date.children_pricing[category]}
                               onChange={(e) => updatePricing(index, category, 'children', parseInt(e.target.value) || 0)}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+                              className="w-full px-3 py-2 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
                               placeholder="0"
                             />
                           </div>
@@ -655,7 +655,7 @@ function DestinationsStep({ formData, updateFormData }: { formData: any; updateF
           <h3 className="text-lg font-arpona font-bold text-gray-900">Journey Highlights</h3>
           <button
             onClick={addJourneyHighlight}
-            className="flex items-center gap-2 px-4 py-2 bg-[#A5C8CE] text-white rounded-lg hover:bg-[#8bb3b8] transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors"
           >
             <Plus className="w-4 h-4" />
             Add Highlight
@@ -669,13 +669,13 @@ function DestinationsStep({ formData, updateFormData }: { formData: any; updateF
                 type="text"
                 value={highlight}
                 onChange={(e) => updateJourneyHighlight(index, e.target.value)}
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+                className="flex-1 px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
                 placeholder="e.g., Luxury beach stay in Salalah"
               />
               {journeyHighlights.length > 1 && (
                 <button
                   onClick={() => removeJourneyHighlight(index)}
-                  className="flex items-center gap-2 px-3 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                  className="flex items-center gap-2 px-3 py-3 text-red-600 hover:bg-red-50 transition-colors"
                 >
                   <Trash className="w-4 h-4" />
                 </button>
@@ -691,7 +691,7 @@ function DestinationsStep({ formData, updateFormData }: { formData: any; updateF
           <h3 className="text-lg font-arpona font-bold text-gray-900">Daily Itinerary</h3>
           <button
             onClick={addDay}
-            className="flex items-center gap-2 px-4 py-2 bg-[#A5C8CE] text-white rounded-lg hover:bg-[#8bb3b8] transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors"
           >
             <Plus className="w-4 h-4" />
             Add Day
@@ -700,13 +700,13 @@ function DestinationsStep({ formData, updateFormData }: { formData: any; updateF
 
         <div className="space-y-6">
           {dailyItinerary.map((day, index) => (
-            <div key={index} className="border border-gray-200 rounded-lg p-6">
+            <div key={index} className="border border-gray-200 p-6">
               <div className="flex items-center justify-between mb-4">
                 <h4 className="text-lg font-arpona font-bold text-gray-900">{day.days}</h4>
                 {dailyItinerary.length > 1 && (
                   <button
                     onClick={() => removeDay(index)}
-                    className="flex items-center gap-2 px-3 py-1 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    className="flex items-center gap-2 px-3 py-1 text-red-600 hover:bg-red-50 transition-colors"
                   >
                     <Trash className="w-4 h-4" />
                     Remove Day
@@ -723,7 +723,7 @@ function DestinationsStep({ formData, updateFormData }: { formData: any; updateF
                     type="text"
                     value={day.title}
                     onChange={(e) => updateDay(index, 'title', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
                     placeholder="e.g., Arrival in Oman"
                   />
                 </div>
@@ -736,7 +736,7 @@ function DestinationsStep({ formData, updateFormData }: { formData: any; updateF
                     value={day.description}
                     onChange={(e) => updateDay(index, 'description', e.target.value)}
                     rows={3}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
                     placeholder="Describe the day's activities..."
                   />
                 </div>
@@ -752,7 +752,7 @@ function DestinationsStep({ formData, updateFormData }: { formData: any; updateF
           <h3 className="text-lg font-arpona font-bold text-gray-900">Good to Know</h3>
           <button
             onClick={addGoodToKnow}
-            className="flex items-center gap-2 px-4 py-2 bg-[#A5C8CE] text-white rounded-lg hover:bg-[#8bb3b8] transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors"
           >
             <Plus className="w-4 h-4" />
             Add FAQ
@@ -761,13 +761,13 @@ function DestinationsStep({ formData, updateFormData }: { formData: any; updateF
 
         <div className="space-y-4">
           {goodToKnow.map((item, index) => (
-            <div key={index} className="border border-gray-200 rounded-lg p-6">
+            <div key={index} className="border border-gray-200 p-6">
               <div className="flex items-center justify-between mb-4">
                 <h4 className="text-md font-arpona font-bold text-gray-900">FAQ {index + 1}</h4>
                 {goodToKnow.length > 1 && (
                   <button
                     onClick={() => removeGoodToKnow(index)}
-                    className="flex items-center gap-2 px-3 py-1 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    className="flex items-center gap-2 px-3 py-1 text-red-600 hover:bg-red-50 transition-colors"
                   >
                     <Trash className="w-4 h-4" />
                     Remove
@@ -784,7 +784,7 @@ function DestinationsStep({ formData, updateFormData }: { formData: any; updateF
                     type="text"
                     value={item.question}
                     onChange={(e) => updateGoodToKnow(index, 'question', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
                     placeholder="e.g., What to pack?"
                   />
                 </div>
@@ -797,7 +797,7 @@ function DestinationsStep({ formData, updateFormData }: { formData: any; updateF
                     value={item.answer}
                     onChange={(e) => updateGoodToKnow(index, 'answer', e.target.value)}
                     rows={3}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
                     placeholder="Provide the answer..."
                   />
                 </div>
@@ -852,12 +852,12 @@ function HotelsStep({ formData, updateFormData }: { formData: any; updateFormDat
       
       <div className="space-y-8">
         {hotelsByCategories.types.map((category: any, categoryIndex: number) => (
-          <div key={category.category} className="border border-gray-200 rounded-lg p-6">
+          <div key={category.category} className="border border-gray-200 p-6">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-arpona font-bold text-gray-900">{category.category} Hotels</h3>
               <button
                 onClick={() => addHotel(categoryIndex)}
-                className="flex items-center gap-2 px-4 py-2 bg-[#A5C8CE] text-white rounded-lg hover:bg-[#8bb3b8] transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors"
               >
                 <Plus className="w-4 h-4" />
                 Add Hotel
@@ -865,11 +865,11 @@ function HotelsStep({ formData, updateFormData }: { formData: any; updateFormDat
             </div>
 
             {category.hotels.length === 0 ? (
-              <div className="text-center py-8 border-2 border-dashed border-gray-300 rounded-lg">
+              <div className="text-center py-8 border-2 border-dashed border-gray-300">
                 <p className="text-gray-600 font-inter mb-4">No hotels added for {category.category} category.</p>
                 <button
                   onClick={() => addHotel(categoryIndex)}
-                  className="flex items-center gap-2 px-4 py-2 bg-[#A5C8CE] text-white rounded-lg hover:bg-[#8bb3b8] transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors"
                 >
                   <Plus className="w-4 h-4" />
                   Add First Hotel
@@ -878,12 +878,12 @@ function HotelsStep({ formData, updateFormData }: { formData: any; updateFormDat
             ) : (
               <div className="space-y-6">
                 {category.hotels.map((hotel: any, hotelIndex: number) => (
-                  <div key={hotelIndex} className="border border-gray-200 rounded-lg p-6">
+                  <div key={hotelIndex} className="border border-gray-200 p-6">
                     <div className="flex items-center justify-between mb-4">
                       <h4 className="text-lg font-arpona font-bold text-gray-900">Hotel {hotelIndex + 1}</h4>
                       <button
                         onClick={() => removeHotel(categoryIndex, hotelIndex)}
-                        className="flex items-center gap-2 px-3 py-1 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        className="flex items-center gap-2 px-3 py-1 text-red-600 hover:bg-red-50 transition-colors"
                       >
                         <Trash className="w-4 h-4" />
                         Remove
@@ -899,7 +899,7 @@ function HotelsStep({ formData, updateFormData }: { formData: any; updateFormDat
                           type="text"
                           value={hotel.day}
                           onChange={(e) => updateHotel(categoryIndex, hotelIndex, 'day', e.target.value)}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
                           placeholder="e.g., 1"
                         />
                       </div>
@@ -912,7 +912,7 @@ function HotelsStep({ formData, updateFormData }: { formData: any; updateFormDat
                           type="text"
                           value={hotel.city}
                           onChange={(e) => updateHotel(categoryIndex, hotelIndex, 'city', e.target.value)}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
                           placeholder="e.g., Salalah"
                         />
                       </div>
@@ -925,7 +925,7 @@ function HotelsStep({ formData, updateFormData }: { formData: any; updateFormDat
                           type="text"
                           value={hotel.name}
                           onChange={(e) => updateHotel(categoryIndex, hotelIndex, 'name', e.target.value)}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
                           placeholder="e.g., Al Baleed Resort Salalah By Anantara"
                         />
                       </div>
@@ -938,7 +938,7 @@ function HotelsStep({ formData, updateFormData }: { formData: any; updateFormDat
                           type="text"
                           value={hotel.country}
                           onChange={(e) => updateHotel(categoryIndex, hotelIndex, 'country', e.target.value)}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+                          className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
                           placeholder="e.g., Oman"
                         />
                       </div>
@@ -960,7 +960,7 @@ function ReviewStep({ formData }: { formData: any }) {
       <h2 className="text-2xl font-arpona font-bold text-gray-900 mb-6">Review & Save</h2>
       
       {/* Basic Information */}
-      <div className="border border-gray-200 rounded-lg p-6">
+      <div className="border border-gray-200 p-6">
         <h3 className="text-lg font-arpona font-bold text-gray-900 mb-4">Basic Information</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -983,7 +983,7 @@ function ReviewStep({ formData }: { formData: any }) {
       </div>
 
       {/* Journey Highlights */}
-      <div className="border border-gray-200 rounded-lg p-6">
+      <div className="border border-gray-200 p-6">
         <h3 className="text-lg font-arpona font-bold text-gray-900 mb-4">Journey Highlights</h3>
         {formData.journey_highlights && formData.journey_highlights.length > 0 && formData.journey_highlights[0] ? (
           <ul className="list-disc list-inside space-y-2">
@@ -997,7 +997,7 @@ function ReviewStep({ formData }: { formData: any }) {
       </div>
 
       {/* Daily Itinerary */}
-      <div className="border border-gray-200 rounded-lg p-6">
+      <div className="border border-gray-200 p-6">
         <h3 className="text-lg font-arpona font-bold text-gray-900 mb-4">Daily Itinerary</h3>
         {formData.daily_itinerary && formData.daily_itinerary.length > 0 ? (
           <div className="space-y-4">
@@ -1015,12 +1015,12 @@ function ReviewStep({ formData }: { formData: any }) {
       </div>
 
       {/* Pricing */}
-      <div className="border border-gray-200 rounded-lg p-6">
+      <div className="border border-gray-200 p-6">
         <h3 className="text-lg font-arpona font-bold text-gray-900 mb-4">Pricing & Dates</h3>
         {formData.pricing_dates && formData.pricing_dates.length > 0 ? (
           <div className="space-y-4">
             {formData.pricing_dates.map((date: any, index: number) => (
-              <div key={index} className="border border-gray-200 rounded-lg p-4">
+              <div key={index} className="border border-gray-200 p-4">
                 <h4 className="font-arpona font-bold text-gray-900 mb-3">{date.date}</h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {['Luxury', 'Exclusive', 'Unforgettable'].map((category) => (
@@ -1042,17 +1042,17 @@ function ReviewStep({ formData }: { formData: any }) {
       </div>
 
       {/* Hotels */}
-      <div className="border border-gray-200 rounded-lg p-6">
+      <div className="border border-gray-200 p-6">
         <h3 className="text-lg font-arpona font-bold text-gray-900 mb-4">Hotels by Category</h3>
         {formData.hotels_by_categories && formData.hotels_by_categories.types ? (
           <div className="space-y-6">
             {formData.hotels_by_categories.types.map((category: any, categoryIndex: number) => (
-              <div key={category.category} className="border border-gray-200 rounded-lg p-4">
+              <div key={category.category} className="border border-gray-200 p-4">
                 <h4 className="font-arpona font-bold text-gray-900 mb-3">{category.category}</h4>
                 {category.hotels && category.hotels.length > 0 ? (
                   <div className="space-y-3">
                     {category.hotels.map((hotel: any, hotelIndex: number) => (
-                      <div key={hotelIndex} className="bg-gray-50 rounded-lg p-3">
+                      <div key={hotelIndex} className="bg-gray-50 p-3">
                         <p className="text-sm font-inter font-bold text-gray-900">
                           Day {hotel.day}: {hotel.name}
                         </p>
@@ -1072,7 +1072,7 @@ function ReviewStep({ formData }: { formData: any }) {
       </div>
 
       {/* Good to Know */}
-      <div className="border border-gray-200 rounded-lg p-6">
+      <div className="border border-gray-200 p-6">
         <h3 className="text-lg font-arpona font-bold text-gray-900 mb-4">Good to Know</h3>
         {formData.good_to_know && formData.good_to_know.length > 0 && formData.good_to_know[0].question ? (
           <div className="space-y-4">
@@ -1088,7 +1088,7 @@ function ReviewStep({ formData }: { formData: any }) {
         )}
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <div className="bg-blue-50 border border-blue-200 p-4">
         <p className="text-blue-800 font-inter text-sm">
           <strong>Note:</strong> Click "Save Itinerary" to create this itinerary. You can edit it later from the main list.
         </p>

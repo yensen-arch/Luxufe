@@ -101,7 +101,7 @@ export default function BrandSelector({ onBrandSelect, selectedBrand }: BrandSel
         <button
           type="button"
           onClick={handleToggle}
-          className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm hover:border-[#A5C8CE] focus:outline-none focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent transition-colors"
+          className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-300 shadow-sm hover:border-[#A5C8CE] focus:outline-none focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent transition-colors"
         >
           <span className={`font-inter text-sm ${selectedBrand ? 'text-gray-900' : 'text-gray-500'}`}>
             {selectedBrand ? selectedBrand.name : 'Choose a brand...'}
@@ -110,7 +110,7 @@ export default function BrandSelector({ onBrandSelect, selectedBrand }: BrandSel
         </button>
 
         {isOpen && (
-          <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-hidden">
+          <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300  shadow-lg max-h-60 overflow-hidden">
             {/* Search Input */}
             <div className="p-3 border-b border-gray-200">
               <div className="relative">
@@ -120,7 +120,7 @@ export default function BrandSelector({ onBrandSelect, selectedBrand }: BrandSel
                   placeholder="Search brands..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent font-inter text-sm"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent font-inter text-sm"
                 />
               </div>
             </div>
@@ -174,7 +174,7 @@ export default function BrandSelector({ onBrandSelect, selectedBrand }: BrandSel
 
       {/* Selected Brand Info */}
       {selectedBrand && (
-        <div className="mt-3 p-3 bg-gray-50 rounded-lg">
+        <div className="mt-3 p-3 bg-gray-50 ">
           <div className="flex items-center space-x-3">
             <div>
               <p className="font-inter font-bold text-sm text-gray-900">

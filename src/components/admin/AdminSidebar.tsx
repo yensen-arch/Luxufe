@@ -91,7 +91,7 @@ export default function AdminSidebar({
         </div>
         <button
           onClick={toggleSidebar}
-          className="p-1 rounded-lg hover:bg-gray-100 transition-colors"
+          className="p-1 hover:bg-gray-100 transition-colors"
         >
           {isCollapsed ? <Menu className="w-5 h-5 text-gray-600" /> : <X className="w-5 h-5 text-gray-600" />}
         </button>
@@ -126,7 +126,7 @@ export default function AdminSidebar({
             <button
               key={item.id}
               onClick={() => onSectionChange(item.id)}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
+              className={`w-full flex items-center space-x-3 px-4 py-3 text-left transition-colors ${
                 isActive 
                   ? 'bg-[#A5C8CE] text-white' 
                   : 'text-gray-700 hover:bg-gray-100'
@@ -153,7 +153,7 @@ export default function AdminSidebar({
       <div className="p-4 border-t border-gray-200">
         <button
           onClick={onSignOut}
-          className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+          className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 transition-colors"
           title={isCollapsed ? 'Sign Out' : undefined}
         >
           <LogOut className="w-5 h-5 text-gray-500 flex-shrink-0" />
