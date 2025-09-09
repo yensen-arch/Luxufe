@@ -1195,3 +1195,134 @@ export const getLandItineraryDurationRanges = async (): Promise<string[]> => {
   }
 };
 
+// Create a new land itinerary
+export const createLandItinerary = async (itineraryData: Omit<LandItinerary, 'id'>): Promise<LandItinerary | null> => {
+  try {
+    console.log('🔍 createLandItinerary: Creating new itinerary:', itineraryData);
+    
+    const { data, error } = await supabase
+      .from('land_itineraries')
+      .insert([itineraryData])
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error creating land itinerary:', error);
+      return null;
+    }
+
+    console.log('✅ createLandItinerary: Successfully created itinerary:', data);
+    return data;
+  } catch (error) {
+    console.error('Error creating land itinerary:', error);
+    return null;
+  }
+};
+
+// Update an existing land itinerary
+export const updateLandItinerary = async (id: number, itineraryData: Partial<LandItinerary>): Promise<LandItinerary | null> => {
+  try {
+    console.log('🔍 updateLandItinerary: Updating itinerary:', id, itineraryData);
+    
+    const { data, error } = await supabase
+      .from('land_itineraries')
+      .update(itineraryData)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error updating land itinerary:', error);
+      return null;
+    }
+
+    console.log('✅ updateLandItinerary: Successfully updated itinerary:', data);
+    return data;
+  } catch (error) {
+    console.error('Error updating land itinerary:', error);
+    return null;
+  }
+};
+
+// Delete a land itinerary
+export const deleteLandItinerary = async (id: number): Promise<boolean> => {
+  try {
+    console.log('🔍 deleteLandItinerary: Deleting itinerary:', id);
+    
+    const { error } = await supabase
+      .from('land_itineraries')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error('Error deleting land itinerary:', error);
+      return false;
+    }
+
+    console.log('✅ deleteLandItinerary: Successfully deleted itinerary:', id);
+    return true;
+  } catch (error) {
+    console.error('Error deleting land itinerary:', error);
+    return false;
+  }
+};
+
+// Create land itinerary dates
+export const createLandItineraryDates = async (dates: LandItineraryDate[]): Promise<LandItineraryDate[]> => {
+  try {
+    console.log('🔍 createLandItineraryDates: Creating dates:', dates);
+    
+    const { data, error } = await supabase
+      .from('land_itineraries_dates')
+      .insert(dates)
+      .select();
+
+    if (error) {
+      console.error('Error creating land itinerary dates:', error);
+      return [];
+    }
+
+    console.log('✅ createLandItineraryDates: Successfully created dates:', data);
+    return data || [];
+  } catch (error) {
+    console.error('Error creating land itinerary dates:', error);
+    return [];
+  }
+};
+
+// Update land itinerary dates
+export const updateLandItineraryDates = async (itineraryId: number, dates: LandItineraryDate[]): Promise<boolean> => {
+  try {
+    console.log('🔍 updateLandItineraryDates: Updating dates for itinerary:', itineraryId);
+    
+    // First, delete existing dates for this itinerary
+    const { error: deleteError } = await supabase
+      .from('land_itineraries_dates')
+      .delete()
+      .eq('linked_itinerary_id', itineraryId);
+
+    if (deleteError) {
+      console.error('Error deleting existing dates:', deleteError);
+      return false;
+    }
+
+    // Then insert new dates
+    if (dates.length > 0) {
+      const { error: insertError } = await supabase
+        .from('land_itineraries_dates')
+        .insert(dates);
+
+      if (insertError) {
+        console.error('Error inserting new dates:', insertError);
+        return false;
+      }
+    }
+
+    console.log('✅ updateLandItineraryDates: Successfully updated dates for itinerary:', itineraryId);
+    return true;
+  } catch (error) {
+    console.error('Error updating land itinerary dates:', error);
+    return false;
+  }
+};
+

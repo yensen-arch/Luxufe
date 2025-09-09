@@ -1,7 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Plus, Edit, Trash, Save, X } from "lucide-react";
-import { LandItinerary, LandItineraryDate, getAllLandItineraries, getLandItineraryDates } from "@/lib/database";
+import { 
+  LandItinerary, 
+  LandItineraryDate, 
+  getAllLandItineraries, 
+  getLandItineraryDates,
+  createLandItinerary,
+  updateLandItinerary,
+  deleteLandItinerary,
+  createLandItineraryDates,
+  updateLandItineraryDates
+} from "@/lib/database";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ManageLandItinerariesProps {}
@@ -9,6 +19,7 @@ interface ManageLandItinerariesProps {}
 export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
   const [itineraries, setItineraries] = useState<LandItinerary[]>([]);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [mode, setMode] = useState<'list' | 'create' | 'edit'>('list');
   const [selectedItinerary, setSelectedItinerary] = useState<LandItinerary | null>(null);
   const [currentStep, setCurrentStep] = useState(1);
@@ -18,6 +29,8 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
     destinations: '',
     duration: '',
     overview: '',
+    map: '',
+    gallery: '',
     journey_highlights: [''],
     daily_itinerary: [{ days: 'Day 1', title: '', description: '' }],
     good_to_know: [{ question: '', answer: '' }],
@@ -58,6 +71,8 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
       destinations: '',
       duration: '',
       overview: '',
+      map: '',
+      gallery: '',
       journey_highlights: [''],
       daily_itinerary: [{ days: 'Day 1', title: '', description: '' }],
       good_to_know: [{ question: '', answer: '' }],
@@ -90,6 +105,30 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
     setMode('list');
     setSelectedItinerary(null);
     setCurrentStep(1);
+  };
+
+  const handleDeleteItinerary = async (itinerary: LandItinerary) => {
+    if (!confirm(`Are you sure you want to delete "${itinerary.itinerary_name}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const success = await deleteLandItinerary(itinerary.id);
+      
+      if (success) {
+        // Refresh the itineraries list
+        await fetchItineraries();
+        alert('Itinerary deleted successfully!');
+      } else {
+        alert('Error deleting itinerary. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error deleting itinerary:', error);
+      alert('Error deleting itinerary. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const nextStep = async () => {
@@ -129,15 +168,71 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
 
   const handleSaveItinerary = async () => {
     try {
-      // TODO: Implement save functionality
+      setSaving(true);
       console.log('Saving itinerary:', formData);
       
-      // For now, just show a success message and go back to list
-      alert('Itinerary saved successfully! (Save functionality to be implemented)');
+      // Prepare the itinerary data for saving
+      const itineraryData = {
+        itinerary_name: formData.itinerary_name,
+        hero: formData.hero,
+        destinations: formData.destinations,
+        duration: formData.duration,
+        overview: formData.overview,
+        map: formData.map || '',
+        journey_highlights: formData.journey_highlights.filter((h: string) => h.trim() !== ''),
+        daily_itinerary: formData.daily_itinerary.filter((day: any) => day.title.trim() !== '' || day.description.trim() !== ''),
+        gallery: formData.gallery || '',
+        good_to_know: formData.good_to_know.filter((item: any) => item.question.trim() !== '' || item.answer.trim() !== ''),
+        hotels_by_categories: formData.hotels_by_categories
+      };
+
+      let savedItinerary: LandItinerary | null = null;
+
+      if (mode === 'create') {
+        // Create new itinerary
+        savedItinerary = await createLandItinerary(itineraryData);
+        if (!savedItinerary) {
+          throw new Error('Failed to create itinerary');
+        }
+      } else if (mode === 'edit' && selectedItinerary) {
+        // Update existing itinerary
+        savedItinerary = await updateLandItinerary(selectedItinerary.id, itineraryData);
+        if (!savedItinerary) {
+          throw new Error('Failed to update itinerary');
+        }
+      }
+
+      // Save pricing dates if they exist and are valid
+      if (formData.pricing_dates && formData.pricing_dates.length > 0 && savedItinerary) {
+        const datesData = formData.pricing_dates
+          .filter((date: any) => date.date && date.date.trim() !== '') // Only include dates with valid date labels
+          .map((date: any) => ({
+            linked_itinerary_id: savedItinerary!.id,
+            date: date.date,
+            adult_pricing: date.adult_pricing || {},
+            children_pricing: date.children_pricing || {}
+          }));
+
+        if (datesData.length > 0) {
+          if (mode === 'create') {
+            await createLandItineraryDates(datesData);
+          } else if (mode === 'edit') {
+            await updateLandItineraryDates(savedItinerary.id, datesData);
+          }
+        }
+      }
+
+      // Refresh the itineraries list
+      await fetchItineraries();
+      
+      // Show success message and go back to list
+      alert(`Itinerary ${mode === 'create' ? 'created' : 'updated'} successfully!`);
       handleBackToList();
     } catch (error) {
       console.error('Error saving itinerary:', error);
       alert('Error saving itinerary. Please try again.');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -239,12 +334,17 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
 
           <button
             onClick={nextStep}
-            className="flex items-center gap-2 px-6 py-3 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors"
+            disabled={saving}
+            className="flex items-center gap-2 px-6 py-3 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {currentStep === totalSteps ? (
               <>
-                <Save className="w-5 h-5" />
-                Save Itinerary
+                {saving ? (
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                ) : (
+                  <Save className="w-5 h-5" />
+                )}
+                {saving ? 'Saving...' : 'Save Itinerary'}
               </>
             ) : (
               <>
@@ -313,7 +413,10 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
                       <Edit className="w-4 h-4" />
                       Edit
                     </button>
-                    <button className="flex items-center gap-2 px-4 py-2 border border-red-300 text-red-700 hover:bg-red-50 transition-colors">
+                    <button 
+                      onClick={() => handleDeleteItinerary(itinerary)}
+                      className="flex items-center gap-2 px-4 py-2 border border-red-300 text-red-700 hover:bg-red-50 transition-colors"
+                    >
                       <Trash className="w-4 h-4" />
                       Delete
                     </button>
@@ -384,6 +487,32 @@ function BasicInfoStep({ formData, updateFormData }: { formData: any; updateForm
             onChange={(e) => updateFormData('hero', e.target.value)}
             className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
             placeholder="https://example.com/hero-image.jpg"
+          />
+        </div>
+
+        <div className="md:col-span-2">
+          <label className="block text-sm font-inter font-bold text-gray-700 mb-2">
+            Map Data (JSON string)
+          </label>
+          <input
+            type="text"
+            value={formData.map}
+            onChange={(e) => updateFormData('map', e.target.value)}
+            className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+            placeholder='[{"latitude": "23.5", "longitude": "58.4", "key_dates": "Day 1", "day_number": 1}]'
+          />
+        </div>
+
+        <div className="md:col-span-2">
+          <label className="block text-sm font-inter font-bold text-gray-700 mb-2">
+            Gallery Images (JSON array of URLs)
+          </label>
+          <input
+            type="text"
+            value={formData.gallery}
+            onChange={(e) => updateFormData('gallery', e.target.value)}
+            className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+            placeholder='["https://example.com/image1.jpg", "https://example.com/image2.jpg"]'
           />
         </div>
 
