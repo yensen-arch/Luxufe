@@ -12,6 +12,8 @@ import {
   createLandItineraryDates,
   updateLandItineraryDates
 } from "@/lib/database";
+import BrandSelector from "./BrandSelector";
+import HotelSelector from "./HotelSelector";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ManageLandItinerariesProps {}
@@ -304,9 +306,6 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
             <span className="text-sm font-inter font-bold text-gray-700">
               Step {currentStep} of {totalSteps}
             </span>
-            <span className="text-sm font-inter text-gray-500">
-              {Math.round((currentStep / totalSteps) * 100)}% Complete
-            </span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div 
@@ -541,14 +540,14 @@ function PricingStep({ formData, updateFormData }: { formData: any; updateFormDa
       id: Date.now(),
       date: '',
       adult_pricing: {
-        Luxury: 0,
-        Exclusive: 0,
-        Unforgettable: 0
+        Luxury: '',
+        Exclusive: '',
+        Unforgettable: ''
       },
       children_pricing: {
-        Luxury: 0,
-        Exclusive: 0,
-        Unforgettable: 0
+        Luxury: '',
+        Exclusive: '',
+        Unforgettable: ''
       }
     };
     setPricingDates([...pricingDates, newDate]);
@@ -572,7 +571,7 @@ function PricingStep({ formData, updateFormData }: { formData: any; updateFormDa
     updateFormData('pricing_dates', updated);
   };
 
-  const updatePricing = (index: number, category: string, type: 'adult' | 'children', value: number) => {
+  const updatePricing = (index: number, category: string, type: 'adult' | 'children', value: string) => {
     const updated = pricingDates.map((date, i) => {
       if (i === index) {
         return {
@@ -659,11 +658,11 @@ function PricingStep({ formData, updateFormData }: { formData: any; updateFormDa
                               Adult Price
                             </label>
                             <input
-                              type="number"
+                              type="text"
                               value={date.adult_pricing[category]}
-                              onChange={(e) => updatePricing(index, category, 'adult', parseInt(e.target.value) || 0)}
+                              onChange={(e) => updatePricing(index, category, 'adult', e.target.value)}
                               className="w-full px-3 py-2 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
-                              placeholder="0"
+                              placeholder=""
                             />
                           </div>
                           
@@ -672,11 +671,11 @@ function PricingStep({ formData, updateFormData }: { formData: any; updateFormDa
                               Children Price
                             </label>
                             <input
-                              type="number"
+                              type="text"
                               value={date.children_pricing[category]}
-                              onChange={(e) => updatePricing(index, category, 'children', parseInt(e.target.value) || 0)}
+                              onChange={(e) => updatePricing(index, category, 'children', e.target.value)}
                               className="w-full px-3 py-2 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
-                              placeholder="0"
+                              placeholder=""
                             />
                           </div>
                         </div>
@@ -955,7 +954,9 @@ function HotelsStep({ formData, updateFormData }: { formData: any; updateFormDat
       day: '',
       city: '',
       name: '',
-      country: ''
+      country: '',
+      selectedBrand: null,
+      selectedHotel: null
     };
     updated.types[categoryIndex].hotels.push(newHotel);
     setHotelsByCategories(updated);
@@ -969,9 +970,17 @@ function HotelsStep({ formData, updateFormData }: { formData: any; updateFormDat
     updateFormData('hotels_by_categories', updated);
   };
 
-  const updateHotel = (categoryIndex: number, hotelIndex: number, field: string, value: string) => {
+  const updateHotel = (categoryIndex: number, hotelIndex: number, field: string, value: any) => {
     const updated = { ...hotelsByCategories };
     updated.types[categoryIndex].hotels[hotelIndex][field] = value;
+    
+    // Auto-fill hotel data when a hotel is selected
+    if (field === 'selectedHotel' && value) {
+      updated.types[categoryIndex].hotels[hotelIndex].name = value.hotel_name;
+      updated.types[categoryIndex].hotels[hotelIndex].city = value.city;
+      updated.types[categoryIndex].hotels[hotelIndex].country = value.country;
+    }
+    
     setHotelsByCategories(updated);
     updateFormData('hotels_by_categories', updated);
   };
@@ -1034,42 +1043,57 @@ function HotelsStep({ formData, updateFormData }: { formData: any; updateFormDat
                         />
                       </div>
 
+                      <div className="md:col-span-2">
+                        <BrandSelector
+                          onBrandSelect={(brand) => updateHotel(categoryIndex, hotelIndex, 'selectedBrand', brand)}
+                          selectedBrand={hotel.selectedBrand}
+                        />
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <HotelSelector
+                          selectedBrand={hotel.selectedBrand}
+                          onHotelSelect={(hotelData) => updateHotel(categoryIndex, hotelIndex, 'selectedHotel', hotelData)}
+                          selectedHotel={hotel.selectedHotel}
+                        />
+                      </div>
+
                       <div>
                         <label className="block text-sm font-inter font-bold text-gray-700 mb-2">
-                          City
+                          City (Auto-filled)
                         </label>
                         <input
                           type="text"
                           value={hotel.city}
-                          onChange={(e) => updateHotel(categoryIndex, hotelIndex, 'city', e.target.value)}
-                          className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
-                          placeholder="e.g., Salalah"
+                          readOnly
+                          className="w-full px-4 py-3 border border-gray-300 bg-gray-100 text-gray-600"
+                          placeholder="Will be filled automatically"
                         />
                       </div>
 
                       <div className="md:col-span-2">
                         <label className="block text-sm font-inter font-bold text-gray-700 mb-2">
-                          Hotel Name
+                          Hotel Name (Auto-filled)
                         </label>
                         <input
                           type="text"
                           value={hotel.name}
-                          onChange={(e) => updateHotel(categoryIndex, hotelIndex, 'name', e.target.value)}
-                          className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
-                          placeholder="e.g., Al Baleed Resort Salalah By Anantara"
+                          readOnly
+                          className="w-full px-4 py-3 border border-gray-300 bg-gray-100 text-gray-600"
+                          placeholder="Will be filled automatically"
                         />
                       </div>
 
                       <div>
                         <label className="block text-sm font-inter font-bold text-gray-700 mb-2">
-                          Country
+                          Country (Auto-filled)
                         </label>
                         <input
                           type="text"
                           value={hotel.country}
-                          onChange={(e) => updateHotel(categoryIndex, hotelIndex, 'country', e.target.value)}
-                          className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
-                          placeholder="e.g., Oman"
+                          readOnly
+                          className="w-full px-4 py-3 border border-gray-300 bg-gray-100 text-gray-600"
+                          placeholder="Will be filled automatically"
                         />
                       </div>
                     </div>
