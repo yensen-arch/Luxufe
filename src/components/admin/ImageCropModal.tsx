@@ -11,6 +11,7 @@ interface ImageCropModalProps {
   imageFile: File
   onImageUploaded: (imageUrl: string) => void
   aspectRatio?: number
+  currentImageUrl?: string // Current image URL to delete when replacing
 }
 
 export default function ImageCropModal({
@@ -18,7 +19,8 @@ export default function ImageCropModal({
   onClose,
   imageFile,
   onImageUploaded,
-  aspectRatio = 16 / 9 // Default to 16:9 for hero images
+  aspectRatio = 16 / 9, // Default to 16:9 for hero images
+  currentImageUrl
 }: ImageCropModalProps) {
   const [crop, setCrop] = useState<Crop>()
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
@@ -83,8 +85,6 @@ export default function ImageCropModal({
     const scaleX = image.naturalWidth / image.width
     const scaleY = image.naturalHeight / image.height
 
-    console.log('Scale factors:', scaleX, scaleY)
-
     // Scale the crop coordinates to match the actual image dimensions
     const scaledCrop = {
       x: pixelCrop.x * scaleX,
@@ -92,8 +92,6 @@ export default function ImageCropModal({
       width: pixelCrop.width * scaleX,
       height: pixelCrop.height * scaleY
     }
-
-    console.log('Scaled crop coordinates:', scaledCrop)
 
     // Set canvas size to match the crop area (use original crop size for output)
     canvas.width = pixelCrop.width
@@ -140,16 +138,35 @@ export default function ImageCropModal({
     })
   }
 
+  const deleteOldImage = async (imageUrl: string) => {
+    try {
+      // Extract the file path from the URL
+      const url = new URL(imageUrl)
+      const pathParts = url.pathname.split('/')
+      const fileName = pathParts[pathParts.length - 1]
+      
+      // Delete the old image from Supabase storage
+      const { error } = await supabase.storage
+        .from('brand_image')
+        .remove([fileName])
+      
+      if (error) {
+        console.error('Error deleting old image:', error)
+        // Don't throw error - we don't want to fail the upload if deletion fails
+      } else {
+        console.log('Successfully deleted old image:', fileName)
+      }
+    } catch (error) {
+      console.error('Error deleting old image:', error)
+      // Don't throw error - we don't want to fail the upload if deletion fails
+    }
+  }
+
   const handleCropAndUpload = async () => {
     if (!completedCrop || !imgRef.current) return
 
     setIsUploading(true)
     try {
-      // Debug logging
-      console.log('Displayed image dimensions:', imgRef.current.width, imgRef.current.height)
-      console.log('Natural image dimensions:', imgRef.current.naturalWidth, imgRef.current.naturalHeight)
-      console.log('Crop coordinates:', completedCrop)
-      
       // Use the actual image element from the ref instead of creating a new one
       const image = imgRef.current
       
@@ -180,6 +197,11 @@ export default function ImageCropModal({
         .getPublicUrl(fileName)
 
       if (urlData?.publicUrl) {
+        // Delete the old image if it exists
+        if (currentImageUrl) {
+          await deleteOldImage(currentImageUrl)
+        }
+        
         onImageUploaded(urlData.publicUrl)
         onClose()
       }

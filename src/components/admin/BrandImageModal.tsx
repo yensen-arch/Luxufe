@@ -302,6 +302,7 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
           imageFile={selectedFile}
           onImageUploaded={handleCroppedImageUploaded}
           aspectRatio={16 / 9} // Hero image aspect ratio
+          currentImageUrl={brand.brand_image} // Pass current image URL for deletion
         />
       )}
     </div>
