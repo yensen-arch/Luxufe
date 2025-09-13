@@ -78,17 +78,34 @@ export default function ImageCropModal({
 
     const maxSize = 2048
 
-    // Set canvas size to match the crop area
+    // react-image-crop provides pixel coordinates relative to the displayed image
+    // We need to scale them to the actual image dimensions
+    const scaleX = image.naturalWidth / image.width
+    const scaleY = image.naturalHeight / image.height
+
+    console.log('Scale factors:', scaleX, scaleY)
+
+    // Scale the crop coordinates to match the actual image dimensions
+    const scaledCrop = {
+      x: pixelCrop.x * scaleX,
+      y: pixelCrop.y * scaleY,
+      width: pixelCrop.width * scaleX,
+      height: pixelCrop.height * scaleY
+    }
+
+    console.log('Scaled crop coordinates:', scaledCrop)
+
+    // Set canvas size to match the crop area (use original crop size for output)
     canvas.width = pixelCrop.width
     canvas.height = pixelCrop.height
 
     // Draw the cropped image onto the canvas
     ctx.drawImage(
       image,
-      pixelCrop.x,
-      pixelCrop.y,
-      pixelCrop.width,
-      pixelCrop.height,
+      scaledCrop.x,
+      scaledCrop.y,
+      scaledCrop.width,
+      scaledCrop.height,
       0,
       0,
       pixelCrop.width,
@@ -128,8 +145,16 @@ export default function ImageCropModal({
 
     setIsUploading(true)
     try {
+      // Debug logging
+      console.log('Displayed image dimensions:', imgRef.current.width, imgRef.current.height)
+      console.log('Natural image dimensions:', imgRef.current.naturalWidth, imgRef.current.naturalHeight)
+      console.log('Crop coordinates:', completedCrop)
+      
+      // Use the actual image element from the ref instead of creating a new one
+      const image = imgRef.current
+      
       // Create cropped image blob
-      const croppedImageBlob = await getCroppedImg(imgRef.current, completedCrop)
+      const croppedImageBlob = await getCroppedImg(image, completedCrop)
       
       // Generate unique filename
       const timestamp = Date.now()
