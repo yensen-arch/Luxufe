@@ -1,7 +1,5 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { DragEndEvent } from '@dnd-kit/core';
-import { arrayMove } from '@dnd-kit/sortable';
 import { GalleryActions, GalleryCarousel, GalleryFooter } from './hotel-gallery';
 
 interface HotelGalleryStripProps {
@@ -35,9 +33,10 @@ export default function HotelGalleryStrip({
   const [selectedImagesToDelete, setSelectedImagesToDelete] = useState<string[]>([]);
   const [deleting, setDeleting] = useState(false);
 
-  // Rearrange mode states
-  const [rearrangeMode, setRearrangeMode] = useState(false);
-  const [rearrangedImages, setRearrangedImages] = useState<string[]>([]);
+  // Swap mode states
+  const [swapMode, setSwapMode] = useState(false);
+  const [swappedImages, setSwappedImages] = useState<string[]>([]);
+  const [selectedImageForSwap, setSelectedImageForSwap] = useState<string | null>(null);
   const [savingOrder, setSavingOrder] = useState(false);
 
   // Fetch gallery images
@@ -62,12 +61,12 @@ export default function HotelGalleryStrip({
     }
   }, [hotelName, selectedImageIndex]);
 
-  // Update carousel options when rearrange mode changes
+  // Update carousel options when swap mode changes
   useEffect(() => {
-    if (rearrangeMode) {
-      setRearrangedImages([...galleryImages]);
+    if (swapMode) {
+      setSwappedImages([...galleryImages]);
     }
-  }, [rearrangeMode, galleryImages]);
+  }, [swapMode, galleryImages]);
 
   const handleImageClick = (imageUrl: string, index: number) => {
     setSelectedIndex(index);
@@ -151,14 +150,16 @@ export default function HotelGalleryStrip({
     }
   };
 
-  // Toggle rearrange mode
-  const toggleRearrangeMode = () => {
-    if (rearrangeMode) {
-      setRearrangedImages([]);
-      setRearrangeMode(false);
+  // Toggle swap mode
+  const toggleSwapMode = () => {
+    if (swapMode) {
+      setSwappedImages([]);
+      setSelectedImageForSwap(null);
+      setSwapMode(false);
     } else {
-      setRearrangedImages([...galleryImages]);
-      setRearrangeMode(true);
+      setSwappedImages([...galleryImages]);
+      setSelectedImageForSwap(null);
+      setSwapMode(true);
       if (deleteMode) {
         setDeleteMode(false);
         setSelectedImagesToDelete([]);
@@ -166,32 +167,45 @@ export default function HotelGalleryStrip({
     }
   };
 
-  // Handle drag end for rearrange
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-
-    if (active.id !== over?.id) {
-      setRearrangedImages((items) => {
-        const oldIndex = items.findIndex(item => item === active.id);
-        const newIndex = items.findIndex(item => item === over?.id);
-        return arrayMove(items, oldIndex, newIndex);
-      });
+  // Handle image selection for swap
+  const handleImageSelectForSwap = (imageUrl: string, index: number) => {
+    if (!selectedImageForSwap) {
+      // First selection
+      setSelectedImageForSwap(imageUrl);
+    } else if (selectedImageForSwap === imageUrl) {
+      // Deselect if clicking the same image
+      setSelectedImageForSwap(null);
+    } else {
+      // Second selection - perform swap
+      const firstIndex = swappedImages.findIndex(url => url === selectedImageForSwap);
+      const secondIndex = swappedImages.findIndex(url => url === imageUrl);
+      
+      if (firstIndex !== -1 && secondIndex !== -1) {
+        const newImages = [...swappedImages];
+        // Swap the images
+        [newImages[firstIndex], newImages[secondIndex]] = [newImages[secondIndex], newImages[firstIndex]];
+        setSwappedImages(newImages);
+      }
+      
+      // Reset selection
+      setSelectedImageForSwap(null);
     }
   };
 
-  // Save rearranged order
+  // Save swapped order
   const handleSaveOrder = async () => {
-    if (rearrangedImages.length === 0) return;
+    if (swappedImages.length === 0) return;
 
     setSavingOrder(true);
     try {
       const { updateHotelGalleryOrder } = await import("@/lib/database");
-      const success = await updateHotelGalleryOrder(hotelName, rearrangedImages);
+      const success = await updateHotelGalleryOrder(hotelName, swappedImages);
       
       if (success) {
-        setGalleryImages(rearrangedImages);
-        setRearrangeMode(false);
-        setRearrangedImages([]);
+        setGalleryImages(swappedImages);
+        setSwapMode(false);
+        setSwappedImages([]);
+        setSelectedImageForSwap(null);
         alert('Gallery order saved successfully!');
       } else {
         alert('Failed to save gallery order. Please try again.');
@@ -224,12 +238,12 @@ export default function HotelGalleryStrip({
     <div className="w-full">
       {/* Action Controls */}
       <GalleryActions
-        rearrangeMode={rearrangeMode}
+        swapMode={swapMode}
         deleteMode={deleteMode}
         savingOrder={savingOrder}
         deleting={deleting}
         selectedImagesToDelete={selectedImagesToDelete}
-        onToggleRearrange={toggleRearrangeMode}
+        onToggleSwap={toggleSwapMode}
         onToggleDelete={toggleDeleteMode}
         onSaveOrder={handleSaveOrder}
         onDeleteImages={handleDeleteImages}
@@ -237,16 +251,17 @@ export default function HotelGalleryStrip({
 
       {/* Gallery Carousel */}
       <GalleryCarousel
-        galleryImages={rearrangeMode ? rearrangedImages : galleryImages}
+        galleryImages={swapMode ? swappedImages : galleryImages}
         hotelName={hotelName}
         selectedIndex={selectedIndex}
         deleteMode={deleteMode}
-        rearrangeMode={rearrangeMode}
+        swapMode={swapMode}
         selectedImagesToDelete={selectedImagesToDelete}
+        selectedImageForSwap={selectedImageForSwap}
         isImageInCard={isImageInCard}
         onImageClick={handleImageClick}
         onImageSelectForDeletion={handleImageSelectForDeletion}
-        onDragEnd={handleDragEnd}
+        onImageSelectForSwap={handleImageSelectForSwap}
       />
 
       {/* Footer with Save and Counter */}

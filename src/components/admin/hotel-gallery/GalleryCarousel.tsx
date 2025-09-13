@@ -1,22 +1,7 @@
 "use client";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  DragEndEvent,
-} from '@dnd-kit/core';
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
 import GalleryImage from "./GalleryImage";
 
 interface GalleryCarouselProps {
@@ -24,12 +9,13 @@ interface GalleryCarouselProps {
   hotelName: string;
   selectedIndex: number;
   deleteMode: boolean;
-  rearrangeMode: boolean;
+  swapMode: boolean;
   selectedImagesToDelete: string[];
+  selectedImageForSwap: string | null;
   isImageInCard: (imageUrl: string) => boolean;
   onImageClick: (imageUrl: string, index: number) => void;
   onImageSelectForDeletion: (imageUrl: string) => void;
-  onDragEnd: (event: DragEndEvent) => void;
+  onImageSelectForSwap: (imageUrl: string, index: number) => void;
 }
 
 export default function GalleryCarousel({
@@ -37,28 +23,22 @@ export default function GalleryCarousel({
   hotelName,
   selectedIndex,
   deleteMode,
-  rearrangeMode,
+  swapMode,
   selectedImagesToDelete,
+  selectedImageForSwap,
   isImageInCard,
   onImageClick,
   onImageSelectForDeletion,
-  onDragEnd
+  onImageSelectForSwap
 }: GalleryCarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
     align: "start",
     containScroll: "trimSnaps",
     dragFree: true,
-    skipSnaps: rearrangeMode, // Disable carousel dragging in rearrange mode
-    watchDrag: !rearrangeMode, // Disable drag detection in rearrange mode
+    skipSnaps: swapMode, // Disable carousel dragging in swap mode
+    watchDrag: !swapMode, // Disable drag detection in swap mode
   });
-
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -67,33 +47,6 @@ export default function GalleryCarousel({
   const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
-
-  // Update carousel options when rearrange mode changes
-  useEffect(() => {
-    if (emblaApi) {
-      if (rearrangeMode) {
-        // Disable carousel dragging in rearrange mode
-        emblaApi.reInit({
-          loop: false,
-          align: "start",
-          containScroll: "trimSnaps",
-          dragFree: false, // Disable drag free in rearrange mode
-          skipSnaps: true, // Skip snaps in rearrange mode
-          watchDrag: false, // Disable drag detection
-        });
-      } else {
-        // Re-enable normal carousel behavior
-        emblaApi.reInit({
-          loop: false,
-          align: "start",
-          containScroll: "trimSnaps",
-          dragFree: true,
-          skipSnaps: false,
-          watchDrag: true,
-        });
-      }
-    }
-  }, [rearrangeMode, emblaApi]);
 
   return (
     <div className="relative">
@@ -117,58 +70,29 @@ export default function GalleryCarousel({
 
       {/* Carousel Container */}
       <div 
-        className={`overflow-hidden ${rearrangeMode ? 'pointer-events-none' : ''}`} 
+        className={`overflow-hidden ${swapMode ? 'pointer-events-none' : ''}`} 
         ref={emblaRef}
-        style={rearrangeMode ? { touchAction: 'none' } : {}}
+        style={swapMode ? { touchAction: 'none' } : {}}
       >
-        {rearrangeMode ? (
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={onDragEnd}
-          >
-            <SortableContext
-              items={galleryImages}
-              strategy={verticalListSortingStrategy}
-            >
-              <div className="flex gap-2 p-2 pointer-events-auto">
-                {galleryImages.map((imageUrl, index) => (
-                  <GalleryImage
-                    key={imageUrl}
-                    imageUrl={imageUrl}
-                    index={index}
-                    hotelName={hotelName}
-                    isSelected={selectedIndex === index}
-                    isInCard={isImageInCard(imageUrl)}
-                    deleteMode={deleteMode}
-                    rearrangeMode={rearrangeMode}
-                    isSelectedForDeletion={selectedImagesToDelete.includes(imageUrl)}
-                    onImageClick={onImageClick}
-                    onImageSelectForDeletion={onImageSelectForDeletion}
-                  />
-                ))}
-              </div>
-            </SortableContext>
-          </DndContext>
-        ) : (
-          <div className="flex gap-2 p-2">
-            {galleryImages.map((imageUrl, index) => (
-              <GalleryImage
-                key={index}
-                imageUrl={imageUrl}
-                index={index}
-                hotelName={hotelName}
-                isSelected={selectedIndex === index}
-                isInCard={isImageInCard(imageUrl)}
-                deleteMode={deleteMode}
-                rearrangeMode={rearrangeMode}
-                isSelectedForDeletion={selectedImagesToDelete.includes(imageUrl)}
-                onImageClick={onImageClick}
-                onImageSelectForDeletion={onImageSelectForDeletion}
-              />
-            ))}
-          </div>
-        )}
+        <div className="flex gap-2 p-2 pointer-events-auto">
+          {galleryImages.map((imageUrl, index) => (
+            <GalleryImage
+              key={imageUrl}
+              imageUrl={imageUrl}
+              index={index}
+              hotelName={hotelName}
+              isSelected={selectedIndex === index}
+              isInCard={isImageInCard(imageUrl)}
+              deleteMode={deleteMode}
+              swapMode={swapMode}
+              isSelectedForDeletion={selectedImagesToDelete.includes(imageUrl)}
+              isSelectedForSwap={selectedImageForSwap === imageUrl}
+              onImageClick={onImageClick}
+              onImageSelectForDeletion={onImageSelectForDeletion}
+              onImageSelectForSwap={onImageSelectForSwap}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -93,7 +93,7 @@ export default function RoomImageModal({ isOpen, onClose, hotelName }: RoomImage
           {currentView === 'selection' ? (
             <RoomSelectionModal
               isOpen={true}
-              onClose={() => {}} // Don't close the main modal
+              onClose={handleClose} // Close the main modal when room selection modal closes
               hotelName={hotelName}
               onRoomSelect={handleRoomSelect}
             />

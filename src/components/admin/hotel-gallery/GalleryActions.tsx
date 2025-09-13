@@ -2,24 +2,24 @@
 import { Move, Save, Trash2 } from "lucide-react";
 
 interface GalleryActionsProps {
-  rearrangeMode: boolean;
+  swapMode: boolean;
   deleteMode: boolean;
   savingOrder: boolean;
   deleting: boolean;
   selectedImagesToDelete: string[];
-  onToggleRearrange: () => void;
+  onToggleSwap: () => void;
   onToggleDelete: () => void;
   onSaveOrder: () => void;
   onDeleteImages: () => void;
 }
 
 export default function GalleryActions({
-  rearrangeMode,
+  swapMode,
   deleteMode,
   savingOrder,
   deleting,
   selectedImagesToDelete,
-  onToggleRearrange,
+  onToggleSwap,
   onToggleDelete,
   onSaveOrder,
   onDeleteImages
@@ -28,18 +28,18 @@ export default function GalleryActions({
     <div className="flex items-center justify-between mb-3 px-2">
       <div className="flex gap-2">
         <button
-          onClick={onToggleRearrange}
+          onClick={onToggleSwap}
           className={`px-3 py-1 text-xs font-inter font-bold transition-colors ${
-            rearrangeMode 
+            swapMode 
               ? 'bg-orange-500 text-white hover:bg-orange-600' 
               : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
           }`}
         >
           <Move className="w-3 h-3 inline mr-1" />
-          {rearrangeMode ? 'Cancel' : 'Rearrange Gallery'}
+          {swapMode ? 'Cancel Swap' : 'Swap Images'}
         </button>
 
-        {rearrangeMode && (
+        {swapMode && (
           <button
             onClick={onSaveOrder}
             disabled={savingOrder}
@@ -52,12 +52,12 @@ export default function GalleryActions({
 
         <button
           onClick={onToggleDelete}
-          disabled={rearrangeMode}
+          disabled={swapMode}
           className={`px-3 py-1 text-xs font-inter font-bold transition-colors ${
             deleteMode 
               ? 'bg-red-500 text-white hover:bg-red-600' 
               : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-          } ${rearrangeMode ? 'opacity-50 cursor-not-allowed' : ''}`}
+          } ${swapMode ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           <Trash2 className="w-3 h-3 inline mr-1" />
           {deleteMode ? 'Cancel Delete' : 'Select Images to Delete'}

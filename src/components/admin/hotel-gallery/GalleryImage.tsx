@@ -1,7 +1,5 @@
 "use client";
 import { Move } from "lucide-react";
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 
 interface GalleryImageProps {
   imageUrl: string;
@@ -10,10 +8,12 @@ interface GalleryImageProps {
   isSelected: boolean;
   isInCard: boolean;
   deleteMode: boolean;
-  rearrangeMode: boolean;
+  swapMode: boolean;
   isSelectedForDeletion: boolean;
+  isSelectedForSwap: boolean;
   onImageClick: (imageUrl: string, index: number) => void;
   onImageSelectForDeletion: (imageUrl: string) => void;
+  onImageSelectForSwap: (imageUrl: string, index: number) => void;
 }
 
 export default function GalleryImage({
@@ -23,43 +23,37 @@ export default function GalleryImage({
   isSelected,
   isInCard,
   deleteMode,
-  rearrangeMode,
+  swapMode,
   isSelectedForDeletion,
+  isSelectedForSwap,
   onImageClick,
-  onImageSelectForDeletion
+  onImageSelectForDeletion,
+  onImageSelectForSwap
 }: GalleryImageProps) {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id: imageUrl });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-  };
 
   const getRingClasses = () => {
+    if (isSelectedForSwap) return 'ring-2 ring-orange-500 ring-opacity-80';
     if (isSelected) return 'ring-2 ring-[#A5C8CE] ring-opacity-80';
     if (isInCard) return 'ring-2 ring-green-500 ring-opacity-80';
     return 'hover:ring-2 hover:ring-gray-300';
   };
 
+  const getTransformClasses = () => {
+    if (isSelectedForSwap) return 'transform rotate-3 scale-105';
+    return '';
+  };
+
   const handleClick = () => {
-    if (!deleteMode) {
+    if (swapMode) {
+      onImageSelectForSwap(imageUrl, index);
+    } else if (!deleteMode) {
       onImageClick(imageUrl, index);
     }
   };
 
   return (
     <div
-      ref={setNodeRef}
-      style={style}
-      className={`flex-shrink-0 w-20 h-16 overflow-hidden transition-all duration-200 relative ${getRingClasses()}`}
+      className={`flex-shrink-0 w-20 h-16 overflow-hidden transition-all duration-200 relative ${getRingClasses()} ${getTransformClasses()} ${swapMode ? 'cursor-pointer' : ''}`}
       onClick={handleClick}
     >
       {/* Delete Mode Checkbox */}
@@ -79,16 +73,10 @@ export default function GalleryImage({
         <div className="absolute inset-0 bg-red-500 bg-opacity-30 z-5"></div>
       )}
 
-      {/* Rearrange Mode Drag Handle */}
-      {rearrangeMode && (
-        <div 
-          {...attributes}
-          {...listeners}
-          className="absolute top-1 right-1 bg-white bg-opacity-80 rounded-full p-1 cursor-move hover:bg-opacity-100 transition-all z-20"
-          onMouseDown={(e) => e.stopPropagation()} // Prevent carousel drag
-          onTouchStart={(e) => e.stopPropagation()} // Prevent carousel drag on touch
-        >
-          <Move className="w-3 h-3 text-gray-600" />
+      {/* Swap Mode Indicator */}
+      {swapMode && isSelectedForSwap && (
+        <div className="absolute top-1 right-1 bg-orange-500 text-white rounded-full p-1 z-20">
+          <Move className="w-3 h-3" />
         </div>
       )}
 

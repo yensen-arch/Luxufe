@@ -70,7 +70,7 @@ export default function RoomSelectionModal({
 
   const handleRoomClick = (roomName: string) => {
     onRoomSelect(roomName);
-    onClose();
+    // Don't call onClose() here - let the parent handle the view transition
   };
 
   const handleSearch = () => {
@@ -81,11 +81,47 @@ export default function RoomSelectionModal({
     setCurrentPage(page);
   };
 
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  const handleClose = () => {
+    onClose();
+  };
+
+  // Handle escape key to close modal
+  useEffect(() => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscapeKey);
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKey);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-      <div className="relative max-w-6xl max-h-[90vh] bg-white overflow-hidden shadow-2xl w-full">
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+      onClick={handleBackdropClick}
+    >
+      <div 
+        className="relative max-w-6xl max-h-[90vh] bg-white overflow-hidden shadow-2xl w-full"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <div>
@@ -96,12 +132,22 @@ export default function RoomSelectionModal({
               Choose a room to manage its images
             </p>
           </div>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 transition-colors rounded-full"
-          >
-            <X className="w-6 h-6 text-gray-600" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleClose}
+              className="px-4 py-2 text-sm font-inter font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-md transition-colors"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleClose}
+              className="p-2 hover:bg-gray-100 transition-colors rounded-full"
+              type="button"
+            >
+              <X className="w-6 h-6 text-gray-600" />
+            </button>
+          </div>
         </div>
 
         {/* Search Bar */}
