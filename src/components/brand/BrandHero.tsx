@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { getImageUrl } from "@/lib/sanity/brandPage";
+import { Brand } from "@/lib/database";
 
 interface BrandHeroProps {
   data?: {
@@ -10,6 +11,7 @@ interface BrandHeroProps {
     backgroundImage?: any;
   };
   brandName?: string;
+  brandData?: Brand | null;
 }
 
 const tabs = [
@@ -20,13 +22,17 @@ const tabs = [
   { label: "Contact", id: "contact" },
 ];
 
-export default function BrandHero({ data, brandName }: BrandHeroProps) {
+export default function BrandHero({ data, brandName, brandData }: BrandHeroProps) {
   const [activeTab, setActiveTab] = useState("philosophy");
 
   // Fallback content if no data is provided
   const heading = data?.heading || `Experience the pinnacle of luxury with`;
   const description = data?.description || "Discover unparalleled service, exceptional amenities, and unforgettable experiences that define true luxury hospitality.";
-  const backgroundImage = data?.backgroundImage ? getImageUrl(data.backgroundImage) : "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80";
+  
+  // Use brand image from database as priority, then Sanity data, then fallback
+  const backgroundImage = brandData?.brand_image || 
+                         (data?.backgroundImage ? getImageUrl(data.backgroundImage) : null) ||
+                         "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80";
 
   const handleTabClick = (tabId: string) => {
     setActiveTab(tabId);

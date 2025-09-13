@@ -27,6 +27,7 @@ interface Brand {
   id: string;
   name: string;
   description?: string;
+  brand_image?: string;
 }
 
 interface BrandImageManagerProps {

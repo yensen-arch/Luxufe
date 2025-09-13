@@ -7,6 +7,7 @@ interface Brand {
   id: string;
   name: string;
   description?: string;
+  brand_image?: string;
 }
 
 interface BrandSelectorProps {
@@ -19,7 +20,7 @@ const fetchBrandNames = async (): Promise<Brand[]> => {
   try {
     const { data, error } = await supabase
       .from('brands')
-      .select('id, name, description')
+      .select('id, name, description, brand_image')
       .order('name', { ascending: true });
 
     if (error) {
@@ -31,7 +32,8 @@ const fetchBrandNames = async (): Promise<Brand[]> => {
     return data?.map(item => ({
       id: item.id,
       name: item.name,
-      description: item.description
+      description: item.description,
+      brand_image: item.brand_image
     })) || [];
   } catch (error) {
     console.error('Error fetching brands:', error);

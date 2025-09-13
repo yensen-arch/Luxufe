@@ -163,7 +163,7 @@ async function BrandPageContent({ brandName }: { brandName: string }) {
   return (
     <main className="overflow-y-hidden">
       <Navbar />
-      <BrandHero data={brandPageData?.hero} brandName={brandName} />
+      <BrandHero data={brandPageData?.hero} brandName={brandName} brandData={brandData} />
       <div id="philosophy">
         <BrandPhilosophy data={brandPageData?.philosophy} />
       </div>
