@@ -2,6 +2,7 @@
 import { useState, useRef } from "react";
 import { X, Upload, Link } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import ImageCropModal from "./ImageCropModal";
 
 interface Brand {
   id: string;
@@ -22,6 +23,8 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
   const [imageUrl, setImageUrl] = useState(brand.brand_image || '');
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [showCropModal, setShowCropModal] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSaveUrl = async () => {
@@ -51,7 +54,7 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
     }
   };
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -67,35 +70,17 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
       return;
     }
 
-    setUploading(true);
+    // Set the selected file and show crop modal
+    setSelectedFile(file);
+    setShowCropModal(true);
+  };
+
+  const handleCroppedImageUploaded = async (imageUrl: string) => {
     try {
-      // Create a unique filename
-      const fileExt = file.name.split('.').pop();
-      const fileName = `brand-${brand.id}-${Date.now()}.${fileExt}`;
-      const filePath = `brand_images/${fileName}`;
-
-      // Upload file to Supabase storage
-      const { error: uploadError } = await supabase.storage
-        .from('brand_image')
-        .upload(filePath, file);
-
-      if (uploadError) {
-        console.error('Error uploading file:', uploadError);
-        alert('Failed to upload image. Please try again.');
-        return;
-      }
-
-      // Get public URL
-      const { data } = supabase.storage
-        .from('brand_image')
-        .getPublicUrl(filePath);
-
-      const publicUrl = data.publicUrl;
-
       // Update brand record with new image URL
       const { error: updateError } = await supabase
         .from('brands')
-        .update({ brand_image: publicUrl })
+        .update({ brand_image: imageUrl })
         .eq('id', brand.id);
 
       if (updateError) {
@@ -104,14 +89,12 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
         return;
       }
 
-      onImageUpdate(publicUrl);
+      onImageUpdate(imageUrl);
       onClose();
       alert('Brand hero image uploaded successfully!');
     } catch (error) {
-      console.error('Error uploading image:', error);
-      alert('Error uploading image. Please try again.');
-    } finally {
-      setUploading(false);
+      console.error('Error updating brand image:', error);
+      alert('Error updating brand image. Please try again.');
     }
   };
 
@@ -276,7 +259,7 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
                   ref={fileInputRef}
                   type="file"
                   accept="image/*"
-                  onChange={handleFileUpload}
+                  onChange={handleFileSelect}
                   className="hidden"
                 />
                 <button
@@ -286,7 +269,7 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
                 >
                   <Upload className="w-6 h-6 mx-auto mb-2 text-gray-400" />
                   <span className="text-sm text-gray-600">
-                    {uploading ? 'Uploading...' : 'Click to select image file'}
+                    Click to select image file
                   </span>
                 </button>
                 <p className="text-xs text-gray-500 mt-2">
@@ -307,6 +290,20 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
           )}
         </div>
       </div>
+
+      {/* Image Crop Modal */}
+      {selectedFile && (
+        <ImageCropModal
+          isOpen={showCropModal}
+          onClose={() => {
+            setShowCropModal(false);
+            setSelectedFile(null);
+          }}
+          imageFile={selectedFile}
+          onImageUploaded={handleCroppedImageUploaded}
+          aspectRatio={16 / 9} // Hero image aspect ratio
+        />
+      )}
     </div>
   );
 }
