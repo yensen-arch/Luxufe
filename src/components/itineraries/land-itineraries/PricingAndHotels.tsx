@@ -16,7 +16,7 @@ export default function PricingAndHotelsSection({ itinerary, itineraryDates }: P
         <div className="md:w-1/4 w-full md:pr-8 p-6 md:p-12 border-r-2 border-gray-300">
         </div>
         <div className="md:w-3/4 w-full p-6 md:p-12">
-          <PricingOptions itineraryDates={itineraryDates} />
+          <PricingOptions itineraryDates={itineraryDates} hotelsByCategories={itinerary.hotels_by_categories} />
           <Accommodation hotelData={itinerary.hotels_by_categories} />
           <GoodToKnowAccordion goodToKnow={itinerary.good_to_know} />
           <VisitView gallery={itinerary.gallery} />

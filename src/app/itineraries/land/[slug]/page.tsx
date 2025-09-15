@@ -16,7 +16,8 @@ interface LandItineraryPageProps {
 
 export default async function LandItineraryPage({ params }: LandItineraryPageProps) {
   // Get itinerary ID from URL
-  const itineraryId = parseInt(params.slug);
+  const resolvedParams = await params;
+  const itineraryId = parseInt(resolvedParams?.slug);
   
   // Fetch data for the specific itinerary
   const itinerary = await getLandItinerary(itineraryId);

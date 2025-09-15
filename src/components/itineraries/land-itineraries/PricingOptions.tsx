@@ -4,10 +4,21 @@ import { LandItineraryDate } from "@/lib/database";
 
 interface PricingOptionsProps {
   itineraryDates: LandItineraryDate[];
+  hotelsByCategories: {
+    types: Array<{
+      category: string;
+      hotels: Array<{
+        name: string;
+        city: string;
+        country: string;
+      }>;
+    }>;
+  };
 }
 
-export default function PricingOptions({ itineraryDates }: PricingOptionsProps) {
+export default function PricingOptions({ itineraryDates, hotelsByCategories }: PricingOptionsProps) {
   const [selectedDate, setSelectedDate] = useState<LandItineraryDate | null>(null);
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
   // Debug logging
   useEffect(() => {
@@ -37,6 +48,17 @@ export default function PricingOptions({ itineraryDates }: PricingOptionsProps) 
   }, [itineraryDates]);
 
   console.log('PricingOptions - pricingCategories:', pricingCategories);
+
+  // Helper function to get hotels for a specific category
+  const getHotelsForCategory = (category: string) => {
+    const categoryData = hotelsByCategories?.types?.find(type => type.category === category);
+    return categoryData?.hotels || [];
+  };
+
+  // Handle category click
+  const handleCategoryClick = (category: string) => {
+    setExpandedCategory(expandedCategory === category ? null : category);
+  };
 
   // Don't render if no data
   if (!itineraryDates || itineraryDates.length === 0) {
@@ -99,25 +121,72 @@ export default function PricingOptions({ itineraryDates }: PricingOptionsProps) 
         </div>
 
         {/* Table Rows */}
-        {selectedDate && pricingCategories.map((category: string, index: number) => (
-          <div key={index} className={'grid grid-cols-3 border-b-2 border-gray-300'}>
-            <div className="p-4 md:p-6 flex items-center">
-              <span className="text-gray-900 font-inter font-bold text-sm md:text-xl">
-                {category}
-              </span>
+        {selectedDate && pricingCategories.map((category: string, index: number) => {
+          const isExpanded = expandedCategory === category;
+          const hotelsForCategory = getHotelsForCategory(category);
+          
+          return (
+            <div key={index} className="border-b-2 border-gray-300">
+              {/* Pricing Row - Clickable */}
+              <div 
+                className="grid grid-cols-3 cursor-pointer hover:bg-gray-50 transition-colors duration-200"
+                onClick={() => handleCategoryClick(category)}
+              >
+                <div className="p-4 md:p-6 flex items-center">
+                  <span className="text-gray-900 font-inter font-bold text-sm md:text-xl">
+                    {category}
+                  </span>
+                </div>
+                <div className="p-4 md:p-6 text-center">
+                  <span className="text-gray-900 font-arpona font-bold text-lg md:text-xl">
+                    ${selectedDate.adult_pricing[category]?.toLocaleString() || 'N/A'}
+                  </span>
+                </div>
+                <div className="p-4 md:p-6 text-center">
+                  <span className="text-gray-900 font-arpona font-bold text-lg md:text-xl">
+                    ${selectedDate.children_pricing[category]?.toLocaleString() || 'N/A'}
+                  </span>
+                </div>
+              </div>
+              
+              {/* Expandable Hotel Details */}
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                  isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                }`}
+                style={{
+                  maxHeight: isExpanded ? 400 : 0,
+                  opacity: isExpanded ? 1 : 0
+                }}
+                aria-hidden={!isExpanded}
+              >
+                <div className="bg-gray-50 p-4 md:p-6">
+                  <h4 className="text-lg font-arpona font-bold text-gray-900 mb-4">
+                    {category} Hotels
+                  </h4>
+                  {hotelsForCategory.length > 0 ? (
+                    <div className="space-y-3">
+                      {hotelsForCategory.map((hotel, hotelIndex) => (
+                        <div key={hotelIndex} className="bg-white p-4 rounded-lg border border-gray-200">
+                          <h5 className="text-md font-arpona font-bold text-gray-900 mb-1">
+                            {hotel.name}
+                          </h5>
+                          <p className="text-sm font-inter font-bold text-gray-600">
+                            {hotel.city}, {hotel.country}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-gray-500 font-inter text-sm">
+                      No hotels specified for {category} category
+                    </p>
+                  )}
+                </div>
+              </div>
             </div>
-            <div className="p-4 md:p-6 text-center">
-              <span className="text-gray-900 font-arpona font-bold text-lg md:text-xl">
-                ${selectedDate.adult_pricing[category]?.toLocaleString() || 'N/A'}
-              </span>
-            </div>
-            <div className="p-4 md:p-6 text-center">
-              <span className="text-gray-900 font-arpona font-bold text-lg md:text-xl">
-                ${selectedDate.children_pricing[category]?.toLocaleString() || 'N/A'}
-              </span>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Call to Action */}
