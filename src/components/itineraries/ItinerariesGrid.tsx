@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 interface ItinerariesGridProps {
   data?: {
@@ -91,6 +91,13 @@ export default function ItinerariesGrid({ data }: ItinerariesGridProps) {
             </div>
           </div>
         ))}
+      </div>
+      
+      {/* Centered Button */}
+      <div className="w-full flex items-center justify-center mt-8">
+        <button className="flex items-center justify-center gap-2 text-xs font-inter border-2 border-gray-300 text-gray-600 px-2 my-8 py-3 hover:bg-black hover:text-white transition font-bold tracking-widest">
+            MORE WAYS TO JOURNEY WITH LUXUFE <ArrowRight className="h-4 w-4" />
+        </button>
       </div>
     </section>
   );
