@@ -490,11 +490,31 @@ export const getHotelHeroImage = async (hotelName: string): Promise<string | nul
   try {
     console.log('🔍 getHotelHeroImage: Searching for hotel:', hotelName);
     
-    const { data, error } = await supabase
+    // Try exact match first
+    let { data, error } = await supabase
       .from('hotelgallery')
       .select('hotel_hero')
       .eq('hotel_name', hotelName)
       .maybeSingle();
+
+    console.log('🔍 getHotelHeroImage: Exact match result:', { data: !!data, error: !!error, hotelName });
+
+    // If no exact match, try case-insensitive exact match
+    if (!data && !error) {
+      console.log('🔍 getHotelHeroImage: Trying case-insensitive match for:', hotelName);
+      const { data: caseInsensitiveData, error: caseError } = await supabase
+        .from('hotelgallery')
+        .select('hotel_hero')
+        .ilike('hotel_name', hotelName)
+        .maybeSingle();
+      
+      if (caseError) {
+        console.error('Error fetching hotel hero image (case-insensitive):', caseError);
+      } else {
+        data = caseInsensitiveData;
+        console.log('🔍 getHotelHeroImage: Case-insensitive match result:', { data: !!data, hotelName });
+      }
+    }
 
     if (error) {
       console.error('Error fetching hotel hero image:', error);
@@ -952,6 +972,7 @@ export interface LandItinerary {
         name: string;
         city: string;
         country: string;
+        day?: string;
       }>;
     }>;
   };

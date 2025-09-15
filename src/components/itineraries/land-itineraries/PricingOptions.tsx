@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useMemo } from "react";
-import { LandItineraryDate } from "@/lib/database";
+import { useRouter } from "next/navigation";
+import { LandItineraryDate, getHotelHeroImage, getHotelGallery } from "@/lib/database";
 
 interface PricingOptionsProps {
   itineraryDates: LandItineraryDate[];
@@ -11,6 +12,7 @@ interface PricingOptionsProps {
         name: string;
         city: string;
         country: string;
+        day?: string;
       }>;
     }>;
   };
@@ -19,6 +21,9 @@ interface PricingOptionsProps {
 export default function PricingOptions({ itineraryDates, hotelsByCategories }: PricingOptionsProps) {
   const [selectedDate, setSelectedDate] = useState<LandItineraryDate | null>(null);
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const [hotelImages, setHotelImages] = useState<{[key: string]: string}>({});
+  const [loadingImages, setLoadingImages] = useState<{[key: string]: boolean}>({});
+  const router = useRouter();
 
   // Debug logging
   useEffect(() => {
@@ -58,6 +63,62 @@ export default function PricingOptions({ itineraryDates, hotelsByCategories }: P
   // Handle category click
   const handleCategoryClick = (category: string) => {
     setExpandedCategory(expandedCategory === category ? null : category);
+  };
+
+  // Handle hotel click - navigate to hotel page
+  const handleHotelClick = (hotelName: string) => {
+    const encodedHotelName = encodeURIComponent(hotelName);
+    router.push(`/product/${encodedHotelName}`);
+  };
+
+  // Fetch hotel hero images when category expands
+  useEffect(() => {
+    const fetchHotelImages = async () => {
+      if (expandedCategory) {
+        const hotelsForCategory = getHotelsForCategory(expandedCategory);
+        console.log('🔍 PricingOptions: Fetching images for hotels:', hotelsForCategory.map(h => h.name));
+        
+        // Process hotels in parallel
+        const imagePromises = hotelsForCategory.map(async (hotel) => {
+          if (!hotelImages[hotel.name] && !loadingImages[hotel.name]) {
+            setLoadingImages(prev => ({ ...prev, [hotel.name]: true }));
+            try {
+              console.log('🔍 PricingOptions: Fetching images for:', hotel.name);
+              // Fetch both hero image and gallery images
+              const [heroImage, galleryImages] = await Promise.all([
+                getHotelHeroImage(hotel.name),
+                getHotelGallery(hotel.name)
+              ]);
+              
+              console.log('✅ PricingOptions: Hero image result for', hotel.name, ':', heroImage);
+              console.log('✅ PricingOptions: Gallery images count for', hotel.name, ':', galleryImages.length);
+              
+              // Use hero image if available, otherwise fall back to first gallery image, then placeholder
+              const finalImage = heroImage || (galleryImages.length > 0 
+                ? galleryImages[0] 
+                : `https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=400&q=80`);
+              
+              setHotelImages(prev => ({ ...prev, [hotel.name]: finalImage }));
+            } catch (error) {
+              console.error(`❌ PricingOptions: Error fetching images for ${hotel.name}:`, error);
+              const fallbackImage = `https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=400&q=80`;
+              setHotelImages(prev => ({ ...prev, [hotel.name]: fallbackImage }));
+            } finally {
+              setLoadingImages(prev => ({ ...prev, [hotel.name]: false }));
+            }
+          }
+        });
+
+        await Promise.all(imagePromises);
+      }
+    };
+
+    fetchHotelImages();
+  }, [expandedCategory]);
+
+  // Get hotel image URL
+  const getHotelImageUrl = (hotelName: string) => {
+    return hotelImages[hotelName] || `https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=400&q=80`;
   };
 
   // Don't render if no data
@@ -152,10 +213,10 @@ export default function PricingOptions({ itineraryDates, hotelsByCategories }: P
               {/* Expandable Hotel Details */}
               <div
                 className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                  isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  isExpanded ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
                 }`}
                 style={{
-                  maxHeight: isExpanded ? 400 : 0,
+                  maxHeight: isExpanded ? 800 : 0,
                   opacity: isExpanded ? 1 : 0
                 }}
                 aria-hidden={!isExpanded}
@@ -165,15 +226,44 @@ export default function PricingOptions({ itineraryDates, hotelsByCategories }: P
                     {category} Hotels
                   </h4>
                   {hotelsForCategory.length > 0 ? (
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                       {hotelsForCategory.map((hotel, hotelIndex) => (
-                        <div key={hotelIndex} className="bg-white p-4 rounded-lg border border-gray-200">
-                          <h5 className="text-md font-arpona font-bold text-gray-900 mb-1">
-                            {hotel.name}
-                          </h5>
-                          <p className="text-sm font-inter font-bold text-gray-600">
-                            {hotel.city}, {hotel.country}
-                          </p>
+                        <div 
+                          key={hotelIndex} 
+                          className="bg-white p-4  border border-gray-300 cursor-pointer hover:shadow-lg transition-shadow duration-200 flex items-center justify-between"
+                          onClick={() => handleHotelClick(hotel.name)}
+                        >
+                          <div className="flex-1">
+                            {hotel.day && (
+                              <p className="text-xs font-inter font-bold text-[#A5C8CE] mb-1">
+                                Day {hotel.day}
+                              </p>
+                            )}
+                            <h5 className="text-md font-arpona font-bold text-gray-900 mb-1 hover:text-[#A5C8CE] transition-colors">
+                              {hotel.name}
+                            </h5>
+                            <p className="text-sm font-inter font-bold text-gray-600">
+                              {hotel.city}, {hotel.country}
+                            </p>
+                          </div>
+                          <div className="ml-4 flex-shrink-0">
+                            <div className="relative w-20 h-16 md:w-24 md:h-18 overflow-hidden">
+                              {loadingImages[hotel.name] ? (
+                                <div className="w-full h-full bg-gray-200 animate-pulse flex items-center justify-center">
+                                  <div className="w-6 h-6 border-2 border-[#A5C8CE] border-t-transparent rounded-full animate-spin"></div>
+                                </div>
+                              ) : (
+                                <img
+                                  src={getHotelImageUrl(hotel.name)}
+                                  alt={`${hotel.name} in ${hotel.city}`}
+                                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
+                                  onError={(e) => {
+                                    e.currentTarget.src = "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=400&q=80";
+                                  }}
+                                />
+                              )}
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
