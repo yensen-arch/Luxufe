@@ -1,5 +1,5 @@
 import { defineField, defineType } from 'sanity'
-import { MapIcon } from '@sanity/icons'
+import { MapIcon } from 'lucide-react'
 
 export const landItinerariesPageType = defineType({
   name: 'landItinerariesPage',

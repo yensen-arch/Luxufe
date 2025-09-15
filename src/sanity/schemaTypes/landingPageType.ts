@@ -1,5 +1,5 @@
 import { defineField, defineType } from 'sanity'
-import { HomeIcon } from '@sanity/icons'
+import { HomeIcon } from 'lucide-react'
 
 export const landingPageType = defineType({
   name: 'landingPage',
