@@ -81,7 +81,7 @@ export default function GoodToKnow() {
               aria-expanded={openIndex === idx}
               aria-controls={`accordion-panel-${idx}`}
             >
-              <span className="text-2xl md:text-3xl font-arpona font-bold text-[#23263a] text-left">
+              <span className="text-xl md:text-2xl font-arpona font-bold text-[#23263a] text-left">
                 {item.title}
               </span>
               {/* Icon */}
@@ -121,7 +121,7 @@ export default function GoodToKnow() {
               }`}
               style={{ overflow: "hidden" }}
             >
-              <p className="font-inter text-slate-700 text-md md:text-lg font-bold max-w-4xl">
+              <p className="font-inter text-slate-700 md:text-md font-bold max-w-4xl">
                 {item.content}
               </p>
             </div>
