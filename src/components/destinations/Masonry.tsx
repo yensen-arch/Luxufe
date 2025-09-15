@@ -16,12 +16,12 @@ const CONTINENTS = [
   {
     name: "North America",
     image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80",
-    displayName: "Alaska"
+    displayName: "North America"
   },
   {
     name: "Europe",
     image: "https://images.unsplash.com/photo-1514361892635-cebb9b6c7ca5?auto=format&fit=crop&w=800&q=80",
-    displayName: "Greenland"
+    displayName: "Europe"
   },
   {
     name: "Asia",
@@ -31,7 +31,12 @@ const CONTINENTS = [
   {
     name: "Australia",
     image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80",
-    displayName: "Australia & Newzealand"
+    displayName: "Australia & New Zealand"
+  },
+  {
+    name: "South America",
+    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80",
+    displayName: "South America"
   }
 ];
 
@@ -78,10 +83,6 @@ function ContinentCard({ continent, stats, className = "" }: {
               <span className="font-inter text-sm font-bold">{stats.countryCount} Countries</span>
             </div>
           </div>
-          
-          <button className="bg-white text-black font-inter font-bold px-4 py-2 text-xs shadow hover:bg-gray-100 w-fit">
-            EXPLORE
-          </button>
         </div>
       </div>
     </div>
@@ -89,62 +90,63 @@ function ContinentCard({ continent, stats, className = "" }: {
 }
 
 export default function Masonry({ continentStats }: MasonryProps) {
-  // Filter continents that have data and match the layout from the image
+  // Filter continents that have data
   const continentsWithData = CONTINENTS.filter(continent => 
     continentStats[continent.name] && continentStats[continent.name].hotelCount > 0
   );
+
+  console.log('🔍 Available continents with data:', continentsWithData.map(c => c.name));
+  console.log('🔍 Continent stats:', continentStats);
+
+  // Split continents into rows
+  const firstRowContinents = continentsWithData.slice(0, 3); // First 3 continents
+  const secondRowContinents = continentsWithData.slice(3); // Remaining continents
 
   return (
     <section className="w-full max-w-8xl mx-auto px-14 mb-20">
       <h2 className="text-4xl md:text-5xl font-arpona font-bold text-[#23263a] mb-24">Discover Destinations</h2>
       <div className="flex flex-col gap-6">
-        {/* Row 1: 2 cols - matching the image layout */}
-        <div className="flex gap-6 h-[800px]">
-          {/* Left col - Africa (large horizontal) */}
-          <div className="flex flex-col gap-6 w-1/2 h-full">
-            <div className="h-full w-full">
-              {continentsWithData[0] && (
+        {/* Row 1: Flexible layout based on available continents */}
+        {firstRowContinents.length > 0 && (
+          <div className="flex gap-6 h-[800px]">
+            {/* First continent - large */}
+            <div className="flex flex-col gap-6 w-1/2 h-full">
+              <div className="h-full w-full">
                 <ContinentCard 
-                  continent={continentsWithData[0]} 
-                  stats={continentStats[continentsWithData[0].name]}
+                  continent={firstRowContinents[0]} 
+                  stats={continentStats[firstRowContinents[0].name]}
                   className="h-full shadow-lg" 
                 />
-              )}
+              </div>
+            </div>
+            {/* Remaining continents in right column */}
+            <div className="flex flex-col gap-6 w-1/2 h-full">
+              {firstRowContinents.slice(1).map((continent, index) => (
+                <div key={continent.name} className="h-1/2 w-full">
+                  <ContinentCard 
+                    continent={continent} 
+                    stats={continentStats[continent.name]}
+                    className="h-full shadow-lg" 
+                  />
+                </div>
+              ))}
             </div>
           </div>
-          {/* Right col - Antarctica and Alaska (vertical) */}
-          <div className="flex flex-col gap-6 w-1/2 h-full">
-            {continentsWithData[1] && (
-              <div className="h-1/2 w-full">
-                <ContinentCard 
-                  continent={continentsWithData[1]} 
-                  stats={continentStats[continentsWithData[1].name]}
-                  className="h-full shadow-lg" 
-                />
-              </div>
-            )}
-            {continentsWithData[2] && (
-              <div className="h-1/2 w-full">
-                <ContinentCard 
-                  continent={continentsWithData[2]} 
-                  stats={continentStats[continentsWithData[2].name]}
-                  className="h-full shadow-lg" 
-                />
-              </div>
-            )}
+        )}
+        
+        {/* Row 2: Grid layout for remaining continents */}
+        {secondRowContinents.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-[550px]">
+            {secondRowContinents.map((continent) => (
+              <ContinentCard 
+                key={continent.name}
+                continent={continent} 
+                stats={continentStats[continent.name]}
+                className="h-full shadow-lg" 
+              />
+            ))}
           </div>
-        </div>
-        {/* Row 2: 3 col grid - Greenland, Asia, Australia & New Zealand */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[550px]">
-          {continentsWithData.slice(3, 6).map((continent, index) => (
-            <ContinentCard 
-              key={continent.name}
-              continent={continent} 
-              stats={continentStats[continent.name]}
-              className="h-full shadow-lg" 
-            />
-          ))}
-        </div>
+        )}
       </div>
     </section>
   );
