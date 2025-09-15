@@ -28,6 +28,7 @@ export interface Hotel {
   city: string;
   address?: string;
   description?: string;
+  continent?: string;
   created_at: string;
   updated_at: string;
 }
@@ -237,6 +238,39 @@ export const getUniqueCountries = async (): Promise<string[]> => {
   } catch (error) {
     console.error('Error fetching countries:', error);
     return [];
+  }
+};
+
+// Get hotel counts by continent - optimized query
+export const getHotelCountsByContinent = async (): Promise<{[key: string]: number}> => {
+  try {
+    console.log('🔍 getHotelCountsByContinent: Fetching hotel counts by continent');
+    
+    // Use a single optimized query with count aggregation
+    const { data, error } = await supabase
+      .from('hotels')
+      .select('continent')
+      .not('continent', 'is', null);
+
+    if (error) {
+      console.error('Error fetching hotel counts by continent:', error);
+      return {};
+    }
+
+    // Count hotels by continent
+    const continentCounts: {[key: string]: number} = {};
+    
+    data?.forEach(hotel => {
+      if (hotel.continent) {
+        continentCounts[hotel.continent] = (continentCounts[hotel.continent] || 0) + 1;
+      }
+    });
+
+    console.log('✅ getHotelCountsByContinent: Found counts:', continentCounts);
+    return continentCounts;
+  } catch (error) {
+    console.error('Error fetching hotel counts by continent:', error);
+    return {};
   }
 };
 
