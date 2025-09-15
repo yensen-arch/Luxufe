@@ -72,10 +72,10 @@ export default function MapDestinations() {
               
               // Dynamic circle size based on number (like in the image)
               const getCircleSize = (count: number) => {
-                if (count >= 200) return 'w-16 h-16 text-xl'; // Large circles for 200+
-                if (count >= 100) return 'w-14 h-14 text-lg'; // Medium circles for 100-199
-                if (count >= 50) return 'w-12 h-12 text-base'; // Medium circles for 50-99
-                return 'w-10 h-10 text-sm'; // Small circles for <50
+                if (count >= 200) return 'w-24 h-24 text-lg'; // Large circles for 200+
+                if (count >= 100) return 'w-20 h-20 text-lg'; // Medium circles for 100-199
+                if (count >= 50) return 'w-16 h-16 text-lg'; // Medium circles for 50-99
+                return 'w-12 h-12 text-lg'; // Small circles for <50
               };
               
               return (
@@ -87,7 +87,7 @@ export default function MapDestinations() {
                         className={`bg-white ${getCircleSize(hotelCount)} rounded-full shadow-lg flex items-center justify-center border border-gray-200 cursor-pointer hover:shadow-xl transition-all duration-200 hover:scale-105`}
                         onClick={() => setSelected(loc)}
                       >
-                        <span className="text-black font-bold">
+                        <span className="text-black">
                           {loading ? '...' : hotelCount}
                         </span>
                       </button>
