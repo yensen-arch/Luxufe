@@ -235,7 +235,7 @@ export default function PricingOptions({ itineraryDates, hotelsByCategories }: P
                         >
                           <div className="flex-1">
                             {hotel.day && (
-                              <p className="text-xs font-inter font-bold text-[#A5C8CE] mb-1">
+                              <p className="text-lg font-arpona font-bold text-gray-600 mb-1">
                                 Day {hotel.day}
                               </p>
                             )}
@@ -247,7 +247,7 @@ export default function PricingOptions({ itineraryDates, hotelsByCategories }: P
                             </p>
                           </div>
                           <div className="ml-4 flex-shrink-0">
-                            <div className="relative w-20 h-16 md:w-24 md:h-18 overflow-hidden">
+                            <div className="relative w-20 h-16 md:w-34 md:h-24 overflow-hidden">
                               {loadingImages[hotel.name] ? (
                                 <div className="w-full h-full bg-gray-200 animate-pulse flex items-center justify-center">
                                   <div className="w-6 h-6 border-2 border-[#A5C8CE] border-t-transparent rounded-full animate-spin"></div>
