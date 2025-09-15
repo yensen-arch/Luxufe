@@ -53,7 +53,7 @@ const defaultJourneyData = [
     imageUrl: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop',
     link: {
       text: 'JOURNEYS & TOURS',
-      href: '/journeys'
+      href: '/itineraries'
     }
   }
 ];
