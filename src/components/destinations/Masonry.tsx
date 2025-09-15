@@ -71,6 +71,7 @@ function MasonryCard({ post, className = "" }: { post: typeof posts[0]; classNam
 export default function Masonry() {
   return (
     <section className="w-full max-w-8xl mx-auto px-14 mb-20">
+      <h2 className="text-4xl md:text-5xl font-arpona font-bold text-[#23263a] mb-24">Discover Destinations</h2>
       <div className="flex flex-col gap-6">
         {/* Row 1: 2 cols */}
         <div className="flex gap-6 h-[800px]">

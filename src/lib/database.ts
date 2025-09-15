@@ -246,10 +246,10 @@ export const getHotelCountsByContinent = async (): Promise<{[key: string]: numbe
   try {
     console.log('🔍 getHotelCountsByContinent: Fetching hotel counts by continent');
     
-    // Use a single optimized query with count aggregation
+    // Optimized query: only select continent column and count
     const { data, error } = await supabase
       .from('hotels')
-      .select('continent')
+      .select('continent', { count: 'exact' })
       .not('continent', 'is', null);
 
     if (error) {
@@ -257,12 +257,12 @@ export const getHotelCountsByContinent = async (): Promise<{[key: string]: numbe
       return {};
     }
 
-    // Count hotels by continent
+    // Count hotels by continent using only the continent field
     const continentCounts: {[key: string]: number} = {};
     
-    data?.forEach(hotel => {
-      if (hotel.continent) {
-        continentCounts[hotel.continent] = (continentCounts[hotel.continent] || 0) + 1;
+    data?.forEach(row => {
+      if (row.continent) {
+        continentCounts[row.continent] = (continentCounts[row.continent] || 0) + 1;
       }
     });
 
