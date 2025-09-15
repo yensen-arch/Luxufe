@@ -342,6 +342,50 @@ export const getContinentStatistics = async (): Promise<{
   }
 };
 
+// Get countries by continent with hotel counts
+export const getCountriesByContinent = async (continentName: string): Promise<Array<{
+  country: string;
+  hotelCount: number;
+  sampleImage?: string;
+}>> => {
+  try {
+    console.log('🔍 getCountriesByContinent: Fetching countries for:', continentName);
+    
+    // Optimized query: only select country column
+    const { data, error } = await supabase
+      .from('hotels')
+      .select('country')
+      .eq('continent', continentName)
+      .not('country', 'is', null);
+
+    if (error) {
+      console.error('Error fetching countries by continent:', error);
+      return [];
+    }
+
+    // Count hotels by country
+    const countryStats: { [country: string]: number } = {};
+    
+    data?.forEach(row => {
+      if (row.country) {
+        countryStats[row.country] = (countryStats[row.country] || 0) + 1;
+      }
+    });
+
+    // Convert to array format
+    const result = Object.entries(countryStats).map(([country, hotelCount]) => ({
+      country,
+      hotelCount
+    }));
+
+    console.log('✅ getCountriesByContinent: Found countries:', result);
+    return result;
+  } catch (error) {
+    console.error('Error fetching countries by continent:', error);
+    return [];
+  }
+};
+
 // Get a single hotel by name
 export const getHotelByName = async (hotelName: string): Promise<Hotel | null> => {
   try {

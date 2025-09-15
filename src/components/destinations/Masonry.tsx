@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
 import { Building, MapPin, List } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 // Continent data with images and display order
 const CONTINENTS = [
@@ -56,8 +58,14 @@ function ContinentCard({ continent, stats, className = "" }: {
   stats: { hotelCount: number; countryCount: number };
   className?: string;
 }) {
+  const router = useRouter();
+
+  const handleClick = () => {
+    const slug = continent.name.toLowerCase().replace(/\s+/g, '-');
+    router.push(`/regions/${slug}`);
+  };
   return (
-    <div className={`relative group overflow-hidden bg-gray-200 ${className}`}>
+    <div className={`relative group overflow-hidden bg-gray-200 cursor-pointer ${className}`} onClick={handleClick}>
       <img
         src={continent.image}
         alt={continent.displayName}

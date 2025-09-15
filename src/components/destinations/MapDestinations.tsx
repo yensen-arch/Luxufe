@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Map, { Marker, Popup, NavigationControl } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { MapPin, Search } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const LOCATIONS = [
   { name: "CANADA", continent: "North America", lng: -106.3468, lat: 56.1304 },
@@ -26,10 +27,17 @@ interface MapDestinationsProps {
 
 export default function MapDestinations({ hotelCounts }: MapDestinationsProps) {
   const [selected, setSelected] = useState<Location | null>(null);
+  const router = useRouter();
 
   // Get hotel count for a specific continent
   const getHotelCount = (continent: string): number => {
     return hotelCounts[continent] || 0;
+  };
+
+  // Navigate to continent-specific regions page
+  const handleContinentClick = (continent: string) => {
+    const slug = continent.toLowerCase().replace(/\s+/g, '-');
+    router.push(`/regions/${slug}`);
   };
 
   return (
@@ -68,8 +76,8 @@ export default function MapDestinations({ hotelCounts }: MapDestinationsProps) {
                   {showCount && (
                     <Marker longitude={loc.lng} latitude={loc.lat} anchor="center">
                       <button
-                        className={`bg-white ${getCircleSize(hotelCount)} rounded-full shadow-lg flex items-center justify-center border border-gray-200 cursor-pointer hover:shadow-xl transition-all duration-200 hover:scale-105`}
-                        onClick={() => setSelected(loc)}
+                        className={`bg-white ${getCircleSize(hotelCount)} rounded-full shadow-lg flex items-center justify-center border border-gray-200 cursor-pointer hover:shadow-xl transition-all duration-200 hover:scale-105 relative z-10`}
+                        onClick={() => handleContinentClick(loc.continent)}
                       >
                         <span className="text-black">
                           {hotelCount}

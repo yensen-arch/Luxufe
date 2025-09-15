@@ -8,7 +8,15 @@ const navLinks = [
   { label: "Information", href: "#" },
 ];
 
-const HeroRegions = () => {
+interface HeroRegionsProps {
+  continentName: string;
+  continentData?: {
+    hotelCount: number;
+    countryCount: number;
+  };
+}
+
+const HeroRegions = ({ continentName, continentData }: HeroRegionsProps) => {
   return (
     <section className="relative w-full h-screen flex items-center justify-center overflow-hidden mb-10">
       {/* Background Image */}
@@ -21,24 +29,24 @@ const HeroRegions = () => {
       <div className="relative z-20 flex flex-col items-start justify-center h-full w-full max-w-7xl mx-auto px-8">
         <div className="mt-24">
           <div className="text-white text-sm mb-4 font-inter opacity-80">
-            Home &gt; Destinations &gt; Regions &gt; Africa
+            Home &gt; Destinations &gt; Regions &gt; {continentName}
           </div>
           <h1 className="text-5xl md:text-7xl font-arpona text-white font-bold mb-4 flex items-center gap-4">
-            Discover <span className="font-bellarina text-5xl md:text-7xl">Africa</span>
+            Discover <span className="font-bellarina text-5xl md:text-7xl">{continentName}</span>
           </h1>
           <p className="text-lg md:text-2xl text-white font-inter mb-8 max-w-2xl">
-            From iconic landscapes to legendary hospitality, Africa redefines luxury through experience
+            From iconic landscapes to legendary hospitality, {continentName} redefines luxury through experience
           </p>
           {/* Stats Row */}
           <div className="flex items-center gap-8 text-white text-base md:text-lg font-inter font-semibold mb-2">
             <span className="flex items-center gap-2">
-              <MapPin className="w-5 h-5" /> 23 Countries
+              <MapPin className="w-5 h-5" /> {continentData?.countryCount || 0} Countries
             </span>
             <span className="flex items-center gap-2">
-              <Building2 className="w-5 h-5" /> 123 Properties
+              <Building2 className="w-5 h-5" /> {continentData?.hotelCount || 0} Properties
             </span>
             <span className="flex items-center gap-2">
-              <BookOpen className="w-5 h-5" /> 87 Itineraries
+              <BookOpen className="w-5 h-5" /> 0 Itineraries
             </span>
           </div>
         </div>
