@@ -1,9 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Map, { Marker, Popup, NavigationControl } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { MapPin, Search } from "lucide-react";
-import { getHotelCountsByContinent } from "@/lib/database";
 
 const LOCATIONS = [
   { name: "CANADA", continent: "North America", lng: -106.3468, lat: 56.1304 },
@@ -21,27 +20,12 @@ const LOCATIONS = [
 
 type Location = typeof LOCATIONS[number];
 
-export default function MapDestinations() {
+interface MapDestinationsProps {
+  hotelCounts: {[key: string]: number};
+}
+
+export default function MapDestinations({ hotelCounts }: MapDestinationsProps) {
   const [selected, setSelected] = useState<Location | null>(null);
-  const [hotelCounts, setHotelCounts] = useState<{[key: string]: number}>({});
-  const [loading, setLoading] = useState(true);
-
-  // Fetch hotel counts by continent
-  useEffect(() => {
-    const fetchHotelCounts = async () => {
-      try {
-        setLoading(true);
-        const counts = await getHotelCountsByContinent();
-        setHotelCounts(counts);
-      } catch (error) {
-        console.error('Error fetching hotel counts:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchHotelCounts();
-  }, []);
 
   // Get hotel count for a specific continent
   const getHotelCount = (continent: string): number => {
@@ -88,7 +72,7 @@ export default function MapDestinations() {
                         onClick={() => setSelected(loc)}
                       >
                         <span className="text-black">
-                          {loading ? '...' : hotelCount}
+                          {hotelCount}
                         </span>
                       </button>
                     </Marker>

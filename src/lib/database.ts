@@ -274,6 +274,74 @@ export const getHotelCountsByContinent = async (): Promise<{[key: string]: numbe
   }
 };
 
+// Get continent statistics (hotel counts and country counts) - optimized query
+export const getContinentStatistics = async (): Promise<{
+  [continent: string]: {
+    hotelCount: number;
+    countryCount: number;
+  }
+}> => {
+  try {
+    console.log('🔍 getContinentStatistics: Fetching continent statistics');
+    
+    // Optimized query: only select continent and country columns
+    const { data, error } = await supabase
+      .from('hotels')
+      .select('continent, country')
+      .not('continent', 'is', null)
+      .not('country', 'is', null);
+
+    if (error) {
+      console.error('Error fetching continent statistics:', error);
+      return {};
+    }
+
+    // Process data to get hotel counts and unique countries per continent
+    const continentStats: {
+      [continent: string]: {
+        hotelCount: number;
+        countryCount: number;
+        countries: Set<string>;
+      }
+    } = {};
+    
+    data?.forEach(row => {
+      if (row.continent && row.country) {
+        if (!continentStats[row.continent]) {
+          continentStats[row.continent] = {
+            hotelCount: 0,
+            countryCount: 0,
+            countries: new Set()
+          };
+        }
+        continentStats[row.continent].hotelCount++;
+        continentStats[row.continent].countries.add(row.country);
+      }
+    });
+
+    // Convert to final format
+    const result: {
+      [continent: string]: {
+        hotelCount: number;
+        countryCount: number;
+      }
+    } = {};
+
+    Object.entries(continentStats).forEach(([continent, stats]) => {
+      result[continent] = {
+        hotelCount: stats.hotelCount,
+        countryCount: stats.countries.size
+      };
+    });
+
+    console.log('✅ getContinentStatistics: Found statistics:', result);
+    return result;
+  } catch (error) {
+    console.error('Error fetching continent statistics:', error);
+    return {};
+  }
+};
+
 // Get a single hotel by name
 export const getHotelByName = async (hotelName: string): Promise<Hotel | null> => {
   try {

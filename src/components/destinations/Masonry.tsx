@@ -1,110 +1,149 @@
 import React from "react";
+import { Building, MapPin, List } from "lucide-react";
 
-const posts = [
+// Continent data with images and display order
+const CONTINENTS = [
   {
-    title: "This is a blog post title that will go right here",
-    image: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=600&q=80",
-    category: "Travel Advice",
+    name: "Africa",
+    image: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80",
+    displayName: "Africa"
   },
   {
-    title: "This is a blog post title that will go right here",
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
-    category: "Travel Advice",
+    name: "Antarctica",
+    image: "https://images.unsplash.com/photo-1465156799763-2c087c332922?auto=format&fit=crop&w=800&q=80",
+    displayName: "Antarctica"
   },
   {
-    title: "This is a blog post title that will go right here",
-    image: "https://images.unsplash.com/photo-1465156799763-2c087c332922?auto=format&fit=crop&w=600&q=80",
-    category: "Travel Advice",
+    name: "North America",
+    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80",
+    displayName: "Alaska"
   },
   {
-    title: "This is a blog post title that will go right here",
-    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
-    category: "Travel Advice",
+    name: "Europe",
+    image: "https://images.unsplash.com/photo-1514361892635-cebb9b6c7ca5?auto=format&fit=crop&w=800&q=80",
+    displayName: "Greenland"
   },
   {
-    title: "This is a blog post title that will go right here",
-    image: "https://images.unsplash.com/photo-1514361892635-cebb9b6c7ca5?auto=format&fit=crop&w=600&q=80",
-    category: "Travel Advice",
+    name: "Asia",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    displayName: "Asia"
   },
   {
-    title: "This is a blog post title that will go right here",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
-    category: "Travel Advice",
-  },
-  {
-    title: "This is a blog post title that will go right here",
-    image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
-    category: "Travel Advice",
-  },
-  {
-    title: "This is a blog post title that will go right here",
-    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
-    category: "Travel Advice",
-  },
-  {
-    title: "This is a blog post title that will go right here",
-    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
-    category: "Travel Advice",
-  },
+    name: "Australia",
+    image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80",
+    displayName: "Australia & Newzealand"
+  }
 ];
 
-function MasonryCard({ post, className = "" }: { post: typeof posts[0]; className?: string }) {
+interface ContinentStats {
+  [continent: string]: {
+    hotelCount: number;
+    countryCount: number;
+  };
+}
+
+interface MasonryProps {
+  continentStats: ContinentStats;
+}
+
+function ContinentCard({ continent, stats, className = "" }: { 
+  continent: typeof CONTINENTS[0]; 
+  stats: { hotelCount: number; countryCount: number };
+  className?: string;
+}) {
   return (
     <div className={`relative group overflow-hidden bg-gray-200 ${className}`}>
       <img
-        src={post.image}
-        alt={post.title}
+        src={continent.image}
+        alt={continent.displayName}
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
       <div className="absolute inset-0 flex flex-col justify-between p-6">
-        <span className="uppercase text-xs font-inter tracking-widest text-white/80 mb-2">{post.category}</span>
         <div className="flex flex-col justify-end h-full">
-          <h3 className="text-white w-2/3 text-xl md:text-2xl font-arpona font-bold mb-4">{post.title}</h3>
-          <button className="bg-white text-black font-inter font-bold px-4 py-2 text-xs shadow hover:bg-gray-100 w-fit">READ MORE</button>
+          <h3 className="text-white text-xl md:text-2xl font-arpona font-bold mb-4">{continent.displayName}</h3>
+          
+          {/* Statistics */}
+          <div className="flex items-center gap-6 mb-4 text-white">
+            <div className="flex items-center gap-2">
+              <Building className="w-4 h-4" />
+              <span className="font-inter text-sm font-bold">{stats.hotelCount} Properties</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <List className="w-4 h-4" />
+              <span className="font-inter text-sm font-bold">0 Itineraries</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4" />
+              <span className="font-inter text-sm font-bold">{stats.countryCount} Countries</span>
+            </div>
+          </div>
+          
+          <button className="bg-white text-black font-inter font-bold px-4 py-2 text-xs shadow hover:bg-gray-100 w-fit">
+            EXPLORE
+          </button>
         </div>
       </div>
     </div>
   );
 }
 
-export default function Masonry() {
+export default function Masonry({ continentStats }: MasonryProps) {
+  // Filter continents that have data and match the layout from the image
+  const continentsWithData = CONTINENTS.filter(continent => 
+    continentStats[continent.name] && continentStats[continent.name].hotelCount > 0
+  );
+
   return (
     <section className="w-full max-w-8xl mx-auto px-14 mb-20">
       <h2 className="text-4xl md:text-5xl font-arpona font-bold text-[#23263a] mb-24">Discover Destinations</h2>
       <div className="flex flex-col gap-6">
-        {/* Row 1: 2 cols */}
+        {/* Row 1: 2 cols - matching the image layout */}
         <div className="flex gap-6 h-[800px]">
-          {/* Left col */}
+          {/* Left col - Africa (large horizontal) */}
           <div className="flex flex-col gap-6 w-1/2 h-full">
-            {/* Top row: 1 card, 1/3 height */}
-            <div className="h-3/7 w-full">
-              <MasonryCard post={posts[0]} className="h-full shadow-lg" />
-            </div>
-            {/* Bottom row: 2 cards, 2/3 height */}
-            <div className="flex gap-6 h-2/3 w-full">
-              <MasonryCard post={posts[1]} className="h-full w-1/2 shadow-lg" />
-              <MasonryCard post={posts[2]} className="h-full w-1/2 shadow-lg" />
+            <div className="h-full w-full">
+              {continentsWithData[0] && (
+                <ContinentCard 
+                  continent={continentsWithData[0]} 
+                  stats={continentStats[continentsWithData[0].name]}
+                  className="h-full shadow-lg" 
+                />
+              )}
             </div>
           </div>
-          {/* Right col */}
+          {/* Right col - Antarctica and Alaska (vertical) */}
           <div className="flex flex-col gap-6 w-1/2 h-full">
-            {/* Top row: 2 cards, 2/3 height */}
-            <div className="flex gap-6 h-2/3 w-full">
-              <MasonryCard post={posts[3]} className="h-full w-1/2 shadow-lg" />
-              <MasonryCard post={posts[4]} className="h-full w-1/2 shadow-lg" />
-            </div>
-            {/* Bottom row: 1 card, 1/3 height */}
-            <div className="h-1/3 w-full">
-              <MasonryCard post={posts[5]} className="h-full shadow-lg" />
-            </div>
+            {continentsWithData[1] && (
+              <div className="h-1/2 w-full">
+                <ContinentCard 
+                  continent={continentsWithData[1]} 
+                  stats={continentStats[continentsWithData[1].name]}
+                  className="h-full shadow-lg" 
+                />
+              </div>
+            )}
+            {continentsWithData[2] && (
+              <div className="h-1/2 w-full">
+                <ContinentCard 
+                  continent={continentsWithData[2]} 
+                  stats={continentStats[continentsWithData[2].name]}
+                  className="h-full shadow-lg" 
+                />
+              </div>
+            )}
           </div>
         </div>
-        {/* Row 2: 3 col grid, 1/3 height */}
+        {/* Row 2: 3 col grid - Greenland, Asia, Australia & New Zealand */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[550px]">
-          <MasonryCard post={posts[6]} className="h-full shadow-lg" />
-          <MasonryCard post={posts[7]} className="h-full shadow-lg" />
-          <MasonryCard post={posts[8]} className="h-full shadow-lg" />
+          {continentsWithData.slice(3, 6).map((continent, index) => (
+            <ContinentCard 
+              key={continent.name}
+              continent={continent} 
+              stats={continentStats[continent.name]}
+              className="h-full shadow-lg" 
+            />
+          ))}
         </div>
       </div>
     </section>
