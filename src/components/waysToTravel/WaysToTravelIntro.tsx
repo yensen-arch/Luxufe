@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface WaysToTravelIntroProps {
   data?: {
@@ -14,11 +15,9 @@ export default function WaysToTravelIntro({ data }: WaysToTravelIntroProps) {
     <section className="bg-white flex flex-col items-center w-full pt-12 md:pt-20">
       {/* Top: Logo and Text */}
       <div className="flex flex-col items-center mb-16 md:mb-24 px-4 md:px-0">
-        <div className="mb-4 md:mb-6">
-          {/* Placeholder for logo - kept hardcoded as requested */}
-          <div className="w-16 h-16 md:w-24 md:h-24 bg-gray-200 rounded-full flex items-center justify-center">
-            <span className="text-gray-400 text-xl md:text-3xl font-bold">Logo</span>
-          </div>
+        <div className="my-4 md:my-12">
+          {/* Logo */}
+          <Image src="https://res.cloudinary.com/dqh2tacov/image/upload/v1757920006/LUXUFE_-_Wordmark_Logo_6_dtic34.jpg" alt="Logo" width={180} height={180} />
         </div>
         <p className="text-lg md:text-2xl lg:text-3xl font-arpona text-[#23263a] font-bold text-center w-full md:w-1/2">
           {displayDescription}

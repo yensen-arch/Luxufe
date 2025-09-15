@@ -26,7 +26,8 @@ export default function MapDestinations() {
   return (
     <section className="py-20">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex flex-col w-3/5 mx-auto items-center justify-center text-center text-3xl md:text-3xl font-arpona font-semibold text-gray-500 mb-10">Whether it's a country you've always dreamed of or a region you return to again and again, Luxufe helps you experience it in a way that's deeply personal.</div>
+        <div className="flex flex-col w-3/5 mx-auto items-center justify-center text-center text-3xl md:text-3xl font-arpona font-semibold text-gray-500 mb-10">Whether it's a country you've always dreamed of or a region you return to again and again, Luxufe helps you experience it in a way that's deeply personal.
+        </div>
         <p className="text-md font-inter text-[#23263a] text-center font-bold mb-10">Discover regions where our deep knowledge and trusted partners create<br />something truly exceptional</p>
         <div className="w-full h-[650px] overflow-hidden shadow-lg relative">
           <Map
