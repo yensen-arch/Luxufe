@@ -63,6 +63,7 @@ const Page = async ({ params }: PageProps) => {
       <MapRegions 
         continentName={continentName}
         continentData={continentData}
+        countriesData={countriesData}
       />
       <CountriesGrid 
         continentName={continentName}

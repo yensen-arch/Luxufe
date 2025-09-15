@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import CountryCard from "./CountryCard";
 
 interface CountriesGridProps {
@@ -37,6 +38,8 @@ const COUNTRY_IMAGES: { [key: string]: string } = {
 };
 
 const CountriesGrid = ({ continentName, countriesData }: CountriesGridProps) => {
+  const [visibleCount, setVisibleCount] = useState(9); // Show 3x3 = 9 countries by default
+  
   // Handle case where countriesData might be undefined
   if (!countriesData || !Array.isArray(countriesData)) {
     return (
@@ -59,19 +62,32 @@ const CountriesGrid = ({ continentName, countriesData }: CountriesGridProps) => 
     itineraries: 0 // Placeholder for now
   }));
 
+  // Get countries to display
+  const visibleCountries = transformedCountries.slice(0, visibleCount);
+  const hasMore = visibleCount < transformedCountries.length;
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => Math.min(prev + 9, transformedCountries.length));
+  };
+
   return (
     <section className="w-full max-w-7xl mx-auto px-4 md:px-8">
       <h2 className="text-4xl md:text-5xl font-arpona font-bold text-[#23263a] text-center mb-12">
         Explore {continentName}
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-        {transformedCountries.map((country) => (
+        {visibleCountries.map((country) => (
           <CountryCard key={country.name} {...country} />
         ))}
       </div>
-      {transformedCountries.length > 6 && (
+      {hasMore && (
         <div className="flex justify-center mb-10">
-          <button className="text-[#23263a] font-inter font-semibold text-sm px-6 py-2 bg-transparent border-none hover:underline tracking-widest">LOAD MORE +</button>
+          <button 
+            onClick={handleLoadMore}
+            className="text-[#23263a] font-inter font-semibold text-xs px-6 py-2 bg-transparent border-none hover:underline tracking-widest"
+          >
+            LOAD MORE +
+          </button>
         </div>
       )}
     </section>

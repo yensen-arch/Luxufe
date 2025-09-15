@@ -10,6 +10,11 @@ interface MapRegionsProps {
     hotelCount: number;
     countryCount: number;
   };
+  countriesData?: Array<{
+    country: string;
+    hotelCount: number;
+    sampleImage?: string;
+  }>;
 }
 
 // Continent-specific locations and view states
@@ -23,43 +28,63 @@ const CONTINENT_VIEW_STATES = {
   "Antarctica": { longitude: 0, latitude: -80, zoom: 2 }
 };
 
-const CONTINENT_LOCATIONS = {
-  "Africa": [
-    { name: "SOUTHERN AFRICA", lng: 22, lat: -30 },
-    { name: "EAST AFRICA", lng: 39, lat: -2 },
-    { name: "WEST AFRICA", lng: -2, lat: 8 },
-    { name: "NORTH AFRICA", lng: 10, lat: 25 }
-  ],
-  "Asia": [
-    { name: "SOUTHEAST ASIA", lng: 110, lat: 10 },
-    { name: "EAST ASIA", lng: 120, lat: 35 },
-    { name: "SOUTH ASIA", lng: 80, lat: 25 },
-    { name: "CENTRAL ASIA", lng: 70, lat: 45 }
-  ],
-  "Europe": [
-    { name: "WESTERN EUROPE", lng: 5, lat: 50 },
-    { name: "EASTERN EUROPE", lng: 25, lat: 55 },
-    { name: "NORTHERN EUROPE", lng: 10, lat: 65 },
-    { name: "SOUTHERN EUROPE", lng: 15, lat: 40 }
-  ],
-  "North America": [
-    { name: "CANADA", lng: -106.3468, lat: 56.1304 },
-    { name: "UNITED STATES", lng: -100, lat: 40 },
-    { name: "MEXICO", lng: -102, lat: 23 }
-  ],
-  "South America": [
-    { name: "BRAZIL", lng: -60, lat: -15 },
-    { name: "ARGENTINA", lng: -65, lat: -35 },
-    { name: "CHILE", lng: -70, lat: -30 },
-    { name: "PERU", lng: -75, lat: -10 }
-  ],
-  "Australia": [
-    { name: "AUSTRALIA", lng: 133.7751, lat: -25.2744 },
-    { name: "NEW ZEALAND", lng: 174, lat: -40 }
-  ],
-  "Antarctica": [
-    { name: "ANTARCTICA", lng: 0, lat: -80 }
-  ]
+// Country coordinates for mapping
+const COUNTRY_COORDINATES: { [key: string]: { lng: number; lat: number } } = {
+  // Africa
+  "South Africa": { lng: 22, lat: -30 },
+  "Kenya": { lng: 39, lat: -2 },
+  "Tanzania": { lng: 35, lat: -6 },
+  "Botswana": { lng: 24, lat: -22 },
+  "Morocco": { lng: -7, lat: 31 },
+  "Egypt": { lng: 30, lat: 26 },
+  "Seychelles": { lng: 55, lat: -4 },
+  "Namibia": { lng: 18, lat: -22 },
+  "Zambia": { lng: 27, lat: -13 },
+  "Zimbabwe": { lng: 29, lat: -19 },
+  
+  // Asia
+  "Japan": { lng: 138, lat: 36 },
+  "Thailand": { lng: 100, lat: 15 },
+  "India": { lng: 78, lat: 20 },
+  "China": { lng: 104, lat: 35 },
+  "Singapore": { lng: 103, lat: 1 },
+  "Indonesia": { lng: 113, lat: -5 },
+  "Malaysia": { lng: 101, lat: 4 },
+  "Vietnam": { lng: 108, lat: 16 },
+  "Philippines": { lng: 121, lat: 13 },
+  "South Korea": { lng: 127, lat: 36 },
+  
+  // Europe
+  "France": { lng: 2, lat: 46 },
+  "Italy": { lng: 12, lat: 41 },
+  "Spain": { lng: -3, lat: 40 },
+  "United Kingdom": { lng: -3, lat: 55 },
+  "Germany": { lng: 10, lat: 51 },
+  "Switzerland": { lng: 8, lat: 46 },
+  "Austria": { lng: 14, lat: 47 },
+  "Netherlands": { lng: 5, lat: 52 },
+  "Portugal": { lng: -8, lat: 39 },
+  "Greece": { lng: 21, lat: 39 },
+  
+  // North America
+  "United States": { lng: -100, lat: 40 },
+  "Canada": { lng: -106, lat: 56 },
+  "Mexico": { lng: -102, lat: 23 },
+  
+  // South America
+  "Brazil": { lng: -60, lat: -15 },
+  "Argentina": { lng: -65, lat: -35 },
+  "Chile": { lng: -70, lat: -30 },
+  "Peru": { lng: -75, lat: -10 },
+  "Colombia": { lng: -74, lat: 4 },
+  "Ecuador": { lng: -78, lat: -1 },
+  
+  // Australia
+  "Australia": { lng: 133, lat: -25 },
+  "New Zealand": { lng: 174, lat: -40 },
+  
+  // Antarctica
+  "Antarctica": { lng: 0, lat: -80 }
 };
 
 type Location = {
@@ -68,12 +93,30 @@ type Location = {
   lat: number;
 };
 
-export default function MapRegions({ continentName, continentData }: MapRegionsProps) {
+export default function MapRegions({ continentName, continentData, countriesData }: MapRegionsProps) {
   const [selected, setSelected] = useState<Location | null>(null);
   
-  // Get continent-specific data
-  const locations = CONTINENT_LOCATIONS[continentName as keyof typeof CONTINENT_LOCATIONS] || [];
+  // Get continent-specific view state
   const viewState = CONTINENT_VIEW_STATES[continentName as keyof typeof CONTINENT_VIEW_STATES] || { longitude: 0, latitude: 0, zoom: 2 };
+  
+  // Create locations from countries data
+  const locations = countriesData?.map(country => {
+    const coords = COUNTRY_COORDINATES[country.country];
+    return coords ? {
+      name: country.country,
+      lng: coords.lng,
+      lat: coords.lat,
+      hotelCount: country.hotelCount
+    } : null;
+  }).filter(Boolean) as Array<Location & { hotelCount: number }> || [];
+  
+  // Dynamic circle size based on hotel count
+  const getCircleSize = (count: number) => {
+    if (count >= 20) return 'w-22 h-22 text-lg'; // Large circles for 20+
+    if (count >= 10) return 'w-18 h-18 text-lg'; // Medium circles for 10-19
+    if (count >= 5) return 'w-14 h-14 text-lg'; // Medium circles for 5-9
+    return 'w-10 h-10 text-lg'; // Small circles for <5
+  };
 
   return (
     <section className="py-20">
@@ -93,13 +136,14 @@ export default function MapRegions({ continentName, continentData }: MapRegionsP
               <span className="font-inter text-gray-700 text-xs font-bold">Click on a region to explore further</span>
             </div>
             {locations.map((loc) => (
-              <Marker longitude={loc.lng} latitude={loc.lat} anchor="bottom" key={loc.name}>
+              <Marker longitude={loc.lng} latitude={loc.lat} anchor="center" key={loc.name}>
                 <button
-                  className="bg-white px-5 py-2 rounded-full shadow-lg flex items-center gap-2 font-inter text-sm font-bold text-gray-900 hover:bg-gray-100 border border-gray-200"
+                  className={`bg-white ${getCircleSize(loc.hotelCount)} rounded-full shadow-lg flex items-center justify-center border border-gray-200 cursor-pointer hover:shadow-xl transition-all duration-200`}
                   onClick={() => setSelected(loc)}
                 >
-                  <MapPin className="w-4 h-4" />
-                  {loc.name}
+                  <span className="text-black">
+                    {loc.hotelCount}
+                  </span>
                 </button>
                 {selected && selected.name === loc.name && (
                   <Popup
@@ -110,13 +154,11 @@ export default function MapRegions({ continentName, continentData }: MapRegionsP
                     closeButton={false}
                     className="z-20"
                   >
-                    <div className="font-inter text-sm font-bold text-[#23263a]">
+                    <div className="font-inter text-sm font-bold text-[#23263a] p-2">
                       <div>{loc.name}</div>
-                      {continentData && (
-                        <div className="text-xs text-gray-600 mt-1">
-                          {continentData.countryCount} countries, {continentData.hotelCount} properties
-                        </div>
-                      )}
+                      <div className="text-xs text-gray-600 mt-1">
+                        {loc.hotelCount} hotel{loc.hotelCount !== 1 ? 's' : ''}
+                      </div>
                     </div>
                   </Popup>
                 )}
