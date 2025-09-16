@@ -9,7 +9,16 @@ const tabs = [
   { label: "Book a Cruise" },
 ];
 
-export default function CountryHero() {
+interface CountryHeroProps {
+  countryName: string;
+  countryStats: {
+    hotelCount: number;
+    cityCount: number;
+    brandCount: number;
+  };
+}
+
+export default function CountryHero({ countryName, countryStats }: CountryHeroProps) {
   return (
     <section className="relative w-full h-screen shadow-lg flex flex-col justify-end">
       {/* Background Image */}
@@ -23,24 +32,24 @@ export default function CountryHero() {
       <div className="relative z-20 flex flex-col items-start justify-center h-full w-full max-w-7xl mx-auto px-8">
         <div className="mt-24">
           <div className="text-white text-sm mb-4 font-inter opacity-80">
-            Home &gt; Destinations &gt; Regions &gt; Africa
+            Home &gt; Destinations &gt; {countryName}
           </div>
           <h1 className="text-5xl md:text-7xl font-arpona text-white font-bold mb-4 flex items-center gap-4">
-            Discover <span className="font-bellarina text-5xl md:text-7xl">Africa</span>
+            Discover <span className="font-bellarina text-5xl md:text-7xl">{countryName}</span>
           </h1>
           <p className="text-lg md:text-2xl text-white font-inter mb-8 max-w-2xl">
-            From iconic landscapes to legendary hospitality, Africa redefines luxury through experience
+            From iconic landscapes to legendary hospitality, {countryName} redefines luxury through experience
           </p>
           {/* Stats Row */}
           <div className="flex items-center gap-8 text-white text-base md:text-lg font-inter font-semibold mb-2">
             <span className="flex items-center gap-2">
-              <MapPin className="w-5 h-5" /> 23 Countries
+              <MapPin className="w-5 h-5" /> {countryStats.cityCount} Cit{countryStats.cityCount === 1 ? 'y' : 'ies'}
             </span>
             <span className="flex items-center gap-2">
-              <Building2 className="w-5 h-5" /> 123 Properties
+              <Building2 className="w-5 h-5" /> {countryStats.hotelCount} Propert{countryStats.hotelCount === 1 ? 'y' : 'ies'}
             </span>
             <span className="flex items-center gap-2">
-              <BookOpen className="w-5 h-5" /> 87 Itineraries
+              <BookOpen className="w-5 h-5" /> {countryStats.brandCount} Brand{countryStats.brandCount === 1 ? '' : 's'}
             </span>
           </div>
         </div>

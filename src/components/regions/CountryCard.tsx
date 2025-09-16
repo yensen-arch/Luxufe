@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
 import { Building2, BookOpen } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface CountryCardProps {
   name: string;
@@ -9,8 +11,17 @@ interface CountryCardProps {
 }
 
 const CountryCard: React.FC<CountryCardProps> = ({ name, image, properties, itineraries }) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/country/${encodeURIComponent(name)}`);
+  };
+
   return (
-    <div className="relative rounded-none overflow-hidden shadow-lg h-[500px] flex flex-col justify-between group cursor-pointer">
+    <div 
+      className="relative rounded-none overflow-hidden shadow-lg h-[500px] flex flex-col justify-between group cursor-pointer"
+      onClick={handleClick}
+    >
       {/* Background Image */}
       <img
         src={image}

@@ -1,20 +1,32 @@
 import React from "react";
-import { User, MapPin, Train, Briefcase, CircleDollarSign, Clock } from "lucide-react";
+import { User, MapPin, Train, Briefcase, CircleDollarSign, Clock, Building2 } from "lucide-react";
+import { Hotel } from "@/lib/database";
 
-const info = [
-  { icon: <User className="w-6 h-6" />, text: "Population: 64.7 million" },
-  { icon: <MapPin className="w-6 h-6" />, text: "Must Visit: Cape Town & Kruger" },
-  { icon: <Train className="w-6 h-6" />, text: "Luxury Train journeys" },
-  { icon: <Briefcase className="w-6 h-6" />, text: "Luxury Safaris & Expeditions" },
-  { icon: <CircleDollarSign className="w-6 h-6" />, text: "Currency: South African Rand (ZAR)" },
-  { icon: <Clock className="w-6 h-6" />, text: "Time Zone: GMT+2 (SAST)" },
-];
+interface ExploreCountryProps {
+  countryName: string;
+  hotels: Hotel[];
+}
 
-const ExploreCountry = () => {
+const ExploreCountry = ({ countryName, hotels }: ExploreCountryProps) => {
+  // Get unique cities from hotels
+  const cities = [...new Set(hotels.map(hotel => hotel.city))];
+  const topCities = cities.slice(0, 2).join(' & ');
+  
+  // Get unique brands from hotels
+  const brands = [...new Set(hotels.map(hotel => hotel.brand))];
+
+  const info = [
+    { icon: <Building2 className="w-6 h-6" />, text: `${hotels.length} Luxury Properties` },
+    { icon: <MapPin className="w-6 h-6" />, text: `Must Visit: ${topCities || 'Various Cities'}` },
+    { icon: <Train className="w-6 h-6" />, text: "Luxury Experiences" },
+    { icon: <Briefcase className="w-6 h-6" />, text: "Premium Hospitality" },
+    { icon: <CircleDollarSign className="w-6 h-6" />, text: "Luxury Travel Destination" },
+    { icon: <Clock className="w-6 h-6" />, text: "Year-Round Destination" },
+  ];
   return (
     <section className="w-full max-w-4xl mx-auto py-20 px-4 text-center">
       <h2 className="text-4xl md:text-2xl font-arpona text-[#23263a] font-bold mb-12 leading-snug">
-        South Africa is a land of striking contrasts—where untamed wilderness meets world-class refinement. From exclusive Big Five safaris to award-winning vineyards and chic coastal retreats, it offers a distinctly luxurious take on adventure, culture, and natural beauty.
+        {countryName} is a land of striking contrasts—where untamed wilderness meets world-class refinement. From exclusive luxury experiences to award-winning hospitality and chic retreats, it offers a distinctly luxurious take on adventure, culture, and natural beauty.
       </h2>
       <div className="flex flex-wrap justify-center gap-x-10 gap-y-8 mt-8">
         {info.map((item, idx) => (

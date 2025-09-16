@@ -386,6 +386,71 @@ export const getCountriesByContinent = async (continentName: string): Promise<Ar
   }
 };
 
+// Get hotels by country
+export const getHotelsByCountry = async (countryName: string): Promise<Hotel[]> => {
+  try {
+    console.log('🔍 getHotelsByCountry: Fetching hotels for:', countryName);
+    
+    const { data, error } = await supabase
+      .from('hotels')
+      .select('*')
+      .eq('country', countryName)
+      .order('hotel_name', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching hotels by country:', error);
+      return [];
+    }
+
+    console.log('✅ getHotelsByCountry: Found hotels:', data?.length || 0);
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching hotels by country:', error);
+    return [];
+  }
+};
+
+// Get country statistics
+export const getCountryStatistics = async (countryName: string): Promise<{
+  hotelCount: number;
+  cityCount: number;
+  brandCount: number;
+} | null> => {
+  try {
+    console.log('🔍 getCountryStatistics: Fetching statistics for:', countryName);
+    
+    const { data, error } = await supabase
+      .from('hotels')
+      .select('city, brand')
+      .eq('country', countryName);
+
+    if (error) {
+      console.error('Error fetching country statistics:', error);
+      return null;
+    }
+
+    if (!data || data.length === 0) {
+      console.log('❌ getCountryStatistics: No data found for country:', countryName);
+      return null;
+    }
+
+    const uniqueCities = new Set(data.map(hotel => hotel.city)).size;
+    const uniqueBrands = new Set(data.map(hotel => hotel.brand)).size;
+
+    const stats = {
+      hotelCount: data.length,
+      cityCount: uniqueCities,
+      brandCount: uniqueBrands
+    };
+
+    console.log('✅ getCountryStatistics: Found statistics:', stats);
+    return stats;
+  } catch (error) {
+    console.error('Error fetching country statistics:', error);
+    return null;
+  }
+};
+
 // Get a single hotel by name
 export const getHotelByName = async (hotelName: string): Promise<Hotel | null> => {
   try {
