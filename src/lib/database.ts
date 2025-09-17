@@ -733,10 +733,25 @@ export const getHotelHeroImage = async (hotelName: string): Promise<string | nul
   try {
     console.log('🔍 getHotelHeroImage: Searching for hotel:', hotelName);
     
-    // Note: hotel_hero column doesn't exist in current schema
-    // This function is kept for future compatibility
-    console.log('❌ getHotelHeroImage: hotel_hero column not available in current schema for hotel:', hotelName);
-    return null;
+    const { data, error } = await supabase
+      .from('hotelgallery')
+      .select('hotel_hero')
+      .eq('hotel_name', hotelName)
+      .not('hotel_hero', 'is', null)
+      .maybeSingle();
+
+    if (error) {
+      console.error('Error fetching hotel hero image:', error);
+      return null;
+    }
+
+    if (!data || !data.hotel_hero) {
+      console.log('📝 getHotelHeroImage: No hero image found for hotel:', hotelName);
+      return null;
+    }
+
+    console.log('✅ getHotelHeroImage: Found hero image for hotel:', hotelName, data.hotel_hero);
+    return data.hotel_hero;
   } catch (error) {
     console.error('Error fetching hotel hero image:', error);
     return null;
@@ -748,9 +763,50 @@ export const updateHotelHeroImage = async (hotelName: string, heroImageUrl: stri
   try {
     console.log('🔍 updateHotelHeroImage: Updating for hotel:', hotelName, heroImageUrl);
     
-    // Note: hotel_hero column doesn't exist in current schema
-    console.log('❌ updateHotelHeroImage: hotel_hero column not available in current schema for hotel:', hotelName);
-    return false;
+    // First, check if there's already a record for this hotel
+    const { data: existingData, error: fetchError } = await supabase
+      .from('hotelgallery')
+      .select('id, hotel_hero')
+      .eq('hotel_name', hotelName)
+      .maybeSingle();
+
+    if (fetchError) {
+      console.error('Error fetching existing hotel data:', fetchError);
+      return false;
+    }
+
+    if (existingData) {
+      // Update existing record
+      const { error: updateError } = await supabase
+        .from('hotelgallery')
+        .update({ 
+          hotel_hero: heroImageUrl
+        })
+        .eq('hotel_name', hotelName);
+
+      if (updateError) {
+        console.error('Error updating hotel hero image:', updateError);
+        return false;
+      }
+    } else {
+      // Create new record (we need at least one gallery image to create a record)
+      // For now, we'll create a minimal record with just the hero image
+      const { error: insertError } = await supabase
+        .from('hotelgallery')
+        .insert({
+          hotel_name: hotelName,
+          hotel_image: '[]', // Empty array as placeholder
+          hotel_hero: heroImageUrl
+        });
+
+      if (insertError) {
+        console.error('Error creating hotel record with hero image:', insertError);
+        return false;
+      }
+    }
+
+    console.log('✅ updateHotelHeroImage: Successfully updated hero image for hotel:', hotelName);
+    return true;
   } catch (error) {
     console.error('Error updating hotel hero image:', error);
     return false;
