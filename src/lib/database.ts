@@ -477,7 +477,7 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
   try {
     console.log('🔍 getHotelGallery: Searching for hotel:', hotelName);
     
-    // Try exact match first - get all rows and take the first one
+    // Try exact match first - get all rows and take the first onei
     let { data, error } = await supabase
       .from('hotelgallery')
       .select('hotel_image')
@@ -581,10 +581,24 @@ export const getHotelCardImages = async (hotelName: string): Promise<{
   try {
     console.log('🔍 getHotelCardImages: Searching for hotel:', hotelName);
     
-    // Note: hotel_card_images column doesn't exist in current schema
-    // This function is kept for future compatibility
-    console.log('❌ getHotelCardImages: hotel_card_images column not available in current schema for hotel:', hotelName);
-    return null;
+    const { data, error } = await supabase
+      .from('hotelgallery')
+      .select('hotel_card_images')
+      .eq('hotel_name', hotelName)
+      .maybeSingle();
+
+    if (error) {
+      console.error('Error fetching hotel card images:', error);
+      return null;
+    }
+
+    if (!data || !data.hotel_card_images) {
+      console.log('📝 getHotelCardImages: No card images found for hotel:', hotelName);
+      return { top: null, left: null, right: null };
+    }
+
+    console.log('✅ getHotelCardImages: Found card images for hotel:', hotelName, data.hotel_card_images);
+    return data.hotel_card_images;
   } catch (error) {
     console.error('Error fetching hotel card images:', error);
     return null;
@@ -603,9 +617,50 @@ export const updateHotelCardImages = async (
   try {
     console.log('🔍 updateHotelCardImages: Updating for hotel:', hotelName, cardImages);
     
-    // Note: hotel_card_images column doesn't exist in current schema
-    console.log('❌ updateHotelCardImages: hotel_card_images column not available in current schema for hotel:', hotelName);
-    return false;
+    // First, check if there's already a record for this hotel
+    const { data: existingData, error: fetchError } = await supabase
+      .from('hotelgallery')
+      .select('id, hotel_card_images')
+      .eq('hotel_name', hotelName)
+      .maybeSingle();
+
+    if (fetchError) {
+      console.error('Error fetching existing hotel data:', fetchError);
+      return false;
+    }
+
+    if (existingData) {
+      // Update existing record
+      const { error: updateError } = await supabase
+        .from('hotelgallery')
+        .update({ 
+          hotel_card_images: cardImages
+        })
+        .eq('hotel_name', hotelName);
+
+      if (updateError) {
+        console.error('Error updating hotel card images:', updateError);
+        return false;
+      }
+    } else {
+      // Create new record (we need at least one gallery image to create a record)
+      // For now, we'll create a minimal record with just the card images
+      const { error: insertError } = await supabase
+        .from('hotelgallery')
+        .insert({
+          hotel_name: hotelName,
+          hotel_image: '[]', // Empty array as placeholder
+          hotel_card_images: cardImages
+        });
+
+      if (insertError) {
+        console.error('Error creating hotel record with card images:', insertError);
+        return false;
+      }
+    }
+
+    console.log('✅ updateHotelCardImages: Successfully updated card images for hotel:', hotelName);
+    return true;
   } catch (error) {
     console.error('Error updating hotel card images:', error);
     return false;
