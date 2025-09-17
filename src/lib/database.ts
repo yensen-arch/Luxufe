@@ -477,29 +477,29 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
   try {
     console.log('🔍 getHotelGallery: Searching for hotel:', hotelName);
     
-    // Try exact match first
+    // Try exact match first - get all rows and take the first one
     let { data, error } = await supabase
       .from('hotelgallery')
       .select('hotel_image')
       .eq('hotel_name', hotelName)
-      .maybeSingle();
+      .limit(1);
 
-    console.log('🔍 getHotelGallery: Exact match result:', { data: !!data, error: !!error, hotelName });
+    console.log('🔍 getHotelGallery: Exact match result:', { data: data?.length || 0, error: !!error, hotelName });
 
-    // If no exact match, try case-insensitive exact match
-    if (!data && !error) {
+    // If no exact match, try case-insensitive match
+    if ((!data || data.length === 0) && !error) {
       console.log('🔍 getHotelGallery: Trying case-insensitive match for:', hotelName);
       const { data: caseInsensitiveData, error: caseError } = await supabase
         .from('hotelgallery')
         .select('hotel_image')
         .ilike('hotel_name', hotelName)
-        .maybeSingle();
+        .limit(1);
       
       if (caseError) {
         console.error('Error fetching hotel gallery (case-insensitive):', caseError);
       } else {
         data = caseInsensitiveData;
-        console.log('🔍 getHotelGallery: Case-insensitive match result:', { data: !!data, hotelName });
+        console.log('🔍 getHotelGallery: Case-insensitive match result:', { data: data?.length || 0, hotelName });
       }
     }
 
@@ -508,19 +508,19 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
       return [];
     }
 
-    if (!data || !data.hotel_image) {
+    if (!data || data.length === 0 || !data[0]?.hotel_image) {
       console.log('❌ getHotelGallery: No data found for hotel:', hotelName);
       return [];
     }
 
-    console.log('✅ getHotelGallery: Found data for hotel:', hotelName, 'Image string length:', data.hotel_image?.length);
+    console.log('✅ getHotelGallery: Found data for hotel:', hotelName, 'Image string length:', data[0].hotel_image?.length);
 
     // Parse the Python-style string array and extract URLs
     try {
       console.log('🔍 getHotelGallery: Starting to parse image string');
       // The data is stored as a Python-style string, not JSON
       // Remove the outer quotes and split by ', ' to get individual URLs
-      const imageString = data.hotel_image;
+      const imageString = data[0].hotel_image;
       console.log('🔍 getHotelGallery: Raw image string:', imageString.substring(0, 100) + '...');
       
       // Remove the outer brackets and quotes
@@ -581,24 +581,10 @@ export const getHotelCardImages = async (hotelName: string): Promise<{
   try {
     console.log('🔍 getHotelCardImages: Searching for hotel:', hotelName);
     
-    const { data, error } = await supabase
-      .from('hotelgallery')
-      .select('hotel_card_images')
-      .eq('hotel_name', hotelName)
-      .maybeSingle();
-
-    if (error) {
-      console.error('Error fetching hotel card images:', error);
-      return null;
-    }
-
-    if (!data || !data.hotel_card_images) {
-      console.log('❌ getHotelCardImages: No card images found for hotel:', hotelName);
-      return null;
-    }
-
-    console.log('✅ getHotelCardImages: Found card images for hotel:', hotelName, data.hotel_card_images);
-    return data.hotel_card_images;
+    // Note: hotel_card_images column doesn't exist in current schema
+    // This function is kept for future compatibility
+    console.log('❌ getHotelCardImages: hotel_card_images column not available in current schema for hotel:', hotelName);
+    return null;
   } catch (error) {
     console.error('Error fetching hotel card images:', error);
     return null;
@@ -617,18 +603,9 @@ export const updateHotelCardImages = async (
   try {
     console.log('🔍 updateHotelCardImages: Updating for hotel:', hotelName, cardImages);
     
-    const { error } = await supabase
-      .from('hotelgallery')
-      .update({ hotel_card_images: cardImages })
-      .eq('hotel_name', hotelName);
-
-    if (error) {
-      console.error('Error updating hotel card images:', error);
-      return false;
-    }
-
-    console.log('✅ updateHotelCardImages: Successfully updated for hotel:', hotelName);
-    return true;
+    // Note: hotel_card_images column doesn't exist in current schema
+    console.log('❌ updateHotelCardImages: hotel_card_images column not available in current schema for hotel:', hotelName);
+    return false;
   } catch (error) {
     console.error('Error updating hotel card images:', error);
     return false;
@@ -701,44 +678,10 @@ export const getHotelHeroImage = async (hotelName: string): Promise<string | nul
   try {
     console.log('🔍 getHotelHeroImage: Searching for hotel:', hotelName);
     
-    // Try exact match first
-    let { data, error } = await supabase
-      .from('hotelgallery')
-      .select('hotel_hero')
-      .eq('hotel_name', hotelName)
-      .maybeSingle();
-
-    console.log('🔍 getHotelHeroImage: Exact match result:', { data: !!data, error: !!error, hotelName });
-
-    // If no exact match, try case-insensitive exact match
-    if (!data && !error) {
-      console.log('🔍 getHotelHeroImage: Trying case-insensitive match for:', hotelName);
-      const { data: caseInsensitiveData, error: caseError } = await supabase
-        .from('hotelgallery')
-        .select('hotel_hero')
-        .ilike('hotel_name', hotelName)
-        .maybeSingle();
-      
-      if (caseError) {
-        console.error('Error fetching hotel hero image (case-insensitive):', caseError);
-      } else {
-        data = caseInsensitiveData;
-        console.log('🔍 getHotelHeroImage: Case-insensitive match result:', { data: !!data, hotelName });
-      }
-    }
-
-    if (error) {
-      console.error('Error fetching hotel hero image:', error);
-      return null;
-    }
-
-    if (!data || !data.hotel_hero) {
-      console.log('❌ getHotelHeroImage: No hero image found for hotel:', hotelName);
-      return null;
-    }
-
-    console.log('✅ getHotelHeroImage: Found hero image for hotel:', hotelName, data.hotel_hero);
-    return data.hotel_hero;
+    // Note: hotel_hero column doesn't exist in current schema
+    // This function is kept for future compatibility
+    console.log('❌ getHotelHeroImage: hotel_hero column not available in current schema for hotel:', hotelName);
+    return null;
   } catch (error) {
     console.error('Error fetching hotel hero image:', error);
     return null;
@@ -750,18 +693,9 @@ export const updateHotelHeroImage = async (hotelName: string, heroImageUrl: stri
   try {
     console.log('🔍 updateHotelHeroImage: Updating for hotel:', hotelName, heroImageUrl);
     
-    const { error } = await supabase
-      .from('hotelgallery')
-      .update({ hotel_hero: heroImageUrl })
-      .eq('hotel_name', hotelName);
-
-    if (error) {
-      console.error('Error updating hotel hero image:', error);
-      return false;
-    }
-
-    console.log('✅ updateHotelHeroImage: Successfully updated for hotel:', hotelName);
-    return true;
+    // Note: hotel_hero column doesn't exist in current schema
+    console.log('❌ updateHotelHeroImage: hotel_hero column not available in current schema for hotel:', hotelName);
+    return false;
   } catch (error) {
     console.error('Error updating hotel hero image:', error);
     return false;
