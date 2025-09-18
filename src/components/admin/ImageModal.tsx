@@ -86,7 +86,13 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, position, on
         const cardImagesData = cardImages as { top: string | null; left: string | null; right: string | null };
         success = await updateHotelCardImages(hotelName, cardImagesData);
         if (success) {
-          setCurrentCardImages(cardImagesData);
+          // Fetch the latest card images from database to get the merged result
+          const latestCardImages = await getHotelCardImages(hotelName);
+          if (latestCardImages) {
+            setCurrentCardImages(latestCardImages);
+          } else {
+            setCurrentCardImages(cardImagesData);
+          }
           alert('Card images saved successfully! The brand card will now display your selected images.');
         } else {
           alert('Failed to save card images. Please try again.');

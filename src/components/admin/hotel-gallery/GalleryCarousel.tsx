@@ -77,7 +77,7 @@ export default function GalleryCarousel({
         <div className="flex gap-2 p-2 pointer-events-auto">
           {galleryImages.map((imageUrl, index) => (
             <GalleryImage
-              key={imageUrl}
+              key={`${imageUrl}-${index}`}
               imageUrl={imageUrl}
               index={index}
               hotelName={hotelName}

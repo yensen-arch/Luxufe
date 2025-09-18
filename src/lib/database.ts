@@ -630,11 +630,18 @@ export const updateHotelCardImages = async (
     }
 
     if (existingData) {
+      // Merge new card images with existing ones
+      const existingCardImages = existingData.hotel_card_images || { top: null, left: null, right: null };
+      const mergedCardImages = {
+        ...existingCardImages,
+        ...cardImages
+      };
+      
       // Update existing record
       const { error: updateError } = await supabase
         .from('hotelgallery')
         .update({ 
-          hotel_card_images: cardImages
+          hotel_card_images: mergedCardImages
         })
         .eq('hotel_name', hotelName);
 
@@ -967,22 +974,22 @@ export const getRoomsByHotel = async (hotelName: string): Promise<any[]> => {
 // Get room gallery by room name and hotel name
 export const getRoomGallery = async (roomName: string, hotelName: string): Promise<string[]> => {
   try {
-    // Try exact match first
+    console.log('🔍 getRoomGallery: Searching for room:', roomName, 'in hotel:', hotelName);
+    
+    // First, try to get all rows for this room (multiple rows case)
     let { data, error } = await supabase
       .from('roomgallery')
       .select('room_image')
       .eq('room_name', roomName)
-      .eq('hotel_name', hotelName)
-      .maybeSingle();
+      .eq('hotel_name', hotelName);
 
     // If no exact match, try case-insensitive search
-    if (!data && !error) {
+    if ((!data || data.length === 0) && !error) {
       const { data: caseInsensitiveData, error: caseError } = await supabase
         .from('roomgallery')
         .select('room_image')
         .ilike('room_name', roomName)
-        .ilike('hotel_name', hotelName)
-        .maybeSingle();
+        .ilike('hotel_name', hotelName);
       
       if (caseError) {
         console.error('Error fetching room gallery (case-insensitive):', caseError);
@@ -996,22 +1003,47 @@ export const getRoomGallery = async (roomName: string, hotelName: string): Promi
       return [];
     }
 
-    if (!data || !data.room_image) {
+    if (!data || data.length === 0) {
+      console.log('📝 getRoomGallery: No images found for room:', roomName);
       return [];
     }
 
-    // Parse the Python-style string array and extract URLs
-    try {
-      const imageString = data.room_image;
-      const cleanString = imageString.slice(2, -2); // Remove "['" and "']"
-      const imageUrls = cleanString.split("', '");
-      const cleanedUrls = imageUrls.map((url: string) => url.replace(/['"]/g, ''));
-      
-      return cleanedUrls;
-    } catch (parseError) {
-      console.error('Error parsing room image string:', parseError);
+    // Handle multiple rows case (one image per row)
+    if (data.length > 1) {
+      console.log('✅ getRoomGallery: Found', data.length, 'individual image rows for room:', roomName);
+      const urls = data.map(row => row.room_image).filter(url => url && url.trim() !== '');
+      // Remove duplicates while preserving order
+      const uniqueUrls = [...new Set(urls)];
+      if (urls.length !== uniqueUrls.length) {
+        console.log('📝 getRoomGallery: Removed', urls.length - uniqueUrls.length, 'duplicate URLs for room:', roomName);
+      }
+      return uniqueUrls;
+    }
+
+    // Handle single row case (multiple images in one string)
+    const imageString = data[0].room_image;
+    if (!imageString) {
       return [];
     }
+
+    // Check if it's a string array format (like Python array)
+    if (imageString.startsWith("['") && imageString.endsWith("']")) {
+      try {
+        console.log('✅ getRoomGallery: Parsing string array format for room:', roomName);
+        const cleanString = imageString.slice(2, -2); // Remove "['" and "']"
+        const imageUrls = cleanString.split("', '");
+        const cleanedUrls = imageUrls.map((url: string) => url.replace(/['"]/g, ''));
+        return cleanedUrls.filter(url => url && url.trim() !== '');
+      } catch (parseError) {
+        console.error('Error parsing room image string array:', parseError);
+        return [];
+      }
+    }
+
+    // Handle single image case
+    console.log('✅ getRoomGallery: Found single image for room:', roomName);
+    return [imageString].filter(url => url && url.trim() !== '');
+    
   } catch (error) {
     console.error('Error fetching room gallery:', error);
     return [];
