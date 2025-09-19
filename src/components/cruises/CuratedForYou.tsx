@@ -142,10 +142,10 @@ export default function CuratedForYou() {
       </div>
 
       <div className="text-center mt-12 md:mt-16 flex flex-col md:flex-row justify-center gap-4 px-4 md:px-0">
-        <button className="border border-gray-800 text-gray-800 px-4 md:px-6 py-2 md:py-3 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-sm md:text-base">
+        <button className="border border-gray-800 text-gray-800 px-4 md:px-6 py-2 md:py-3 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-xs">
           JOURNEYS & TOURS <ArrowRight className="h-3 w-3 md:h-4 md:w-4" />
         </button>
-        <button className="border border-gray-800 text-gray-800 px-4 md:px-6 py-2 md:py-3 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-sm md:text-base">
+        <button className="border border-gray-800 text-gray-800 px-4 md:px-6 py-2 md:py-3 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-xs">
           MORE WAYS TO TRAVEL <ArrowRight className="h-3 w-3 md:h-4 md:w-4" />
         </button>
       </div>

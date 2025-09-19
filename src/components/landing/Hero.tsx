@@ -44,7 +44,7 @@ export default function Hero({ data }: HeroProps) {
             </span>
           ))}
         </h1>
-        <p className="mt-4 md:mt-5 lg:mt-6 max-w-xl mx-auto font-inter font-bold text-sm md:text-base lg:text-lg px-4">
+        <p className="mt-4 md:mt-5 lg:mt-6 max-w-xl mx-auto font-inter font-bold text-md md:text-md lg:text-md leading-relaxed px-4">
           {heroData.description}
         </p>
       </div>

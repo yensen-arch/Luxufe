@@ -90,8 +90,8 @@ export default function StartJourney({ data }: StartJourneyProps) {
         </div>
         
         <div className="text-center">
-          <button className="font-inter font-bold border-2 border-gray-400 text-gray-700 px-4 md:px-6 py-3 md:py-4 text-xs md:text-sm tracking-wider hover:bg-gray-800 hover:text-white hover:border-gray-800 transition-all duration-300">
-            {sectionData.ctaText}
+          <button className="font-inter font-bold border-2 border-gray-300 text-gray-700 px-4 md:px-6 py-3 md:py-4 text-xs md:text-xs tracking-wider hover:bg-gray-800 hover:text-white hover:border-gray-800 transition-all duration-300">
+            + {sectionData.ctaText}
           </button>
         </div>
       </div>
