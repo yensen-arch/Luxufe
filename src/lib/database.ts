@@ -557,7 +557,7 @@ export const getHotelGallery = async (hotelName: string): Promise<string[]> => {
       }
       
       // Clean up each URL (remove any remaining quotes and trim whitespace)
-      const cleanedUrls = imageUrls.map((url: string) => url.replace(/['"]/g, '').trim()).filter(url => url.length > 0);
+      const cleanedUrls = imageUrls.map((url: string) => url.replace(/['"]/g, '').trim()).filter((url: string) => url.length > 0);
       console.log('🔍 getHotelGallery: Final cleaned URLs count:', cleanedUrls.length);
       console.log('🔍 getHotelGallery: First URL:', cleanedUrls[0]);
       
@@ -848,6 +848,164 @@ export const updateHotelGalleryOrder = async (hotelName: string, imageUrls: stri
 
 
 
+// Cruise Types and Interfaces
+export interface CruiseBrand {
+  id: number;
+  created_at: string;
+  name: string;
+  description?: string;
+  logo_horizontal?: string;
+  cover?: string;
+  year_founded?: string;
+  external_id?: string;
+  brand_video_url?: string;
+  widgety_api_href?: string;
+  is_active: boolean;
+  widgety_uses_cruises_and_tours_api: boolean;
+  sanity_id?: string;
+  sanity_slug?: string;
+  type: string;
+  sync_source?: string;
+  ship_count: number;
+}
+
+export interface CruiseShip {
+  id: number;
+  created_at: string;
+  name: string;
+  brand_id: number;
+  capacity?: string;
+  title?: string;
+  description?: string;
+  seo_meta_description?: string;
+  ship_cover?: string;
+  ship_thumbnail?: string;
+  built?: string;
+  refurbished?: string;
+  external_id?: string;
+  widgety_api_href?: string;
+  is_active: boolean;
+  sanity_id?: string;
+  sanity_slug?: string;
+  ship_type?: string;
+  deck_plan?: string;
+  length?: string;
+  width?: number;
+  cruising_speed?: number;
+  crew_size?: number;
+  number_cabins?: number;
+  has_us_plugs?: boolean;
+  dining_options?: string;
+  dining_description?: string;
+  enrichment_description?: string;
+  enrichment_types?: string;
+  entertainment_description?: string;
+  entertainment_types?: string;
+  health_fitness_description?: string;
+  health_fitness_types?: string;
+  useful_types?: string;
+  deck_images?: string;
+  travel_styles?: string;
+  gallery?: string;
+}
+
+export interface CruiseItinerary {
+  id: number;
+  created_at: string;
+  brand_id: number;
+  status: string;
+  name: string;
+  description?: string;
+  short_description?: string;
+  header_subtitle?: string;
+  seo_meta_description?: string;
+  journey_summary?: string;
+  itinerary_highlights?: string;
+  extra?: string;
+  inclusions?: string;
+  exclusions?: string;
+  rivers?: string[];
+  travel_styles?: string[];
+  thumbnail_image?: string;
+  map_image?: string;
+  external_id?: string;
+  mc_tags?: string[];
+  mc_booked_tags?: string[];
+  lowest_price?: string;
+  earliest_departure_date?: string;
+  latest_departure_date?: string;
+  booked_clients: number;
+  widgety_api_href?: string;
+  sanity_id?: string;
+  sanity_slug?: string;
+  hero_image?: string;
+  countries?: string[];
+  destinations?: string[];
+  is_special?: string;
+  associated_itineraries?: string;
+  gallery?: string;
+}
+
+export interface CruiseItineraryDate {
+  id: number;
+  created_at: string;
+  itinerary_id: number;
+  embark_port_name?: string;
+  debark_port_name?: string;
+  date: string;
+  name?: string;
+  ship_id?: number;
+  schedule?: any; // JSONB field
+  extensions?: any; // JSONB field
+  external_id?: string;
+  additional_ship_ids?: string;
+  end_date?: string;
+  brand_id?: number;
+}
+
+export interface CruiseShipCabinType {
+  id: number;
+  created_at: string;
+  name: string;
+  description?: string;
+  images?: string;
+  square_feet?: string;
+  cabin_amenities?: string;
+  external_cabin_name?: string;
+  ship_id: number;
+  grade_codes?: string[];
+  wheelchair_accessible?: string;
+  max_occupancy?: string;
+  room_layout_image?: string;
+  capacity?: string;
+}
+
+export interface CruiseItineraryDateCabinType {
+  id: number;
+  created_at: string;
+  name: string;
+  room_type?: string;
+  grade_code?: string;
+  double_price_pp?: string;
+  promo_double_price_pp?: string;
+  single_price_pp?: string;
+  promo_single_price_pp?: string;
+  airfare_pp?: string;
+  promo_airfare_pp?: string;
+  ss_essential_double_price_pp?: string;
+  ss_essential_single_price_pp?: string;
+  onboard_credit?: string;
+  availability?: string;
+  ship_cabin_type_id?: string;
+  itinerary_date_id?: string;
+  ship_id?: string;
+  brand_id?: string;
+  internal_airfare?: string;
+  request_only?: string;
+  promo_text?: string;
+  disclaimer?: string;
+}
+
 // Dummy data for cruises and private jets
 export const dummyCruiseBrands = [
   {
@@ -1033,7 +1191,7 @@ export const getRoomGallery = async (roomName: string, hotelName: string): Promi
         const cleanString = imageString.slice(2, -2); // Remove "['" and "']"
         const imageUrls = cleanString.split("', '");
         const cleanedUrls = imageUrls.map((url: string) => url.replace(/['"]/g, ''));
-        return cleanedUrls.filter(url => url && url.trim() !== '');
+        return cleanedUrls.filter((url: string) => url && url.trim() !== '');
       } catch (parseError) {
         console.error('Error parsing room image string array:', parseError);
         return [];
@@ -1632,6 +1790,307 @@ export const updateLandItineraryDates = async (itineraryId: number, dates: LandI
   } catch (error) {
     console.error('Error updating land itinerary dates:', error);
     return false;
+  }
+};
+
+// CRUISE DATABASE FUNCTIONS
+
+// Fetch cruise brands
+export const getCruiseBrands = async (): Promise<CruiseBrand[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('cruise_brands')
+      .select('*')
+      .eq('is_active', true)
+      .order('name', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching cruise brands:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching cruise brands:', error);
+    return [];
+  }
+};
+
+// Get a single cruise brand by ID
+export const getCruiseBrandById = async (id: number): Promise<CruiseBrand | null> => {
+  try {
+    const { data, error } = await supabase
+      .from('cruise_brands')
+      .select('*')
+      .eq('id', id)
+      .eq('is_active', true)
+      .single();
+
+    if (error) {
+      console.error('Error fetching cruise brand:', error);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching cruise brand:', error);
+    return null;
+  }
+};
+
+// Fetch cruise ships by brand
+export const getCruiseShipsByBrand = async (brandId: number): Promise<CruiseShip[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('cruise_ships')
+      .select('*')
+      .eq('brand_id', brandId)
+      .eq('is_active', true)
+      .order('name', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching cruise ships:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching cruise ships:', error);
+    return [];
+  }
+};
+
+// Fetch featured cruise itineraries (for CuratedForYou component)
+export const getFeaturedCruiseItineraries = async (limit: number = 6): Promise<Array<{
+  id: number;
+  name: string;
+  header_subtitle?: string;
+  map_image?: string;
+  hero_image?: string;
+  thumbnail_image?: string;
+  earliest_departure_date?: string;
+  latest_departure_date?: string;
+  brand_name: string;
+  ship_name?: string;
+  lowest_price?: string;
+  embark_port?: string;
+  debark_port?: string;
+  duration_nights?: number;
+}>> => {
+  try {
+    console.log('🔍 getFeaturedCruiseItineraries: Fetching featured cruise itineraries');
+    
+    // Get itineraries with brand and ship information
+    const { data, error } = await supabase
+      .from('cruise_itineraries')
+      .select(`
+        id,
+        name,
+        header_subtitle,
+        map_image,
+        hero_image,
+        thumbnail_image,
+        earliest_departure_date,
+        latest_departure_date,
+        lowest_price,
+        brand_id,
+        cruise_brands!inner(name)
+      `)
+      .eq('status', 'live')
+      .not('earliest_departure_date', 'is', null)
+      .order('earliest_departure_date', { ascending: true })
+      .limit(limit);
+
+    if (error) {
+      console.error('Error fetching featured cruise itineraries:', error);
+      return [];
+    }
+
+    // Get the most recent itinerary date for each itinerary to get embark/debark ports
+    const itineraryIds = data?.map(itinerary => itinerary.id) || [];
+    
+    if (itineraryIds.length === 0) {
+      console.log('❌ getFeaturedCruiseItineraries: No itinerary IDs found');
+      return [];
+    }
+
+    const { data: datesData, error: datesError } = await supabase
+      .from('cruise_itinerary_dates')
+      .select(`
+        itinerary_id,
+        embark_port_name,
+        debark_port_name,
+        date,
+        end_date,
+        ship_id,
+        cruise_ships(name)
+      `)
+      .in('itinerary_id', itineraryIds)
+      .order('date', { ascending: true });
+
+    if (datesError) {
+      console.error('Error fetching cruise itinerary dates:', datesError);
+    }
+
+    // Combine the data
+    const result = data?.map(itinerary => {
+      // Find the earliest date for this itinerary
+      const itineraryDate = datesData?.find(date => date.itinerary_id === itinerary.id);
+      
+      // Calculate duration in nights if we have both dates
+      let durationNights: number | undefined;
+      if (itineraryDate?.date && itineraryDate?.end_date) {
+        const startDate = new Date(itineraryDate.date);
+        const endDate = new Date(itineraryDate.end_date);
+        const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
+        durationNights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      }
+
+      return {
+        id: itinerary.id,
+        name: itinerary.name,
+        header_subtitle: itinerary.header_subtitle,
+        map_image: itinerary.map_image || itinerary.hero_image || itinerary.thumbnail_image,
+        hero_image: itinerary.hero_image,
+        thumbnail_image: itinerary.thumbnail_image,
+        earliest_departure_date: itinerary.earliest_departure_date,
+        latest_departure_date: itinerary.latest_departure_date,
+        brand_name: (itinerary.cruise_brands as any)?.name || 'Unknown Brand',
+        ship_name: (itineraryDate?.cruise_ships as any)?.name,
+        lowest_price: itinerary.lowest_price,
+        embark_port: itineraryDate?.embark_port_name,
+        debark_port: itineraryDate?.debark_port_name,
+        duration_nights: durationNights
+      };
+    }) || [];
+
+    console.log('✅ getFeaturedCruiseItineraries: Found', result.length, 'featured itineraries');
+    return result;
+  } catch (error) {
+    console.error('Error fetching featured cruise itineraries:', error);
+    return [];
+  }
+};
+
+// Get cruise itineraries with filters and pagination
+export const getCruiseItinerariesWithFilters = async (filters: {
+  search?: string;
+  brands?: string[];
+  regions?: string[];
+  durationRanges?: string[];
+  travelStyles?: string[];
+  page?: number;
+  pageSize?: number;
+}): Promise<{ data: CruiseItinerary[]; count: number }> => {
+  try {
+    let query = supabase
+      .from('cruise_itineraries')
+      .select('*', { count: 'exact' })
+      .eq('status', 'live');
+
+    // Apply search filter
+    if (filters.search) {
+      query = query.or(`name.ilike.%${filters.search}%,description.ilike.%${filters.search}%,header_subtitle.ilike.%${filters.search}%`);
+    }
+
+    // Apply brand filter
+    if (filters.brands && filters.brands.length > 0) {
+      query = query.in('brand_id', filters.brands);
+    }
+
+    // Apply region filter (based on destinations field)
+    if (filters.regions && filters.regions.length > 0) {
+      const regionConditions = filters.regions.map(region => `destinations.ilike.%${region}%`).join(',');
+      query = query.or(regionConditions);
+    }
+
+    // Apply travel style filter
+    if (filters.travelStyles && filters.travelStyles.length > 0) {
+      const travelStyleConditions = filters.travelStyles.map(style => `travel_styles.ilike.%${style}%`).join(',');
+      query = query.or(travelStyleConditions);
+    }
+
+    // Apply pagination
+    if (filters.page && filters.pageSize) {
+      const from = (filters.page - 1) * filters.pageSize;
+      const to = from + filters.pageSize - 1;
+      query = query.range(from, to);
+    }
+
+    const { data, error, count } = await query.order('name', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching cruise itineraries with filters:', error);
+      return { data: [], count: 0 };
+    }
+
+    return { data: data || [], count: count || 0 };
+  } catch (error) {
+    console.error('Error fetching cruise itineraries with filters:', error);
+    return { data: [], count: 0 };
+  }
+};
+
+// Get cruise itinerary dates by itinerary ID
+export const getCruiseItineraryDates = async (itineraryId: number): Promise<CruiseItineraryDate[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('cruise_itinerary_dates')
+      .select('*')
+      .eq('itinerary_id', itineraryId)
+      .order('date', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching cruise itinerary dates:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching cruise itinerary dates:', error);
+    return [];
+  }
+};
+
+// Get cruise ship cabin types by ship ID
+export const getCruiseShipCabinTypes = async (shipId: number): Promise<CruiseShipCabinType[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('cruise_ship_cabin_types')
+      .select('*')
+      .eq('ship_id', shipId)
+      .order('name', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching cruise ship cabin types:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching cruise ship cabin types:', error);
+    return [];
+  }
+};
+
+// Get cruise itinerary date cabin types with pricing
+export const getCruiseItineraryDateCabinTypes = async (itineraryDateId: number): Promise<CruiseItineraryDateCabinType[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('cruise_itinerary_date_cabin_types')
+      .select('*')
+      .eq('itinerary_date_id', itineraryDateId)
+      .order('double_price_pp', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching cruise itinerary date cabin types:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching cruise itinerary date cabin types:', error);
+    return [];
   }
 };
 

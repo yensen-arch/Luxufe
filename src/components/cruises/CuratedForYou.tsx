@@ -4,62 +4,29 @@ import { useCallback, useState, useEffect } from "react"
 import useEmblaCarousel from "embla-carousel-react"
 import ItineraryCard from "./ItineraryCard"
 import { ArrowLeft, ArrowRight, Star } from "lucide-react"
+import { getFeaturedCruiseItineraries } from "@/lib/database"
 
-const itineraries = [
-  {
-    id: "egypt",
-    location: "EGYPT",
-    nights: 9,
-    imageUrl: "https://picsum.photos/seed/egypt/800/1000",
-    name: "Pyramids & Nile Cruise",
-    description:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no",
-    price: 25756,
-  },
-  {
-    id: "antarctica",
-    location: "ANTARCTICA",
-    nights: 12,
-    imageUrl: "https://picsum.photos/seed/antarctica/800/1000",
-    name: "Journey to the Ice Kingdom",
-    description:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no",
-    price: 27756,
-  },
-  {
-    id: "south-america",
-    location: "SOUTH AMERICA",
-    nights: 8,
-    imageUrl: "https://picsum.photos/seed/samerica/800/1000",
-    name: "Inca Trails & Machu Picchu",
-    description:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no",
-    price: 18756,
-  },
-  {
-    id: "south-africa",
-    location: "SOUTH AFRICA",
-    nights: 9,
-    imageUrl: "https://picsum.photos/seed/safrica/800/1000",
-    name: "Cape Town & Safari",
-    description:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no",
-    price: 22756,
-  },
-  {
-    id: "greece",
-    location: "GREECE",
-    nights: 7,
-    imageUrl: "https://picsum.photos/seed/greece/800/1000",
-    name: "Islands of the Aegean",
-    description:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no",
-    price: 19756,
-  },
-]
+interface CruiseItinerary {
+  id: number;
+  name: string;
+  header_subtitle?: string;
+  map_image?: string;
+  hero_image?: string;
+  thumbnail_image?: string;
+  earliest_departure_date?: string;
+  latest_departure_date?: string;
+  brand_name: string;
+  ship_name?: string;
+  lowest_price?: string;
+  embark_port?: string;
+  debark_port?: string;
+  duration_nights?: number;
+}
 
 export default function CuratedForYou() {
   const [selectedCard, setSelectedCard] = useState<string | null>(null)
+  const [itineraries, setItineraries] = useState<CruiseItinerary[]>([])
+  const [loading, setLoading] = useState(true)
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: "center",
@@ -73,15 +40,34 @@ export default function CuratedForYou() {
     setSelectedCard(cardId)
   }, [])
 
+  // Fetch cruise itineraries
+  useEffect(() => {
+    const fetchItineraries = async () => {
+      try {
+        setLoading(true)
+        const data = await getFeaturedCruiseItineraries(6)
+        setItineraries(data)
+      } catch (error) {
+        console.error('Error fetching cruise itineraries:', error)
+        // Fallback to empty array on error
+        setItineraries([])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchItineraries()
+  }, [])
+
   // Center the selected card when it changes
   useEffect(() => {
-    if (emblaApi && selectedCard) {
-      const index = itineraries.findIndex((item) => item.id === selectedCard)
+    if (emblaApi && selectedCard && itineraries.length > 0) {
+      const index = itineraries.findIndex((item) => item.id.toString() === selectedCard)
       if (index !== -1) {
         emblaApi.scrollTo(index)
       }
     }
-  }, [emblaApi, selectedCard])
+  }, [emblaApi, selectedCard, itineraries])
 
   return (
     <section className="py-12 md:py-20 my-20 md:my-40 bg-white text-gray-800 relative overflow-hidden">
@@ -114,19 +100,42 @@ export default function CuratedForYou() {
       </div>
 
       <div className="relative py-6 md:py-10">
-        <div ref={emblaRef}>
-          <div className="flex">
-            {itineraries.map((item, index) => (
-              <div className="flex-[0_0_auto] min-w-0 " key={item.id}>
-                <ItineraryCard
-                  {...item}
-                  isExpanded={selectedCard === item.id}
-                  onClick={() => handleCardClick(item.id)}
-                />
-              </div>
-            ))}
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="text-lg font-inter">Loading featured cruise itineraries...</div>
           </div>
-        </div>
+        ) : itineraries.length > 0 ? (
+          <div ref={emblaRef}>
+            <div className="flex">
+              {itineraries.map((item, index) => {
+                // Transform cruise data to match ItineraryCard expected format
+                const cardData = {
+                  id: item.id.toString(),
+                  location: item.header_subtitle || `${item.embark_port || 'Unknown'} to ${item.debark_port || 'Unknown'}`,
+                  nights: item.duration_nights || 7, // Default to 7 nights if not available
+                  imageUrl: item.map_image || item.hero_image || item.thumbnail_image || "https://picsum.photos/seed/cruise/800/1000",
+                  name: item.name,
+                  description: item.header_subtitle || `Experience luxury cruising with ${item.brand_name}. ${item.ship_name ? `Sailing aboard the ${item.ship_name}.` : ''} ${item.embark_port && item.debark_port ? `From ${item.embark_port} to ${item.debark_port}.` : ''}`,
+                  price: item.lowest_price ? parseInt(item.lowest_price.replace(/[^0-9]/g, '')) || 25000 : 25000
+                };
+                
+                return (
+                  <div className="flex-[0_0_auto] min-w-0 " key={item.id}>
+                    <ItineraryCard
+                      {...cardData}
+                      isExpanded={selectedCard === item.id.toString()}
+                      onClick={() => handleCardClick(item.id.toString())}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <div className="flex justify-center items-center py-20">
+            <div className="text-lg font-inter">No cruise itineraries available at the moment.</div>
+          </div>
+        )}
         <button
           onClick={scrollPrev}
           className="absolute top-1/2 left-2 md:left-4 -translate-y-1/2 bg-white/80 rounded-full p-3 md:p-5 shadow-md hover:bg-white z-0 transition-colors"
