@@ -1878,7 +1878,6 @@ export const getFeaturedCruiseItineraries = async (limit: number = 6): Promise<A
   duration_nights?: number;
 }>> => {
   try {
-    console.log('🔍 getFeaturedCruiseItineraries: Fetching featured cruise itineraries');
     
     // Get itineraries with brand and ship information
     const { data, error } = await supabase
@@ -1910,7 +1909,6 @@ export const getFeaturedCruiseItineraries = async (limit: number = 6): Promise<A
     const itineraryIds = data?.map(itinerary => itinerary.id) || [];
     
     if (itineraryIds.length === 0) {
-      console.log('❌ getFeaturedCruiseItineraries: No itinerary IDs found');
       return [];
     }
 
@@ -1964,7 +1962,6 @@ export const getFeaturedCruiseItineraries = async (limit: number = 6): Promise<A
       };
     }) || [];
 
-    console.log('✅ getFeaturedCruiseItineraries: Found', result.length, 'featured itineraries');
     return result;
   } catch (error) {
     console.error('Error fetching featured cruise itineraries:', error);
@@ -2090,6 +2087,100 @@ export const getCruiseItineraryDateCabinTypes = async (itineraryDateId: number):
     return data || [];
   } catch (error) {
     console.error('Error fetching cruise itinerary date cabin types:', error);
+    return [];
+  }
+};
+
+// Get featured cruise brands with statistics (for TrustedCruisePartners component)
+export const getFeaturedCruiseBrands = async (limit: number = 3): Promise<Array<{
+  id: number;
+  name: string;
+  cover?: string;
+  logo_horizontal?: string;
+  ship_count: number;
+  itinerary_count: number;
+}>> => {
+  try {
+    console.log('🔍 getFeaturedCruiseBrands: Fetching featured cruise brands');
+    
+    // Get cruise brands (without ship_count since it doesn't exist in the actual table)
+    const { data: brandsData, error: brandsError } = await supabase
+      .from('cruise_brands')
+      .select(`
+        id,
+        name,
+        cover,
+        logo_horizontal
+      `)
+      .eq('is_active', true)
+      .order('name', { ascending: true })
+      .limit(limit);
+
+    if (brandsError) {
+      console.error('Error fetching cruise brands:', brandsError);
+      return [];
+    }
+
+    if (!brandsData || brandsData.length === 0) {
+      console.log('❌ getFeaturedCruiseBrands: No brands found');
+      return [];
+    }
+
+    // Get ship counts and itinerary counts for each brand
+    const brandIds = brandsData.map(brand => brand.id);
+    
+    // Get ship counts
+    const { data: shipsData, error: shipsError } = await supabase
+      .from('cruise_ships')
+      .select('brand_id')
+      .eq('is_active', true)
+      .in('brand_id', brandIds);
+
+    if (shipsError) {
+      console.error('Error fetching cruise ship counts:', shipsError);
+    }
+
+    // Get itinerary counts
+    const { data: itineraryData, error: itineraryError } = await supabase
+      .from('cruise_itineraries')
+      .select('brand_id')
+      .eq('status', 'live')
+      .in('brand_id', brandIds);
+
+    if (itineraryError) {
+      console.error('Error fetching cruise itinerary counts:', itineraryError);
+    }
+
+    // Count ships and itineraries per brand
+    const shipCounts: { [key: number]: number } = {};
+    const itineraryCounts: { [key: number]: number } = {};
+    
+    if (shipsData) {
+      shipsData.forEach(ship => {
+        shipCounts[ship.brand_id] = (shipCounts[ship.brand_id] || 0) + 1;
+      });
+    }
+    
+    if (itineraryData) {
+      itineraryData.forEach(itinerary => {
+        itineraryCounts[itinerary.brand_id] = (itineraryCounts[itinerary.brand_id] || 0) + 1;
+      });
+    }
+
+    // Combine the data
+    const result = brandsData.map(brand => ({
+      id: brand.id,
+      name: brand.name,
+      cover: brand.cover,
+      logo_horizontal: brand.logo_horizontal,
+      ship_count: shipCounts[brand.id] || 0,
+      itinerary_count: itineraryCounts[brand.id] || 0
+    }));
+
+    console.log('✅ getFeaturedCruiseBrands: Found', result.length, 'featured brands');
+    return result;
+  } catch (error) {
+    console.error('Error fetching featured cruise brands:', error);
     return [];
   }
 };

@@ -1,7 +1,19 @@
-import React from "react";
-import { Bed, Briefcase, ArrowRight } from "lucide-react";
+"use client"
 
-const partners = [
+import React, { useState, useEffect } from "react";
+import { Bed, Briefcase, ArrowRight } from "lucide-react";
+import { getFeaturedCruiseBrands } from "@/lib/database";
+
+interface CruisePartner {
+  image: string;
+  logo: React.ReactNode;
+  name: string;
+  suites: number;
+  itineraries: number;
+}
+
+// Default partners as fallback
+const defaultPartners: CruisePartner[] = [
   {
     image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80",
     logo: (
@@ -32,12 +44,89 @@ const partners = [
 ];
 
 export default function TrustedCruisePartners() {
+  const [partners, setPartners] = useState<CruisePartner[]>(defaultPartners);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPartners = async () => {
+      try {
+        setLoading(true);
+        const cruiseBrands = await getFeaturedCruiseBrands(3);
+        
+        if (cruiseBrands.length >= 3) {
+          // If we have 3 or more brands, use real data
+          const realPartners: CruisePartner[] = cruiseBrands.map((brand, index) => ({
+            image: brand.cover || `https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80&seed=${brand.name}`,
+            logo: brand.logo_horizontal ? (
+              <img 
+                src={brand.logo_horizontal} 
+                alt={brand.name}
+                className="max-h-8 w-auto"
+              />
+            ) : (
+              <span className="text-lg font-arpona font-bold tracking-widest">
+                {brand.name.toUpperCase()}
+              </span>
+            ),
+            name: brand.name.toUpperCase(),
+            suites: brand.ship_count,
+            itineraries: brand.itinerary_count,
+          }));
+          setPartners(realPartners);
+        } else if (cruiseBrands.length > 0) {
+          // If we have some brands but not 3, mix real data with defaults
+          const mixedPartners: CruisePartner[] = [];
+          
+          // Add real brands first
+          cruiseBrands.forEach((brand) => {
+            mixedPartners.push({
+              image: brand.cover || `https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80&seed=${brand.name}`,
+              logo: brand.logo_horizontal ? (
+                <img 
+                  src={brand.logo_horizontal} 
+                  alt={brand.name}
+                  className="max-h-8 w-auto"
+                />
+              ) : (
+                <span className="text-lg font-arpona font-bold tracking-widest">
+                  {brand.name.toUpperCase()}
+                </span>
+              ),
+              name: brand.name.toUpperCase(),
+              suites: brand.ship_count,
+              itineraries: brand.itinerary_count,
+            });
+          });
+          
+          // Fill remaining slots with defaults
+          const remainingSlots = 3 - cruiseBrands.length;
+          for (let i = 0; i < remainingSlots; i++) {
+            mixedPartners.push(defaultPartners[i]);
+          }
+          
+          setPartners(mixedPartners);
+        } else {
+          // If no brands found, use defaults
+          setPartners(defaultPartners);
+        }
+      } catch (error) {
+        console.error('Error fetching cruise brands:', error);
+        // Fallback to default partners on error
+        setPartners(defaultPartners);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPartners();
+  }, []);
+
   return (
     <section className="py-24 bg-[#f7f7f8]">
       <div className="max-w-6xl mx-auto px-4 text-center">
         <h3 className="font-bellarina text-3xl md:text-5xl text-[#23263a] mb-4">Trusted Cruise Partners</h3>
         <h2 className="text-3xl md:text-4xl font-arpona font-bold text-gray-600 mb-12">
-          We collaborate with the world’s most exceptional<br />cruise lines and vessels
+          We collaborate with the world's most exceptional<br />cruise lines and vessels
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-16">
           {partners.map((partner, idx) => (
@@ -50,7 +139,7 @@ export default function TrustedCruisePartners() {
               <div className="flex justify-center gap-8 w-full">
                 <div className="flex items-center gap-2 text-[#23263a] font-inter font-bold text-xs">
                   <Bed className="w-5 h-5" />
-                  {partner.suites} suites
+                  {partner.suites} ships
                 </div>
                 <div className="flex items-center gap-2 text-[#23263a] font-inter font-bold text-xs">
                   <Briefcase className="w-5 h-5" />
