@@ -45,14 +45,14 @@ export default function AdminLogin() {
           console.error('Profile error:', profileError);
           setError('Error checking admin privileges');
           await supabase.auth.signOut();
-        } else if (profile?.role === 'admin') {
-          console.log('Admin role confirmed, redirecting...');
+        } else if (profile?.role === 'admin' || profile?.role === 'media_manager') {
+          console.log('Admin/Media Manager role confirmed, redirecting...');
           router.push('/admin/dashboard');
           // Force a refresh to ensure the redirect works
           window.location.href = '/admin/dashboard';
         } else {
-          console.log('Not admin role:', profile?.role);
-          setError('Access denied. Admin privileges required.');
+          console.log('Not authorized role:', profile?.role);
+          setError('Access denied. Admin or Media Manager privileges required.');
           await supabase.auth.signOut();
         }
       }
@@ -76,7 +76,6 @@ export default function AdminLogin() {
             height={60}
             className="mx-auto mb-4"
           />
-          <h1 className="text-2xl font-arpona font-bold text-white mb-2">Admin Portal</h1>
           <p className="text-gray-400 font-inter text-sm">Access the management dashboard</p>
         </div>
 

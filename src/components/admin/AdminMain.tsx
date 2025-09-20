@@ -15,9 +15,10 @@ interface Brand {
 
 interface AdminMainProps {
   activeSection: string;
+  userRole?: string;
 }
 
-export default function AdminMain({ activeSection }: AdminMainProps) {
+export default function AdminMain({ activeSection, userRole }: AdminMainProps) {
   const [selectedBrand, setSelectedBrand] = useState<Brand | undefined>();
   const [showBrandImageModal, setShowBrandImageModal] = useState(false);
 
@@ -35,6 +36,11 @@ export default function AdminMain({ activeSection }: AdminMainProps) {
   };
 
   const renderSection = () => {
+    // For media_manager role, only allow hotel-images section
+    if (userRole === 'media_manager' && activeSection !== 'hotel-images') {
+      return <HotelImagesSection selectedBrand={selectedBrand} onBrandSelect={handleBrandSelect} onEditBrandImage={() => setShowBrandImageModal(true)} />;
+    }
+
     switch (activeSection) {
       case 'dashboard':
         return <DashboardSection />;

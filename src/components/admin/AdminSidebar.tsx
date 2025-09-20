@@ -8,66 +8,81 @@ interface AdminSidebarProps {
   onSectionChange: (section: string) => void;
   onSignOut: () => void;
   userEmail?: string;
+  userRole?: string;
 }
 
 export default function AdminSidebar({ 
   activeSection, 
   onSectionChange, 
   onSignOut, 
-  userEmail 
+  userEmail,
+  userRole 
 }: AdminSidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const menuItems = [
+  const allMenuItems = [
     {
       id: 'dashboard',
       label: 'Dashboard',
       icon: BarChart3,
-      description: 'Overview and analytics'
+      description: 'Overview and analytics',
+      roles: ['admin']
     },
     {
       id: 'hotel-images',
       label: 'Manage Images',
       icon: ImageIcon,
-      description: 'Manage hotel brand images'
+      description: 'Manage hotel brand images',
+      roles: ['admin', 'media_manager']
     },
     {
       id: 'land-itineraries',
       label: 'Land Itineraries',
       icon: Map,
-      description: 'Manage land journey itineraries'
+      description: 'Manage land journey itineraries',
+      roles: ['admin']
     },
     {
       id: 'users',
       label: 'Users',
       icon: Users,
-      description: 'Manage user accounts'
+      description: 'Manage user accounts',
+      roles: ['admin']
     },
     {
       id: 'hotels',
       label: 'Hotels',
       icon: Hotel,
-      description: 'Manage hotel properties'
+      description: 'Manage hotel properties',
+      roles: ['admin']
     },
     {
       id: 'destinations',
       label: 'Destinations',
       icon: MapPin,
-      description: 'Manage destinations'
+      description: 'Manage destinations',
+      roles: ['admin']
     },
     {
       id: 'bookings',
       label: 'Bookings',
       icon: Calendar,
-      description: 'View and manage bookings'
+      description: 'View and manage bookings',
+      roles: ['admin']
     },
     {
       id: 'settings',
       label: 'Settings',
       icon: Settings,
-      description: 'System configuration'
+      description: 'System configuration',
+      roles: ['admin']
     }
   ];
+
+  // Filter menu items based on user role
+  const menuItems = allMenuItems.filter(item => 
+    item.roles.includes(userRole || 'admin')
+  );
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -110,7 +125,6 @@ export default function AdminSidebar({
               <p className="text-sm font-inter font-bold text-gray-900 truncate">
                 {userEmail || 'Admin User'}
               </p>
-              <p className="text-xs text-gray-500 font-inter">Administrator</p>
             </div>
           )}
         </div>

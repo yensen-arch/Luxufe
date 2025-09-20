@@ -7,6 +7,7 @@ import AdminMain from "@/components/admin/AdminMain";
 
 export default function AdminDashboard() {
   const [user, setUser] = useState<any>(null);
+  const [userRole, setUserRole] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('dashboard');
   const router = useRouter();
@@ -24,20 +25,26 @@ export default function AdminDashboard() {
         return;
       }
 
-      // Check if user has admin role
+      // Check if user has admin or media_manager role
       const { data: profile } = await supabase
         .from('profiles')
         .select('role')
         .eq('id', user.id)
         .single();
 
-      if (profile?.role !== 'admin') {
+      if (profile?.role !== 'admin' && profile?.role !== 'media_manager') {
         await supabase.auth.signOut();
         router.push('/admin/login');
         return;
       }
 
       setUser(user);
+      setUserRole(profile?.role || '');
+      
+      // Set default section based on role
+      if (profile?.role === 'media_manager') {
+        setActiveSection('hotel-images');
+      }
     } catch (error) {
       console.error('Error checking user:', error);
       router.push('/admin/login');
@@ -72,8 +79,9 @@ export default function AdminDashboard() {
         onSectionChange={handleSectionChange}
         onSignOut={handleSignOut}
         userEmail={user?.email}
+        userRole={userRole}
       />
-      <AdminMain activeSection={activeSection} />
+      <AdminMain activeSection={activeSection} userRole={userRole} />
     </div>
   );
 }
