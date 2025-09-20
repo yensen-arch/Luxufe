@@ -2,7 +2,7 @@
 
 import { useCallback, useState, useEffect } from "react"
 import useEmblaCarousel from "embla-carousel-react"
-import ItineraryCard from "./ItineraryCard"
+import ItineraryCard from "./ItineraryCard" // Cruise itinerary card
 import { ArrowLeft, ArrowRight, Star } from "lucide-react"
 import { getFeaturedCruiseItineraries } from "@/lib/database"
 
@@ -125,6 +125,10 @@ export default function CuratedForYou() {
                       {...cardData}
                       isExpanded={selectedCard === item.id.toString()}
                       onClick={() => handleCardClick(item.id.toString())}
+                      onMoreInfoClick={() => {
+                        // Navigate to individual cruise itinerary page
+                        window.location.href = `/itineraries/cruise/${item.id}`;
+                      }}
                     />
                   </div>
                 );

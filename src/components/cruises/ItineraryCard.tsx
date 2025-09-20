@@ -13,8 +13,10 @@ interface ItineraryCardProps {
   description?: string
   isExpanded?: boolean
   onClick?: () => void
+  onMoreInfoClick?: () => void
 }
 
+// Cruise itinerary card component
 const ItineraryCard: React.FC<ItineraryCardProps> = ({
   id,
   location,
@@ -25,6 +27,7 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
   description,
   isExpanded = false,
   onClick,
+  onMoreInfoClick,
 }) => {
   return (
     <div
@@ -106,7 +109,7 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
               : 'text-2xl'
             }
           `}>
-            Name of Itinerary here
+            {name}
           </h3>
 
           {/* Description - only for expanded state */}
@@ -149,7 +152,13 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
 
           {/* More Information Button - only for expanded state */}
           {isExpanded && (
-            <button className="border-t-2 border-gray-300 w-full py-4 flex items-center justify-center font-inter font-bold text-sm text-gray-400 gap-2 mt-4 group opacity-100">
+            <button 
+              className="border-t-2 border-gray-300 w-full py-4 flex items-center justify-center font-inter font-bold text-sm text-gray-400 gap-2 mt-4 group opacity-100"
+              onClick={(e) => {
+                e.stopPropagation();
+                onMoreInfoClick?.();
+              }}
+            >
               MORE INFORMATION
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </button>

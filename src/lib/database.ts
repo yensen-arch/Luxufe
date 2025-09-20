@@ -2185,3 +2185,115 @@ export const getFeaturedCruiseBrands = async (limit: number = 3): Promise<Array<
   }
 };
 
+// Get single cruise itinerary by ID (for individual itinerary pages)
+export const getCruiseItinerary = async (id: number): Promise<CruiseItinerary | null> => {
+  try {
+    const { data, error } = await supabase
+      .from('cruise_itineraries')
+      .select('*')
+      .eq('id', id)
+      .eq('status', 'live')
+      .single();
+
+    if (error) {
+      console.error('Error fetching cruise itinerary:', error);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching cruise itinerary:', error);
+    return null;
+  }
+};
+
+// Get single cruise itinerary by ID with brand and ship details (for individual itinerary pages)
+export const getCruiseItineraryWithDetails = async (id: number): Promise<{
+  itinerary: CruiseItinerary | null;
+  brand: CruiseBrand | null;
+  ship: CruiseShip | null;
+  dates: CruiseItineraryDate[];
+  cabinTypes: CruiseShipCabinType[];
+}> => {
+  try {
+    console.log('🔍 getCruiseItineraryWithDetails: Fetching itinerary details for ID:', id);
+    
+    // Get itinerary with brand and ship information
+    const { data: itineraryData, error: itineraryError } = await supabase
+      .from('cruise_itineraries')
+      .select(`
+        *,
+        cruise_brands!inner(*),
+        cruise_itinerary_dates(
+          *,
+          cruise_ships(*)
+        )
+      `)
+      .eq('id', id)
+      .eq('status', 'live')
+      .single();
+
+    if (itineraryError) {
+      console.error('Error fetching cruise itinerary with details:', itineraryError);
+      return {
+        itinerary: null,
+        brand: null,
+        ship: null,
+        dates: [],
+        cabinTypes: []
+      };
+    }
+
+    if (!itineraryData) {
+      console.log('❌ getCruiseItineraryWithDetails: No itinerary found for ID:', id);
+      return {
+        itinerary: null,
+        brand: null,
+        ship: null,
+        dates: [],
+        cabinTypes: []
+      };
+    }
+
+    // Extract brand and ship information
+    const brand = itineraryData.cruise_brands;
+    const dates = itineraryData.cruise_itinerary_dates || [];
+    
+    // Get the first ship from the dates (assuming all dates use the same ship)
+    const firstDate = dates[0];
+    const ship = firstDate?.cruise_ships || null;
+
+    // Get cabin types for the ship if available
+    let cabinTypes: CruiseShipCabinType[] = [];
+    if (ship?.id) {
+      const { data: cabinData, error: cabinError } = await supabase
+        .from('cruise_ship_cabin_types')
+        .select('*')
+        .eq('ship_id', ship.id)
+        .order('name', { ascending: true });
+
+      if (!cabinError && cabinData) {
+        cabinTypes = cabinData;
+      }
+    }
+
+    console.log('✅ getCruiseItineraryWithDetails: Found itinerary with details');
+    return {
+      itinerary: itineraryData,
+      brand,
+      ship,
+      dates,
+      cabinTypes
+    };
+  } catch (error) {
+    console.error('Error fetching cruise itinerary with details:', error);
+    return {
+      itinerary: null,
+      brand: null,
+      ship: null,
+      dates: [],
+      cabinTypes: []
+    };
+  }
+};
+
