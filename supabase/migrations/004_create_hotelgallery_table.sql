@@ -3,6 +3,8 @@ CREATE TABLE IF NOT EXISTS hotelgallery (
     id SERIAL PRIMARY KEY,
     hotel_name VARCHAR(255) NOT NULL,
     hotel_image TEXT NOT NULL,
+    hotel_hero TEXT,
+    hotel_card_images JSONB,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );

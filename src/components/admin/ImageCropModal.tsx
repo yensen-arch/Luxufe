@@ -12,6 +12,8 @@ interface ImageCropModalProps {
   onImageUploaded: (imageUrl: string) => void
   aspectRatio?: number
   currentImageUrl?: string // Current image URL to delete when replacing
+  bucketName?: string // Supabase storage bucket name
+  fileNamePrefix?: string // Prefix for the uploaded file name
 }
 
 export default function ImageCropModal({
@@ -20,7 +22,9 @@ export default function ImageCropModal({
   imageFile,
   onImageUploaded,
   aspectRatio = 16 / 9, // Default to 16:9 for hero images
-  currentImageUrl
+  currentImageUrl,
+  bucketName = 'brand_image', // Default to brand_image bucket
+  fileNamePrefix = 'brand-hero' // Default prefix
 }: ImageCropModalProps) {
   const [crop, setCrop] = useState<Crop>()
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
@@ -147,7 +151,7 @@ export default function ImageCropModal({
       
       // Delete the old image from Supabase storage
       const { error } = await supabase.storage
-        .from('brand_image')
+        .from(bucketName)
         .remove([fileName])
       
       if (error) {
@@ -175,11 +179,11 @@ export default function ImageCropModal({
       
       // Generate unique filename
       const timestamp = Date.now()
-      const fileName = `brand-hero-${timestamp}.jpg`
+      const fileName = `${fileNamePrefix}-${timestamp}.jpg`
       
       // Upload to Supabase storage
       const { data, error } = await supabase.storage
-        .from('brand_image')
+        .from(bucketName)
         .upload(fileName, croppedImageBlob, {
           contentType: 'image/jpeg',
           upsert: false
@@ -193,7 +197,7 @@ export default function ImageCropModal({
 
       // Get public URL
       const { data: urlData } = supabase.storage
-        .from('brand_image')
+        .from(bucketName)
         .getPublicUrl(fileName)
 
       if (urlData?.publicUrl) {

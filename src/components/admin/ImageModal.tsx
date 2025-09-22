@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { X, Crop } from "lucide-react";
 import HotelGalleryStrip from "./HotelGalleryStrip";
+import ImageCropModal from "./ImageCropModal";
 import { getHotelCardImages, updateHotelCardImages, getHotelHeroImage, updateHotelHeroImage } from "@/lib/database";
 
 interface ImageModalProps {
@@ -23,6 +24,8 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, position, on
   }>({ top: null, left: null, right: null });
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showCropModal, setShowCropModal] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   // Fetch current card images or hero image on component mount
   useEffect(() => {
@@ -65,6 +68,58 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, position, on
     setCurrentImageUrl(imageUrl);
     setCurrentImageAlt(`${hotelName} image ${imageIndex + 1}`);
     setSelectedImageIndex(imageIndex);
+  };
+
+  const handleCropImage = async () => {
+    if (!currentImageUrl) return;
+    
+    try {
+      // Fetch the current image as a blob
+      const response = await fetch(currentImageUrl);
+      const blob = await response.blob();
+      
+      // Create a File object from the blob
+      const file = new File([blob], 'hotel-image.jpg', { type: blob.type });
+      
+      // Set the file and show crop modal
+      setSelectedFile(file);
+      setShowCropModal(true);
+    } catch (error) {
+      console.error('Error loading image for cropping:', error);
+      alert('Error loading image for cropping. Please try again.');
+    }
+  };
+
+  const handleCroppedImageUploaded = async (imageUrl: string) => {
+    try {
+      // Update the current image URL with the cropped version
+      setCurrentImageUrl(imageUrl);
+      
+      // Auto-save the cropped image
+      if (position === 'hero') {
+        const success = await updateHotelHeroImage(hotelName, imageUrl);
+        if (success) {
+          alert('Hero image cropped and saved successfully!');
+          onClose();
+        } else {
+          alert('Failed to save cropped hero image. Please try again.');
+        }
+      } else {
+        const updatedCardImages = { ...currentCardImages };
+        updatedCardImages[position] = imageUrl;
+        const success = await updateHotelCardImages(hotelName, updatedCardImages);
+        if (success) {
+          setCurrentCardImages(updatedCardImages);
+          alert('Card image cropped and saved successfully!');
+          onClose();
+        } else {
+          alert('Failed to save cropped card image. Please try again.');
+        }
+      }
+    } catch (error) {
+      console.error('Error saving cropped image:', error);
+      alert('Error saving cropped image. Please try again.');
+    }
   };
 
   const handleSave = async (cardImages: { top: string | null; left: string | null; right: string | null } | string) => {
@@ -136,14 +191,23 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, position, on
               </div>
             </div>
           ) : (
-            <img
-              src={currentImageUrl}
-              alt={currentImageAlt}
-              className="w-full h-auto max-h-[50vh] object-contain mx-auto"
-              onError={(e) => {
-                e.currentTarget.src = "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80";
-              }}
-            />
+            <div className="relative">
+              <img
+                src={currentImageUrl}
+                alt={currentImageAlt}
+                className="w-full h-auto max-h-[50vh] object-contain mx-auto"
+                onError={(e) => {
+                  e.currentTarget.src = "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80";
+                }}
+              />
+              <button
+                onClick={handleCropImage}
+                className="absolute top-2 right-2 flex items-center gap-1 px-2 py-1 text-xs font-inter font-bold text-white bg-black bg-opacity-50 hover:bg-opacity-70 transition-colors"
+              >
+                <Crop className="w-3 h-3" />
+                Crop
+              </button>
+            </div>
           )}
         </div>
 
@@ -159,6 +223,23 @@ export default function ImageModal({ imageUrl, imageAlt, hotelName, position, on
           />
         </div>
       </div>
+
+      {/* Image Crop Modal */}
+      {selectedFile && (
+        <ImageCropModal
+          isOpen={showCropModal}
+          onClose={() => {
+            setShowCropModal(false);
+            setSelectedFile(null);
+          }}
+          imageFile={selectedFile}
+          onImageUploaded={handleCroppedImageUploaded}
+          aspectRatio={position === 'hero' ? 16 / 9 : 1} // Hero images are 16:9, card images are square
+          currentImageUrl={currentImageUrl}
+          bucketName="hotel_images"
+          fileNamePrefix={position === 'hero' ? `hotel-hero-${hotelName.replace(/\s+/g, '-')}` : `hotel-card-${hotelName.replace(/\s+/g, '-')}-${position}`}
+        />
+      )}
     </div>
   );
 }
