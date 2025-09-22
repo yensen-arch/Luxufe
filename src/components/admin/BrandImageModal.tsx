@@ -1,8 +1,9 @@
 "use client";
 import { useState, useRef } from "react";
-import { X, Upload, Link, Crop } from "lucide-react";
+import { X, Upload, Link, Crop, Image as ImageIcon } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import ImageCropModal from "./ImageCropModal";
+import BrandGalleryGrid from "./BrandGalleryGrid";
 
 interface Brand {
   id: string;
@@ -26,6 +27,7 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
   const [showCropModal, setShowCropModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [showCropExistingModal, setShowCropExistingModal] = useState(false);
+  const [showGalleryGrid, setShowGalleryGrid] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSaveUrl = async () => {
@@ -148,11 +150,27 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
     }
   };
 
+  const handleGalleryImageSelect = async (imageUrl: string) => {
+    try {
+      // Set the selected image URL
+      setImageUrl(imageUrl);
+      setActiveTab('url');
+      setShowGalleryGrid(false);
+      
+      // No need for alert - the preview will show the selected image
+    } catch (error) {
+      console.error('Error selecting gallery image:', error);
+      alert('Error selecting image. Please try again.');
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-      <div className="relative max-w-md w-full bg-white shadow-2xl">
+      <div className={`relative max-w-md w-full bg-white shadow-2xl transition-all duration-300 ${
+        showGalleryGrid ? 'mr-96' : ''
+      }`}>
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h3 className="text-lg font-arpona font-bold text-gray-900">
@@ -169,7 +187,7 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
         {/* Content */}
         <div className="p-6">
           {/* Current Image Preview with Crop Button */}
-          {brand.brand_image && (
+          {brand.brand_image && !imageUrl && (
             <div className="mb-6">
               <div className="relative w-full h-48 bg-gray-100 border border-gray-200 overflow-hidden">
                 <img
@@ -179,6 +197,55 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
                 />
                 <button
                   onClick={handleCropExistingImage}
+                  className="absolute top-2 right-2 flex items-center gap-1 px-2 py-1 text-xs font-inter font-bold text-white bg-black bg-opacity-50 hover:bg-opacity-70 transition-colors"
+                >
+                  <Crop className="w-3 h-3" />
+                  Crop
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Selected Image Preview (from gallery or URL) */}
+          {imageUrl && (
+            <div className="mb-6">
+              <label className="block text-sm font-inter font-bold text-gray-700 mb-2">
+                Selected Image Preview
+              </label>
+              <div className="relative w-full h-48 bg-gray-100 border border-gray-200 overflow-hidden">
+                <img
+                  src={imageUrl}
+                  alt="Selected image preview"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                    if (nextElement) {
+                      nextElement.style.display = 'flex';
+                    }
+                  }}
+                />
+                <div className="w-full h-full flex items-center justify-center text-gray-500 text-sm bg-gray-100" style={{display: 'none'}}>
+                  Invalid image URL
+                </div>
+                <button
+                  onClick={async () => {
+                    try {
+                      // Fetch the image as a blob
+                      const response = await fetch(imageUrl);
+                      const blob = await response.blob();
+                      
+                      // Create a File object from the blob
+                      const file = new File([blob], 'selected-image.jpg', { type: blob.type });
+                      
+                      // Set the file and show crop modal
+                      setSelectedFile(file);
+                      setShowCropModal(true);
+                    } catch (error) {
+                      console.error('Error loading selected image for cropping:', error);
+                      alert('Error loading image for cropping. Please try again.');
+                    }
+                  }}
                   className="absolute top-2 right-2 flex items-center gap-1 px-2 py-1 text-xs font-inter font-bold text-white bg-black bg-opacity-50 hover:bg-opacity-70 transition-colors"
                 >
                   <Crop className="w-3 h-3" />
@@ -256,6 +323,17 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
                 </div>
               )}
             </div>
+
+            {/* Upload from Brand Gallery Option */}
+            <div>
+              <button
+                onClick={() => setShowGalleryGrid(true)}
+                className="w-full py-3 px-4 text-sm font-inter font-bold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors"
+              >
+                <ImageIcon className="w-4 h-4 inline mr-2" />
+                Upload from Brand Gallery
+              </button>
+            </div>
           </div>
 
           {/* Bottom Actions */}
@@ -267,13 +345,13 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
               >
                 Cancel
               </button>
-              <button
-                onClick={activeTab === 'url' ? handleSaveUrl : undefined}
-                disabled={activeTab === 'url' ? (!imageUrl.trim() || saving) : false}
-                className="flex-1 px-4 py-2 text-sm font-inter font-bold text-white bg-[#A5C8CE] hover:bg-[#8bb3b8] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {saving ? 'Saving...' : 'Save'}
-              </button>
+            <button
+              onClick={imageUrl.trim() ? handleSaveUrl : undefined}
+              disabled={!imageUrl.trim() || saving}
+              className="flex-1 px-4 py-2 text-sm font-inter font-bold text-white bg-[#A5C8CE] hover:bg-[#8bb3b8] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {saving ? 'Saving...' : 'Save'}
+            </button>
             </div>
             
             {/* Remove Current Image Button */}
@@ -317,6 +395,15 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
           onImageUploaded={handleCroppedImageUploaded}
           aspectRatio={16 / 9} // Hero image aspect ratio
           currentImageUrl={brand.brand_image} // Pass current image URL for deletion
+        />
+      )}
+
+      {/* Brand Gallery Grid */}
+      {showGalleryGrid && (
+        <BrandGalleryGrid
+          brandName={brand.name}
+          onImageSelect={handleGalleryImageSelect}
+          onClose={() => setShowGalleryGrid(false)}
         />
       )}
     </div>

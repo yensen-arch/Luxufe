@@ -2297,3 +2297,110 @@ export const getCruiseItineraryWithDetails = async (id: number): Promise<{
   }
 };
 
+// Get brand hotel gallery images with pagination
+export const getBrandHotelGalleryImages = async (
+  brandName: string,
+  page: number = 1,
+  pageSize: number = 12
+): Promise<{
+  images: string[];
+  totalCount: number;
+  hasMore: boolean;
+}> => {
+  try {
+    console.log('🔍 getBrandHotelGalleryImages: Fetching images for brand:', brandName, 'page:', page);
+    
+    // First, get all hotels for this brand
+    const { data: hotels, error: hotelsError } = await supabase
+      .from('hotels')
+      .select('hotel_name')
+      .eq('brand', brandName);
+
+    if (hotelsError) {
+      console.error('Error fetching brand hotels:', hotelsError);
+      return { images: [], totalCount: 0, hasMore: false };
+    }
+
+    if (!hotels || hotels.length === 0) {
+      console.log('❌ getBrandHotelGalleryImages: No hotels found for brand:', brandName);
+      return { images: [], totalCount: 0, hasMore: false };
+    }
+
+    const hotelNames = hotels.map(hotel => hotel.hotel_name);
+    console.log('🔍 getBrandHotelGalleryImages: Found hotels:', hotelNames);
+
+    // Get all gallery images for these hotels
+    const { data: galleries, error: galleriesError } = await supabase
+      .from('hotelgallery')
+      .select('hotel_image')
+      .in('hotel_name', hotelNames);
+
+    if (galleriesError) {
+      console.error('Error fetching hotel galleries:', galleriesError);
+      return { images: [], totalCount: 0, hasMore: false };
+    }
+
+    if (!galleries || galleries.length === 0) {
+      console.log('❌ getBrandHotelGalleryImages: No gallery images found for brand:', brandName);
+      return { images: [], totalCount: 0, hasMore: false };
+    }
+
+    // Parse all images from all galleries
+    let allImages: string[] = [];
+    
+    galleries.forEach(gallery => {
+      if (gallery.hotel_image) {
+        try {
+          // Parse the Python-style string array
+          const imageString = gallery.hotel_image;
+          const cleanString = imageString.slice(2, -2); // Remove "['" and "']"
+          
+          // Try different splitting strategies
+          let imageUrls: string[] = [];
+          
+          // First try the current format: ", "
+          imageUrls = cleanString.split(", ");
+          
+          // If only 1 URL found, try the original expected format: "', '"
+          if (imageUrls.length <= 1) {
+            imageUrls = cleanString.split("', '");
+          }
+          
+          // If still only 1 URL, try splitting by just comma
+          if (imageUrls.length <= 1) {
+            imageUrls = cleanString.split(",");
+          }
+          
+          // Clean up URLs (remove quotes and trim)
+          const cleanedUrls = imageUrls
+            .map(url => url.replace(/['"]/g, '').trim())
+            .filter(url => url.length > 0);
+          
+          allImages = allImages.concat(cleanedUrls);
+        } catch (error) {
+          console.error('Error parsing gallery images:', error);
+        }
+      }
+    });
+
+    console.log('🔍 getBrandHotelGalleryImages: Total images found:', allImages.length);
+
+    // Apply pagination
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const paginatedImages = allImages.slice(startIndex, endIndex);
+    const hasMore = endIndex < allImages.length;
+
+    console.log('✅ getBrandHotelGalleryImages: Returning', paginatedImages.length, 'images for page', page);
+
+    return {
+      images: paginatedImages,
+      totalCount: allImages.length,
+      hasMore
+    };
+  } catch (error) {
+    console.error('Error fetching brand hotel gallery images:', error);
+    return { images: [], totalCount: 0, hasMore: false };
+  }
+};
+
