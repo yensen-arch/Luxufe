@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, Plus, Edit, Trash, Save, X, Upload, Image as ImageIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, Edit, Trash, Save, X, Upload, Image as ImageIcon, FileSpreadsheet } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { 
@@ -18,6 +18,7 @@ import BrandSelector from "./BrandSelector";
 import HotelSelector from "./HotelSelector";
 import ImageCropModal from "./ImageCropModal";
 import GalleryUploadModal from "./GalleryUploadModal";
+import BulkUploadModal from "./BulkUploadModal";
 import { useToast } from "../common/ToastProvider";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -29,6 +30,7 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [showBulkUploadModal, setShowBulkUploadModal] = useState(false);
   const [mode, setMode] = useState<'list' | 'create' | 'edit'>('list');
   const [selectedItinerary, setSelectedItinerary] = useState<LandItinerary | null>(null);
   const [currentStep, setCurrentStep] = useState(1);
@@ -158,6 +160,11 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
     setMode('list');
     setSelectedItinerary(null);
     setCurrentStep(1);
+  };
+
+  const handleBulkUploadSuccess = () => {
+    // Refresh the itineraries list
+    fetchItineraries();
   };
 
   const handleDeleteItinerary = async (itinerary: LandItinerary) => {
@@ -503,7 +510,7 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
   }
 
   // List View
-  return (
+  const renderList = () => (
     <div className="h-full flex flex-col">
       <div className="mb-6">
         <div className="flex items-center justify-between">
@@ -515,13 +522,22 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
               Create and manage land journey itineraries.
             </p>
           </div>
-          <button
-            onClick={handleCreateNew}
-            className="flex items-center gap-2 px-6 py-3 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors"
-          >
-            <Plus className="w-5 h-5" />
-            Create New Itinerary
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={() => setShowBulkUploadModal(true)}
+              className="flex items-center gap-2 px-6 py-3 border border-[#A5C8CE] text-[#A5C8CE] hover:bg-[#A5C8CE] hover:text-white transition-colors"
+            >
+              <FileSpreadsheet className="w-5 h-5" />
+              Bulk Upload
+            </button>
+            <button
+              onClick={handleCreateNew}
+              className="flex items-center gap-2 px-6 py-3 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors"
+            >
+              <Plus className="w-5 h-5" />
+              Create New Itinerary
+            </button>
+          </div>
         </div>
       </div>
 
@@ -573,7 +589,111 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
       </div>
     </div>
   );
-}
+
+  // Form View
+  const renderForm = () => {
+    if (mode === 'create' || mode === 'edit') {
+      return (
+        <div className="h-full flex flex-col">
+          {/* Header */}
+          <div className="mb-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-arpona font-bold text-gray-900 mb-2">
+                  {mode === 'create' ? 'Create New Itinerary' : 'Edit Itinerary'}
+                </h1>
+                <p className="text-gray-600 font-inter">
+                  {mode === 'create' ? 'Create a new land journey itinerary' : `Editing: ${selectedItinerary?.itinerary_name}`}
+                </p>
+              </div>
+              <button
+                onClick={handleBackToList}
+                disabled={isSaving || saving}
+                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSaving ? (
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-600"></div>
+                ) : (
+                  <X className="w-5 h-5" />
+                )}
+                Cancel
+              </button>
+            </div>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-inter font-bold text-gray-700">
+                Step {currentStep} of {totalSteps}
+              </span>
+              <span className="text-sm text-gray-500">
+                {Math.round((currentStep / totalSteps) * 100)}% Complete
+              </span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div
+                className="bg-[#A5C8CE] h-2 rounded-full transition-all duration-300"
+                style={{ width: `${(currentStep / totalSteps) * 100}%` }}
+              ></div>
+            </div>
+          </div>
+
+          {/* Step Content */}
+          <div className="flex-1 bg-white shadow-sm border border-gray-200 p-6">
+            {renderStepContent()}
+          </div>
+
+          {/* Navigation */}
+          <div className="mt-6 flex justify-between">
+            <button
+              onClick={prevStep}
+              disabled={currentStep === 1 || isSaving || saving}
+              className="flex items-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSaving ? (
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-600"></div>
+              ) : (
+                <ChevronLeft className="w-5 h-5" />
+              )}
+              Previous
+            </button>
+
+            <div className="flex gap-3">
+              <button
+                onClick={nextStep}
+                disabled={isSaving || saving}
+                className="flex items-center gap-2 px-6 py-3 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {currentStep === totalSteps ? (
+                  <>
+                    {saving ? (
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    ) : (
+                      <Save className="w-5 h-5" />
+                    )}
+                    {saving ? 'Saving...' : 'Save Itinerary'}
+                  </>
+                ) : (
+                  <>
+                    {isSaving ? (
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    ) : (
+                      <>
+                        Next
+                        <ChevronRight className="w-5 h-5" />
+                      </>
+                    )}
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
 
 // Step Components
 function BasicInfoStep({ formData, updateFormData }: { formData: any; updateFormData: (field: string, value: any) => void }) {
@@ -1677,5 +1797,19 @@ function ReviewStep({ formData }: { formData: any }) {
         </p>
       </div>
     </div>
+  );
+}
+
+  return (
+    <>
+      {mode === 'list' ? renderList() : renderForm()}
+      
+      {/* Bulk Upload Modal */}
+      <BulkUploadModal
+        isOpen={showBulkUploadModal}
+        onClose={() => setShowBulkUploadModal(false)}
+        onUploadSuccess={handleBulkUploadSuccess}
+      />
+    </>
   );
 }
