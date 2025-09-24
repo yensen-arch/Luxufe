@@ -25,56 +25,48 @@ export default function AdminSidebar({
       id: 'dashboard',
       label: 'Dashboard',
       icon: BarChart3,
-      description: 'Overview and analytics',
       roles: ['admin']
     },
     {
       id: 'hotel-images',
       label: 'Manage Images',
       icon: ImageIcon,
-      description: 'Manage hotel brand images',
       roles: ['admin', 'media_manager']
     },
     {
       id: 'land-itineraries',
       label: 'Land Itineraries',
       icon: Map,
-      description: 'Manage land journey itineraries',
       roles: ['admin']
     },
     {
       id: 'users',
       label: 'Users',
       icon: Users,
-      description: 'Manage user accounts',
       roles: ['admin']
     },
     {
       id: 'hotels',
       label: 'Hotels',
       icon: Hotel,
-      description: 'Manage hotel properties',
       roles: ['admin']
     },
     {
       id: 'destinations',
       label: 'Destinations',
       icon: MapPin,
-      description: 'Manage destinations',
       roles: ['admin']
     },
     {
       id: 'bookings',
       label: 'Bookings',
       icon: Calendar,
-      description: 'View and manage bookings',
       roles: ['admin']
     },
     {
       id: 'settings',
       label: 'Settings',
       icon: Settings,
-      description: 'System configuration',
       roles: ['admin']
     }
   ];
