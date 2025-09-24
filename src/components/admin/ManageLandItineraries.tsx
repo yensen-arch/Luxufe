@@ -14,11 +14,13 @@ import {
 } from "@/lib/database";
 import BrandSelector from "./BrandSelector";
 import HotelSelector from "./HotelSelector";
+import { useToast } from "../common/ToastProvider";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ManageLandItinerariesProps {}
 
 export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
+  const { showToast } = useToast();
   const [itineraries, setItineraries] = useState<LandItinerary[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -103,7 +105,20 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
     });
   };
 
-  const handleBackToList = () => {
+  const handleBackToList = async () => {
+    // Check if there's any data to save as draft
+    const hasData = formData.itinerary_name || formData.destinations || formData.duration || 
+                   formData.overview || formData.hero || formData.gallery || formData.map ||
+                   (formData.pricing_dates && formData.pricing_dates.length > 0) ||
+                   (formData.daily_itinerary && formData.daily_itinerary.length > 0) ||
+                   (formData.journey_highlights && formData.journey_highlights.some((h: string) => h.trim() !== '')) ||
+                   (formData.good_to_know && formData.good_to_know.some((item: any) => item.question.trim() !== '' || item.answer.trim() !== '')) ||
+                   (formData.hotels_by_categories && formData.hotels_by_categories.types.some((type: any) => type.hotels.length > 0));
+
+    if (hasData) {
+      await saveAsDraft();
+    }
+    
     setMode('list');
     setSelectedItinerary(null);
     setCurrentStep(1);
@@ -121,50 +136,112 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
       if (success) {
         // Refresh the itineraries list
         await fetchItineraries();
-        alert('Itinerary deleted successfully!');
+        showToast('Itinerary deleted successfully!', 'success');
       } else {
-        alert('Error deleting itinerary. Please try again.');
+        showToast('Error deleting itinerary. Please try again.', 'error');
       }
     } catch (error) {
       console.error('Error deleting itinerary:', error);
-      alert('Error deleting itinerary. Please try again.');
+      showToast('Error deleting itinerary. Please try again.', 'error');
     } finally {
       setLoading(false);
     }
   };
 
   const nextStep = async () => {
-    // Basic validation for each step
-    if (currentStep === 1) {
-      if (!formData.itinerary_name || !formData.destinations || !formData.duration) {
-        alert('Please fill in all required fields: Itinerary Name, Destinations, and Duration');
-        return;
-      }
-    }
-    
-    if (currentStep === 2) {
-      if (!formData.pricing_dates || formData.pricing_dates.length === 0) {
-        alert('Please add at least one pricing date');
-        return;
-      }
-    }
-    
-    if (currentStep === 3) {
-      if (!formData.daily_itinerary || formData.daily_itinerary.length === 0) {
-        alert('Please add at least one day to the itinerary');
-        return;
-      }
-    }
-    
-    if (currentStep === 4) {
-      // Optional validation for hotels - can be empty
-    }
-    
+    // Allow navigation to next step without validation - users can move freely between steps
     if (currentStep < totalSteps) {
+      // Auto-save as draft when navigating between steps
+      const hasData = formData.itinerary_name || formData.destinations || formData.duration || 
+                     formData.overview || formData.hero || formData.gallery || formData.map ||
+                     (formData.pricing_dates && formData.pricing_dates.length > 0) ||
+                     (formData.daily_itinerary && formData.daily_itinerary.length > 0) ||
+                     (formData.journey_highlights && formData.journey_highlights.some((h: string) => h.trim() !== '')) ||
+                     (formData.good_to_know && formData.good_to_know.some((item: any) => item.question.trim() !== '' || item.answer.trim() !== '')) ||
+                     (formData.hotels_by_categories && formData.hotels_by_categories.types.some((type: any) => type.hotels.length > 0));
+
+      if (hasData) {
+        await saveAsDraft();
+      }
+      
       setCurrentStep(currentStep + 1);
     } else {
       // Save the itinerary
       await handleSaveItinerary();
+    }
+  };
+
+  const saveAsDraft = async () => {
+    try {
+      setSaving(true);
+      console.log('Saving draft:', formData);
+      
+      // Prepare the itinerary data for saving as draft
+      const itineraryData = {
+        itinerary_name: formData.itinerary_name || 'Untitled Itinerary',
+        hero: formData.hero || '',
+        destinations: formData.destinations || '',
+        duration: formData.duration || '',
+        overview: formData.overview || '',
+        map: formData.map || '',
+        journey_highlights: formData.journey_highlights?.filter((h: string) => h.trim() !== '') || [],
+        daily_itinerary: formData.daily_itinerary?.filter((day: any) => day.title.trim() !== '' || day.description.trim() !== '') || [],
+        gallery: formData.gallery || '',
+        good_to_know: formData.good_to_know?.filter((item: any) => item.question.trim() !== '' || item.answer.trim() !== '') || [],
+        hotels_by_categories: formData.hotels_by_categories || {
+          types: [
+            { category: 'Luxury', hotels: [] },
+            { category: 'Exclusive', hotels: [] },
+            { category: 'Unforgettable', hotels: [] }
+          ]
+        }
+      };
+
+      let savedItinerary: LandItinerary | null = null;
+
+      if (mode === 'create') {
+        // Create new itinerary as draft
+        savedItinerary = await createLandItinerary(itineraryData);
+        if (!savedItinerary) {
+          throw new Error('Failed to create draft itinerary');
+        }
+      } else if (mode === 'edit' && selectedItinerary) {
+        // Update existing itinerary as draft
+        savedItinerary = await updateLandItinerary(selectedItinerary.id, itineraryData);
+        if (!savedItinerary) {
+          throw new Error('Failed to update draft itinerary');
+        }
+      }
+
+      // Save pricing dates if they exist and are valid
+      if (formData.pricing_dates && formData.pricing_dates.length > 0 && savedItinerary) {
+        const datesData = formData.pricing_dates
+          .filter((date: any) => date.date && date.date.trim() !== '') // Only include dates with valid date labels
+          .map((date: any) => ({
+            linked_itinerary_id: savedItinerary!.id,
+            date: date.date,
+            adult_pricing: date.adult_pricing || {},
+            children_pricing: date.children_pricing || {}
+          }));
+
+        if (datesData.length > 0) {
+          if (mode === 'create') {
+            await createLandItineraryDates(datesData);
+          } else if (mode === 'edit') {
+            await updateLandItineraryDates(savedItinerary.id, datesData);
+          }
+        }
+      }
+
+      // Show success message
+      const itineraryName = formData.itinerary_name || 'Untitled Itinerary';
+      showToast(`${itineraryName} saved as draft`, 'success');
+      
+    } catch (error) {
+      console.error('Error saving draft:', error);
+      showToast('Error saving draft. Please try again.', 'error');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -228,18 +305,31 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
       await fetchItineraries();
       
       // Show success message and go back to list
-      alert(`Itinerary ${mode === 'create' ? 'created' : 'updated'} successfully!`);
+      showToast(`Itinerary ${mode === 'create' ? 'created' : 'updated'} successfully!`, 'success');
       handleBackToList();
     } catch (error) {
       console.error('Error saving itinerary:', error);
-      alert('Error saving itinerary. Please try again.');
+      showToast('Error saving itinerary. Please try again.', 'error');
     } finally {
       setSaving(false);
     }
   };
 
-  const prevStep = () => {
+  const prevStep = async () => {
     if (currentStep > 1) {
+      // Auto-save as draft when navigating between steps
+      const hasData = formData.itinerary_name || formData.destinations || formData.duration || 
+                     formData.overview || formData.hero || formData.gallery || formData.map ||
+                     (formData.pricing_dates && formData.pricing_dates.length > 0) ||
+                     (formData.daily_itinerary && formData.daily_itinerary.length > 0) ||
+                     (formData.journey_highlights && formData.journey_highlights.some((h: string) => h.trim() !== '')) ||
+                     (formData.good_to_know && formData.good_to_know.some((item: any) => item.question.trim() !== '' || item.answer.trim() !== '')) ||
+                     (formData.hotels_by_categories && formData.hotels_by_categories.types.some((type: any) => type.hotels.length > 0));
+
+      if (hasData) {
+        await saveAsDraft();
+      }
+      
       setCurrentStep(currentStep - 1);
     }
   };
@@ -331,27 +421,38 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
             Previous
           </button>
 
-          <button
-            onClick={nextStep}
-            disabled={saving}
-            className="flex items-center gap-2 px-6 py-3 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {currentStep === totalSteps ? (
-              <>
-                {saving ? (
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                ) : (
-                  <Save className="w-5 h-5" />
-                )}
-                {saving ? 'Saving...' : 'Save Itinerary'}
-              </>
-            ) : (
-              <>
-                Next
-                <ChevronRight className="w-5 h-5" />
-              </>
-            )}
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={saveAsDraft}
+              disabled={saving}
+              className="flex items-center gap-2 px-4 py-3 border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <Save className="w-4 h-4" />
+              Save as Draft
+            </button>
+            
+            <button
+              onClick={nextStep}
+              disabled={saving}
+              className="flex items-center gap-2 px-6 py-3 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {currentStep === totalSteps ? (
+                <>
+                  {saving ? (
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  ) : (
+                    <Save className="w-5 h-5" />
+                  )}
+                  {saving ? 'Saving...' : 'Save Itinerary'}
+                </>
+              ) : (
+                <>
+                  Next
+                  <ChevronRight className="w-5 h-5" />
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
     );

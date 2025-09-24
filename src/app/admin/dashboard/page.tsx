@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import AdminMain from "@/components/admin/AdminMain";
+import { ToastProvider } from "@/components/common/ToastProvider";
 
 export default function AdminDashboard() {
   const [user, setUser] = useState<any>(null);
@@ -73,15 +74,17 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      <AdminSidebar
-        activeSection={activeSection}
-        onSectionChange={handleSectionChange}
-        onSignOut={handleSignOut}
-        userEmail={user?.email}
-        userRole={userRole}
-      />
-      <AdminMain activeSection={activeSection} userRole={userRole} />
-    </div>
+    <ToastProvider>
+      <div className="flex h-screen bg-gray-50">
+        <AdminSidebar
+          activeSection={activeSection}
+          onSectionChange={handleSectionChange}
+          onSignOut={handleSignOut}
+          userEmail={user?.email}
+          userRole={userRole}
+        />
+        <AdminMain activeSection={activeSection} userRole={userRole} />
+      </div>
+    </ToastProvider>
   );
 }
