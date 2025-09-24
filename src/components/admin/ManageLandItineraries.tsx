@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Plus, Edit, Trash, Save, X } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { ChevronLeft, ChevronRight, Plus, Edit, Trash, Save, X, Upload, Image as ImageIcon } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { 
@@ -16,6 +16,8 @@ import {
 } from "@/lib/database";
 import BrandSelector from "./BrandSelector";
 import HotelSelector from "./HotelSelector";
+import ImageCropModal from "./ImageCropModal";
+import GalleryUploadModal from "./GalleryUploadModal";
 import { useToast } from "../common/ToastProvider";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -566,6 +568,96 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
 
 // Step Components
 function BasicInfoStep({ formData, updateFormData }: { formData: any; updateFormData: (field: string, value: any) => void }) {
+  const [showHeroCropModal, setShowHeroCropModal] = useState(false);
+  const [selectedHeroFile, setSelectedHeroFile] = useState<File | null>(null);
+  const [showGalleryUpload, setShowGalleryUpload] = useState(false);
+  const [galleryFiles, setGalleryFiles] = useState<File[]>([]);
+  const [existingGalleryUrls, setExistingGalleryUrls] = useState<string[]>([]);
+  const heroFileInputRef = useRef<HTMLInputElement>(null);
+  const galleryFileInputRef = useRef<HTMLInputElement>(null);
+
+  // Parse existing gallery URLs
+  useEffect(() => {
+    if (formData.gallery) {
+      try {
+        const galleryUrls = JSON.parse(formData.gallery);
+        setExistingGalleryUrls(Array.isArray(galleryUrls) ? galleryUrls : []);
+      } catch (error) {
+        setExistingGalleryUrls([]);
+      }
+    } else {
+      setExistingGalleryUrls([]);
+    }
+  }, [formData.gallery]);
+
+  const handleHeroFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image file.');
+      return;
+    }
+
+    // Validate file size (max 10MB for hero images)
+    if (file.size > 10 * 1024 * 1024) {
+      alert('File size must be less than 10MB.');
+      return;
+    }
+
+    setSelectedHeroFile(file);
+    setShowHeroCropModal(true);
+  };
+
+  const handleGalleryFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || []);
+    if (files.length === 0) return;
+
+    // Validate file types
+    const invalidFiles = files.filter(file => !file.type.startsWith('image/'));
+    if (invalidFiles.length > 0) {
+      alert('Please select only image files.');
+      return;
+    }
+
+    // Validate file sizes (max 5MB per file)
+    const oversizedFiles = files.filter(file => file.size > 5 * 1024 * 1024);
+    if (oversizedFiles.length > 0) {
+      alert('Each file must be less than 5MB.');
+      return;
+    }
+
+    setGalleryFiles(files);
+    setShowGalleryUpload(true);
+  };
+
+  const handleHeroImageUploaded = async (imageUrl: string) => {
+    updateFormData('hero', imageUrl);
+    setShowHeroCropModal(false);
+    setSelectedHeroFile(null);
+  };
+
+  const handleGalleryImagesUploaded = async (imageUrls: string[]) => {
+    // Add new URLs to existing gallery
+    const updatedGallery = [...existingGalleryUrls, ...imageUrls];
+    updateFormData('gallery', JSON.stringify(updatedGallery));
+    setExistingGalleryUrls(updatedGallery);
+    setShowGalleryUpload(false);
+    setGalleryFiles([]);
+  };
+
+  const removeGalleryImage = (index: number) => {
+    const updatedGallery = existingGalleryUrls.filter((_, i) => i !== index);
+    updateFormData('gallery', JSON.stringify(updatedGallery));
+    setExistingGalleryUrls(updatedGallery);
+  };
+
+  const removeSelectedGalleryFile = (index: number) => {
+    const updatedFiles = galleryFiles.filter((_, i) => i !== index);
+    setGalleryFiles(updatedFiles);
+  };
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-arpona font-bold text-gray-900 mb-6">Basic Information</h2>
@@ -610,17 +702,131 @@ function BasicInfoStep({ formData, updateFormData }: { formData: any; updateForm
           />
         </div>
 
+        {/* Hero Image Upload */}
         <div className="md:col-span-2">
           <label className="block text-sm font-inter font-bold text-gray-700 mb-2">
-            Hero Image URL
+            Hero Image
           </label>
-          <input
-            type="url"
-            value={formData.hero}
-            onChange={(e) => updateFormData('hero', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
-            placeholder="https://example.com/hero-image.jpg"
-          />
+          
+          {/* Current Hero Image Preview */}
+          {formData.hero && (
+            <div className="mb-4">
+              <div className="relative w-full bg-gray-100 border border-gray-200 overflow-hidden" style={{ aspectRatio: '16/9' }}>
+                <img
+                  src={formData.hero}
+                  alt="Hero image preview"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Upload Button */}
+          <div className="space-y-3">
+            <input
+              ref={heroFileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleHeroFileSelect}
+              className="hidden"
+            />
+            <button
+              onClick={() => heroFileInputRef.current?.click()}
+              className="flex items-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 hover:border-[#A5C8CE] transition-colors w-full"
+            >
+              <Upload className="w-5 h-5 text-gray-400" />
+              <span className="text-sm text-gray-600">
+                {formData.hero ? 'Replace Hero Image' : 'Upload Hero Image'}
+              </span>
+            </button>
+            <p className="text-xs text-gray-500">
+              Compressed & WebP images are preferred. Max size: 10MB
+            </p>
+          </div>
+        </div>
+
+        {/* Gallery Images Upload */}
+        <div className="md:col-span-2">
+          <label className="block text-sm font-inter font-bold text-gray-700 mb-2">
+            Gallery Images
+          </label>
+          
+          {/* Current Gallery Preview */}
+          {existingGalleryUrls.length > 0 && (
+            <div className="mb-4">
+              <h4 className="text-sm font-inter font-bold text-gray-700 mb-2">
+                Current Gallery ({existingGalleryUrls.length} images)
+              </h4>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                {existingGalleryUrls.map((url: string, index: number) => (
+                  <div key={`existing-${index}`} className="relative w-full h-24 bg-gray-100 border border-gray-200 overflow-hidden group">
+                    <img
+                      src={url}
+                      alt={`Gallery image ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                    <button
+                      onClick={() => removeGalleryImage(index)}
+                      className="absolute top-1 right-1 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Selected Files Preview */}
+          {galleryFiles.length > 0 && (
+            <div className="mb-4">
+              <h4 className="text-sm font-inter font-bold text-gray-700 mb-2">
+                Selected for Upload ({galleryFiles.length} images)
+              </h4>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                {galleryFiles.map((file: File, index: number) => (
+                  <div key={`selected-${index}`} className="relative w-full h-24 bg-gray-100 border border-gray-200 overflow-hidden group">
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div className="text-center">
+                        <ImageIcon className="w-8 h-8 text-gray-400 mx-auto mb-1" />
+                        <p className="text-xs text-gray-600 truncate px-1">{file.name}</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => removeSelectedGalleryFile(index)}
+                      className="absolute top-1 right-1 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Upload Button */}
+          <div className="space-y-3">
+            <input
+              ref={galleryFileInputRef}
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleGalleryFileSelect}
+              className="hidden"
+            />
+            <button
+              onClick={() => galleryFileInputRef.current?.click()}
+              className="flex items-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 hover:border-[#A5C8CE] transition-colors w-full"
+            >
+              <ImageIcon className="w-5 h-5 text-gray-400" />
+              <span className="text-sm text-gray-600">
+                {existingGalleryUrls.length > 0 ? 'Add More Gallery Images' : 'Upload Gallery Images'}
+              </span>
+            </button>
+            <p className="text-xs text-gray-500">
+              Compressed & WebP images are preferred. Max size: 5MB per image
+            </p>
+          </div>
         </div>
 
         <div className="md:col-span-2">
@@ -638,19 +844,6 @@ function BasicInfoStep({ formData, updateFormData }: { formData: any; updateForm
 
         <div className="md:col-span-2">
           <label className="block text-sm font-inter font-bold text-gray-700 mb-2">
-            Gallery Images (JSON array of URLs)
-          </label>
-          <input
-            type="text"
-            value={formData.gallery}
-            onChange={(e) => updateFormData('gallery', e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
-            placeholder='["https://example.com/image1.jpg", "https://example.com/image2.jpg"]'
-          />
-        </div>
-
-        <div className="md:col-span-2">
-          <label className="block text-sm font-inter font-bold text-gray-700 mb-2">
             Overview
           </label>
           <textarea
@@ -662,6 +855,38 @@ function BasicInfoStep({ formData, updateFormData }: { formData: any; updateForm
           />
         </div>
       </div>
+
+      {/* Hero Image Crop Modal */}
+      {selectedHeroFile && showHeroCropModal && (
+        <ImageCropModal
+          isOpen={showHeroCropModal}
+          onClose={() => {
+            setShowHeroCropModal(false);
+            setSelectedHeroFile(null);
+          }}
+          imageFile={selectedHeroFile}
+          onImageUploaded={handleHeroImageUploaded}
+          aspectRatio={16 / 9} // Hero image aspect ratio
+          currentImageUrl={formData.hero}
+          bucketName="land_itineraries"
+          fileNamePrefix="itinerary-hero"
+        />
+      )}
+
+      {/* Gallery Upload Modal */}
+      {galleryFiles.length > 0 && showGalleryUpload && (
+        <GalleryUploadModal
+          isOpen={showGalleryUpload}
+          onClose={() => {
+            setShowGalleryUpload(false);
+            setGalleryFiles([]);
+          }}
+          imageFiles={galleryFiles}
+          onImagesUploaded={handleGalleryImagesUploaded}
+          bucketName="land_itineraries"
+          fileNamePrefix="itinerary-gallery"
+        />
+      )}
     </div>
   );
 }
@@ -1186,7 +1411,7 @@ function HotelsStep({ formData, updateFormData }: { formData: any; updateFormDat
       
       <div className="space-y-8">
         {hotelsByCategories.types.map((category: any, categoryIndex: number) => (
-          <div key={category.category} className="border border-gray-200 p-6">
+          <div key={category.category} className="p-6">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-arpona font-bold text-gray-900">{category.category} Hotels</h3>
               <button

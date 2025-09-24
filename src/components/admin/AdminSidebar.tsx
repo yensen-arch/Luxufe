@@ -112,24 +112,6 @@ export default function AdminSidebar({
         </button>
       </div>
 
-      {/* User Info */}
-      <div className="p-4 border-b border-gray-200">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-[#A5C8CE] rounded-full flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-inter text-sm font-bold">
-              {userEmail?.charAt(0).toUpperCase() || 'A'}
-            </span>
-          </div>
-          {!isCollapsed && (
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-inter font-bold text-gray-900 truncate">
-                {userEmail || 'Admin User'}
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-
       {/* Navigation Menu */}
       <nav className="flex-1 p-4 space-y-2">
         {menuItems.map((item) => {
