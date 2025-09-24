@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Plus, Edit, Trash, Save, X } from "lucide-react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { 
   LandItinerary, 
   LandItineraryDate, 
@@ -91,18 +93,49 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
     });
   };
 
-  const handleEdit = (itinerary: LandItinerary) => {
+  const handleEdit = async (itinerary: LandItinerary) => {
     setSelectedItinerary(itinerary);
     setMode('edit');
     setCurrentStep(1);
-    // Convert itinerary data to form format
-    setFormData({
-      ...itinerary,
-      journey_highlights: itinerary.journey_highlights || [''],
-      daily_itinerary: itinerary.daily_itinerary || [{ days: 'Day 1', title: '', description: '' }],
-      good_to_know: itinerary.good_to_know || [{ question: '', answer: '' }],
-      pricing_dates: []
-    });
+    
+    // Fetch pricing dates for this itinerary
+    try {
+      const dates = await getLandItineraryDates(itinerary.id);
+      const formattedDates = dates.map(date => ({
+        id: date.id,
+        date: date.date,
+        selectedDate: null, // Will be parsed by the DatePicker
+        adult_pricing: date.adult_pricing || {
+          Luxury: '',
+          Exclusive: '',
+          Unforgettable: ''
+        },
+        children_pricing: date.children_pricing || {
+          Luxury: '',
+          Exclusive: '',
+          Unforgettable: ''
+        }
+      }));
+      
+      // Convert itinerary data to form format
+      setFormData({
+        ...itinerary,
+        journey_highlights: itinerary.journey_highlights || [''],
+        daily_itinerary: itinerary.daily_itinerary || [{ days: 'Day 1', title: '', description: '' }],
+        good_to_know: itinerary.good_to_know || [{ question: '', answer: '' }],
+        pricing_dates: formattedDates
+      });
+    } catch (error) {
+      console.error('Error fetching pricing dates:', error);
+      // Fallback to empty dates if fetch fails
+      setFormData({
+        ...itinerary,
+        journey_highlights: itinerary.journey_highlights || [''],
+        daily_itinerary: itinerary.daily_itinerary || [{ days: 'Day 1', title: '', description: '' }],
+        good_to_know: itinerary.good_to_know || [{ question: '', answer: '' }],
+        pricing_dates: []
+      });
+    }
   };
 
   const handleBackToList = async () => {
@@ -640,6 +673,7 @@ function PricingStep({ formData, updateFormData }: { formData: any; updateFormDa
     const newDate = {
       id: Date.now(),
       date: '',
+      selectedDate: null, // For the DatePicker
       adult_pricing: {
         Luxury: '',
         Exclusive: '',
@@ -689,6 +723,61 @@ function PricingStep({ formData, updateFormData }: { formData: any; updateFormDa
     updateFormData('pricing_dates', updated);
   };
 
+  const handleDateChange = (date: Date | null, index: number) => {
+    const updated = pricingDates.map((pricingDate, i) => {
+      if (i === index) {
+        let formattedDate = '';
+        if (date) {
+          // Format as "Month Year" (e.g., "Dec 2026")
+          formattedDate = date.toLocaleDateString('en-US', { 
+            month: 'short', 
+            year: 'numeric' 
+          });
+        }
+        return {
+          ...pricingDate,
+          selectedDate: date,
+          date: formattedDate
+        };
+      }
+      return pricingDate;
+    });
+    setPricingDates(updated);
+    updateFormData('pricing_dates', updated);
+  };
+
+  // Convert existing date strings to Date objects for the picker
+  const parseExistingDate = (dateString: string): Date | null => {
+    if (!dateString) return null;
+    
+    // Try to parse date strings like "October 2026" or "Dec 2026"
+    const fullMonths = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    
+    const shortMonths = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+    
+    const parts = dateString.split(' ');
+    if (parts.length === 2) {
+      let monthIndex = fullMonths.indexOf(parts[0]);
+      if (monthIndex === -1) {
+        monthIndex = shortMonths.indexOf(parts[0]);
+      }
+      
+      const year = parseInt(parts[1]);
+      
+      if (monthIndex !== -1 && !isNaN(year)) {
+        return new Date(year, monthIndex, 1);
+      }
+    }
+    
+    return null;
+  };
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-arpona font-bold text-gray-900 mb-6">Pricing & Dates</h2>
@@ -734,14 +823,19 @@ function PricingStep({ formData, updateFormData }: { formData: any; updateFormDa
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-inter font-bold text-gray-700 mb-2">
-                      Date Label
+                      Select Month & Year
                     </label>
-                    <input
-                      type="text"
-                      value={date.date}
-                      onChange={(e) => updatePricingDate(index, 'date', e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
-                      placeholder="e.g., October 2026"
+                    <DatePicker
+                      selected={date.selectedDate || parseExistingDate(date.date)}
+                      onChange={(selectedDate) => handleDateChange(selectedDate, index)}
+                      dateFormat="MMM yyyy"
+                      showMonthYearPicker
+                      showFullMonthYearPicker
+                      placeholderText="Select month and year"
+                      className="w-full px-2 py-2 border border-gray-300 focus:ring-2 focus:ring-[#A5C8CE] focus:border-transparent"
+                      wrapperClassName="w-full"
+                      minDate={new Date()} // Prevent selecting past dates
+                      yearDropdownItemNumber={10} // Show 10 years in dropdown
                     />
                   </div>
                 </div>
