@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { X, Upload, Link, Crop, Image as ImageIcon } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import ImageCropModal from "./ImageCropModal";
@@ -29,6 +29,30 @@ export default function BrandImageModal({ isOpen, onClose, brand, onImageUpdate 
   const [showCropExistingModal, setShowCropExistingModal] = useState(false);
   const [showGalleryGrid, setShowGalleryGrid] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Reset imageUrl when brand changes
+  useEffect(() => {
+    setImageUrl(brand.brand_image || '');
+    setActiveTab('url');
+    setShowGalleryGrid(false);
+    setShowCropModal(false);
+    setShowCropExistingModal(false);
+    setSelectedFile(null);
+  }, [brand.id, brand.brand_image]);
+
+  // Reset state when modal is closed
+  useEffect(() => {
+    if (!isOpen) {
+      setImageUrl(brand.brand_image || '');
+      setActiveTab('url');
+      setShowGalleryGrid(false);
+      setShowCropModal(false);
+      setShowCropExistingModal(false);
+      setSelectedFile(null);
+      setSaving(false);
+      setUploading(false);
+    }
+  }, [isOpen, brand.brand_image]);
 
   const handleSaveUrl = async () => {
     if (!imageUrl.trim()) return;
