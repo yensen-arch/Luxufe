@@ -1,15 +1,42 @@
 import Image from "next/image";
 import { Heart } from "lucide-react";
-import { LandItinerary } from "@/lib/database";
+import { LandItinerary, LandItineraryDate } from "@/lib/database";
 
 interface HeroProps {
   itinerary: LandItinerary;
+  itineraryDates?: LandItineraryDate[];
 }
 
-export default function Hero({ itinerary }: HeroProps) {
+export default function Hero({ itinerary, itineraryDates }: HeroProps) {
   // Parse gallery string to get first image for hero
   const galleryImages = itinerary.gallery ? JSON.parse(itinerary.gallery.replace(/'/g, '"')) : [];
   const heroImage = galleryImages.length > 0 ? galleryImages[0] : "/placeholder.svg";
+
+  // Calculate minimum adult pricing
+  const getMinimumPrice = () => {
+    if (!itineraryDates || itineraryDates.length === 0) {
+      return "Contact us for pricing";
+    }
+
+    let minPrice = Infinity;
+    
+    itineraryDates.forEach(date => {
+      if (date.adult_pricing) {
+        Object.values(date.adult_pricing).forEach(price => {
+          const numPrice = Number(price);
+          if (!isNaN(numPrice) && numPrice < minPrice) {
+            minPrice = numPrice;
+          }
+        });
+      }
+    });
+
+    if (minPrice === Infinity) {
+      return "Contact us for pricing";
+    }
+
+    return `From $${minPrice.toFixed(0)} per person`;
+  };
 
   return (
     <>
@@ -60,7 +87,7 @@ export default function Hero({ itinerary }: HeroProps) {
             {/* Price */}
             <div>
               <div className="text-xs text-gray-500 font-semibold mb-1">PRICE</div>
-              <div className="text-sm md:text-md font-inter font-bold">From $18,550 per person</div>
+              <div className="text-sm md:text-md font-inter font-bold">{getMinimumPrice()}</div>
             </div>
             {/* Journey Type */}
             <div>

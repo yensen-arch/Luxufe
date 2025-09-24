@@ -52,6 +52,16 @@ export default function PricingOptions({ itineraryDates, hotelsByCategories }: P
     return Array.from(allCategories);
   }, [itineraryDates]);
 
+  // Check if any children pricing exists
+  const hasChildrenPricing = useMemo(() => {
+    return itineraryDates.some(date => 
+      date.children_pricing && 
+      Object.values(date.children_pricing).some(price => 
+        price !== null && price !== undefined && Number(price) > 0
+      )
+    );
+  }, [itineraryDates]);
+
   console.log('PricingOptions - pricingCategories:', pricingCategories);
 
   // Helper function to get hotels for a specific category
@@ -163,7 +173,7 @@ export default function PricingOptions({ itineraryDates, hotelsByCategories }: P
       {/* Pricing Table */}
       <div className="overflow-hidden max-w-4xl">
         {/* Table Header */}
-        <div className="grid grid-cols-3 border-b-2 border-gray-300">
+        <div className={`grid border-b-2 border-gray-300 ${hasChildrenPricing ? 'grid-cols-3' : 'grid-cols-2'}`}>
           <div className="py-4 md:py-6">
             <p className="text-gray-700 font-inter font-bold text-xs">
               Land Arrangements, Per Person (2025)
@@ -174,11 +184,13 @@ export default function PricingOptions({ itineraryDates, hotelsByCategories }: P
               Adult Pricing
             </h3>
           </div>
-          <div className="p-4 md:p-6 text-center">
-            <h3 className="text-gray-700 font-inter font-bold text-xs uppercase tracking-wider">
-              Children Pricing
-            </h3>
-          </div>
+          {hasChildrenPricing && (
+            <div className="p-4 md:p-6 text-center">
+              <h3 className="text-gray-700 font-inter font-bold text-xs uppercase tracking-wider">
+                Children Pricing
+              </h3>
+            </div>
+          )}
         </div>
 
         {/* Table Rows */}
@@ -190,7 +202,7 @@ export default function PricingOptions({ itineraryDates, hotelsByCategories }: P
             <div key={index} className="border-b-2 border-gray-300">
               {/* Pricing Row - Clickable */}
               <div 
-                className="grid grid-cols-3 cursor-pointer hover:bg-gray-50 transition-colors duration-200"
+                className={`grid cursor-pointer hover:bg-gray-50 transition-colors duration-200 ${hasChildrenPricing ? 'grid-cols-3' : 'grid-cols-2'}`}
                 onClick={() => handleCategoryClick(category)}
               >
                 <div className="p-4 md:p-6 flex items-center">
@@ -203,11 +215,13 @@ export default function PricingOptions({ itineraryDates, hotelsByCategories }: P
                     ${selectedDate.adult_pricing[category] ? Number(selectedDate.adult_pricing[category]).toFixed(0) : 'N/A'}
                   </span>
                 </div>
-                <div className="p-4 md:p-6 text-center">
-                  <span className="text-gray-900 font-arpona font-bold text-lg md:text-xl">
-                    ${selectedDate.children_pricing[category] ? Number(selectedDate.children_pricing[category]).toFixed(0) : 'N/A'}
-                  </span>
-                </div>
+                {hasChildrenPricing && (
+                  <div className="p-4 md:p-6 text-center">
+                    <span className="text-gray-900 font-arpona font-bold text-lg md:text-xl">
+                      ${selectedDate.children_pricing[category] ? Number(selectedDate.children_pricing[category]).toFixed(0) : 'N/A'}
+                    </span>
+                  </div>
+                )}
               </div>
               
               {/* Expandable Hotel Details */}

@@ -30,7 +30,7 @@ export default async function LandItineraryPage({ params }: LandItineraryPagePro
   return (
     <main>
       <Navbar />
-      <Hero itinerary={itinerary} />
+      <Hero itinerary={itinerary} itineraryDates={itineraryDates} />
       <ItineraryDetails itinerary={itinerary} />
       <PricingAndHotelsSection itinerary={itinerary} itineraryDates={itineraryDates} />
       <OtherTrips />
