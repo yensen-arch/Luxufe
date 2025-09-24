@@ -135,9 +135,6 @@ export default function AdminSidebar({
                   <p className={`font-inter font-bold text-sm ${isActive ? 'text-white' : 'text-gray-900'}`}>
                     {item.label}
                   </p>
-                  <p className={`text-xs ${isActive ? 'text-white/80' : 'text-gray-500'}`}>
-                    {item.description}
-                  </p>
                 </div>
               )}
             </button>
