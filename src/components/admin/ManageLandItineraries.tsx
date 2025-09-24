@@ -28,6 +28,7 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
   const [itineraries, setItineraries] = useState<LandItinerary[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [mode, setMode] = useState<'list' | 'create' | 'edit'>('list');
   const [selectedItinerary, setSelectedItinerary] = useState<LandItinerary | null>(null);
   const [currentStep, setCurrentStep] = useState(1);
@@ -151,7 +152,7 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
                    (formData.hotels_by_categories && formData.hotels_by_categories.types.some((type: any) => type.hotels.length > 0));
 
     if (hasData) {
-      await saveAsDraft();
+      await saveAsDraft(false); // Don't show toast when going back to list
     }
     
     setMode('list');
@@ -196,7 +197,7 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
                      (formData.hotels_by_categories && formData.hotels_by_categories.types.some((type: any) => type.hotels.length > 0));
 
       if (hasData) {
-        await saveAsDraft();
+        await saveAsDraft(false); // Don't show toast for step navigation
       }
       
       setCurrentStep(currentStep + 1);
@@ -206,9 +207,9 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
     }
   };
 
-  const saveAsDraft = async () => {
+  const saveAsDraft = async (showToastMessage: boolean = true) => {
     try {
-      setSaving(true);
+      setIsSaving(true);
       console.log('Saving draft:', formData);
       
       // Prepare the itinerary data for saving as draft
@@ -268,15 +269,17 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
         }
       }
 
-      // Show success message
-      const itineraryName = formData.itinerary_name || 'Untitled Itinerary';
-      showToast(`${itineraryName} saved as draft`, 'success');
+      // Show success message only if requested
+      if (showToastMessage) {
+        const itineraryName = formData.itinerary_name || 'Untitled Itinerary';
+        showToast(`${itineraryName} saved as draft`, 'success');
+      }
       
     } catch (error) {
       console.error('Error saving draft:', error);
       showToast('Error saving draft. Please try again.', 'error');
     } finally {
-      setSaving(false);
+      setIsSaving(false);
     }
   };
 
@@ -362,7 +365,7 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
                      (formData.hotels_by_categories && formData.hotels_by_categories.types.some((type: any) => type.hotels.length > 0));
 
       if (hasData) {
-        await saveAsDraft();
+        await saveAsDraft(false); // Don't show toast for step navigation
       }
       
       setCurrentStep(currentStep - 1);
@@ -417,9 +420,14 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
             </div>
             <button
               onClick={handleBackToList}
-              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+              disabled={isSaving || saving}
+              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <X className="w-5 h-5" />
+              {isSaving ? (
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-600"></div>
+              ) : (
+                <X className="w-5 h-5" />
+              )}
               Cancel
             </button>
           </div>
@@ -449,26 +457,21 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
         <div className="mt-6 flex justify-between">
           <button
             onClick={prevStep}
-            disabled={currentStep === 1}
+            disabled={currentStep === 1 || isSaving || saving}
             className="flex items-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <ChevronLeft className="w-5 h-5" />
+            {isSaving ? (
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-600"></div>
+            ) : (
+              <ChevronLeft className="w-5 h-5" />
+            )}
             Previous
           </button>
 
           <div className="flex gap-3">
             <button
-              onClick={saveAsDraft}
-              disabled={saving}
-              className="flex items-center gap-2 px-4 py-3 border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <Save className="w-4 h-4" />
-              Save as Draft
-            </button>
-            
-            <button
               onClick={nextStep}
-              disabled={saving}
+              disabled={isSaving || saving}
               className="flex items-center gap-2 px-6 py-3 bg-[#A5C8CE] text-white hover:bg-[#8bb3b8] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {currentStep === totalSteps ? (
@@ -482,8 +485,14 @@ export default function ManageLandItineraries({}: ManageLandItinerariesProps) {
                 </>
               ) : (
                 <>
-                  Next
-                  <ChevronRight className="w-5 h-5" />
+                  {isSaving ? (
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  ) : (
+                    <>
+                      Next
+                      <ChevronRight className="w-5 h-5" />
+                    </>
+                  )}
                 </>
               )}
             </button>

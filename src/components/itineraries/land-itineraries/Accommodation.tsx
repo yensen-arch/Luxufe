@@ -84,9 +84,9 @@ export default function Accommodation({ hotelData }: AccommodationProps) {
   // Get image URL for a hotel
   const getHotelImageUrl = (hotelName: string) => {
     if (loadingImages[hotelName]) {
-      return "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80"; // Loading placeholder
+      return "/placeholder.svg"; // Loading placeholder
     }
-    return hotelImages[hotelName] || `https://images.unsplash.com/photo-${Math.floor(Math.random() * 1000000)}?auto=format&fit=crop&w=800&q=80`; // Fallback to random image
+    return hotelImages[hotelName] || `/placeholder.svg`; // Fallback to placeholder
   };
 
   return (
@@ -108,7 +108,7 @@ export default function Accommodation({ hotelData }: AccommodationProps) {
                     alt={`${hotel.name} in ${hotel.city}`}
                     className="w-full h-[200px] md:h-[480px] object-cover"
                     onError={(e) => {
-                      e.currentTarget.src = "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80";
+                      e.currentTarget.src = "/placeholder.svg";
                     }}
                   />
                   {loadingImages[hotel.name] && (

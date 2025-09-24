@@ -141,7 +141,7 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
             `}>
               {isExpanded && <Wallet className="h-3 w-3 md:h-4 md:w-4" />}
               <p className={isExpanded ? "text-xs md:text-sm font-bold" : "font-bold text-base md:text-lg"}>
-                {isExpanded ? 'From ' : ''}USD {price.toLocaleString()} per person
+                {isExpanded ? 'From ' : ''}USD {price.toFixed(0)} per person
               </p>
             </div>
           )}

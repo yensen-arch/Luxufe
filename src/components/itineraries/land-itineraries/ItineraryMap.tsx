@@ -139,10 +139,16 @@ export default function ItineraryMap({ mapData, itineraryName }: ItineraryMapPro
 
           let date;
           try {
-            date = new Date(location.key_dates).toLocaleDateString('en-US', { 
-              month: 'short', 
-              day: 'numeric' 
-            });
+            // Use a consistent date format that works the same on server and client
+            const dateObj = new Date(location.key_dates);
+            if (isNaN(dateObj.getTime())) {
+              date = `Day ${dayNumber}`;
+            } else {
+              const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+              const month = months[dateObj.getMonth()];
+              const day = dateObj.getDate();
+              date = `${month} ${day}`;
+            }
           } catch (error) {
             date = `Day ${dayNumber}`;
           }

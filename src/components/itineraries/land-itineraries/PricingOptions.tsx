@@ -96,12 +96,12 @@ export default function PricingOptions({ itineraryDates, hotelsByCategories }: P
               // Use hero image if available, otherwise fall back to first gallery image, then placeholder
               const finalImage = heroImage || (galleryImages.length > 0 
                 ? galleryImages[0] 
-                : `https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=400&q=80`);
+                : `/placeholder.svg`);
               
               setHotelImages(prev => ({ ...prev, [hotel.name]: finalImage }));
             } catch (error) {
               console.error(`❌ PricingOptions: Error fetching images for ${hotel.name}:`, error);
-              const fallbackImage = `https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=400&q=80`;
+              const fallbackImage = `/placeholder.svg`;
               setHotelImages(prev => ({ ...prev, [hotel.name]: fallbackImage }));
             } finally {
               setLoadingImages(prev => ({ ...prev, [hotel.name]: false }));
@@ -118,7 +118,7 @@ export default function PricingOptions({ itineraryDates, hotelsByCategories }: P
 
   // Get hotel image URL
   const getHotelImageUrl = (hotelName: string) => {
-    return hotelImages[hotelName] || `https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=400&q=80`;
+    return hotelImages[hotelName] || `/placeholder.svg`;
   };
 
   // Don't render if no data
@@ -200,12 +200,12 @@ export default function PricingOptions({ itineraryDates, hotelsByCategories }: P
                 </div>
                 <div className="p-4 md:p-6 text-center">
                   <span className="text-gray-900 font-arpona font-bold text-lg md:text-xl">
-                    ${selectedDate.adult_pricing[category]?.toLocaleString() || 'N/A'}
+                    ${selectedDate.adult_pricing[category] ? Number(selectedDate.adult_pricing[category]).toFixed(0) : 'N/A'}
                   </span>
                 </div>
                 <div className="p-4 md:p-6 text-center">
                   <span className="text-gray-900 font-arpona font-bold text-lg md:text-xl">
-                    ${selectedDate.children_pricing[category]?.toLocaleString() || 'N/A'}
+                    ${selectedDate.children_pricing[category] ? Number(selectedDate.children_pricing[category]).toFixed(0) : 'N/A'}
                   </span>
                 </div>
               </div>
@@ -258,7 +258,7 @@ export default function PricingOptions({ itineraryDates, hotelsByCategories }: P
                                   alt={`${hotel.name} in ${hotel.city}`}
                                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
                                   onError={(e) => {
-                                    e.currentTarget.src = "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=400&q=80";
+                                    e.currentTarget.src = "/placeholder.svg";
                                   }}
                                 />
                               )}

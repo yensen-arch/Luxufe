@@ -21,9 +21,9 @@ export default function VisitView({ gallery }: VisitViewProps) {
   
   // Fallback images if no gallery data
   const fallbackImages = [
-    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80"
+    "/placeholder.svg",
+    "/placeholder.svg",
+    "/placeholder.svg"
   ];
 
   const images = galleryImages.length > 0 ? galleryImages : fallbackImages;

@@ -9,7 +9,7 @@ interface HeroProps {
 export default function Hero({ itinerary }: HeroProps) {
   // Parse gallery string to get first image for hero
   const galleryImages = itinerary.gallery ? JSON.parse(itinerary.gallery.replace(/'/g, '"')) : [];
-  const heroImage = galleryImages.length > 0 ? galleryImages[0] : "https://picsum.photos/seed/picsum/1920/1080";
+  const heroImage = galleryImages.length > 0 ? galleryImages[0] : "/placeholder.svg";
 
   return (
     <>
