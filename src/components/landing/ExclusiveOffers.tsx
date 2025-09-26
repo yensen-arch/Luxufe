@@ -40,7 +40,7 @@ export default function ExclusiveOffers({ data }: ExclusiveOffersProps) {
         <p className="max-w-xl mx-auto my-6 sm:my-8 lg:my-10 font-inter font-bold text-sm sm:text-base px-4 sm:px-0">
           {sectionData.description}
         </p>
-        <button className="group flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-inter font-bold tracking-widest border border-gray-400 px-4 sm:px-6 py-3 sm:py-4 hover:bg-gray-800 hover:text-white transition-colors mx-auto">
+        <button className="group flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-inter font-bold tracking-widest border-2 border-gray-300 px-4 sm:px-6 py-3 sm:py-4 hover:bg-gray-800 hover:text-white transition-colors mx-auto">
           EXPLORE OFFERS & PROMOTIONS
           <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
         </button>
