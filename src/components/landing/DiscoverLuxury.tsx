@@ -1,6 +1,5 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
-
+import Image from 'next/image';
 interface DiscoverLuxuryData {
   heading: string;
   description: string;
@@ -48,9 +47,9 @@ export default function DiscoverLuxury({ data }: DiscoverLuxuryProps) {
                 <p className="w-full lg:w-5/7 lg:mr-12 text-sm md:text-base lg:text-lg my-8 md:my-10 lg:my-12 font-inter font-bold">
                   {sectionData.description}
                 </p>
-                <button className="font-inter cursor-pointer font-bold group flex items-center gap-2 md:gap-3 border border-gray-400 px-6 md:px-8 py-3 md:py-4 text-xs md:text-sm tracking-wider hover:bg-white hover:text-slate-800 hover:border-white transition-all duration-300">
+                <button className="font-inter cursor-pointer font-bold group flex items-center gap-2 md:gap-3 border border-gray-500 px-6 md:px-8 py-3 md:py-4 text-xs md:text-sm tracking-wider hover:bg-white hover:text-slate-800 hover:border-white transition-all duration-300">
                   {sectionData.ctaText}
-                  <ArrowRight className="h-3 w-3 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
+                    <Image src="/luxufe-icon-button-arrow-light.svg" alt="arrow right" width={20} height={20} className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5 transition-transform group-hover:translate-x-1" />
                 </button>
               </div>
             </div>
