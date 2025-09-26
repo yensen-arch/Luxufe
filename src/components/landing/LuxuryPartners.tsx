@@ -97,9 +97,9 @@ export default function LuxuryPartners({ data }: LuxuryPartnersProps) {
 
   return (
     <section className="bg-gray-50 py-12 sm:py-16 lg:py-24 text-gray-800">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-4 text-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h3 className="text-2xl sm:text-3xl lg:text-5xl font-bellarina font-medium text-gray-600 italic mb-4 sm:mb-6">{sectionData.description}</h3>
-        <h2 className="text-3xl sm:text-4xl lg:text-6xl font-arpona font-medium my-8 sm:my-12 lg:my-16">{sectionData.heading}</h2>
+        <h2 className="text-3xl sm:text-4xl lg:text-6xl font-arpona font-bold my-8 sm:my-12 lg:mb-18">{sectionData.heading}</h2>
         
         <div className="flex flex-wrap justify-center mb-8 sm:mb-10 lg:mb-12 gap-2 sm:gap-4">
           {tabs.map(tab => (
@@ -160,7 +160,7 @@ export default function LuxuryPartners({ data }: LuxuryPartnersProps) {
         
         <div className="text-center mt-12 sm:mt-16 lg:mt-20">
           <Link href="/partners"> 
-            <button className="group cursor-pointer flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-inter font-bold tracking-widest border border-gray-400 px-4 sm:px-6 py-2 sm:py-3 hover:bg-gray-800 hover:text-white transition-colors mx-auto">
+            <button className="group cursor-pointer flex items-center gap-2 sm:gap-3 text-xs sm:text-xs font-inter font-bold tracking-widest border border-gray-400 px-5 sm:px-6 py-2 sm:py-5 hover:bg-gray-800 hover:text-white transition-colors mx-auto">
               ELITE PARTNERS
               <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
             </button>
