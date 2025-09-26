@@ -1,6 +1,6 @@
 "use client"
-import { ArrowRight, MapPin, Plane, Wallet } from "lucide-react"
 import type React from "react"
+import Image from "next/image"
 
 interface ItineraryCardProps {
   id: string
@@ -77,7 +77,7 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
               : 'text-xs md:text-sm'
             }
           `}>
-            <MapPin className={isExpanded ? "h-2 w-2 md:h-3 md:w-3" : "h-3 w-3 md:h-4 md:w-4"} />
+            <Image src="/luxufe-icon-location-pin-white.svg" alt="Location" width={20} height={20} className={isExpanded ? "h-2 w-2 md:h-3 md:w-3" : "h-3 w-3 md:h-4 md:w-4"} />
             <span>{location}</span>
           </div>
           <div className={`
@@ -124,7 +124,7 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
               : 'text-xs md:text-sm justify-center'
             }
           `}>
-            <Plane className={`
+            <Image src="/luxufe-icon-flights-dark.svg" alt="Plane" width={20} height={20} className={`
               ${isExpanded ? 'h-3 w-3 md:h-4 md:w-4' : 'h-3 w-3 md:h-4 md:w-4 text-gray-300'}
             `} />
             <span>Flights Included</span>
@@ -139,7 +139,7 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
                 : 'font-semibold text-base md:text-lg justify-center'
               }
             `}>
-              {isExpanded && <Wallet className="h-3 w-3 md:h-4 md:w-4" />}
+              {isExpanded && <Image src="/luxufe-icon-cost-dark.svg" alt="Wallet" width={20} height={20} className="h-3 w-3 md:h-4 md:w-4" />}
               <p className={isExpanded ? "text-xs md:text-sm font-bold" : "font-bold text-base md:text-lg"}>
                 {isExpanded ? 'From ' : ''}USD {price.toLocaleString()} per person
               </p>
@@ -150,7 +150,7 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
           {isExpanded && (
             <button className="border-t-2 border-gray-300 w-full py-3 md:py-4 flex items-center justify-center font-inter font-bold text-xs md:text-sm text-gray-400 gap-2 mt-3 md:mt-4 group opacity-100">
               MORE INFORMATION
-              <ArrowRight className="h-3 w-3 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
+              <Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={20} height={20} className="h-3 w-3 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
             </button>
           )}
         </div>
