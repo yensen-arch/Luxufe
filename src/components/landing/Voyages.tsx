@@ -101,7 +101,7 @@ export default function Voyages({ data }: VoyagesProps) {
           </div>
 
           {/* Navigation Arrows */}
-          <div className="absolute left-15 top-1/2 -translate-y-1/2 flex flex-col gap-8 z-20 hidden lg:flex">
+          <div className="absolute left-10 top-1/2 -translate-y-1/2 flex flex-col gap-8 z-20 hidden lg:flex">
             <button
               onClick={goToPrevious}
               className="bg-white rounded-full p-7 cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
@@ -148,17 +148,17 @@ export default function Voyages({ data }: VoyagesProps) {
             >
               <div className="w-full lg:w-1/2 lg:ml-auto mt-20">
                 {/* Icon - Hidden on mobile for cleaner look */}
-                <div className="hidden lg:inline-flex items-center justify-center w-20 h-20 border border-gray-300 rounded-full mb-8">
+                <div className="hidden shadow-lg lg:inline-flex items-center justify-center w-20 h-20 border border-gray-300 rounded-full mb-8 bg-white">
                   <img src="/luxufe-travel-style-cruises.svg" alt="Boat" className="h-10 w-10 text-gray-600" />
                 </div>
 
-                <h2 className="text-2xl lg:text-3xl xl:text-4xl font-light leading-tight mb-4 lg:mb-8 text-gray-900 font-arpona lg:ml-auto">
+                <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold mb-4 lg:mb-8 text-gray-900 font-arpona lg:ml-auto">
                   {currentVoyage.titlePart1}
                   <br />
-                  unparalleled <span className="italic font-serif text-3xl lg:text-6xl xl:text-7xl font-bellarina ">{currentVoyage.titlePart2}</span>
+                  unparalleled <span className="italic font-serif text-3xl lg:text-6xl xl:text-7xl font-bellarina font-normal">{currentVoyage.titlePart2}</span>
                 </h2>
 
-                <p className="text-base lg:text-md leading-relaxed mb-6 lg:mb-10 max-w-full lg:max-w-md font-inter font-bold">{currentVoyage.description}</p>
+                <p className="text-base lg:text-md leading-relaxed mb-6 lg:mb-10 max-w-full lg:max-w-sm font-inter font-bold">{currentVoyage.description}</p>
 
                 <button className="group inline-flex items-center gap-3 text-xs lg:text-sm font-semibold tracking-widest border border-gray-400 px-6 lg:px-8 py-3 lg:py-4 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 font-inter font-bold">
                   {currentVoyage.buttonText}
