@@ -49,6 +49,13 @@ const megaLinks = {
 export default async function Footer() {
     // Fetch brand names from database
     const brands = await getBrandNames();
+    
+    // Calculate rows needed for column-wise flow
+    const totalBrands = brands.length;
+    const mobileRows = Math.ceil(totalBrands / 2);
+    const tabletRows = Math.ceil(totalBrands / 3);
+    const desktopRows = Math.ceil(totalBrands / 4);
+    const largeRows = Math.ceil(totalBrands / 5);
     return (
         <footer className="bg-[#1a233a] text-white">
             {/* Gallery Images - hidden on mobile for cleaner look */}
@@ -117,7 +124,11 @@ export default async function Footer() {
                         </div>
                     </div>
                      <h3 className="font-bold text-lg sm:text-xl mb-4 sm:mb-6">Brands & Partners</h3>
-                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-1 sm:gap-y-2 text-xs sm:text-sm">
+                     <div className="grid gap-y-1 sm:gap-y-2 text-xs sm:text-sm" style={{
+                        gridTemplateColumns: 'repeat(5, 1fr)',
+                        gridTemplateRows: `repeat(${largeRows}, auto)`,
+                        gridAutoFlow: 'column'
+                     }}>
                         {brands.map(brand => {
                             const brandSlug = brandNameToSlug(brand);
                             return (
