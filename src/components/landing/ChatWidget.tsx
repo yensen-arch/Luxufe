@@ -2,17 +2,17 @@
 export default function ChatWidget() {
   return (
     <div className="w-full font-inter font-bold">
-      <div className="bg-white flex items-center p-2 md:p-2 shadow-sm">
+      <div className="bg-white flex items-center p-2 md:p-3 shadow-sm">
         {/* Avatar and Text - Hidden on mobile for sleek look */}
-        <div className="hidden md:flex items-center gap-2 pl-2 pr-4 border-r-2 border-gray-300">
+        <div className="hidden md:flex items-center gap-2 pl-2 pr-4 border-r-1 border-gray-800">
           <img
             src="https://i.pravatar.cc/48?u=albert"
             alt="Albert"
             className="w-12 h-12 rounded-full"
           />
-          <div className="leading-tight">
-            <p className="text-sm font-semibold text-gray-800">Hi, I'm Alfred</p>
-            <p className="text-xs text-gray-500">How can I help?</p>
+          <div>
+            <p className="text-md text-start font-semibold text-gray-800">Hi, I'm Albert</p>
+            <p className="text-xs text-start text-gray-400">How can I help?</p>
           </div>
         </div>
         
@@ -45,7 +45,7 @@ export default function ChatWidget() {
 
         {/* Send Button */}
         <button className=" bg-gray-900 text-white rounded-full p-1.5 md:p-3 hover:bg-gray-700">
-          <img src="/luxufe-icon-ai-send-arrow-light.svg" alt="Send" className="w-4 h-4 md:w-5 md:h-5" />
+          <img src="/luxufe-icon-ai-send-arrow-light.svg" alt="Send" className="pl-1 w-4 h-4 md:w-5 md:h-5" />
         </button>
       </div>
     </div>

@@ -20,7 +20,7 @@ export default function Navbar() {
         </Link>
         
         {/* Desktop Navigation */}
-        <div className="hidden md:flex gap-10 items-center">
+        <div className="hidden md:flex gap-14 items-center">
           <a href="/destinations" className={`hover:font-normal font-bold ${textColor}`}>DESTINATIONS</a>
           <a href="/ways-to-travel" className={`hover:font-normal font-bold ${textColor}`}>EXPERIENCES</a>
           <Link href="/itineraries" className={`hover:font-normal font-bold ${textColor}`}>JOURNEYS</Link>
@@ -28,11 +28,11 @@ export default function Navbar() {
         </div>
         
         {/* Desktop Right Section */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-8">
           <a href="/contact-us" className={`hover:font-normal font-bold ${textColor}`}>ENQUIRE</a>
-          <span className={`text-sm font-bold ${textColor}`}>+12 34 567 8900</span>
+          <span className={`text-xs ${textColor}`}>+12 34 567 8900</span>
           <div className="flex items-center gap-4">
-            <a href="#"><img src="/luxufe-icon-profile-user-light.svg" alt="User" className={`h-6 w-6 font-bold ${textColor}`} /></a>
+            <a href="#"><img src="/luxufe-icon-profile-user-light.svg" alt="User" className={`h-5 w-5 ${textColor}`} /></a>
             <button onClick={() => setExpanded(true)}><Menu className={`h-6 w-6 cursor-pointer ${textColor}`} /></button>
           </div>
         </div>

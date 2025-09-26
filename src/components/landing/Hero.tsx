@@ -48,7 +48,7 @@ export default function Hero({ data }: HeroProps) {
           {heroData.description}
         </p>
       </div>
-      <div className="absolute bottom-6 md:bottom-8 lg:bottom-12 left-1/2 -translate-x-1/2 w-full max-w-4xl px-4">
+      <div className="absolute bottom-6 md:bottom-8 lg:bottom-12 left-1/2 -translate-x-1/2 w-full max-w-5xl px-4">
         <ChatWidget />
       </div>
     </div>
