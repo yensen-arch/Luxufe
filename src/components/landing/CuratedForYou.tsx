@@ -2,7 +2,7 @@
 import { useCallback, useState, useEffect } from "react"
 import useEmblaCarousel from "embla-carousel-react"
 import ItineraryCard from "./ItineraryCard"
-import { ArrowLeft, ArrowRight, Star } from "lucide-react"
+import {  Star } from "lucide-react"
 
 interface Itinerary {
   id: string;
