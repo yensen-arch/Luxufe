@@ -31,7 +31,7 @@ export default function ExclusiveOffers({ data }: ExclusiveOffersProps) {
   return (
     <section className="bg-white py-12 sm:py-16 lg:py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-4 text-center">
-        <div className="inline-block border border-gray-200 rounded-full p-3 sm:p-4 mb-4 sm:mb-6 bg-gray-50 shadow-lg">
+        <div className="inline-block border border-gray-200 rounded-full p-3 sm:p-4 mb-4 sm:mb-6 bg-white shadow-lg">
           <img src="/Icon metro-trophy.svg" alt="Trophy" className="h-8 w-8 sm:h-10 sm:w-10 text-gray-500" />
         </div>
         <h2 className="text-2xl md:w-xl mx-auto sm:text-3xl md:text-4xl lg:text-5xl font-arpona font-bold text-gray-800 mb-5 sm:mb-16">

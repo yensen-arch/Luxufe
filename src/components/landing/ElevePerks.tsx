@@ -90,33 +90,22 @@ export default function ElevePerks({ data }: ElevePerksProps) {
   const currentPerk = sectionData.perks[currentIndex];
 
   return (
-    <section className="bg-[#1a233a] text-white min-h-screen lg:h-[108vh] relative">
+    <section className="bg-[#1a233a] text-white min-h-screen lg:h-[120vh] relative">
       <div className="absolute inset-0 z-0">
         <BackgroundPattern />
       </div>
+       {/* Counter - Hidden on mobile for cleaner look */}
+       <div className="hidden lg:block absolute top-30 left-5 text-sm font-mono">
+            {String(currentIndex + 1).padStart(2, '0')} / {String(sectionData.perks.length).padStart(2, '0')}
+      </div>
       <div className="flex flex-col lg:flex-row">
         {/* Image Section - Mobile: Simplified, Desktop: Full */}
-        <div className="w-full lg:w-4/7 relative h-64 sm:h-80 lg:h-[650px] lg:mt-40">
+        <div className="w-full lg:w-4/7 relative h-64 sm:h-80 lg:h-[740px] lg:mt-40">
           {/* Badge Logo - Hidden on mobile for cleaner look */}
           <div className="hidden lg:block absolute top-0 -right-36 -translate-y-1/2 -translate-x-1/2">
             <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[150px] h-auto" />
           </div>
           <img src={currentPerk.image?.url} alt={currentPerk.image?.alt} className="w-full h-full object-cover" />
-          
-          {/* Counter - Hidden on mobile for cleaner look */}
-          <div className="hidden lg:block absolute top-6 left-6 text-sm font-mono">
-            {String(currentIndex + 1).padStart(2, '0')} / {String(sectionData.perks.length).padStart(2, '0')}
-          </div>
-          
-          {/* Navigation Buttons - Hidden on mobile for cleaner look */}
-          <div className="hidden lg:flex absolute bottom-6 left-6 gap-3">
-            <button onClick={goToPrevious} className="bg-white/80 rounded-full p-3 shadow-md hover:bg-white transition">
-              <img src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" className="h-6 w-6 text-gray-800" />
-            </button>
-            <button onClick={goToNext} className="bg-white/80 rounded-full p-3 shadow-md hover:bg-white transition">
-              <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-6 w-6 text-gray-800" />
-            </button>
-          </div>
         </div>
 
         {/* Content Section */}
@@ -132,7 +121,7 @@ export default function ElevePerks({ data }: ElevePerksProps) {
             <ul className="hidden lg:block space-y-4 font-inter font-bold text-green-200 opacity-60">
               {defaultPerksData[currentIndex].perks.map((perk, index) => (
                 <li key={index} className="flex items-center gap-4 border-b border-white/40 pb-4">
-                  <img src="/luxufe-icon-star-light.svg" alt="Star" className="h-5 w-5" />
+                  <img src="/luxufe-icon-star-teal.svg" alt="Star" className="h-5 w-5" />
                   <span>{perk}</span>
                 </li>
               ))}
