@@ -31,9 +31,9 @@ export default function DiscoverLuxury({ data }: DiscoverLuxuryProps) {
   return (
     <section className="bg-white flex items-center">
       <div className="w-full max-w-none relative">
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col lg:flex-row w-full mx-auto h-full relative">
           {/* Left Content Panel */}
-          <div className="w-full lg:w-6/6 bg-slate-800 flex items-center justify-center px-6 md:px-8 py-12 md:py-16 lg:px-16 min-h-[60vh] md:min-h-[70vh] lg:min-h-screen order-2 lg:order-1">
+          <div className="absolute w-[65%] bg-slate-800 flex items-center justify-center px-6 md:px-8 py-12 md:py-16 lg:px-16 min-h-[60vh] md:min-h-[70vh] lg:min-h-screen order-2 lg:order-1">
             <div className="max-w-2xl text-white">
               <h1 className="text-2xl md:text-3xl w-full lg:text-4xl xl:text-5xl 2xl:text-6xl font-light leading-tight mb-6 md:mb-8 font-arpona">
                 {sectionData.heading.split('\n').map((line, index) => (
@@ -44,7 +44,7 @@ export default function DiscoverLuxury({ data }: DiscoverLuxuryProps) {
                 ))}
               </h1>
               <div className='w-full lg:ml-40'>
-                <p className="w-full lg:w-5/7 lg:mr-12 text-sm md:text-base lg:text-lg my-8 md:my-10 lg:my-12 font-inter font-bold">
+                <p className="w-full lg:w-5/7 lg:mr-12 text-sm md:text-sm lg:text-lg my-8 md:my-10 lg:my-12 font-inter font-bold">
                   {sectionData.description}
                 </p>
                 <button className="font-inter cursor-pointer font-bold group flex items-center gap-2 md:gap-3 border border-gray-500 px-6 md:px-8 py-3 md:py-4 text-xs md:text-sm tracking-wider hover:bg-white hover:text-slate-800 hover:border-white transition-all duration-300">
@@ -56,7 +56,7 @@ export default function DiscoverLuxury({ data }: DiscoverLuxuryProps) {
           </div>
           
           {/* Right Image Panel - Offset and overlapping */}
-          <div className="absolute z-10 border border-black lg:relative lg:right-20 lg:top-26 w-full lg:w-6/7 h-[40vh] md:h-[50vh] lg:h-6/6 lg:min-h-screen order-1 lg:order-2">
+          <div className="z-10 lg:relative ml-auto lg:top-30 w-[45%] h-[40vh] md:h-[50vh] lg:h-screen order-1 lg:order-2">
             <img 
               src={sectionData.image.url}
               alt={sectionData.image.alt}
