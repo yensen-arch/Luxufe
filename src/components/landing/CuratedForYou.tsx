@@ -2,7 +2,7 @@
 import { useCallback, useState, useEffect } from "react"
 import useEmblaCarousel from "embla-carousel-react"
 import ItineraryCard from "./ItineraryCard"
-import {  Star } from "lucide-react"
+import Image from "next/image"
 
 interface Itinerary {
   id: string;
@@ -132,16 +132,16 @@ export default function CuratedForYou({ data }: CuratedForYouProps) {
   return (
     <section className="py-12 md:py-16 lg:py-20 my-20 md:my-32 lg:my-40 bg-white text-gray-800 relative overflow-hidden">
       {/* Badge Logo - Hidden on mobile for cleaner look */}
-      <div className="hidden lg:block absolute top-30 left-10 -translate-y-1/2 -translate-x-1/2 opacity-30">
-        <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[300px] h-auto" />
+      <div className="hidden lg:block absolute top-50 left-10 -translate-y-1/2 -translate-x-1/2 opacity-40">
+        <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[250px] h-auto -rotate-20" />
       </div>
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl md:text-4xl lg:text-6xl font-arpona">{sectionData.title}</h2>
-        <h3 className="text-3xl md:text-4xl lg:text-6xl mb-4 md:mb-6 font-arpona font-medium">
+        <h2 className="text-3xl md:text-4xl lg:text-6xl font-arpona font-semibold">{sectionData.title}</h2>
+        <h3 className="text-3xl md:text-4xl lg:text-6xl mb-0 md:mb-0 font-arpona font-semibold">
           {sectionData.subtitle.split(' ').map((word, index) => (
             <span key={index}>
               {word === 'you' ? (
-                <span className="font-bellarina font-medium text-4xl md:text-6xl lg:text-8xl">{word}</span>
+                <span className="font-bellarina font-medium text-4xl md:text-6xl lg:text-9xl">{word}</span>
               ) : (
                 word
               )}
@@ -149,14 +149,14 @@ export default function CuratedForYou({ data }: CuratedForYouProps) {
             </span>
           ))}
         </h3>
-        <p className="max-w-xl text-black mx-auto my-8 md:my-10 lg:my-12 font-inter font-bold text-sm md:text-base">
+        <p className="max-w-xl text-black mx-auto my-6 md:my-6 lg:my-6 font-inter font-bold text-sm md:text-base">
           {sectionData.description}
         </p>
         {/* Features - Hidden on mobile for cleaner look */}
-        <div className="hidden md:flex justify-center items-center gap-0 mb-12 lg:mb-16 text-gray-500 font-inter font-bold">
+        <div className="hidden md:flex justify-center items-center gap-0 my-12 lg:my-16 text-gray-500 font-inter font-bold">
           {sectionData.features.map((feature, index) => (
-            <div key={index} className={`flex items-center gap-2 ${index < sectionData.features.length - 1 ? 'border-r-2 px-8 lg:px-12 py-2 border-amber-400/50' : 'px-8 lg:px-12 py-2'}`}>
-              <Star className="h-4 w-4" />
+            <div key={index} className={`flex items-center gap-2 ${index < sectionData.features.length - 1 ? 'border-r-1 px-8 lg:px-12 py-2 border-amber-600' : 'px-8 lg:px-12 py-2'}`}>
+              <Image src="/luxufe-icon-star-grey.svg" alt="Star" width={30} height={30} className="h-5 w-5 opacity-50" />
               <span className="text-sm lg:text-base">{feature}</span>
             </div>
           ))}
