@@ -86,9 +86,9 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
           
           {/* Title */}
           <h3 className={`
-            font-medium leading-tight font-arpona
+            leading-tight font-arpona
             ${isExpanded 
-              ? 'text-lg md:text-xl mb-2 md:mb-3 text-gray-900' 
+              ? 'text-lg md:text-2xl font-bold mb-2 md:mb-3 text-gray-900' 
               : 'text-lg md:text-xl lg:text-2xl'
             }
           `}>
@@ -97,9 +97,9 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
 
           {/* Description - only for expanded state */}
           {isExpanded && (
-            <p className="text-xs md:text-sm text-gray-600 mb-4 md:mb-6 leading-relaxed line-clamp-4 font-inter transition-opacity duration-500 opacity-100">
+            <p className="text-xs px-2 md:text-sm text-gray-700 mb-4 md:mb-6 leading-relaxed line-clamp-4 font-inter transition-opacity duration-500 opacity-100">
               {description ||
-                "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no"}
+                "Lorem ipsum  consetetur sadipscing elitr, sed diam nonumy ei  consetetur sadipscing elitr, sed diam nonumy ei dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no"}
             </p>
           )}
 
@@ -135,9 +135,9 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
 
           {/* More Information Button - only for expanded state */}
           {isExpanded && (
-            <button className="border-t-2 border-gray-300 w-full py-3 md:py-4 flex items-center justify-center font-inter font-bold text-xs md:text-sm text-gray-400 gap-2 mt-3 md:mt-4 group opacity-100">
+            <button className="border-t-2 border-gray-200 w-full py-3 md:py-4 flex items-center justify-center font-inter font-bold text-xs md:text-sm text-gray-400 gap-2 mt-3 md:mt-4 group opacity-100">
               MORE INFORMATION
-              <Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={20} height={20} className="h-3 w-3 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
+              <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="h-3 w-3 md:h-5 md:w-5 transition-transform group-hover:translate-x-1" />
             </button>
           )}
         </div>
