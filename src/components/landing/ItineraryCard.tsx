@@ -28,10 +28,10 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
   return (
     <div
       className={`
-        relative flex-shrink-0 group overflow-hidden mx-1 md:mx-4 border border-gray-400 cursor-pointer transition-all duration-500 ease-out
+        relative flex-shrink-0 group overflow-hidden mx-1 md:mx-4 cursor-pointer transition-all duration-500 ease-out
         ${isExpanded 
-          ? 'h-[450px] md:h-[550px] lg:h-[650px] sm:w-80 md:w-84 lg:w-94 bg-white transform shadow-lg' 
-          : 'w-full sm:w-80 md:w-84 lg:w-94 h-[450px] md:h-[550px] lg:h-[650px] hover:shadow-2xl'
+          ? 'h-[450px] md:h-[550px] lg:h-[650px] sm:w-80 md:w-84 lg:w-94 bg-white transform shadow-xl' 
+          : 'w-full sm:w-80 md:w-84 lg:w-94 h-[450px] md:h-[550px] lg:h-[650px]'
         }
       `}
       onClick={onClick}
@@ -41,20 +41,33 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
         className={`
           bg-cover bg-center transition-all duration-500
           ${isExpanded 
-            ? 'h-[150px] md:h-[160px] lg:h-[180px]' 
+            ? 'h-[150px] md:h-[160px] lg:h-[250px]' 
             : 'absolute inset-0 transition-transform duration-700 group-hover:scale-110'
           }
         `}
         style={{ backgroundImage: `url(${imageUrl})` }}
       />
       
-      {/* Overlay - only for collapsed state */}
+      {/* Overlay*/}
       <div 
         className={`
           absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black transition-opacity duration-500
-          ${isExpanded ? 'opacity-0' : 'opacity-100'}
+          ${isExpanded ? 'opacity-60' : 'opacity-100'}
         `} 
       />
+
+      {/* Top Section - Location and Nights - Always on image */}
+      <div className="absolute top-4 md:top-5 lg:top-6 left-4 md:left-5 lg:left-6 right-4 md:right-5 lg:right-6 z-10">
+        <div className="flex justify-between items-start">
+          <div className="flex items-center gap-1 md:gap-2 rounded-full px-2 md:px-3 py-1 font-medium font-inter text-xs md:text-sm text-white">
+            <Image src="/luxufe-icon-location-pin-white.svg" alt="Location" width={20} height={20} className="h-3 w-3 md:h-4 md:w-4" />
+            <span>{location}</span>
+          </div>
+          <div className="rounded-full px-2 md:px-3 py-1 font-medium font-inter text-xs md:text-sm text-white">
+            {nights} Nights
+          </div>
+        </div>
+      </div>
 
       {/* Content Container */}
       <div className={`
@@ -64,32 +77,6 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
           : 'p-4 md:p-5 lg:p-6 text-white'
         }
       `}>
-        
-        {/* Top Section - Location and Nights */}
-        <div className={`
-          flex justify-between items-start
-          ${isExpanded ? 'relative' : ''}
-        `}>
-          <div className={`
-            flex items-center gap-1 md:gap-2 rounded-full px-2 md:px-3 py-1 font-medium font-inter
-            ${isExpanded 
-              ? 'text-xs text-white absolute top-3 md:top-4 left-3 md:left-4' 
-              : 'text-xs md:text-sm'
-            }
-          `}>
-            <Image src="/luxufe-icon-location-pin-white.svg" alt="Location" width={20} height={20} className={isExpanded ? "h-2 w-2 md:h-3 md:w-3" : "h-3 w-3 md:h-4 md:w-4"} />
-            <span>{location}</span>
-          </div>
-          <div className={`
-            rounded-full px-2 md:px-3 py-1 font-medium font-inter
-            ${isExpanded 
-              ? 'text-xs text-white absolute top-3 md:top-4 right-3 md:right-4' 
-              : 'text-xs md:text-sm'
-            }
-          `}>
-            {nights} Nights
-          </div>
-        </div>
 
         {/* Main Content */}
         <div className={`
