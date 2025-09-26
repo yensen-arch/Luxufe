@@ -51,7 +51,7 @@ const ItineraryCard: React.FC<ItineraryCardProps> = ({
       {/* Overlay - only for collapsed state */}
       <div 
         className={`
-          absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/70 transition-opacity duration-500
+          absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black transition-opacity duration-500
           ${isExpanded ? 'opacity-0' : 'opacity-100'}
         `} 
       />
