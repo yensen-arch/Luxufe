@@ -91,6 +91,26 @@ export const getBrands = async (): Promise<Brand[]> => {
   }
 };
 
+// Get only brand names (optimized for footer)
+export const getBrandNames = async (): Promise<string[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('brands')
+      .select('name')
+      .order('name', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching brand names:', error);
+      return [];
+    }
+
+    return data?.map(brand => brand.name) || [];
+  } catch (error) {
+    console.error('Error fetching brand names:', error);
+    return [];
+  }
+};
+
 // Get a single brand by name
 export const getBrandByName = async (brandName: string): Promise<Brand | null> => {
   try {
