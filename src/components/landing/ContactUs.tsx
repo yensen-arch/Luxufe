@@ -29,7 +29,7 @@ export default function ContactUs({ data }: ContactUsProps) {
   };
 
   return (
-    <section className="bg-[#a8d1cf] text-[#1a233a] py-12 sm:py-16 lg:py-24">
+    <section className="bg-[#b9d6d9] text-[#1a233a] py-12 sm:py-16 lg:py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           

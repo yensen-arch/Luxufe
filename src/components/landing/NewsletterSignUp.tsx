@@ -47,12 +47,12 @@ export default function NewsletterSignUp({ data }: NewsletterSignUpProps) {
             <div className="lg:w-3/5 my-auto">
               <form>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4">
-                  <input type="text" placeholder="First Name*" className="w-full p-2 sm:p-3 text-xs sm:text-sm border border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none font-inter font-bold" />
-                  <input type="text" placeholder="Last Name*" className="w-full p-2 sm:p-3 text-xs sm:text-sm border border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none font-inter font-bold" />
+                  <input type="text" placeholder="First Name*" className="placeholder:text-black w-full p-2 sm:p-3 text-xs sm:text-sm border-2 border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none font-inter font-bold" />
+                  <input type="text" placeholder="Last Name*" className="placeholder:text-black w-full p-2 sm:p-3 text-xs sm:text-sm border-2 border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none font-inter font-bold" />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4">
-                  <input type="email" placeholder={sectionData.placeholder} className="w-full p-2 sm:p-3 text-xs sm:text-sm border border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none font-inter font-bold" />
-                  <input type="tel" placeholder="+1 (USA)" className="w-full p-2 sm:p-3 text-xs sm:text-sm border border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none font-inter font-bold" />
+                  <input type="email" placeholder={sectionData.placeholder} className="placeholder:text-black w-full p-2 sm:p-3 text-xs sm:text-sm border-2 border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none font-inter font-bold" />
+                  <input type="tel" placeholder="+1 (USA)" className="w-full p-2 sm:p-3 text-xs sm:text-sm border-2 border-gray-300 focus:ring-1 focus:ring-gray-800 focus:border-gray-800 outline-none font-inter font-bold" />
                 </div>
                 <button type="submit" className="w-full bg-[#1a233a] text-white py-3 sm:py-4 px-4 sm:px-6 flex items-center justify-center gap-2 sm:gap-3 font-inter font-bold tracking-widest hover:bg-gray-800 transition-colors text-sm sm:text-xs">
                   {sectionData.ctaText} <img src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" className="h-3 w-3 sm:h-6 sm:w-6 flex-shrink-0" />
