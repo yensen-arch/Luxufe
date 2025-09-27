@@ -127,8 +127,8 @@ export default function Testimonials({ data }: TestimonialsProps) {
             {/* Line */}
             <div className="flex-1 h-px bg-gray-400 mx-2" />
             {/* Right numbers */}
-            <span className="text-xs font-inter text-gray-400 font-light">03</span>
-            <span className="text-xs font-inter text-gray-400 font-light">04</span>
+            <span className={`text-xs font-inter ${selectedIndex === 2 ? 'text-[#23263a] font-bold' : 'text-gray-400 font-light'}`}>03</span>
+            <span className={`text-xs font-inter ${selectedIndex === 3 ? 'text-[#23263a] font-bold' : 'text-gray-400 font-light'}`}>04</span>
           </div>
         </div>
       </div>
