@@ -125,27 +125,20 @@ export default function WhyJoinEleve({ data }: WhyJoinEleveProps) {
               aria-expanded={openIndex === idx}
               aria-controls={`accordion-panel-${idx}`}
             >
-              <span className="flex items-center gap-2 md:gap-3 lg:gap-4 text-lg md:text-xl lg:text-2xl font-arpona font-bold text-[#23263a] text-left">
+              <span className="flex items-center gap-2 md:gap-3 lg:gap-4 text-xl md:text-2xl lg:text-3xl font-arpona font-bold text-[#23263a] text-left">
                 {iconMap[item.icon] || iconMap.Star}
                 {item.title}
               </span>
               <span className="ml-2 md:ml-3 lg:ml-4 text-gray-500 group-hover:text-gray-800">
-                {openIndex === idx ? (
-                  <Image
-                    src="/luxufe-icon-dropdown-icon-dark.svg"
-                    alt="X"
-                    width={24}
-                    height={24}
-                    className="rotate-45"
-                  />
-                ) : (
-                  <Image
-                    src="/luxufe-icon-dropdown-icon-dark.svg"
-                    alt="Plus"
-                    width={24}
-                    height={24}
-                  />
-                )}
+                <Image
+                  src="/luxufe-icon-dropdown-icon-dark.svg"
+                  alt={openIndex === idx ? "Close" : "Expand"}
+                  width={34}
+                  height={34}
+                  className={`transition-transform duration-300 ease-in-out ${
+                    openIndex === idx ? "rotate-45" : "rotate-0"
+                  }`}
+                />
               </span>
             </button>
 
