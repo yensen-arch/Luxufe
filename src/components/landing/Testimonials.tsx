@@ -44,7 +44,7 @@ const defaultTestimonialsData = [
 
 const TestimonialCard = ({ quote, author, location, isActive }: { quote: string, author: string, location: string, isActive: boolean }) => {
   return (
-    <div className={`transition-all duration-500 p-6 sm:p-8 lg:p-12 mx-2 sm:mx-4 ${isActive ? 'shadow-2xl' : 'shadow-xl'} min-h-[300px] sm:min-h-[350px] lg:min-h-[360px] flex flex-col justify-center`}>
+    <div className={`transition-all duration-500 p-6 sm:p-8 lg:p-12 mx-2 sm:mx-4 ${isActive ? 'shadow-xl' : 'shadow-lg'} min-h-[300px] sm:min-h-[350px] lg:min-h-[360px] flex flex-col justify-center`}>
       <div className="flex justify-center mb-4 sm:mb-6 lg:mb-8">
         {[...Array(5)].map((_, i) => (
           <img src="/luxufe-icon-star-ratings-solid-grey.svg" alt="Star" key={i} className="h-4 w-4 sm:h-4 sm:w-4 lg:h-5 lg:w-5 mx-1 text-gray-300 fill-current" />
@@ -119,20 +119,16 @@ export default function Testimonials({ data }: TestimonialsProps) {
             </div>
           </div>
 
-          {/* Progress Indicator */}
-          <div className="flex justify-center items-center gap-4 sm:gap-6 mt-8 sm:mt-12 lg:mt-16">
-            <span className="text-gray-400 text-sm sm:text-base lg:text-lg font-light">
-              {String(selectedIndex + 1).padStart(2, '0')}
-            </span>
-            <div className="w-24 sm:w-28 lg:w-32 h-px bg-gray-300 relative">
-              <div 
-                className="h-px bg-gray-800 transition-all duration-300" 
-                style={{ width: `${((selectedIndex + 1) / scrollSnaps.length) * 100}%` }}
-              />
-            </div>
-            <span className="text-gray-400 text-sm sm:text-base lg:text-lg font-light">
-              {String(scrollSnaps.length).padStart(2, '0')}
-            </span>
+          {/* Pagination Indicator */}
+          <div className="flex justify-center items-center gap-2 mt-12 md:mt-16 lg:mt-24 w-60 mx-auto">
+            {/* Left numbers */}
+            <span className={`text-xs font-inter ${selectedIndex === 0 ? 'text-[#23263a] font-bold' : 'text-gray-400 font-light'}`}>01</span>
+            <span className={`text-xs font-inter ${selectedIndex === 1 ? 'text-[#23263a] font-bold' : 'text-gray-400 font-light'}`}>02</span>
+            {/* Line */}
+            <div className="flex-1 h-px bg-gray-400 mx-2" />
+            {/* Right numbers */}
+            <span className="text-xs font-inter text-gray-400 font-light">03</span>
+            <span className="text-xs font-inter text-gray-400 font-light">04</span>
           </div>
         </div>
       </div>
