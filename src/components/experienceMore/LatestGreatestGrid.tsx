@@ -75,9 +75,9 @@ export default function LatestGreatestGrid() {
           ))}
         </div>
         <div className="flex flex-col items-center mt-8 md:mb-10 lg:mt-12 gap-4 md:gap-5 lg:gap-6">
-          <button className="text-slate-400 text-xs font-inter font-bold hover:underline">LOAD MORE +</button>
-          <button className="border border-slate-400 px-6 md:px-7 lg:px-8 py-3 md:py-4 lg:py-5 font-inter font-bold text-[#23263a] flex items-center gap-2 text-xs rounded-none hover:bg-[#f5f5f5] transition-colors">
-            DISCUSS A PROMOTION WITH US <span className="ml-2">&rarr;</span>
+          <button className="text-slate-500 text-xs font-inter font-bold hover:underline">LOAD MORE +</button>
+          <button className="border-2 border-slate-300 px-6 md:px-7 lg:px-8 py-3 md:py-4 lg:py-5 font-inter font-bold text-[#23263a] flex items-center gap-2 text-xs rounded-none hover:bg-[#f5f5f5] transition-colors">
+            DISCUSS A PROMOTION WITH US <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} />
           </button>
         </div>
       </div>
