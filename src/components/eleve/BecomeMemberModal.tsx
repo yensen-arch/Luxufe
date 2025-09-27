@@ -13,7 +13,7 @@ export default function BecomeMemberModal({ open, onClose }: BecomeMemberModalPr
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-2 sm:p-4">
       <div className="relative bg-white shadow-2xl max-w-5xl w-full flex flex-col lg:flex-row overflow-hidden max-h-[95vh] lg:max-h-none">
         {/* Left: Info */}
-        <div className="lg:w-1/2 p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-between order-2 lg:order-1">
+        <div className="hidden lg:flex lg:w-1/2 p-4 sm:p-6 md:p-8 lg:p-12 flex-col justify-between order-2 lg:order-1">
           <div>
             <h2 className="text-2xl sm:text-3xl lg:text-3xl font-arpona text-center lg:text-left font-bold mb-4 sm:mb-6 text-gray-700">Become a member</h2>
             <p className="mb-6 sm:mb-8 lg:mb-18 text-black font-inter font-bold text-xs sm:text-sm w-full lg:w-7/8 leading-relaxed text-center lg:text-left">
@@ -45,11 +45,11 @@ export default function BecomeMemberModal({ open, onClose }: BecomeMemberModalPr
         </div>
         
         {/* Right: Form */}
-        <div className="lg:w-1/2 p-4 sm:p-6 md:p-8 lg:p-12 bg-white relative flex flex-col order-1 lg:order-2">
+        <div className="w-full lg:w-1/2 p-4 sm:p-6 md:p-8 lg:p-12 bg-white relative flex flex-col order-1 lg:order-2">
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 sm:top-6 right-4 sm:right-6 text-gray-600 hover:text-gray-800 transition-colors"
+            className="absolute top-1 sm:top-6 right-4 sm:right-6 text-gray-600 hover:text-gray-800 transition-colors"
             aria-label="Close"
           >
             <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={20} height={20} className="sm:w-6 sm:h-6" />
@@ -66,7 +66,7 @@ export default function BecomeMemberModal({ open, onClose }: BecomeMemberModalPr
               <input 
                 type="text" 
                 placeholder="LAST NAME" 
-                className="flex-1 border-2 border-gray-300 px-3 sm:px-4 py-2 sm:py-3 text-xs font-inter focus:outline-none focus:border-gray-500 placeholder:text-gray-700 font-bold" 
+                className="w-full border-2 border-gray-300 px-3 sm:px-4 py-2 sm:py-3 text-xs font-inter focus:outline-none focus:border-gray-500 placeholder:text-gray-700 font-bold" 
               />
             </div>
             
