@@ -32,9 +32,9 @@ export default function ElevateTravel({ data }: ElevateTravelProps) {
   const elevateData = data || fallbackData
 
   return (
-    <section className="py-20 md:py-32 lg:py-40 overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8">
-        <div className="relative flex flex-col lg:flex-row items-center lg:justify-end min-h-[400px] md:min-h-[500px] lg:min-h-[650px]">
+    <section className="py-20 md:py-20 lg:py-20 overflow-hidden">
+      <div className="container">
+        <div className="relative flex flex-col lg:flex-row items-center lg:justify-end min-h-[120vh] lg:min-h-[120vh]">
           
           {/* Content Section */}
           <div className="bg-gray-100 w-full lg:w-6/8 mt-4 md:mt-6 lg:mt-8 h-auto lg:h-screen lg:mt-0 lg:absolute lg:left-0 p-6 md:p-8 lg:p-12 z-20 order-2 lg:order-1">
