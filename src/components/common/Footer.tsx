@@ -153,13 +153,13 @@ export default async function Footer() {
                         ))}
                     </div>
                     <div className="border-t border-white/50 pt-6 sm:pt-8 font-inter font-bold flex flex-col sm:flex-row flex-wrap justify-between items-center text-xs gap-4 sm:gap-6">
-                        <p>&copy; COPYRIGHT. ALL RIGHTS RESERVED. LUXUFE 2025</p>
-                        <div className="flex flex-wrap gap-3 sm:gap-6 justify-center sm:justify-end">
+                        <p>COPYRIGHT &copy; ALL RIGHTS RESERVED. LUXUFE 2025</p>
+                        <div className="flex flex-wrap gap-3 sm:gap-16 justify-center sm:justify-end">
                             <Link href="/privacy-policy" className="hover:text-white">PRIVACY POLICY</Link>
                             <Link href="/terms-and-conditions" className="hover:text-white">TERMS OF USE</Link>
                             <Link href="/reservation-terms" className="hover:text-white">RESERVATION TERMS</Link>
                             <Link href="/rewards-program-terms" className="hover:text-white">REWARDS PROGRAM TERMS</Link>
-                            <Link href="#" className="hover:text-white">SITE CREDITS</Link>
+                            <Link href="#" className="hover:text-white ml-20">SITE CREDITS</Link>
                         </div>
                     </div>
                 </div>

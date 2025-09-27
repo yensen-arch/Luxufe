@@ -59,7 +59,7 @@ export default function ContactUs({ data }: ContactUsProps) {
             </div>
             <button className="w-full group bg-[#1a233a] text-white py-3 sm:py-4 flex items-center justify-center gap-2 sm:gap-3 font-inter font-semibold tracking-widest hover:bg-opacity-90 transition-all text-sm sm:text-base">
               ENQUIRE WITH US
-              <img src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
+              <img src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" className="h-3 w-3 sm:h-6 sm:w-6 transition-transform group-hover:translate-x-1 flex-shrink-0" />
             </button>
           </div>
         </div>
