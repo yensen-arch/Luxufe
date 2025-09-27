@@ -12,44 +12,25 @@ import ExploreMore from '@/components/eleve/ExploreMore';
 import { getElevePageData, getLandingPageData } from '@/lib/sanity';
 
 const Eleve = async () => {
-  try {
-    const [elevePageData, landingPageData] = await Promise.all([
-      getElevePageData(),
-      getLandingPageData()
-    ]);
+  const [elevePageData, landingPageData] = await Promise.all([
+    getElevePageData(),
+    getLandingPageData()
+  ]);
 
-    return (
-      <main>
-        <Navbar />
-        <HeroEleve data={elevePageData?.hero} />
-        <EleveIntro data={elevePageData?.eleveIntro} />
-        <WhyJoinEleve data={elevePageData?.whyJoinEleve} />
-        <DiscoverLuxuryEleve data={elevePageData?.discoverLuxuryEleve} />
-        <SpeakingJourneys data={elevePageData?.speakingJourneys} />
-        <ElevateTravel data={elevePageData?.elevateTravel} />
-        <NewsletterSignUp data={landingPageData?.newsletter} />
-        <ExploreMore data={elevePageData?.exploreMore} />
-        <Footer />
-      </main>
-    );
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    // Fallback to dummy data if Sanity fails
-    return (
-      <main>
-        <Navbar />
-        <HeroEleve />
-        <EleveIntro />
-        <WhyJoinEleve />
-        <DiscoverLuxuryEleve />
-        <SpeakingJourneys />
-        <ElevateTravel />
-        <NewsletterSignUp />
-        <ExploreMore />
-        <Footer />
-      </main>
-    );
-  }
+  return (
+    <main>
+      <Navbar />
+      <HeroEleve data={elevePageData?.hero} />
+      <EleveIntro data={elevePageData?.eleveIntro} />
+      <DiscoverLuxuryEleve data={elevePageData?.discoverLuxuryEleve} />
+      <WhyJoinEleve data={elevePageData?.whyJoinEleve} />
+      <SpeakingJourneys data={elevePageData?.speakingJourneys} />
+      <ElevateTravel data={elevePageData?.elevateTravel} />
+      <NewsletterSignUp data={landingPageData?.newsletter} />
+      <ExploreMore data={elevePageData?.exploreMore} />
+      <Footer />
+    </main>
+  );
 }
 
 export default Eleve

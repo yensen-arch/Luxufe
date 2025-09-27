@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 
 interface DiscoverLuxuryEleveProps {
   data?: {
@@ -12,6 +12,15 @@ interface DiscoverLuxuryEleveProps {
     }
   }
 }
+
+const BackgroundPattern = () => (
+  <div
+    className="absolute inset-0 h-full w-full opacity-[0.5]"
+    style={{
+      backgroundImage: `url('https://res.cloudinary.com/dqh2tacov/image/upload/f_png/Luxufe_secondary_brand_pattern_blue_nlbjlm')`,
+    }}
+  />
+);
 
 export default function DiscoverLuxuryEleve({ data }: DiscoverLuxuryEleveProps) {
   // Fallback data
@@ -32,18 +41,19 @@ export default function DiscoverLuxuryEleve({ data }: DiscoverLuxuryEleveProps) 
       <div className="w-full max-w-none relative">
         <div className="flex flex-col lg:flex-row">
           {/* Left Content Panel */}
+          
           <div className="w-full lg:w-4/6 bg-slate-800 flex items-center justify-center px-4 md:px-6 lg:px-8 xl:px-16 py-8 md:py-12 lg:py-16 min-h-[60vh] md:min-h-[70vh] lg:min-h-screen order-2 lg:order-1">
             <div className="max-w-2xl text-white">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-light leading-tight mb-4 md:mb-6 lg:mb-8 font-arpona">
+              <h1 className="w-full text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-light leading-tight mb-4 md:mb-6 lg:mb-8 font-arpona">
                 {discoverData.title}
               </h1>
               <div className='w-full lg:ml-40'>
               <p className="w-full lg:w-5/7 lg:mr-12 text-sm md:text-base lg:text-lg my-6 md:my-8 lg:my-12 font-inter font-bold">
                 {discoverData.description}
               </p>
-              <button className="font-inter font-bold group flex items-center gap-2 md:gap-3 border border-slate-400 px-4 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 text-xs md:text-sm tracking-wider hover:bg-white hover:text-slate-800 hover:border-white transition-all duration-300">
+              <button className="font-inter font-bold group flex items-center gap-2 md:gap-3 border border-slate-400 px-4 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 text-xs md:text-xs tracking-wider hover:bg-white hover:text-slate-800 hover:border-white transition-all duration-300">
                 {discoverData.buttonText}
-                <ArrowRight className="h-3 w-3 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
+                <Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={24} height={24} />
               </button>
               </div>
             </div>
