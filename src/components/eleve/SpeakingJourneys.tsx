@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useCallback, useState } from 'react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 import TestimonialCard from '../aboutUs/TestimonialCard';
+import Image from 'next/image';
 
 interface SpeakingJourneysProps {
   data?: {
@@ -78,15 +78,15 @@ export default function SpeakingJourneys({ data }: SpeakingJourneysProps) {
               <div className="flex gap-4 md:gap-5 lg:gap-6 mt-6 md:mt-7 lg:mt-8 mx-auto lg:mx-0">
                 <button 
                   onClick={scrollPrev} 
-                  className="bg-white rounded-full p-4 md:p-5 lg:p-6 shadow-md hover:bg-white transition"
+                  className="bg-white rounded-full px-5 md:px-6 lg:px-7 lg:py-9 py-7 shadow-md hover:bg-white transition"
                 >
-                  <ArrowLeft className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
+                  <Image src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" width={34} height={34} />
                 </button>
                 <button 
                   onClick={scrollNext} 
-                  className="bg-white rounded-full p-4 md:p-5 lg:p-6 shadow-md hover:bg-white transition"
+                  className="bg-white rounded-full px-5 md:px-6 lg:px-7 lg:py-9 py-7 shadow-md hover:bg-white transition"
                 >
-                  <ArrowRight className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
+                  <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={34} height={34} />
                 </button>
               </div>
             </div>

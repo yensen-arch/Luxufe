@@ -20,7 +20,7 @@ export default function TestimonialCard({
         ))}
       </div>
       {/* Main Quote */}
-      <blockquote className="text-lg md:text-xl lg:text-2xl font-arpona font-bold text-[#23263a] leading-snug mb-3 md:mb-4">"{quote}"</blockquote>
+      <blockquote className="text-lg md:text-2xl lg:text-3xl font-arpona font-bold text-[#23263a] leading-snug mb-3 md:mb-4">"{quote}"</blockquote>
       {/* Supporting Quote */}
       <p className="text-sm md:text-base font-bold font-inter text-[#23263a] mb-4 md:mb-5 lg:mb-6">"{supporting}"</p>
       {/* Avatar and Name */}

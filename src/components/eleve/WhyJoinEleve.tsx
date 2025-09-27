@@ -163,7 +163,7 @@ export default function WhyJoinEleve({ data }: WhyJoinEleveProps) {
 
       {/* Button */}
       <button
-        className="mt-4 md:mt-5 lg:mt-6 px-6 md:px-8 lg:px-10 py-3 md:py-4 border border-slate-300 text-[#23263a] font-inter font-bold bg-transparent hover:bg-[#23263a] hover:text-white transition-all text-xs"
+        className="mt-4 md:mt-5 lg:mt-6 px-6 md:px-8 lg:px-10 py-4 md:py-5 border border-slate-300 text-[#23263a] font-inter font-bold bg-transparent hover:bg-[#23263a] hover:text-white transition-all text-xs"
         onClick={() => setModalOpen(true)}
       >
         {whyJoinData.buttonText}
