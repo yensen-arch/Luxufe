@@ -1,6 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { brandNameToSlug } from '@/lib/utils';
 import { getBrandNames } from '@/lib/database';
 
@@ -46,9 +48,25 @@ const megaLinks = {
 };
 
 
-export default async function Footer() {
-    // Fetch brand names from database
-    const brands = await getBrandNames();
+export default function Footer() {
+    const [brands, setBrands] = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchBrands = async () => {
+            try {
+                const brandNames = await getBrandNames();
+                setBrands(brandNames);
+            } catch (error) {
+                console.error('Error fetching brand names:', error);
+                setBrands([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchBrands();
+    }, []);
     
     // Calculate rows needed for column-wise flow
     const totalBrands = brands.length;
@@ -124,24 +142,28 @@ export default async function Footer() {
                         </div>
                     </div>
                      <h3 className="font-bold text-lg sm:text-xl mb-4 sm:mb-6">Brands & Partners</h3>
-                     <div className="grid gap-y-1 sm:gap-y-2 text-xs sm:text-sm" style={{
-                        gridTemplateColumns: 'repeat(5, 1fr)',
-                        gridTemplateRows: `repeat(${largeRows}, auto)`,
-                        gridAutoFlow: 'column'
-                     }}>
-                        {brands.map(brand => {
-                            const brandSlug = brandNameToSlug(brand);
-                            return (
-                                <Link 
-                                    key={brand} 
-                                    href={`/brand/${brandSlug}`} 
-                                    className="text-gray-400 hover:text-white transition-colors font-inter font-bold"
-                                >
-                                    {brand}
-                                </Link>
-                            );
-                        })}
-                     </div>
+                     {loading ? (
+                        <div className="text-gray-400 text-xs sm:text-sm">Loading brands...</div>
+                     ) : (
+                        <div className="grid gap-y-1 sm:gap-y-2 text-xs sm:text-sm" style={{
+                            gridTemplateColumns: 'repeat(5, 1fr)',
+                            gridTemplateRows: `repeat(${largeRows}, auto)`,
+                            gridAutoFlow: 'column'
+                        }}>
+                            {brands.map(brand => {
+                                const brandSlug = brandNameToSlug(brand);
+                                return (
+                                    <Link 
+                                        key={brand} 
+                                        href={`/brand/${brandSlug}`} 
+                                        className="text-gray-400 hover:text-white transition-colors font-inter font-bold"
+                                    >
+                                        {brand}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                     )}
                 </div>
 
                 {/* Sub-Footer */}

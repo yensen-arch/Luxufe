@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { getBrands, Brand } from '@/lib/database';
 import { brandNameToSlug } from '@/lib/utils';
@@ -80,18 +80,20 @@ export default function LuxuryPartners({ data }: LuxuryPartnersProps) {
   }, []);
 
   // Fallback to hardcoded content if no data is provided
-  const sectionData = data || {
-    heading: "Our trusted, luxury partners",
-    description: "Excellence elevated",
-    partners: hotelBrands.map(brand => ({
-      name: brand.name,
-      logo: {
-        url: brand.logo || '',
-        alt: brand.name
-      },
-      description: brand.description || ""
-    }))
-  };
+  const sectionData = useMemo(() => {
+    return data || {
+      heading: "Our trusted, luxury partners",
+      description: "Excellence elevated",
+      partners: hotelBrands.map(brand => ({
+        name: brand.name,
+        logo: {
+          url: brand.logo || '',
+          alt: brand.name
+        },
+        description: brand.description || ""
+      }))
+    };
+  }, [data, hotelBrands]);
 
   const tabs = Object.keys(defaultPartnersData) as Tab[];
 
