@@ -1,34 +1,38 @@
 import React from "react";
+import Image from "next/image";
 
 interface EffortlessLuxuryProps {
   data?: {
-    title: string
-    subtitle: string
-    paragraph1: string
-    paragraph2: string
-    buttonText: string
+    title: string;
+    subtitle: string;
+    paragraph1: string;
+    paragraph2: string;
+    buttonText: string;
     image: {
-      url: string
-      alt: string
-    }
-  }
+      url: string;
+      alt: string;
+    };
+  };
 }
 
 export default function EffortlessLuxury({ data }: EffortlessLuxuryProps) {
   // Fallback data
   const fallbackData = {
-    title: 'The Art of Effortless Luxury Travel',
-    subtitle: 'Seamless luxury travel,\ntailored to you - effortless,\npersonal, unforgettable',
-    paragraph1: 'We believe that true luxury is felt, not just seen. It is the ease of knowing every detail has been anticipated, the quiet confidence of seamless transitions, and the joy of experiencing something truly personal. Travel should never feel complicated or transactional, but rather it should unfold naturally.',
-    paragraph2: 'From the first touchpoint to the final farewell, our ethos ensures that luxury is not just what you experience, but how effortlessly you experience it',
-    buttonText: 'EXPLORE LUXURY',
+    title: "The Art of Effortless Luxury Travel",
+    subtitle:
+      "Seamless luxury travel,\ntailored to you - effortless,\npersonal, unforgettable",
+    paragraph1:
+      "We believe that true luxury is felt, not just seen. It is the ease of knowing every detail has been anticipated, the quiet confidence of seamless transitions, and the joy of experiencing something truly personal. Travel should never feel complicated or transactional, but rather it should unfold naturally.",
+    paragraph2:
+      "From the first touchpoint to the final farewell, our ethos ensures that luxury is not just what you experience, but how effortlessly you experience it",
+    buttonText: "EXPLORE LUXURY",
     image: {
-      url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
-      alt: 'Luxury travel experience'
-    }
-  }
+      url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      alt: "Luxury travel experience",
+    },
+  };
 
-  const luxuryData = data || fallbackData
+  const luxuryData = data || fallbackData;
 
   return (
     <section className="py-12 md:py-16 lg:py-24 bg-white">
@@ -58,14 +62,18 @@ export default function EffortlessLuxury({ data }: EffortlessLuxuryProps) {
             <p className="font-inter text-[#23263a] text-sm md:text-base lg:text-md mb-6 md:mb-7 lg:mb-8 w-full lg:w-6/8 font-bold">
               {luxuryData.paragraph2}
             </p>
-            <button className="border text-xs border-slate-300 px-4 md:px-6 lg:px-8 py-3 md:py-4 font-inter font-semibold text-[#23263a] flex items-center gap-2 w-fit hover:bg-black hover:text-white transition-colors">
+            <button className="border-2 text-xs border-slate-300 px-4 md:px-6 lg:px-8 py-4 md:py-5 font-inter font-semibold text-[#23263a] flex items-center gap-2 w-fit hover:bg-black hover:text-white transition-colors">
               {luxuryData.buttonText}
-              <span className="ml-2">&rarr;</span>
+              <Image
+                src="/luxufe-icon-button-arrow-dark.svg"
+                alt="Arrow right"
+                width={24}
+                height={24}
+              />
             </button>
           </div>
-          
         </div>
       </div>
     </section>
   );
-} 
+}
