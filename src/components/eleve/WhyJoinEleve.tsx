@@ -1,30 +1,55 @@
-"use client"
+"use client";
 import React, { useState } from "react";
-import {  Star, Bell, Mail, Trophy, Gift, X, Plus, PlaneTakeoff } from 'lucide-react';
-import BecomeMemberModal from './BecomeMemberModal';
+import BecomeMemberModal from "./BecomeMemberModal";
+import Image from "next/image";
 
 interface WhyJoinEleveProps {
   data?: {
-    title: string
-    brandName: string
+    title: string;
+    brandName: string;
     items: Array<{
-      icon: string
-      title: string
-      content: string
-    }>
-    buttonText: string
-  }
+      icon: string;
+      title: string;
+      content: string;
+    }>;
+    buttonText: string;
+  };
 }
 
 // Icon mapping
 const iconMap: { [key: string]: React.ReactNode } = {
-  PlaneTakeoff: <PlaneTakeoff className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[#23263a]" />,
-  Star: <Star className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[#23263a]" />,
-  Bell: <Bell className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[#23263a]" />,
-  Mail: <Mail className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[#23263a]" />,
-  Trophy: <Trophy className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[#23263a]" />,
-  Gift: <Gift className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[#23263a]" />,
-}
+  PlaneTakeoff: (
+    <Image
+      src="/luxufe-icon-flights-dark.svg"
+      alt="Plane takeoff"
+      width={24}
+      height={24}
+    />
+  ),
+  Star: (
+    <Image src="/Icon-metro-star-full.svg" alt="Star" width={24} height={24} />
+  ),
+  Bell: (
+    <Image
+      src="/awesome-concierge-bell.svg"
+      alt="Bell"
+      width={24}
+      height={24}
+    />
+  ),
+  Mail: <Image src="/awesome-envelope.svg" alt="Mail" width={24} height={24} />,
+  Trophy: (
+    <Image
+      src="/Icon-metro-trophy-black.svg"
+      alt="Trophy"
+      width={24}
+      height={24}
+    />
+  ),
+  Gift: (
+    <Image src="/Icon-ionic-ios-gift.svg" alt="Gift" width={24} height={24} />
+  ),
+};
 
 export default function WhyJoinEleve({ data }: WhyJoinEleveProps) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -32,55 +57,68 @@ export default function WhyJoinEleve({ data }: WhyJoinEleveProps) {
 
   // Fallback data
   const fallbackData = {
-    title: 'Why join',
-    brandName: 'Elevé',
+    title: "Why join",
+    brandName: "Elevé",
     items: [
       {
-        icon: 'PlaneTakeoff',
+        icon: "PlaneTakeoff",
         title: "Priority Travel Upgrades",
-        content: "Enjoy complimentary room upgrades, priority boarding, and VIP airport lounge access at select destinations. Travel with ease, knowing that the best seat, suite, or experience has already been secured for you.",
+        content:
+          "Enjoy complimentary room upgrades, priority boarding, and VIP airport lounge access at select destinations. Travel with ease, knowing that the best seat, suite, or experience has already been secured for you.",
       },
       {
-        icon: 'Star',
+        icon: "Star",
         title: "Exclusive Member-Only Offers",
-        content: "Access to exclusive member-only offers, including discounts on luxury travel, hotel stays, and more.",
+        content:
+          "Access to exclusive member-only offers, including discounts on luxury travel, hotel stays, and more.",
       },
       {
-        icon: 'Bell',
+        icon: "Bell",
         title: "Personalized Concierge Service",
-        content: "Enjoy a personalized concierge service to help you with your travel plans, including booking flights, hotels, and more.",
+        content:
+          "Enjoy a personalized concierge service to help you with your travel plans, including booking flights, hotels, and more.",
       },
       {
-        icon: 'Mail',
+        icon: "Mail",
         title: "Invitation-Only Events & Experiences",
-        content: "Attend invitation-only events and experiences, including exclusive travel seminars, workshops, and more.",
+        content:
+          "Attend invitation-only events and experiences, including exclusive travel seminars, workshops, and more.",
       },
       {
-        icon: 'Trophy',
+        icon: "Trophy",
         title: "Complimentary Travel Enhancements",
-        content: "Enjoy complimentary travel enhancements, including airport lounge access, priority boarding, and more.",
+        content:
+          "Enjoy complimentary travel enhancements, including airport lounge access, priority boarding, and more.",
       },
       {
-        icon: 'Gift',
+        icon: "Gift",
         title: "Annual Luxury Travel Gift",
-        content: "Receive an annual luxury travel gift, including a luxury travel experience, hotel stay, and more.",
+        content:
+          "Receive an annual luxury travel gift, including a luxury travel experience, hotel stay, and more.",
       },
     ],
-    buttonText: 'BECOME A MEMBER →'
-  }
+    buttonText: "BECOME A MEMBER →",
+  };
 
-  const whyJoinData = data || fallbackData
+  const whyJoinData = data || fallbackData;
 
   return (
     <section className="bg-white py-12 md:py-16 lg:py-24 flex flex-col items-center">
       {/* Heading */}
-      <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold font-arpona text-[#23263a] text-center mb-8 md:mb-12 lg:mb-16 px-4 md:px-6 lg:px-8">
-        {whyJoinData.title} <span className="font-bellarina font-normal text-3xl md:text-4xl lg:text-6xl xl:text-8xl align-middle mr-1 md:mr-2">{whyJoinData.brandName}</span>by Luxufe?
+      <h2 className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold font-arpona text-[#23263a] text-center mb-8 md:mb-12 lg:mb-16 px-4 md:px-6 lg:px-8">
+        {whyJoinData.title}{" "}
+        <span className="font-bellarina font-normal text-3xl md:text-4xl lg:text-6xl xl:text-8xl align-middle mr-1 md:mr-2">
+          {whyJoinData.brandName}
+        </span>
+        by Luxufe?
       </h2>
       {/* Accordion */}
-      <div className="w-full max-w-6xl divide-y divide-gray-300 border-t border-b border-gray-300 mb-8 md:mb-12 lg:mb-16 px-4 md:px-6 lg:px-8">
+      <div className="w-full max-w-6xl border-y-2 border-gray-300 divide-y-2 divide-gray-300 mb-8 md:mb-12 lg:mb-16">
         {whyJoinData.items.map((item, idx) => (
-          <div key={item.title} className="relative overflow-hidden transition-all duration-500">
+          <div
+            key={item.title}
+            className="relative overflow-hidden transition-all duration-500"
+          >
             <button
               className="w-full flex justify-between items-center py-4 md:py-6 lg:py-8 px-4 md:px-6 lg:px-8 focus:outline-none group hover:cursor-pointer"
               onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
@@ -93,16 +131,30 @@ export default function WhyJoinEleve({ data }: WhyJoinEleveProps) {
               </span>
               <span className="ml-2 md:ml-3 lg:ml-4 text-gray-500 group-hover:text-gray-800">
                 {openIndex === idx ? (
-                  <X className="w-5 h-5 md:w-6 md:h-6 lg:w-8 lg:h-8" />
+                  <Image
+                    src="/luxufe-icon-dropdown-icon-dark.svg"
+                    alt="X"
+                    width={24}
+                    height={24}
+                    className="rotate-45"
+                  />
                 ) : (
-                  <Plus className="w-5 h-5 md:w-6 md:h-6 lg:w-8 lg:h-8" />
+                  <Image
+                    src="/luxufe-icon-dropdown-icon-dark.svg"
+                    alt="Plus"
+                    width={24}
+                    height={24}
+                  />
                 )}
               </span>
             </button>
+
             {/* Expandable panel */}
             <div
               className={`transition-all duration-500 ease-in-out grid ${
-                openIndex === idx ? "max-h-[500px] opacity-100 py-4 md:py-6 px-4 md:px-6 lg:px-8" : "max-h-0 opacity-0"
+                openIndex === idx
+                  ? "max-h-[500px] opacity-100 py-4 md:py-6 px-4 md:px-6 lg:px-8"
+                  : "max-h-0 opacity-0"
               }`}
               style={{ overflow: "hidden" }}
             >
@@ -115,6 +167,7 @@ export default function WhyJoinEleve({ data }: WhyJoinEleveProps) {
           </div>
         ))}
       </div>
+
       {/* Button */}
       <button
         className="mt-4 md:mt-5 lg:mt-6 px-6 md:px-8 lg:px-10 py-3 md:py-4 border border-slate-300 text-[#23263a] font-inter font-bold bg-transparent hover:bg-[#23263a] hover:text-white transition-all text-xs"
@@ -122,10 +175,7 @@ export default function WhyJoinEleve({ data }: WhyJoinEleveProps) {
       >
         {whyJoinData.buttonText}
       </button>
-      <BecomeMemberModal 
-        open={modalOpen} 
-        onClose={() => setModalOpen(false)} 
-      />
+      <BecomeMemberModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </section>
   );
-} 
+}
