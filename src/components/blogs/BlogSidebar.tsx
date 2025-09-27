@@ -29,13 +29,17 @@ export default function BlogSidebar() {
         <span className="mr-2">SIGN UP TO BE INSPIRED</span>  <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} />
       </button>
       {/* Social Icons */}
-      <div className="flex gap-4 md:gap-6 mt-2 text-lg md:text-2xl text-slate-400">
-        <span><Image src="/Icon-simple-instagram-black.svg" alt="Instagram" width={24} height={24} /></span>
-        <span><Image src="/Icon-awesome-facebook-black.svg" alt="Facebook" width={14} height={14} /></span>
-        <span aria-label="TripAdvisor">
+      <div className="flex gap-4 md:gap-4 mt-2 text-lg md:text-2xl text-slate-400">
+        <span className="flex items-center justify-center w-10 h-10 rounded-full border-1 border-slate-700 bg-white">
+          <Image src="/Icon-simple-instagram-black.svg" alt="Instagram" width={24} height={24} />
+        </span>
+        <span className="flex items-center justify-center w-10 h-10 rounded-full border-1 border-slate-700 bg-white">
+          <Image src="/Icon-awesome-facebook-black.svg" alt="Facebook" width={14} height={14} />
+        </span>
+        <span className="flex items-center justify-center w-10 h-10 rounded-full border-1 border-slate-700 bg-white" aria-label="TripAdvisor">
           <Image src="/Icon-awesome-tripadvisor-black.svg" alt="TripAdvisor" width={24} height={24} />
         </span>
-        <span aria-label="Google">
+        <span className="flex items-center justify-center w-10 h-10 rounded-full border-1 border-slate-700 bg-white" aria-label="Google">
           <Image src="/Icon-ionic-logo-google-black.svg" alt="Google" width={24} height={24} />
         </span>
       </div>
