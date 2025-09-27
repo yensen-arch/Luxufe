@@ -23,8 +23,8 @@ export default async function About() {
       <Navbar />
       <AboutHero data={aboutData?.hero} />
       <ArtOfEffortlessTravel data={aboutData?.artOfEffortlessTravel} />
-      <Wallpaper data={aboutData?.wallpaper} />
       <LuxuryStay data={aboutData?.luxuryStay} />
+      <Wallpaper data={aboutData?.wallpaper} />
       <GuidingValues data={aboutData?.guidingValues} />
       <LuxufeStory data={aboutData?.luxufeStory} />
       <RecognizedForExcellence data={aboutData?.recognizedForExcellence} />

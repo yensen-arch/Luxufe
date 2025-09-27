@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from 'next/image';
 
 interface TravelAccordionProps {
   data?: {
@@ -52,7 +53,7 @@ export default function TravelAccordion({ data }: TravelAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="max-w-6xl mx-auto my-12 md:my-16 lg:my-24 px-4 md:px-6 lg:px-8">
+    <section className="max-w-7xl mx-auto my-12 md:my-16 lg:my-24 px-4 md:px-6 lg:px-8">
       <div className="divide-y divide-gray-600 border-t border-b border-gray-600">
         {accordionData.items.map((item, idx) => (
           <div key={item.title} className="relative overflow-hidden transition-all duration-500">
@@ -69,31 +70,20 @@ export default function TravelAccordion({ data }: TravelAccordionProps) {
               {/* Icon */}
               <span className="ml-2 md:ml-3 lg:ml-4 text-gray-500 group-hover:text-gray-800">
                 {openIndex === idx ? (
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 32 32"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="md:w-6 md:h-6 lg:w-8 lg:h-8"
-                  >
-                    <line x1="8" y1="8" x2="24" y2="24" />
-                    <line x1="24" y1="8" x2="8" y2="24" />
-                  </svg>
+                  <Image
+                    src="/luxufe-icon-dropdown-icon-dark.svg"
+                    alt="Arrow right"
+                    width={34}
+                    height={34}
+                    className="rotate-45"
+                  / >
                 ) : (
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 32 32"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="md:w-6 md:h-6 lg:w-8 lg:h-8"
-                  >
-                    <line x1="16" y1="8" x2="16" y2="24" />
-                    <line x1="8" y1="16" x2="24" y2="16" />
-                  </svg>
+                  <Image
+                    src="/luxufe-icon-dropdown-icon-dark.svg"
+                    alt="Arrow right"
+                    width={34}
+                    height={34}
+                  />
                 )}
               </span>
             </button>
