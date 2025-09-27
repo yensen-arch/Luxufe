@@ -56,12 +56,12 @@ function MasonryCard({ post, className = "" }: { post: typeof posts[0]; classNam
         alt={post.title}
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/70" />
       <div className="absolute inset-0 flex flex-col justify-between p-4 md:p-6">
-        <span className="uppercase text-xs font-inter tracking-widest text-white/80 mb-2">{post.category}</span>
+        <span className="uppercase text-xs font-inter tracking-widest font-bold text-white/80 mb-2">{post.category}</span>
         <div className="flex flex-col justify-end h-full">
-          <h3 className="text-white w-full lg:w-2/3 text-lg md:text-xl lg:text-2xl font-arpona font-bold mb-3 md:mb-4">{post.title}</h3>
-          <button className="bg-white text-black font-inter font-bold px-3 md:px-4 py-2 text-xs shadow hover:bg-gray-100 w-fit">READ MORE</button>
+          <h3 className="text-white w-full lg:w-6/8 text-lg md:text-xl lg:text-2xl font-arpona font-bold mb-3 md:mb-4">{post.title}</h3>
+          <button className="bg-white text-black font-inter font-bold px-3 md:px-5 py-2 text-xs shadow hover:bg-gray-100 w-fit">READ MORE</button>
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@ export default function BlogMasonryGrid() {
     <section className="w-full max-w-8xl mx-auto px-4 md:px-8 lg:px-14 mb-12 md:mb-16 lg:mb-20">
       <div className="flex flex-col gap-4 md:gap-6">
         {/* Row 1: 2 cols */}
-        <div className="flex flex-col lg:flex-row gap-4 md:gap-6 h-auto lg:h-[800px]">
+        <div className="flex flex-col lg:flex-row gap-4 md:gap-6 h-auto lg:h-[900px]">
           {/* Left col */}
           <div className="flex flex-col gap-4 md:gap-6 w-full lg:w-1/2 h-auto lg:h-full">
             {/* Top row: 1 card, 1/3 height */}
