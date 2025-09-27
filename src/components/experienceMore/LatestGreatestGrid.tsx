@@ -61,7 +61,7 @@ export default function LatestGreatestGrid() {
               </div>
               <div className="flex flex-col flex-1 items-center justify-between px-3 md:px-4 py-1">
                 <div className="text-center mb-3 md:mb-4">
-                  <p className="text-base md:text-lg lg:text-xl w-full lg:w-3/4 mx-auto font-arpona text-[#23263a] font-bold my-3 md:my-4">{offer.offer}</p>
+                  <p className="text-lg md:text-xl lg:text-2xl w-full lg:w-3/4 mx-auto font-arpona text-[#23263a] font-bold my-3 md:my-4">{offer.offer}</p>
                   <p className="text-xs text-slate-500 font-bold font-inter mb-3 md:mb-4">{offer.date}</p>
                 </div>
                 <a
