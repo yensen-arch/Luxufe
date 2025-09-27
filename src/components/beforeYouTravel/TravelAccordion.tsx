@@ -68,23 +68,16 @@ export default function TravelAccordion({ data }: TravelAccordionProps) {
                 {item.title}
               </span>
               {/* Icon */}
-              <span className="ml-2 md:ml-3 lg:ml-4 text-gray-500 group-hover:text-gray-800">
-                {openIndex === idx ? (
-                  <Image
-                    src="/luxufe-icon-dropdown-icon-dark.svg"
-                    alt="Arrow right"
-                    width={34}
-                    height={34}
-                    className="rotate-45"
-                  / >
-                ) : (
-                  <Image
-                    src="/luxufe-icon-dropdown-icon-dark.svg"
-                    alt="Arrow right"
-                    width={34}
-                    height={34}
-                  />
-                )}
+              <span className="ml-2 md:ml-3 lg:ml-4 text-gray-500 group-hover:text-gray-800 transition-colors duration-300">
+                <Image
+                  src="/luxufe-icon-dropdown-icon-dark.svg"
+                  alt="Arrow right"
+                  width={34}
+                  height={34}
+                  className={`transition-transform duration-300 ease-in-out ${
+                    openIndex === idx ? "rotate-45" : "rotate-0"
+                  }`}
+                />
               </span>
             </button>
 
