@@ -61,12 +61,12 @@ export default function BecomeMemberModal({ open, onClose }: BecomeMemberModalPr
               <input 
                 type="text" 
                 placeholder="FIRST NAME" 
-                className="flex-1 border border-gray-300 px-4 py-3 text-sm font-inter focus:outline-none focus:border-gray-500" 
+                className="flex-1 border-2 border-gray-300 px-4 py-3 text-xs font-inter focus:outline-none focus:border-gray-500 placeholder:text-gray-700 font-bold" 
               />
               <input 
                 type="text" 
                 placeholder="LAST NAME" 
-                className="flex-1 border border-gray-300 px-4 py-3 text-sm font-inter focus:outline-none focus:border-gray-500" 
+                className="w-full border-2 border-gray-300 px-4 py-3 text-xs font-inter focus:outline-none focus:border-gray-500 placeholder:text-gray-700 font-bold" 
               />
             </div>
             
@@ -75,13 +75,13 @@ export default function BecomeMemberModal({ open, onClose }: BecomeMemberModalPr
               <input 
                 type="email" 
                 placeholder="EMAIL" 
-                className="flex-1 border border-gray-300 px-4 py-3 text-sm font-inter focus:outline-none focus:border-gray-500" 
+                className="flex-1 border-2 border-gray-300 px-4 py-3 text-xs font-inter focus:outline-none focus:border-gray-500 placeholder:text-gray-700 font-bold" 
               />
               <div className="flex-1 relative">
                 <input 
                   type="text" 
                   placeholder="NUMBER" 
-                  className="w-full border border-gray-300 px-4 py-3 pr-20 text-sm font-inter focus:outline-none focus:border-gray-500" 
+                  className="w-full border-2 border-gray-300 px-4 py-3 pr-20 text-xs font-inter focus:outline-none focus:border-gray-500 placeholder:text-gray-700 font-bold" 
                 />
                 <div className="absolute right-0 top-0 h-full flex items-center pr-3">
                   <select className="text-sm font-inter bg-transparent border-none focus:outline-none cursor-pointer">
@@ -97,37 +97,37 @@ export default function BecomeMemberModal({ open, onClose }: BecomeMemberModalPr
               <input 
                 type="text" 
                 placeholder="COUNTRY" 
-                className="w-full border border-gray-300 px-4 py-3 pl-10 text-sm font-inter focus:outline-none focus:border-gray-500" 
+                className="w-full border-2 border-gray-300 px-4 py-3 pl-10 text-xs font-inter focus:outline-none focus:border-gray-500 placeholder:text-gray-700 font-bold" 
               />
-              <Image src="/luxufe-map-icon-large-location-pin-dark.svg" alt="Map Pin" width={16} height={16} className="absolute left-3 top-1/2 transform -translate-y-1/2" />
+              <Image src="/luxufe-map-icon-large-location-pin-dark.svg" alt="Map Pin" width={12} height={12} className="absolute left-3 top-1/2 transform -translate-y-1/2" />
             </div>
             
             {/* How did you find us */}
             <div>
-              <div className="uppercase text-xs font-bold text-gray-500 mb-3 tracking-widest">HOW DID YOU FIND US?</div>
-              <div className="grid grid-cols-2 gap-3">
-                <label className="flex items-center gap-2 text-sm font-inter cursor-pointer">
-                  <input type="radio" name="findus" className="accent-[#23263a]" defaultChecked />
+              <div className="uppercase text-xs font-bold text-left text-gray-500 mb-3 tracking-widest">HOW DID YOU FIND US?</div>
+              <div className="grid grid-cols-3 gap-3 font-bold text-gray-600">
+                <label className="flex items-center gap-2 text-xs font-inter cursor-pointer">
+                  <input type="radio" name="findus"defaultChecked />
                   Referral
                 </label>
-                <label className="flex items-center gap-2 text-sm font-inter cursor-pointer">
-                  <input type="radio" name="findus" className="accent-[#23263a]" />
+                <label className="flex items-center gap-2 text-xs font-inter cursor-pointer">
+                  <input type="radio" name="findus" className="accent-[#23263a]"/>
                   Saw an ad
                 </label>
-                <label className="flex items-center gap-2 text-sm font-inter cursor-pointer">
-                  <input type="radio" name="findus" className="accent-[#23263a]" />
+                <label className="flex items-center gap-2 text-xs font-inter cursor-pointer">
+                  <input type="radio" name="findus" className="accent-[#23263a]"/>
                   Direct Search
                 </label>
-                <label className="flex items-center gap-2 text-sm font-inter cursor-pointer">
-                  <input type="radio" name="findus" className="accent-[#23263a]" />
+                <label className="flex items-center gap-2 text-xs font-inter cursor-pointer">
+                  <input type="radio" name="findus" className="accent-[#23263a]"/>
                   Article or News
                 </label>
-                <label className="flex items-center gap-2 text-sm font-inter cursor-pointer">
-                  <input type="radio" name="findus" className="accent-[#23263a]" />
+                <label className="flex items-center gap-2 text-xs  text-gray-600 font-inter cursor-pointer">
+                  <input type="radio" name="findus" className="accent-[#23263a]"/>
                   Social Media
                 </label>
-                <label className="flex items-center gap-2 text-sm font-inter cursor-pointer">
-                  <input type="radio" name="findus" className="accent-[#23263a]" />
+                <label className="flex items-center gap-2 text-xs font-inter cursor-pointer">
+                  <input type="radio" name="findus" className="accent-[#23263a]"/>
                   Other
                 </label>
               </div>
@@ -137,19 +137,19 @@ export default function BecomeMemberModal({ open, onClose }: BecomeMemberModalPr
             <input 
               type="text" 
               placeholder="WHO REFERRED YOU?" 
-              className="border border-gray-300 px-4 py-3 text-sm font-inter focus:outline-none focus:border-gray-500" 
+              className="border-2 border-gray-300 px-4 py-3 text-xs font-inter focus:outline-none focus:border-gray-500 placeholder:text-gray-700 font-bold" 
             />
             
             {/* Travel preferences */}
             <textarea 
               placeholder="SHARE SOME INFORMATION ON HOW YOU LIKE TO TRAVEL" 
-              className="border border-gray-300 px-4 py-3 text-sm font-inter min-h-[100px] resize-none focus:outline-none focus:border-gray-500" 
+              className="border-2 border-gray-300 px-4 py-3 text-xs font-inter min-h-[100px] resize-none focus:outline-none focus:border-gray-500 placeholder:text-gray-700 font-bold" 
             />
             
             {/* Submit button */}
             <button 
               type="submit" 
-              className="mt-4 w-full bg-[#23263a] text-white py-4 font-inter font-bold text-sm tracking-widest hover:bg-[#1a1f2e] transition-colors"
+              className="mt-4 w-full bg-[#23263a] text-white py-4 font-inter font-bold text-xs tracking-widest hover:bg-[#1a1f2e] transition-colors cursor-pointer"
             >
               SUBMIT REQUEST
             </button>
