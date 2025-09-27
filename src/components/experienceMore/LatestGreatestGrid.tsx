@@ -1,5 +1,4 @@
-import React from "react";
-
+import Image from "next/image";
 const offers = [
   {
     image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
@@ -42,11 +41,11 @@ const offers = [
 export default function LatestGreatestGrid() {
   return (
     <section className="w-full bg-white pb-12 md:pb-16 lg:pb-20">
-      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {offers.map((offer, idx) => (
             <div key={idx} className="bg-white shadow-lg border border-slate-200 overflow-hidden flex flex-col">
-              <div className="relative h-60 md:h-75 lg:h-90">
+              <div className="relative h-60 md:h-75 lg:h-110">
                 <img
                   src={offer.image}
                   alt="Offer"
@@ -67,9 +66,9 @@ export default function LatestGreatestGrid() {
                 </div>
                 <a
                   href="#"
-                  className="w-full bg-[#23263a] text-white font-inter font-bold text-sm md:text-base lg:text-md py-2 md:py-2.5 lg:py-3 rounded-none flex items-center justify-center gap-2 hover:bg-black transition mb-2"
+                  className="w-full bg-[#23263a] text-white font-inter font-bold text-xs md:text-xs lg:text-xs py-2 md:py-2.5 lg:py-3 rounded-none flex items-center justify-center gap-2 hover:bg-black transition mb-2"
                 >
-                  MORE INFO <span className="ml-2">&rarr;</span>
+                  MORE INFO <Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={34} height={34} />
                 </a>
               </div>
             </div>

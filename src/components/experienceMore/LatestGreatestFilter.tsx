@@ -25,7 +25,7 @@ export default function LatestGreatestFilter({ data }: LatestGreatestFilterProps
       </p>
       <div className="w-full flex justify-center px-4 md:px-6 lg:px-8">
         <div className="relative w-full max-w-2xl">
-          <div className="bg-white shadow-xl flex flex-col md:flex-row items-center px-4 md:px-6 lg:px-8 py-4 md:py-5 lg:py-7">
+          <div className="bg-white shadow-xl border border-slate-200 font-bold flex flex-col md:flex-row items-center px-4 md:px-6 lg:px-8 py-4 md:py-5 lg:py-7">
             {/* Left: Filter label - hidden on mobile */}
             <div className="hidden md:flex items-center pr-4 lg:pr-8 h-full">
               <span className="text-lg md:text-xl lg:text-2xl font-arpona text-[#23263a] font-normal">Filter</span>
