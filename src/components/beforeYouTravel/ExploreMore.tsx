@@ -1,4 +1,5 @@
 import React from "react";
+import Image from 'next/image';
 
 interface ExploreMoreProps {
   data?: {
@@ -86,7 +87,9 @@ export default function ExploreMore({ data }: ExploreMoreProps) {
                 <p className="font-inter font-bold text-slate-500 text-xs md:text-sm lg:text-base mb-4 md:mb-6 lg:mb-8 flex-1">{card.description}</p>
                 <a href={card.href} className="font-inter font-bold text-xs md:text-sm tracking-wider flex items-center gap-1 md:gap-2 text-[#23263a] hover:underline mt-auto">
                   {card.cta}
-                  <span className="inline-block transform transition-transform group-hover:translate-x-1">→</span>
+                  <span className="inline-block transform transition-transform group-hover:translate-x-1">
+                    <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} />
+                  </span>
                 </a>
               </div>
             </div>
