@@ -1,7 +1,8 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
+import BecomeMemberModal from './BecomeMemberModal';
 
 interface HeroEleveProps {
-  onBecomeMember?: () => void
   data?: {
     backgroundImage: {
       url: string
@@ -13,7 +14,8 @@ interface HeroEleveProps {
   }
 }
 
-export default function HeroEleve({ onBecomeMember, data }: HeroEleveProps) {
+export default function HeroEleve({ data }: HeroEleveProps) {
+  const [modalOpen, setModalOpen] = useState(false);
   // Fallback data
   const fallbackData = {
     backgroundImage: {
@@ -39,16 +41,20 @@ export default function HeroEleve({ onBecomeMember, data }: HeroEleveProps) {
       {/* Content */}
       <div className="relative z-10 p-4 md:p-6 lg:p-8 w-full max-w-5xl mx-auto flex flex-col items-center justify-center">
         <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl italic mb-2 md:mb-3 lg:mb-4 font-bellarina">{heroData.subtitle}</p>
-        <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-arpona font-bold mb-4 md:mb-6 lg:mb-8 leading-tight">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl md:w-6xl  font-arpona font-bold mb-4 md:mb-6 lg:mb-8 leading-tight">
           {heroData.title}
         </h1>
         <button
-          className="mt-4 md:mt-5 lg:mt-6 px-6 md:px-8 lg:px-10 py-3 md:py-4 border border-slate-300 text-white font-inter font-bold bg-transparent hover:bg-white hover:text-black transition-all text-xs"
-          onClick={onBecomeMember || (() => {})}
+          className="mt-4 md:mt-5 lg:mt-6 px-6 md:px-8 lg:px-10 py-3 md:py-4 border-1 border-gray-400 text-white font-inter font-bold bg-transparent hover:bg-white hover:text-black transition-all text-xs"
+          onClick={() => setModalOpen(true)}
         >
           {heroData.buttonText}
         </button>
       </div>
+      <BecomeMemberModal 
+        open={modalOpen} 
+        onClose={() => setModalOpen(false)} 
+      />
     </section>
   );
 } 

@@ -1,9 +1,9 @@
 "use client"
 import React, { useState } from "react";
 import {  Star, Bell, Mail, Trophy, Gift, X, Plus, PlaneTakeoff } from 'lucide-react';
+import BecomeMemberModal from './BecomeMemberModal';
 
 interface WhyJoinEleveProps {
-  onBecomeMember?: () => void
   data?: {
     title: string
     brandName: string
@@ -26,7 +26,8 @@ const iconMap: { [key: string]: React.ReactNode } = {
   Gift: <Gift className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[#23263a]" />,
 }
 
-export default function WhyJoinEleve({ onBecomeMember, data }: WhyJoinEleveProps) {
+export default function WhyJoinEleve({ data }: WhyJoinEleveProps) {
+  const [modalOpen, setModalOpen] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   // Fallback data
@@ -117,10 +118,14 @@ export default function WhyJoinEleve({ onBecomeMember, data }: WhyJoinEleveProps
       {/* Button */}
       <button
         className="mt-4 md:mt-5 lg:mt-6 px-6 md:px-8 lg:px-10 py-3 md:py-4 border border-slate-300 text-[#23263a] font-inter font-bold bg-transparent hover:bg-[#23263a] hover:text-white transition-all text-xs"
-        onClick={onBecomeMember || (() => {})}
+        onClick={() => setModalOpen(true)}
       >
         {whyJoinData.buttonText}
       </button>
+      <BecomeMemberModal 
+        open={modalOpen} 
+        onClose={() => setModalOpen(false)} 
+      />
     </section>
   );
 } 
