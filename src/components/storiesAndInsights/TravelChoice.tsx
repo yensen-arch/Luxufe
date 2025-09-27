@@ -1,7 +1,5 @@
 "use client"
-
-import { Facebook, Instagram } from 'lucide-react';
-
+import Image from 'next/image';
 interface TravelChoiceProps {
   data?: {
     title: string
@@ -41,9 +39,9 @@ export default function TravelChoice({ data }: TravelChoiceProps) {
   const getSocialIcon = (platform: string) => {
     switch (platform.toLowerCase()) {
       case 'instagram':
-        return <Instagram className="h-5 w-5 md:h-6 md:w-6 lg:h-7 lg:w-7" aria-label="Instagram" />
+        return <Image src="/instagram.svg" alt="Instagram" width={24} height={24} />
       case 'facebook':
-        return <Facebook className="h-5 w-5 md:h-6 md:w-6 lg:h-7 lg:w-7" aria-label="Facebook" />
+        return <Image src="/facebook.svg" alt="Facebook" width={24} height={24} />
       case 'tripadvisor':
         return (
           <span aria-label="TripAdvisor">
@@ -77,7 +75,7 @@ export default function TravelChoice({ data }: TravelChoiceProps) {
 
   return (
     <section className="py-20 md:py-32 lg:py-40 overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8">
+      <div className="container">
         <div className="relative flex flex-col lg:flex-row items-center lg:justify-end min-h-[400px] md:min-h-[500px] lg:min-h-[650px]">
           
           {/* Content Section */}
