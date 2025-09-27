@@ -22,10 +22,10 @@ export default function BlogSidebar() {
       <hr className="w-full my-4 md:my-6 border-slate-400" />
       {/* Explore Section */}
       <h3 className="text-lg md:text-2xl font-arpona text-slate-700 mb-3 md:mb-4 font-bold">Explore</h3>
-      <button className="w-full border-2 border-slate-300 text-slate-700 py-3 md:py-4 mb-3 md:mb-4 font-inter font-bold flex items-center justify-center px-4 md:px-6 text-xs hover:bg-slate-50 transition">
+      <button className="w-full border-2 border-slate-300 text-slate-700 py-3 md:py-5 mb-3 md:mb-4 font-inter font-bold flex items-center justify-center px-4 md:px-6 text-xs hover:bg-slate-50 transition">
         <span className="mr-2">EXPLORE WITH US</span>  <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} />
       </button>
-      <button className="w-full border-2 border-slate-300 text-slate-700 py-2 md:py-4 mb-6 md:mb-8 font-inter font-bold flex items-center justify-center px-4 md:px-6 text-xs hover:bg-slate-50 transition">
+      <button className="w-full border-2 border-slate-300 text-slate-700 py-2 md:py-5 mb-6 md:mb-8 font-inter font-bold flex items-center justify-center px-4 md:px-6 text-xs hover:bg-slate-50 transition">
         <span className="mr-2">SIGN UP TO BE INSPIRED</span>  <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} />
       </button>
       {/* Social Icons */}
