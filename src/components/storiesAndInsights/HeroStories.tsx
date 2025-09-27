@@ -36,7 +36,7 @@ export default function HeroStories({ data }: HeroStoriesProps) {
         <div className="absolute top-0 left-0 w-full h-full bg-black/30"></div>
       </div>
       {/* Content */}
-      <div className="relative z-10 p-4 md:p-6 lg:p-8 w-full max-w-5xl mx-auto flex flex-col items-center justify-center">
+      <div className="relative z-10 p-4 md:p-6 lg:p-8 w-full max-w-6xl mx-auto flex flex-col items-center justify-center">
         <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl italic mb-2 md:mb-3 lg:mb-4 font-bellarina">{heroData.subtitle}</p>
         <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-arpona font-bold mb-4 md:mb-6 lg:mb-8 leading-tight">
           {heroData.title}

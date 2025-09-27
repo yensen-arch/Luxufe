@@ -28,10 +28,12 @@ export default function ExploreBar() {
                 key={filter.label}
                 className="flex items-center gap-2 py-2 font-inter text-xs text-[#23263a] focus:outline-none"
               >
-                {/* Radio indicator */}
-                <span className={`inline-block w-4 h-4 rounded-full border-2 border-gray-500 flex items-center justify-center`}>
-                  {filter.active && <span className="w-2 h-2 bg-gray-500 rounded-full" />}
-                </span>
+                {/* Radio indicator - only for non-dropdown filters */}
+                {!filter.dropdown && (
+                  <span className={`inline-block w-4 h-4 rounded-full border-2 border-gray-500 flex items-center justify-center`}>
+                    {filter.active && <span className="w-2 h-2 bg-gray-500 rounded-full" />}
+                  </span>
+                )}
                 <span className="text-xs font-inter font-bold">{filter.label}</span>
                 {filter.dropdown && <ChevronDown className="w-4 h-4 ml-1" />}
               </button>
