@@ -50,7 +50,7 @@ const posts = [
 
 function MasonryCard({ post, className = "" }: { post: typeof posts[0]; className?: string }) {
   return (
-    <div className={`relative group overflow-hidden bg-gray-200 ${className}`}>
+    <div className={`relative group overflow-hidden bg-gray-200 cursor-pointer ${className}`}>
       <img
         src={post.image}
         alt={post.title}
@@ -61,7 +61,7 @@ function MasonryCard({ post, className = "" }: { post: typeof posts[0]; classNam
         <span className="uppercase text-xs font-inter tracking-widest font-bold text-white/80 mb-2">{post.category}</span>
         <div className="flex flex-col justify-end h-full">
           <h3 className="text-white w-full lg:w-6/8 text-lg md:text-xl lg:text-2xl font-arpona font-bold mb-3 md:mb-4">{post.title}</h3>
-          <button className="bg-white text-black font-inter font-bold px-3 md:px-5 py-2 text-xs shadow hover:bg-gray-100 w-fit">READ MORE</button>
+          <button className="bg-white text-black font-inter font-bold px-3 md:px-5 py-2 text-xs shadow hover:bg-gray-100 w-fit cursor-pointer">READ MORE</button>
         </div>
       </div>
     </div>
