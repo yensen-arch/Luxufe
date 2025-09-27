@@ -64,44 +64,6 @@ export const storiesAndInsightsPageType = {
           validation: (Rule: any) => Rule.required(),
         },
         {
-          name: 'socialLinks',
-          title: 'Social Media Links',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                {
-                  name: 'platform',
-                  title: 'Platform',
-                  type: 'string',
-                  options: {
-                    list: [
-                      { title: 'Instagram', value: 'instagram' },
-                      { title: 'Facebook', value: 'facebook' },
-                      { title: 'TripAdvisor', value: 'tripadvisor' },
-                      { title: 'Google', value: 'google' },
-                    ],
-                  },
-                  validation: (Rule: any) => Rule.required(),
-                },
-                {
-                  name: 'url',
-                  title: 'URL',
-                  type: 'url',
-                },
-                {
-                  name: 'enabled',
-                  title: 'Enabled',
-                  type: 'boolean',
-                  initialValue: true,
-                },
-              ],
-            },
-          ],
-          validation: (Rule: any) => Rule.required().min(1),
-        },
-        {
           name: 'image',
           title: 'Right Image',
           type: 'image',

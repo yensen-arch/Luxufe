@@ -628,11 +628,6 @@ export interface StoriesAndInsightsPageData {
   travelChoice: {
     title: string
     description: string
-    socialLinks: Array<{
-      platform: string
-      url?: string
-      enabled: boolean
-    }>
     image: {
       url: string
       metadata: {

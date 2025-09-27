@@ -4,11 +4,6 @@ interface TravelChoiceProps {
   data?: {
     title: string
     description: string
-    socialLinks: Array<{
-      platform: string
-      url?: string
-      enabled: boolean
-    }>
     image: {
       url: string
       alt: string
@@ -21,12 +16,6 @@ export default function TravelChoice({ data }: TravelChoiceProps) {
   const fallbackData = {
     title: 'Your Travel,\nYour Choice',
     description: 'Share your thoughts on luxury travel and see how fellow discerning travelers vote on the week\'s hottest destinations, experiences, and trends.',
-    socialLinks: [
-      { platform: 'instagram', enabled: true },
-      { platform: 'facebook', enabled: true },
-      { platform: 'tripadvisor', enabled: true },
-      { platform: 'google', enabled: true }
-    ],
     image: {
       url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80',
       alt: 'Luxury travel choice'
@@ -35,15 +24,23 @@ export default function TravelChoice({ data }: TravelChoiceProps) {
 
   const travelData = data || fallbackData
 
+  // Hardcoded social links
+  const socialLinks = [
+    { platform: 'instagram', enabled: true },
+    { platform: 'facebook', enabled: true },
+    { platform: 'tripadvisor', enabled: true },
+    { platform: 'google', enabled: true }
+  ]
+
   // Social media icon mapping
   const getSocialIcon = (platform: string) => {
     switch (platform.toLowerCase()) {
       case 'instagram':
         return <Image src="/Icon-simple-instagram-black.svg" alt="Instagram" width={24} height={24} />
       case 'facebook':
-        return <Image src="/Icon-awesome-facebook-black.svg" alt="Facebook" width={24} height={24} />
+        return <Image src="/Icon-awesome-facebook-black.svg" alt="Facebook" width={14} height={14} />
       case 'tripadvisor':
-        return <Image src="/Icon-awesome-tripadvisor-black.svg" alt="TripAdvisor" width={24} height={24} />
+        return <Image src="/Icon-awesome-tripadvisor-black.svg" alt="TripAdvisor" width={34} height={34} />
       case 'google':
         return <Image src="/Icon-ionic-logo-google-black.svg" alt="Google" width={24} height={24} />        
       default:
@@ -67,9 +64,9 @@ export default function TravelChoice({ data }: TravelChoiceProps) {
                   {travelData.description}
                 </p>
                 <div className="flex gap-4 md:gap-5 lg:gap-6 mt-2 text-lg md:text-xl lg:text-2xl text-[#23263a]">
-                  {travelData?.socialLinks
-                    ?.filter((link: any) => link?.enabled)
-                    .map((link: any, index: number) => (
+                  {socialLinks
+                    .filter((link) => link.enabled)
+                    .map((link, index) => (
                       <span key={index}>
                         {getSocialIcon(link.platform)}
                       </span>
