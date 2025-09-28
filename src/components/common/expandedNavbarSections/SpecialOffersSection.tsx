@@ -54,7 +54,7 @@ const SpecialOffersSection: React.FC = () => (
       </div>
     </div>
     {/* Right: Cards and Button - hidden on mobile for cleaner look */}
-    <div className="hidden lg:flex w-full lg:w-1/2 bg-[#f3f3f5] relative flex-col justify-center items-center px-8 py-10">
+    <div className="hidden lg:flex w-full lg:w-1/2 bg-gray-200 relative flex-col justify-center items-center px-8 py-10">
       <div className="flex flex-col gap-6 w-full flex-1 justify-center">
         {rightCards.map((card) => (
           <div key={card.label} className="relative h-52 overflow-hidden shadow group cursor-pointer flex items-end">

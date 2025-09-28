@@ -28,7 +28,7 @@ const PartnersSection: React.FC = () => (
   <div className="relative w-full h-full min-h-[400px] sm:min-h-[500px] lg:min-h-[700px] bg-white px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 lg:pt-12 pb-4 sm:pb-6 lg:pb-8 overflow-y-auto">
     {/* Hotels & Stays */}
     <div className="mb-8 sm:mb-12 lg:mb-16">
-      <h3 className="text-lg sm:text-xl lg:text-2xl font-arpona font-semibold text-gray-900 mb-4 sm:mb-6 lg:mb-8">Hotels & Stays</h3>
+      <h3 className="text-lg sm:text-xl lg:text-2xl font-arpona font-semibold text-gray-900 mb-4 sm:mb-6 lg:mb-8">Hotels & Properties</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-4 sm:gap-x-6 lg:gap-x-10 gap-y-4">
         {hotelColumns.map((col, i) => (
           <ul key={i} className={`space-y-2 sm:space-y-3 ${i >= 3 ? 'hidden lg:block' : ''}`}>

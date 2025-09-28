@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import ExploreBySection from './expandedNavbarSections/ExploreBySection';
-import ExperiencesSection from './expandedNavbarSections/ExperiencesSection';
+import JourneysSection from './expandedNavbarSections/JourneysSection';
 import AboutUsSection from './expandedNavbarSections/AboutUsSection';
 import PartnersSection from './expandedNavbarSections/PartnersSection';
 import SpecialOffersSection from './expandedNavbarSections/SpecialOffersSection';
@@ -43,7 +43,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
 
   let CenterSection = null;
   if (selected === 'Explore by') CenterSection = <ExploreBySection />;
-  else if (selected === 'Journeys') CenterSection = <ExperiencesSection />;
+  else if (selected === 'Journeys') CenterSection = <JourneysSection />;
   else if (selected === 'About Us') CenterSection = <AboutUsSection />;
   else if (selected === 'Partners') CenterSection = <PartnersSection />;
   else if (selected === 'Special Offers') CenterSection = <SpecialOffersSection />;

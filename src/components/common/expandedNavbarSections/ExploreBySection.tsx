@@ -34,7 +34,7 @@ const ExploreBySection: React.FC = () => (
       ))}
     </div>
     {/* Right: Conversation Section - hidden on mobile for cleaner look */}
-    <div className="hidden lg:flex w-full lg:w-1/2 flex-col items-center justify-center bg-gray-100 relative px-12 py-12">
+    <div className="hidden lg:flex w-full lg:w-1/2 flex-col items-center justify-center bg-gray-200 relative px-12 py-12">
       <img
         src="https://randomuser.me/api/portraits/women/44.jpg"
         alt="Team Member"
