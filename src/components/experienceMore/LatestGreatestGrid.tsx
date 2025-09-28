@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { useState } from "react";
+import OfferModal from "../common/OfferModal";
 const offers = [
   {
     image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
@@ -39,12 +41,29 @@ const offers = [
 ];
 
 export default function LatestGreatestGrid() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedOffer, setSelectedOffer] = useState(null);
+
+  const handleCardClick = (offer) => {
+    setSelectedOffer(offer);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedOffer(null);
+  };
+
   return (
     <section className="w-full bg-white pb-12 md:pb-16 lg:pb-20">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {offers.map((offer, idx) => (
-            <div key={idx} className="bg-white shadow-lg border border-slate-200 overflow-hidden flex flex-col">
+            <div 
+              key={idx} 
+              className="bg-white shadow-lg border border-slate-200 overflow-hidden flex flex-col cursor-pointer hover:shadow-xl transition-shadow"
+              onClick={() => handleCardClick(offer)}
+            >
               <div className="relative h-60 md:h-75 lg:h-110">
                 <img
                   src={offer.image}
@@ -81,6 +100,28 @@ export default function LatestGreatestGrid() {
           </button>
         </div>
       </div>
+      
+      {/* Offer Modal */}
+      <OfferModal 
+        isOpen={isModalOpen} 
+        onClose={handleCloseModal}
+        data={selectedOffer ? {
+          brandLogo: selectedOffer.logo,
+          brandName: selectedOffer.logo.includes('Marriott') ? 'MARRIOTT' : 
+                    selectedOffer.logo.includes('Four_Seasons') ? 'FOUR SEASONS' : 
+                    selectedOffer.logo.includes('Belmond') ? 'BELMOND' : 'BRAND',
+          heroImage: selectedOffer.image,
+          title: selectedOffer.offer,
+          description: "Experience luxury and comfort at this exceptional property. Our carefully curated offers provide you with the best value and unforgettable experiences.",
+          details: selectedOffer.offer,
+          validFrom: "March 2025",
+          validTo: "December 2026",
+          location: selectedOffer.offer.includes('Mauritius') ? 'Mauritius' : 
+                   selectedOffer.offer.includes('Morocco') ? 'Morocco' : 'Various Locations',
+          terms: "Terms & Conditions Apply. Contact the team for more information.",
+          contactLink: "#"
+        } : undefined}
+      />
     </section>
   );
 } 
