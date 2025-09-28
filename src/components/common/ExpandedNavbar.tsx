@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Heart, Mail, Instagram, Facebook, Globe, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import ExploreBySection from './expandedNavbarSections/ExploreBySection';
 import ExperiencesSection from './expandedNavbarSections/ExperiencesSection';
 import AboutUsSection from './expandedNavbarSections/AboutUsSection';
 import PartnersSection from './expandedNavbarSections/PartnersSection';
 import SpecialOffersSection from './expandedNavbarSections/SpecialOffersSection';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 interface ExpandedNavbarProps {
@@ -24,16 +25,16 @@ const navItems = [
 ];
 
 const quickLinks = [
-  { icon: <img src="/luxufe-icon-metro-trophy.svg" alt="Trophy" className="w-4 h-4 mr-2" />, label: 'Become a member', href: '/eleve' },
-  { icon: <img src="/luxufe-icon-ionic-ios-heart.svg" alt="Heart" className="w-4 h-4 mr-2" />, label: 'Offers & Promotions', href: '/offers' },
-  { icon: <img src="/luxufe-icon-ionic-md-mail.svg" alt="Mail" className="w-4 h-4 mr-2" />, label: 'Subscribe for news', href: '/newsletter' },
+  { icon: <Image src="/luxufe-icon-metro-trophy.svg" alt="Trophy" width={16} height={16} className="w-4 h-4 mr-2" />, label: 'Become a member', href: '/eleve' },
+  { icon: <Image src="/luxufe-icon-ionic-ios-heart.svg" alt="Heart" width={16} height={16} className="w-4 h-4 mr-2" />, label: 'Offers & Promotions', href: '/offers' },
+  { icon: <Image src="/luxufe-icon-ionic-md-mail.svg" alt="Mail" width={16} height={16} className="w-4 h-4 mr-2" />, label: 'Subscribe for news', href: '/newsletter' },
 ];
 
 const socials = [
-  { icon: <img src="/Icon simple-instagram.svg" alt="Instagram" className="w-4 h-4" />, href: '#' },
-  { icon: <img src="/Icon awesome-facebook-f.svg" alt="Facebook" className="w-4 h-4" />, href: '#' },
-  { icon: <img src="/Icon awesome-tripadvisor.svg" alt="Tripadvisor" className="w-4 h-4" />, href: '#' },
-  { icon: <img src="/Icon ionic-logo-google.svg" alt="Google" className="w-4 h-4" />, href: '#' }, // Google icon - using Globe as placeholder
+  { icon: <Image src="/Icon simple-instagram.svg" alt="Instagram" width={16} height={16} />, href: '#' },
+  { icon: <Image src="/Icon awesome-facebook-f.svg" alt="Facebook" width={16} height={16} />, href: '#' },
+  { icon: <Image src="/Icon awesome-tripadvisor.svg" alt="Tripadvisor" width={16} height={16} />, href: '#' },
+  { icon: <Image src="/Icon ionic-logo-google.svg" alt="Google" width={16} height={16} />, href: '#' }, // Google icon - using Globe as placeholder
 ];
 
 const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
@@ -66,7 +67,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
             className="p-2 text-gray-500 hover:text-gray-900 transition-colors" 
             aria-label="Close"
           >
-            <img src="/luxufe-icon-close-dark.svg" alt="Close icon" className="w-6 h-6" />
+            <Image src="/luxufe-icon-close-dark.svg" alt="Close icon" width={24} height={24} />
           </button>
         </div>
 
@@ -134,7 +135,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
                   onClick={() => setSelected(item.label)}
                 >
                   {item.label}
-                  {selected === item.label && <img src="/luxufe-icon-simple-arrow-dark.svg" alt="Arrow right" className="ml-2 w-4 h-4 lg:w-4 lg:h-4 flex-shrink-0" />}
+                  {selected === item.label && <Image src="/luxufe-icon-simple-arrow-dark.svg" alt="Arrow right" width={16} height={16} className="ml-2 w-4 h-4 lg:w-4 lg:h-4 flex-shrink-0" />}
                 </li>
               ))}
             </ul>
@@ -171,7 +172,7 @@ const ExpandedNavbar: React.FC<ExpandedNavbarProps> = ({ open, onClose }) => {
           className="hidden lg:block cursor-pointer absolute top-3 right-3 sm:top-4 sm:right-4 lg:top-7 lg:right-9 text-gray-500 hover:text-gray-900 z-10 p-1" 
           aria-label="Close"
         >
-            <img src="/luxufe-icon-close-dark.svg" alt="Close icon" className="w-6 h-6" />
+            <Image src="/luxufe-icon-close-dark.svg" alt="Close icon" width={24} height={24} />
         </button>
       </div>
     </div> 
