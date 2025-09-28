@@ -2,7 +2,7 @@
 
 import { useCallback, useState, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ArrowLeft, ArrowRight, MapPin, Plane, Wallet } from "lucide-react";
+import Image from "next/image";
 
 const itineraries = [
   {
@@ -146,7 +146,7 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
                     {/* Top Section - Location and Nights */}
                     <div className={`flex justify-between items-start ${selectedCard === item.id ? 'relative' : ''}`}>
                       <div className={`flex items-center gap-2 rounded-full px-3 py-1 font-medium font-inter ${selectedCard === item.id ? 'text-xs text-white absolute top-4 left-4' : 'text-sm'}`}>
-                        <MapPin className={selectedCard === item.id ? "h-3 w-3" : "h-4 w-4"} />
+                        <Image src="/icons/map-pin.svg" alt="Map Pin" width={16} height={16} className={selectedCard === item.id ? "h-3 w-3" : "h-4 w-4"} />
                         <span>{item.location}</span>
                       </div>
                       <div className={`rounded-full px-3 py-1 font-medium font-inter ${selectedCard === item.id ? 'text-xs text-white absolute top-4 right-4' : 'text-sm'}`}>
@@ -167,13 +167,13 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
                       )}
                       {/* Flights Included */}
                       <div className={`flex items-center gap-3 font-bold font-inter text-sm justify-center`}>
-                        <Plane className="h-4 w-4" />
+                        <Image src="/icons/plane.svg" alt="Plane" width={16} height={16} className="h-4 w-4" />
                         <span>Flights Included</span>
                       </div>
                       {/* Price */}
                       {item.price && (
                         <div className={`flex items-center gap-3 font-inter ${selectedCard === item.id ? 'text-sm justify-center' : 'font-semibold text-lg justify-center'}`}>
-                          {selectedCard === item.id && <Wallet className="h-4 w-4" />}
+                          {selectedCard === item.id && <Image src="/icons/wallet.svg" alt="Wallet" width={16} height={16} className="h-4 w-4" />}
                           <p className={selectedCard === item.id ? "text-sm font-bold" : "font-bold text-lg"}>
                             {selectedCard === item.id ? 'From ' : ''}USD {item.price.toLocaleString()} per person
                           </p>
@@ -183,7 +183,7 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
                       {selectedCard === item.id && (
                         <button className="border-t-2 border-gray-300 w-full py-4 flex items-center justify-center font-inter font-bold text-sm text-gray-400 gap-2 mt-4 group opacity-100">
                           MORE INFORMATION
-                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                          <Image src="/icons/arrow-right.svg" alt="Arrow Right" width={16} height={16} className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </button>
                       )}
                     </div>
@@ -197,19 +197,19 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
           onClick={scrollPrev}
           className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/80 rounded-full p-5 shadow-md hover:bg-white z-0 transition-colors"
         >
-          <ArrowLeft className="h-6 w-6 text-gray-800" />
+          <Image src="/icons/arrow-left.svg" alt="Arrow Left" width={24} height={24} className="h-6 w-6 text-gray-800" />
         </button>
         <button
           onClick={scrollNext}
           className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 rounded-full p-5 shadow-md hover:bg-white z-0 transition-colors"
         >
-          <ArrowRight className="h-6 w-6 text-gray-800" />
+          <Image src="/icons/arrow-right.svg" alt="Arrow Right" width={24} height={24} className="h-6 w-6 text-gray-800" />
         </button>
       </div>
       <div className="text-center mt-16 flex justify-center">
         <button className="border-2 border-gray-300 text-gray-800 px-6 py-4 hover:bg-gray-800 hover:text-white transition font-inter font-bold text-xs flex items-center justify-center gap-2">
           <span className="font-bold">{displayButtonText}</span>
-          <ArrowRight className="w-4 h-4 ml-2" />
+          <Image src="/icons/arrow-right.svg" alt="Arrow Right" width={16} height={16} className="w-4 h-4 ml-2" />
         </button>
       </div>
     </section>
