@@ -77,12 +77,12 @@ export default function OfferModal({ isOpen, onClose, data }: OfferModalProps) {
       
       {/* Modal */}
       <div 
-        className={`fixed left-0 top-0 h-full w-80 md:w-140 bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-out ${
+        className={`fixed left-0 top-0 h-full w-full sm:w-80 md:w-140 bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Top Section - Image & Branding */}
-        <div className="relative h-2/6 w-full overflow-hidden">
+        <div className="relative h-1/3 sm:h-2/6 w-full overflow-hidden">
           <img 
             src={offerData.heroImage} 
             alt="Four Seasons Resort Marrakech" 
@@ -91,11 +91,11 @@ export default function OfferModal({ isOpen, onClose, data }: OfferModalProps) {
           
           {/* Brand Logo Overlay */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="px-6 py-3 rounded-lg">
+            <div className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg">
               <img 
                 src={offerData.brandLogo} 
                 alt={offerData.brandName}
-                className="h-8 w-auto object-contain"
+                className="h-6 sm:h-8 w-auto object-contain"
               />
             </div>
           </div>
@@ -103,32 +103,32 @@ export default function OfferModal({ isOpen, onClose, data }: OfferModalProps) {
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-50 transition-colors"
+            className="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-50 transition-colors"
           >
-            <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={24} height={24} />
+            <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={20} height={20} className="sm:w-6 sm:h-6" />
           </button>
         </div>
 
         {/* Content Section */}
-        <div className="flex-1 px-6 pt-2 overflow-y-auto">
+        <div className="flex-1 px-4 sm:px-6 pt-2 overflow-y-auto">
           {/* Title */}
-          <h2 className="text-2xl font-bold font-arpona text-gray-900 mb-4 leading-tight">
+          <h2 className="text-xl sm:text-2xl font-bold font-arpona text-gray-900 mb-3 sm:mb-4 leading-tight">
             {offerData.title}
           </h2>
           
           {/* Description */}
-          <p className="text-gray-700 text-xs font-bold font-inter leading-relaxed mb-6">
+          <p className="text-gray-700 text-xs font-bold font-inter leading-relaxed mb-4 sm:mb-6">
             {offerData.description}
           </p>
           
           {/* Divider */}
-          <div className="border-t-2 border-gray-400 mb-6"></div>
+          <div className="border-t-2 border-gray-400 mb-4 sm:mb-6"></div>
           
           {/* Details List */}
-          <div className="space-y-4 mb-4">
+          <div className="space-y-3 sm:space-y-4 mb-4">
             {/* Details */}
-            <div className="flex items-start gap-3">
-                <Image src="/luxufe-icon-call.svg" alt="Info" width={18} height={18} />
+            <div className="flex items-start gap-2 sm:gap-3">
+                <Image src="/luxufe-icon-call.svg" alt="Info" width={16} height={16} className="sm:w-[18px] sm:h-[18px]" />
               <div className='flex flex-row w-full'>
                 <span className="text-xs font-bold font-inter text-gray-600 uppercase tracking-wide">Details</span>
                 <p className="text-xs w-3/4 text-gray-700 font-bold font-inter ml-auto">{offerData.details}</p>
@@ -136,8 +136,8 @@ export default function OfferModal({ isOpen, onClose, data }: OfferModalProps) {
             </div>
             
             {/* Valid Period */}
-            <div className="flex items-start gap-3">
-                <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={18} height={18} />
+            <div className="flex items-start gap-2 sm:gap-3">
+                <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={16} height={16} className="sm:w-[18px] sm:h-[18px]" />
               <div className='flex flex-row w-full'>
                 <span className="text-xs font-bold font-inter text-gray-600 uppercase tracking-wide">Valid</span>
                 <p className="text-xs w-3/4 text-gray-700 font-bold font-inter ml-auto">
@@ -147,8 +147,8 @@ export default function OfferModal({ isOpen, onClose, data }: OfferModalProps) {
             </div>
             
             {/* Location */}
-            <div className="flex items-start gap-3">
-                <Image src="/luxufe-map-icon-large-location-pin-dark.svg" alt="Map Pin" width={18} height={18} />
+            <div className="flex items-start gap-2 sm:gap-3">
+                <Image src="/luxufe-map-icon-large-location-pin-dark.svg" alt="Map Pin" width={16} height={16} className="sm:w-[18px] sm:h-[18px]" />
               <div className='flex flex-row w-full'>
                 <span className="text-xs font-bold font-inter text-gray-600 uppercase tracking-wide">Location</span>
                 <p className="text-xs w-3/4 text-gray-700 font-bold font-inter ml-auto">{offerData.location}</p>
@@ -156,8 +156,8 @@ export default function OfferModal({ isOpen, onClose, data }: OfferModalProps) {
             </div>
             
             {/* Terms */}
-            <div className="flex items-start gap-3 w-full">
-                <Image src="/luxufe-icon-country-train-adventures.svg" alt="File Text" width={18} height={18} />
+            <div className="flex items-start gap-2 sm:gap-3 w-full">
+                <Image src="/luxufe-icon-country-train-adventures.svg" alt="File Text" width={16} height={16} className="sm:w-[18px] sm:h-[18px]" />
               <div className='flex flex-row w-full'>
                 <span className="text-xs font-bold font-inter text-gray-600 uppercase tracking-wide">Terms</span>
                 <p className="text-xs w-3/4 text-gray-700 font-bold font-inter ml-auto">
@@ -176,18 +176,18 @@ export default function OfferModal({ isOpen, onClose, data }: OfferModalProps) {
         </div>
 
         {/* Bottom Section - CTA Buttons */}
-        <div className="px-6">
+        <div className="px-4 sm:px-6">
           {/* Primary CTA */}
-          <div className=' border-t-2 p-6 border-gray-400 space-y-3'>
+          <div className=' border-t-2 p-4 sm:p-6 border-gray-400 space-y-3'>
           <button className="w-full bg-gray-900 font-inter text-white py-3 px-4 font-semibold text-xs uppercase tracking-wide hover:bg-white hover:text-gray-900 border-gray-900 border-1 border-gray-900 transition-colors flex items-center justify-center gap-2">
             Discuss This Offer
-            <Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={24} height={24} />
+            <Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={20} height={20} className="sm:w-6 sm:h-6" />
           </button>
           
           {/* Secondary CTA */}
           <button className="w-full font-inter border-2 border-gray-300 text-gray-700 py-3 px-4 font-semibold text-xs uppercase tracking-wide hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
             More Offers From This Brand
-            <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} />
+            <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="sm:w-6 sm:h-6" />
           </button>
           </div>
         </div>
