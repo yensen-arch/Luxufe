@@ -31,9 +31,9 @@ const quickLinks = [
 ];
 
 const socials = [
-  { icon: <Image src="/Icon simple-instagram.svg" alt="Instagram" width={16} height={16} />, href: '#' },
-  { icon: <Image src="/Icon awesome-facebook-f.svg" alt="Facebook" width={16} height={16} />, href: '#' },
-  { icon: <Image src="/Icon awesome-tripadvisor.svg" alt="Tripadvisor" width={16} height={16} />, href: '#' },
+  { icon: <Image src="/Icon simple-instagram.svg" alt="Instagram" width={20} height={20} />, href: '#' },
+  { icon: <Image src="/Icon awesome-facebook-f.svg" alt="Facebook" width={10} height={10} />, href: '#' },
+  { icon: <Image src="/Icon awesome-tripadvisor.svg" alt="Tripadvisor" width={24} height={24} />, href: '#' },
   { icon: <Image src="/Icon ionic-logo-google.svg" alt="Google" width={16} height={16} />, href: '#' }, // Google icon - using Globe as placeholder
 ];
 

@@ -1,11 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
-
+import Image from 'next/image';
 const experiences = [
   { label: 'Luxury Cruises', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80', href: '/cruises' },
   { label: 'Jet Travel', img: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80', href: '/jets' },
-  { label: 'Luxury Safaris', img: 'https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=600&q=80', href: '/luxury-safaris' },
+  { label: 'Luxury Safaris', img: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=600&q=80', href: '/luxury-safaris' },
   { label: 'Exclusive Voyages', img: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=600&q=80', href: '/voyages' },
   { label: 'Private Travel', img: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=600&q=80', href: '/private-travel' },
   { label: 'Train Journeys', img: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80', href: '/train-journeys' },
@@ -32,7 +31,7 @@ const ExperiencesSection: React.FC = () => (
         {experiences.map((exp) => (
           <Link href={exp.href} key={exp.label} className="flex flex-col items-center cursor-pointer group">
             <div className="w-full max-w-[120px] sm:max-w-[160px] lg:max-w-[200px] h-[80px] sm:h-[100px] lg:h-[130px] overflow-hidden shadow">
-              <img src={exp.img} alt={exp.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              <Image src={exp.img} alt={exp.label} width={120} height={80} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
             </div>
             <span className="mt-2 sm:mt-3 lg:mt-4 text-gray-900 text-xs sm:text-sm lg:text-md font-arpona font-bold text-center px-1">{exp.label}</span>
           </Link>
@@ -44,7 +43,7 @@ const ExperiencesSection: React.FC = () => (
       <div className="flex flex-col gap-8 w-full max-w-[420px] flex-1 justify-center">
         {rightCards.map((card) => (
           <Link href={card.href} key={card.label} className="relative h-52 overflow-hidden shadow group cursor-pointer flex items-center">
-            <img src={card.img} alt={card.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 absolute inset-0" />
+            <Image src={card.img} alt={card.label} width={120} height={80} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 absolute inset-0" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-center justify-center">
               <span className="text-white text-sm font-arpona font-bold flex items-center gap-2 mt-auto mb-4">{card.label} <img src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" className="w-7 h-7" /></span>
             </div>
@@ -52,7 +51,7 @@ const ExperiencesSection: React.FC = () => (
         ))}
       </div>
       <button className="w-full max-w-[420px] border border-gray-400 py-3 font-inter font-bold text-gray-900 hover:bg-gray-200 transition-all mt-10 flex items-center justify-center gap-2 text-xs">
-        ALL LUXUFE JOURNEYS <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="w-5 h-5" />
+        EXPLORE ITINERARIES <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="w-5 h-5" />
       </button>
     </div>
   </div>
