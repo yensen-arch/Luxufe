@@ -1,7 +1,6 @@
 "use client"
 import React, { useCallback, useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-
+import Image from "next/image";
 const defaultAssistItems = [
   {
     title: "Local & International flights",
@@ -130,17 +129,17 @@ export default function AssistWithMore({ data }: AssistWithMoreProps) {
               <div className="flex gap-4 md:gap-6 mt-4">
                 <button
                   onClick={scrollPrev}
-                  className="bg-white rounded-full p-3 md:p-5 shadow-md border border-gray-200 hover:bg-gray-100 transition flex items-center justify-center"
+                  className="bg-white rounded-full p-3 md:p-6 shadow-md border border-gray-200 hover:bg-gray-100 transition flex items-center justify-center"
                   disabled={isAnimating}
                 >
-                  <ArrowLeft className="h-4 w-4 md:h-6 md:w-6 text-gray-800" />
+                  <Image src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" width={24} height={24} className="h-4 w-4 md:h-6 md:w-6 text-gray-800" />
                 </button>
                 <button
                   onClick={scrollNext}
-                  className="bg-white rounded-full p-3 md:p-5 shadow-md border border-gray-200 hover:bg-gray-100 transition flex items-center justify-center"
+                  className="bg-white rounded-full p-3 md:p-6 shadow-md border border-gray-200 hover:bg-gray-100 transition flex items-center justify-center"
                   disabled={isAnimating}
                 >
-                  <ArrowRight className="h-4 w-4 md:h-6 md:w-6 text-gray-800" />
+                  <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="h-4 w-4 md:h-6 md:w-6 text-gray-800" />
                 </button>
               </div>
             </div>
