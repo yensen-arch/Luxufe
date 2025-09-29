@@ -17,7 +17,7 @@ export default function WaysToTravelIntro({ data }: WaysToTravelIntroProps) {
       <div className="flex flex-col items-center mb-16 md:mb-24 px-4 md:px-0">
         <div className="my-4 md:my-12">
           {/* Logo */}
-          <Image src="https://res.cloudinary.com/dqh2tacov/image/upload/v1757920006/LUXUFE_-_Wordmark_Logo_6_dtic34.jpg" alt="Logo" width={180} height={180} />
+          <Image src="/Emblem-Logo.jpg" alt="Logo" width={80} height={80} />
         </div>
         <p className="text-lg md:text-2xl lg:text-3xl font-arpona text-[#23263a] font-bold text-center w-full md:w-1/2">
           {displayDescription}

@@ -1,5 +1,6 @@
-import React from "react";
-import Image from "next/image";
+"use client";
+import React, { useState } from "react";
+import WaysToTravelCard from "./WaysToTravelCard";
 
 interface WaysToTravelGridProps {
   data?: {
@@ -66,47 +67,42 @@ const journeys = [
 ];
 
 export default function WaysToTravelGrid({ data }: WaysToTravelGridProps) {
+  const [selectedCard, setSelectedCard] = useState<number | null>(null); // No card selected by default
+  
   // Use data from CMS if available, otherwise fall back to hardcoded content
   const displaySubtitle = data?.subtitle || "Ways to Travel";
   const displayTitle = data?.title || "Your journey, your way.";
   const displayDescription = data?.description || "Travel is personal. We all have different wants, needs, and desires when we consider where, when, and how you travel. Let Luxufe tailor your next travel experience for you.";
 
+  const handleCardClick = (index: number) => {
+    setSelectedCard(selectedCard === index ? null : index);
+  };
+
   return (
-    <section className="bg-white py-24 flex flex-col items-center">
+    <section className="bg-white py-12 lg:py-24 flex flex-col items-center">
       {/* Heading Section */}
-      <div className="mb-16 text-center">
-        <p className="text-3xl md:text-5xl font-bellarina mb-2">{displaySubtitle}</p>
-        <h2 className="text-5xl md:text-6xl font-arpona font-bold mb-6">{displayTitle}</h2>
-        <p className="text-lg md:text-md font-inter font-bold text-[#23263a] max-w-2/5 mx-auto">
+      <div className="mb-8 lg:mb-16 text-center px-4 lg:px-0">
+        <p className="text-2xl lg:text-3xl xl:text-5xl font-bellarina mb-2">{displaySubtitle}</p>
+        <h2 className="text-3xl lg:text-5xl xl:text-6xl font-arpona font-bold mb-4 lg:mb-6">{displayTitle}</h2>
+        <p className="text-base lg:text-lg font-inter font-bold text-[#23263a] max-w-2xl lg:max-w-2/5 mx-auto">
           {displayDescription}
         </p>
       </div>
       {/* Grid Section */}
-      <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="w-full max-w-8xl px-4 lg:px-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
         {journeys.map((j, idx) => (
-          <div
+          <WaysToTravelCard
             key={idx}
-            className={`flex flex-col bg-white shadow-lg overflow-hidden transition-all duration-300 ${j.highlight ? "border-t-8 border-[#17696A]" : ""}`}
-          >
-            {/* Image + Overlay */}
-            <div className="relative h-80 w-full">
-              <img src={j.image} alt={j.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0  h-full flex flex-col items-center justify-center bg-black/20">
-                <div className="flex flex-col items-center mt-auto justify-center">
-                  <Image src={j.logo} alt={j.title} width={150} height={150} />
-                  <span className="text-white text-[0.7rem] font-bold font-inter tracking-widest my-2 drop-shadow-lg">{j.logoSub}</span>
-                </div>
-              </div>
-            </div>
-            {/* Lower Section */}
-            <div className={`flex flex-col flex-1 p-8 ${j.highlight ? "bg-[#17696A] text-white" : "bg-white text-[#23263a]"}`}>
-              <h3 className="text-3xl font-arpona font-normal mb-4">{j.title}</h3>
-              <p className="text-md font-inter font-bold mb-8">{j.description}</p>
-              <button className={`flex items-center gap-2 text-md font-inter font-bold tracking-widest ${j.highlight ? "text-white" : "text-[#17696A]"}`}>
-                {j.button} <span className="ml-2">&rarr;</span>
-              </button>
-            </div>
-          </div>
+            image={j.image}
+            logo={j.logo}
+            logoSub={j.logoSub}
+            title={j.title}
+            description={j.description}
+            button={j.button}
+            highlight={j.highlight}
+            isSelected={selectedCard === idx}
+            onClick={() => handleCardClick(idx)}
+          />
         ))}
       </div>
     </section>

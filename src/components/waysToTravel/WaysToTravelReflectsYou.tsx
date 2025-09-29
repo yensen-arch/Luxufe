@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface WaysToTravelReflectsYouProps {
   data?: {
@@ -23,7 +24,7 @@ export default function WaysToTravelReflectsYou({ data }: WaysToTravelReflectsYo
   const displayDescription1 = data?.description1 || "From meditative wellness retreats to adrenaline-filled adventures, these journeys are guided by what excites and restores you.";
   const displayDescription2 = data?.description2 || "Each itinerary is crafted to reflect your priorities, not just your destination. Whether you're chasing the perfect wave, sourcing rare wines, or reconnecting with ancient history, the experience becomes the journey.";
   const displayButtonText = data?.buttonText || "VIEW JOURNEYS";
-  const displayImageUrl = data?.image?.asset?.url || "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80";
+  const displayImageUrl = data?.image?.asset?.url || "/placeholder.svg";
   const displayImageAlt = data?.image?.alt || "Cheers";
 
   return (
@@ -36,10 +37,12 @@ export default function WaysToTravelReflectsYou({ data }: WaysToTravelReflectsYo
               {displayTitle}
             </h2>
           </div>
-          <img
-            src={displayImageUrl}
+          <Image
+            src={displayImageUrl || "/placeholder.svg"}
             alt={displayImageAlt}
             className="w-[550px] h-[550px] object-cover rounded-none shadow-lg"
+            width={550}
+            height={550}
           />
         </div>
         {/* Right: Content */}
