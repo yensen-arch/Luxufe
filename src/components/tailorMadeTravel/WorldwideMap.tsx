@@ -34,7 +34,7 @@ export default function WorldwideMap() {
             mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
             style={{ width: "100%", height: "100%" }}
           >
-            <NavigationControl position="bottom-left" showCompass={false} />
+            <NavigationControl position="bottom-left" showCompass={false}/>
             {/* Search box overlay */}
             <div className="absolute top-4 md:top-6 lg:top-8 left-4 md:left-6 lg:left-8 z-10 bg-white shadow-lg px-3 md:px-4 py-2 md:py-3 flex items-center gap-2 md:gap-3">
               <Image src="/luxufe-icon-search-dark.svg" alt="Search" width={16} height={16} className="w-3 h-3 md:w-4 md:h-4" />
