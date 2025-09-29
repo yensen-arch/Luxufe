@@ -28,35 +28,35 @@ export default function WaysToTravelReflectsYou({ data }: WaysToTravelReflectsYo
   const displayImageAlt = data?.image?.alt || "Cheers";
 
   return (
-    <section className="bg-white flex justify-center items-center py-20">
-      <div className="flex flex-col md:flex-row w-full max-w-7xl mx-auto items-center">
+    <section className="bg-white flex justify-center items-center py-12 lg:py-20">
+      <div className="flex flex-col lg:flex-row w-full max-w-7xl mx-auto items-center px-4 lg:px-0">
         {/* Left: Image */}
-        <div className="w-full md:w-1/2 flex flex-col justify-center mb-12 md:mb-0 items-center">
-          <div className="flex flex-col items-start">
-            <h2 className="text-5xl md:text-5xl font-arpona text-[#23263a] font-bold mb-8">
+        <div className="w-full lg:w-1/2 flex flex-col justify-center mb-8 lg:mb-0 items-center">
+          <div className="flex flex-col items-start mb-6 lg:mb-8">
+            <h2 className="text-3xl lg:text-5xl font-arpona text-[#23263a] font-bold">
               {displayTitle}
             </h2>
           </div>
           <Image
             src={displayImageUrl || "/placeholder.svg"}
             alt={displayImageAlt}
-            className="w-[550px] h-[550px] object-cover rounded-none shadow-lg"
+            className="w-full max-w-[650px] lg:w-[550px] h-[400px] lg:h-[550px] object-cover rounded-none shadow-lg"
             width={550}
             height={550}
           />
         </div>
         {/* Right: Content */}
-        <div className="w-full md:w-1/2 flex flex-col justify-center items-start">
-          <h3 className="text-2xl md:text-3xl w-2/3 font-arpona text-[#23263a] font-bold mb-8">
+        <div className="w-full lg:w-1/2 flex flex-col justify-center items-start">
+          <h3 className="text-xl lg:text-2xl xl:text-3xl w-full lg:w-2/3 font-arpona text-[#23263a] font-bold mb-6 lg:mb-8">
             {displaySubtitle}
           </h3>
-          <p className="text-md font-inter text-[#23263a] font-bold mb-6 w-2/3">
+          <p className="text-sm lg:text-md font-inter text-[#23263a] font-bold mb-4 lg:mb-6 w-full lg:w-2/3">
             {displayDescription1}
           </p>
-          <p className="text-md font-inter text-[#23263a] font-bold mb-10 w-2/3">
+          <p className="text-sm lg:text-md font-inter text-[#23263a] font-bold mb-8 lg:mb-10 w-full lg:w-2/3">
             {displayDescription2}
           </p>
-          <button className="flex items-start border border-gray-400 text-[#23263a] px-6 py-4 font-inter font-bold text-xs flex gap-3 hover:bg-[#23263a] hover:text-white transition w-max">
+          <button className="flex items-start border border-gray-400 text-[#23263a] px-4 lg:px-6 py-3 lg:py-4 font-inter font-bold text-xs flex gap-3 hover:bg-[#23263a] hover:text-white transition w-max">
             {displayButtonText} <span className="ml-2">&rarr;</span>
           </button>
         </div>

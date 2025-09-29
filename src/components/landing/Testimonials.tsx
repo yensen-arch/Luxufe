@@ -92,7 +92,7 @@ export default function Testimonials({ data }: TestimonialsProps) {
 
   return (
     <section className="py-12 sm:py-16 lg:py-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <div className="container  mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start mb-12 sm:mb-16 lg:mb-20 max-w-7xl mx-auto">
           <div className="lg:w-1/2 mb-6 sm:mb-8 lg:mb-0">
