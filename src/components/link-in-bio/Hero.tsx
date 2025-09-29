@@ -21,7 +21,7 @@ export default function Hero({ data }: HeroProps) {
   const displayTitle = data?.title || "Where would you like to go?";
 
   return (
-    <section className="relative w-full h-[50vh] md:h-[80vh] flex flex-col justify-center items-center mb-20 md:mb-250">
+    <section className="relative w-full h-[50vh] md:h-[80vh] flex flex-col justify-center items-center mb-130 md:mb-250">
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-auto">
         <img
@@ -31,7 +31,7 @@ export default function Hero({ data }: HeroProps) {
         />
       </div>
       {/* Centered Text */}
-      <div className="relative z-10 flex top-5/6 flex-col items-center justify-center flex-1 pt-8 md:pt-20 px-4 md:px-0">
+      <div className="relative z-10 flex top-4/6 flex-col items-center justify-center flex-1 pt-8 md:pt-20 px-4 md:px-0">
         <span className="font-bellarina text-2xl md:text-5xl text-white mb-3 md:mb-4 text-center">{displaySubtitle}</span>
         <h1 className="text-white text-2xl md:text-5xl lg:text-6xl font-bold font-arpona text-center mb-4 md:mb-8 leading-tight">{displayTitle}</h1>
         {/* Connected Section: QuickLinks */}

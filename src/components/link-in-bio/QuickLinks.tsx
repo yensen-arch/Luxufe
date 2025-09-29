@@ -24,7 +24,7 @@ const buttons = [
 
 export default function QuickLinks() {
   return (
-    <div className="relative w-5xl mx-auto bg-white shadow-2xl p-4 md:p-15 flex flex-col items-center z-20">
+    <div className="relative w-full md:w-5xl mx-auto bg-white shadow-2xl p-4 md:p-15 flex flex-col items-center z-20">
       {/* Cards */}
       <div className="w-full flex flex-col gap-3 md:gap-6 mb-4 md:mb-8">
         {cards.map((card, idx) => (
@@ -62,4 +62,4 @@ export default function QuickLinks() {
       </div>
     </div>
   );
-} 
+}
