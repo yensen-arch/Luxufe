@@ -3,9 +3,8 @@
 import { useCallback, useState, useEffect } from "react"
 import useEmblaCarousel from "embla-carousel-react"
 import ItineraryCard from "./ItineraryCard" // Cruise itinerary card
-import { ArrowLeft, ArrowRight, Star } from "lucide-react"
 import { getFeaturedCruiseItineraries } from "@/lib/database"
-
+import Image from "next/image"
 interface CruiseItinerary {
   id: number;
   name: string;
@@ -75,28 +74,10 @@ export default function CuratedForYou() {
         <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[150px] md:w-[300px] h-auto" />
       </div>
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl md:text-6xl font-arpona">The world,</h2>
-        <h3 className="text-4xl md:text-6xl mb-4 md:mb-6 font-arpona font-medium">
-          curated for <span className="font-bellarina font-medium text-6xl md:text-8xl">you</span>
-        </h3>
-        <p className="max-w-xl text-black mx-auto my-8 md:my-12 font-inter font-bold text-sm md:text-base">
-          From iconic landmarks to hidden retreats, Luxufe takes you beyond the expected. Discover travel experiences
-          designed around your desires, where every journey is effortless and immersive.
+        <h2 className="text-4xl md:text-6xl font-arpona font-bold">Luxufe Selected Favorites</h2>
+        <p className="md:max-w-1/4 text-black mx-auto my-8 md:my-12 font-inter font-bold text-sm md:text-base">
+          Discover crafted cruise itineraries that blend elegance, adventure, and ease.
         </p>
-        <div className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-0 mb-12 md:mb-16 text-gray-500 font-inter font-bold">
-          <div className="flex items-center gap-2 border-b-2 md:border-r-2 md:border-b-0 px-6 md:px-12 py-2 border-amber-400/50">
-            <Star className="h-3 w-3 md:h-4 md:w-4" />
-            <span className="text-sm md:text-base">Personalised Itineraries</span>
-          </div>
-          <div className="flex items-center gap-2 border-b-2 md:border-r-2 md:border-b-0 px-6 md:px-12 py-2 border-amber-400/50">
-            <Star className="h-3 w-3 md:h-4 md:w-4" />
-            <span className="text-sm md:text-base">Insider secrets guaranteed</span>
-          </div>
-          <div className="flex items-center gap-2 px-6 md:px-12 py-2">
-            <Star className="h-3 w-3 md:h-4 md:w-4" />
-            <span className="text-sm md:text-base">World-class Service</span>
-          </div>
-        </div>
       </div>
 
       <div className="relative py-6 md:py-10">
@@ -142,24 +123,24 @@ export default function CuratedForYou() {
         )}
         <button
           onClick={scrollPrev}
-          className="absolute top-1/2 left-2 md:left-4 -translate-y-1/2 bg-white/80 rounded-full p-3 md:p-5 shadow-md hover:bg-white z-0 transition-colors"
+          className="absolute top-1/2 left-2 md:left-25 -translate-y-1/2 bg-white rounded-full p-3 md:p-7 shadow-md hover:bg-white z-0 transition-colors"
         >
-          <ArrowLeft className="h-4 w-4 md:h-6 md:w-6 text-gray-800" />
+          <Image src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" width={24} height={24} className="h-4 w-4 md:h-7 md:w-7 text-gray-800" />
         </button>
         <button
           onClick={scrollNext}
-          className="absolute top-1/2 right-2 md:right-4 -translate-y-1/2 bg-white/80 rounded-full p-3 md:p-5 shadow-md hover:bg-white z-0 transition-colors"
+          className="absolute top-1/2 right-2 md:right-25 -translate-y-1/2 bg-white rounded-full p-3 md:p-7 shadow-md hover:bg-white z-0 transition-colors"
         >
-          <ArrowRight className="h-4 w-4 md:h-6 md:w-6 text-gray-800" />
+          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="h-4 w-4 md:h-7 md:w-7 text-gray-800" />
         </button>
       </div>
 
       <div className="text-center mt-12 md:mt-16 flex flex-col md:flex-row justify-center gap-4 px-4 md:px-0">
         <button className="border border-gray-800 text-gray-800 px-4 md:px-6 py-2 md:py-3 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-xs">
-          JOURNEYS & TOURS <ArrowRight className="h-3 w-3 md:h-4 md:w-4" />
+          JOURNEYS & TOURS <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="h-3 w-3 md:h-4 md:w-4" />
         </button>
         <button className="border border-gray-800 text-gray-800 px-4 md:px-6 py-2 md:py-3 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-xs">
-          MORE WAYS TO TRAVEL <ArrowRight className="h-3 w-3 md:h-4 md:w-4" />
+          MORE WAYS TO TRAVEL <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="h-3 w-3 md:h-4 md:w-4" />
         </button>
       </div>
     </section>
