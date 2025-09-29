@@ -14,7 +14,7 @@ export default function OffersFilterSidebar() {
   return (
     <aside className="w-full max-w-sm bg-gray-100 border-r-2 border-gray-300 flex flex-col gap-8">
       {/* Travel Dates */}
-      <div className="border-b-2 border-gray-300 px-4 py-6">
+      <div className="border-b-2 border-gray-300 px-8 py-6">
         <h3 className="text-xs font-inter font-bold text-gray-700 mb-2 tracking-widest">TRAVEL DATES</h3>
         <div className="flex gap-3 mb-2">
           <button className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-5 py-2 text-xs font-inter font-bold text-gray-400">
@@ -27,7 +27,7 @@ export default function OffersFilterSidebar() {
         </div>
       </div>
       {/* Brand Partner */}
-      <div className="border-b-2 border-gray-300 px-4 py-6">
+      <div className="border-b-2 border-gray-300 px-8 py-6">
         <h3 className="text-xs font-inter font-bold text-gray-700 mb-2 tracking-widest">BRAND PARTNER</h3>
         <div className="flex flex-wrap gap-2 mb-2">
           {brandPartners.map((brand, i) => (
@@ -40,7 +40,7 @@ export default function OffersFilterSidebar() {
         <button className="text-xs font-inter font-bold text-gray-700 mt-4">LOAD MORE +</button>
       </div>
       {/* Destination */}
-      <div className="border-b-2 border-gray-300 px-4 py-6">
+      <div className="border-b-2 border-gray-300 px-8 py-6">
         <h3 className="text-xs font-inter font-bold text-gray-700 mb-2 tracking-widest">DESTINATION</h3>
         <div className="flex flex-wrap gap-2">
           {destinations.map((dest, i) => (
@@ -52,7 +52,7 @@ export default function OffersFilterSidebar() {
         </div>
       </div>
       {/* Experience */}
-      <div className="border-b-2 border-gray-300 px-4 py-6">
+      <div className="border-b-2 border-gray-300 px-8 py-6">
         <h3 className="text-xs font-inter font-bold text-gray-700 mb-2 tracking-widest">EXPERIENCE</h3>
         <div className="flex flex-wrap gap-2">
           {experiences.map((exp, i) => (

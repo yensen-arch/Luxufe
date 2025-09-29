@@ -76,7 +76,7 @@ export default function OffersGrid() {
         ))}
       </div>
       {/* Pagination - Testimonials Style */}
-      <div className="flex justify-center items-center gap-2 my-8 text-xs font-inter w-60 mx-auto">
+      <div className="flex justify-center items-center gap-2 my-18 text-xs font-inter w-60 mx-auto">
         {/* Previous Button */}
         <button 
           onClick={handlePrevious}
