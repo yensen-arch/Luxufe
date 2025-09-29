@@ -109,10 +109,10 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
               <div className="flex-[0_0_auto] min-w-0 " key={item.id}>
                 <div
                   className={`
-                    relative flex-shrink-0 group overflow-hidden mx-2 cursor-pointer transition-all duration-500 ease-out
+                    relative flex-shrink-0 group overflow-hidden mx-4 cursor-pointer transition-all duration-500 ease-out
                     ${selectedCard === item.id
-                      ? 'h-[550px] sm:w-86 bg-white shadow-xl transform'
-                      : 'w-full sm:w-86 h-[550px] hover:shadow-2xl'
+                      ? 'h-[600px] sm:w-87 bg-white shadow-xl transform'
+                      : 'sm:w-87 h-[600px] hover:shadow-2xl'
                     }
                   `}
                   onClick={() => handleCardClick(item.id)}
@@ -193,15 +193,15 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
         </div>
         <button
           onClick={scrollPrev}
-          className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/80 rounded-full p-5 shadow-md hover:bg-white z-0 transition-colors"
+          className="absolute top-1/2 left-35 -translate-y-1/2 bg-white rounded-full p-7 shadow-md hover:bg-white z-0 transition-colors"
         >
-          <Image src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow Left" width={24} height={24} className="h-6 w-6 text-gray-800" />
+          <Image src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow Left" width={34} height={34} className="h-9 w-9 text-gray-800" />
         </button>
         <button
           onClick={scrollNext}
-          className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 rounded-full p-5 shadow-md hover:bg-white z-0 transition-colors"
+          className="absolute top-1/2 right-35 -translate-y-1/2 bg-white rounded-full p-7 shadow-md hover:bg-white z-0 transition-colors"
         >
-          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow Right" width={24} height={24} className="h-6 w-6 text-gray-800" />
+          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow Right" width={34} height={34} className="h-9 w-9 text-gray-800" />
         </button>
       </div>
       <div className="text-center mt-16 flex justify-center">
