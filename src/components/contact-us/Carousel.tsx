@@ -15,7 +15,7 @@ export default function Carousel({ data }: CarouselProps) {
   const displayImageAlt = data?.image?.alt || "Cocktail";
 
   return (
-    <section className="relative w-full h-[80vh] flex items-center justify-center bg-transparent my-70">
+    <section className="relative w-full h-[100vh] flex items-center justify-center bg-transparent my-70">
       {/* Background Sheet */}
       <div
         className="absolute left-1/2 top-1/2 w-full h-full bg-gray-100 -translate-x-1/2 z-0"

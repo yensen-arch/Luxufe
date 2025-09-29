@@ -1,6 +1,5 @@
 import React from "react";
-import { Phone, Mail, CalendarDays } from 'lucide-react';
-
+import Image from "next/image";
 interface ContactInfoSectionProps {
   data?: {
     callUs: {
@@ -37,8 +36,8 @@ function ContactInfoSection({ data }: ContactInfoSectionProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 md:gap-0">
           {/* Call Us */}
           <div className="flex flex-col items-center text-center">
-            <span className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full bg-white shadow-md mb-4 md:mb-6">
-              <Phone className="w-6 h-6 md:w-8 md:h-8 text-[#23263a]" />
+            <span className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 border border-gray-400 rounded-full bg-white shadow-md mb-4 md:mb-6">
+              <Image src="/luxufe-icon-call.svg" alt="Call" width={24} height={24} className="w-6 h-6 md:w-8 md:h-8 text-[#23263a]" />
             </span>
             <h3 className="text-lg md:text-xl font-arpona font-medium mb-3 md:mb-4">{callUsTitle}</h3>
             <div className="text-xs font-inter font-bold text-[#23263a] mb-2">
@@ -47,8 +46,8 @@ function ContactInfoSection({ data }: ContactInfoSectionProps) {
           </div>
           {/* Email Us */}
           <div className="flex flex-col items-center text-center">
-            <span className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full bg-white shadow-md mb-4 md:mb-6">
-              <Mail className="w-6 h-6 md:w-8 md:h-8 text-[#23263a]" />
+            <span className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 border border-gray-400 rounded-full bg-white shadow-md mb-4 md:mb-6">
+              <Image src="/luxufe-icons-email-dark.svg" alt="Email" width={24} height={24} className="w-6 h-6 md:w-8 md:h-8 text-[#23263a]" />
             </span>
             <h3 className="text-lg md:text-xl font-arpona font-medium mb-3 md:mb-4">{emailUsTitle}</h3>
             <div className="text-xs font-inter font-bold text-[#23263a] mb-2">
@@ -58,8 +57,8 @@ function ContactInfoSection({ data }: ContactInfoSectionProps) {
           </div>
           {/* Book a call */}
           <div className="flex flex-col items-center text-center">
-            <span className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full bg-white shadow-md mb-4 md:mb-6">
-              <CalendarDays className="w-6 h-6 md:w-8 md:h-8 text-[#23263a]" />
+            <span className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 border border-gray-400 rounded-full bg-white shadow-md mb-4 md:mb-6">
+              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={24} height={24} className="w-6 h-6 md:w-8 md:h-8 text-[#23263a]" />
             </span>
             <h3 className="text-lg md:text-xl font-arpona font-medium mb-3 md:mb-4">{bookACallTitle}</h3>
             <div className="text-xs font-inter font-bold text-[#23263a] mb-2">
@@ -128,9 +127,9 @@ export default function ContactHero({ data }: ContactHeroProps) {
             {displayTitle}
           </h1>
           <button
-            className="border-1 border-gray-400 text-white px-6 md:px-8 py-3 md:py-4 bg-transparent hover:bg-white hover:text-gray-900 transition font-inter font-bold text-xs flex items-center justify-center gap-2 tracking-widest mt-2 md:mt-4"
+            className="border-1 border-gray-400 text-white px-6 md:px-8 py-3 md:py-5 bg-transparent hover:bg-white hover:text-gray-900 transition font-inter font-bold text-xs flex items-center justify-center gap-2 tracking-widest mt-2 md:mt-4"
           >
-            {displayButtonText} <span className="ml-2">→</span>
+            {displayButtonText} <Image src="/luxufe-icon-button-arrow-light.svg" alt="arrow right" width={20} height={20} className="w-3 h-3 md:w-7 md:h-6 lg:w-8 lg:h-6" />
           </button>
         </div>
       </section>
