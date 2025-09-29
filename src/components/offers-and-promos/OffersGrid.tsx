@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
 const offers = [
@@ -30,19 +30,18 @@ const totalPages = Math.ceil(totalResults / resultsPerPage);
 
 export default function OffersGrid() {
   return (
-    <section className="flex-1 bg-[#f7f7fa] min-h-screen">
+    <section className="flex-1 bg-gray-100 min-h-screen">
       {/* Search */}
       <div className="border-b-2 border-gray-300 px-30  py-6">
-        <h3 className="text-xs font-inter font-bold text-gray-500  tracking-widest">SEARCH</h3>
+        <h3 className="text-xs font-inter font-bold text-gray-700  tracking-widest">SEARCH</h3>
         <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-2">
-          <Search className="w-4 h-4 text-gray-400 mr-2" />
           <input
             type="text"
             placeholder="What are you looking for?"
-            className="flex-1 bg-transparent outline-none text-xs font-inter font-bold text-gray-500"
+            className="flex-1 bg-transparent outline-none text-xs font-inter font-bold text-gray-400"
           />
-          <button className="ml-2 bg-[#23263a] text-white rounded-full p-2 flex items-center justify-center">
-            <Search className="w-4 h-4" />
+          <button className="ml-2 bg-gray-700 text-white rounded-full p-2 flex items-center justify-center">
+          <Image src="/luxufe-icon-ai-send-arrow-light.svg" alt="Search" width={16} height={16} className="w-4 h-4 text-gray-400" />
           </button>
         </div>
       </div>
@@ -50,7 +49,7 @@ export default function OffersGrid() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16 px-30">
         {offers.map((offer, idx) => (
           <div key={idx} className="bg-white shadow-lg overflow-hidden flex flex-col">
-            <div className="relative h-64 w-full">
+            <div className="relative h-78 w-full">
               <img src={offer.image} alt="Offer" className="w-full h-full object-cover" />
               <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center justify-center w-full z-10">
                 <img src={offer.logo} alt="Brand Logo" className="h-10 bg-white/80 px-4 py-2 rounded max-w-[140px] object-contain shadow" />
@@ -58,11 +57,11 @@ export default function OffersGrid() {
             </div>
             <div className="flex flex-col flex-1 items-center justify-between px-4 py-2">
               <div className="text-center mb-4">
-                <p className="text-lg font-inter font-bold w-3/5 mx-auto text-[#23263a] my-4">{offer.description}</p>
+                <p className="text-xl font-inter font-bold w-6/7 mx-auto text-[#23263a] my-4">{offer.description}</p>
                 <p className="text-xs text-gray-500 font-inter font-bold mb-4">{offer.date}</p>
               </div>
               <button className="w-full bg-[#23263a] text-white font-inter font-bold text-xs py-4 rounded-none flex items-center justify-center gap-2 hover:bg-black transition mb-2">
-                MORE INFO <span className="ml-2">&rarr;</span>
+                MORE INFO <Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow" width={24} height={24} className="ml-2" />
               </button>
             </div>
           </div>
