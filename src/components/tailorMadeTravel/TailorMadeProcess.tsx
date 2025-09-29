@@ -69,19 +69,16 @@ export default function TailorMadeProcess({ data }: TailorMadeProcessProps) {
   // Use CMS steps if available, otherwise use default steps
   const steps = data?.steps?.map(step => ({
     title: step.title,
-    description: step.description,
-    imageUrl: step.image?.asset?.url,
+    description: step.description || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    imageUrl: step.image?.asset?.url || "/placeholder.svg",
   })) || defaultSteps;
 
-  const handleNext = () => {
-    setCurrentStep((prev) => (prev < steps.length - 1 ? prev + 1 : 0));
-  };
 
   return (
     <section className="w-full bg-[#23263a] py-24 px-4">
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-5xl md:text-6xl font-arpona text-white mb-4">{displayTitle}</h2>
-        <p className="text-md text-white/80 font-inter font-bold my-10 max-w-2xl mx-auto">
+        <p className="text-md text-white/80 font-inter font-bold my-10 max-w-2/7 mx-auto">
           {displayDescription}
         </p>
         <div className="flex flex-col md:flex-row justify-center items-start gap-10 md:gap-0 mb-16 relative">
@@ -95,9 +92,9 @@ export default function TailorMadeProcess({ data }: TailorMadeProcessProps) {
                 />
                 {/* Dotted line except for last step */}
                 {idx < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-1/2 right-0 w-[calc(100%+40px)] h-0.5">
-                    <svg width="120%" height="8" className="absolute left-full top-1/2 -translate-y-1/2" style={{ minWidth: 40 }}>
-                      <line x1="0" y1="4" x2="40" y2="4" stroke="#fff" strokeDasharray="4,6" strokeWidth="2" />
+                  <div className="hidden md:block absolute top-1/2 right-0 w-[calc(100%+80px)] h-0.5">
+                    <svg width="150%" height="8" className="absolute left-full top-1/2 -translate-y-1/2" style={{ minWidth: 80 }}>
+                      <line x1="0" y1="4" x2="70" y2="4" stroke="#F9FAFB" strokeDasharray="4,6" strokeWidth="2" />
                     </svg>
                   </div>
                 )}
