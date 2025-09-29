@@ -9,6 +9,7 @@ import ExploreMore from "@/components/eleve/ExploreMore";
 import CruiseWithConfidence from "@/components/cruises/CruiseWithConfidence";
 import TrustedCruisePartners from "@/components/cruises/TrustedCruisePartners";
 import SetSailWithLuxufe from "@/components/cruises/SetSailWithLuxufe";
+import HighestCruiseBrandSearch from "@/components/cruises/HighestCruiseBrandSearch";
 
 const Page = () => {
   return (
@@ -24,6 +25,9 @@ const Page = () => {
       <CruiseWithConfidence />
       <div id="trusted-cruise-partners">
         <TrustedCruisePartners />
+      </div>
+      <div id="cruise-brand-search">
+        <HighestCruiseBrandSearch />
       </div>
       <div id="set-sail-with-luxufe">
         <SetSailWithLuxufe />
