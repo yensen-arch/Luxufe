@@ -97,8 +97,8 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
   return (
     <section className="py-20 bg-white text-gray-800 relative overflow-hidden">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-5xl font-arpona font-bold mb-6">{displayHeading}</h2>
-        <p className="max-w-xl text-black mx-auto mb-8 font-inter font-bold">
+        <h2 className="text-3xl md:text-5xl font-arpona font-bold mb-4 md:mb-6">{displayHeading}</h2>
+        <p className="max-w-xl text-black mx-auto mb-6 md:mb-8 font-inter font-bold text-sm md:text-base">
           {displaySubheading}
         </p>
       </div>
@@ -109,10 +109,10 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
               <div className="flex-[0_0_auto] min-w-0 " key={item.id}>
                 <div
                   className={`
-                    relative flex-shrink-0 group overflow-hidden mx-4 cursor-pointer transition-all duration-500 ease-out
+                    relative flex-shrink-0 group overflow-hidden mx-2 md:mx-4 cursor-pointer transition-all duration-500 ease-out
                     ${selectedCard === item.id
-                      ? 'h-[600px] sm:w-87 bg-white shadow-xl transform'
-                      : 'sm:w-87 h-[600px] hover:shadow-2xl'
+                      ? 'h-[500px] md:h-[600px] w-80 md:sm:w-87 bg-white shadow-xl transform'
+                      : 'w-80 md:sm:w-87 h-[500px] md:h-[600px] hover:shadow-2xl'
                     }
                   `}
                   onClick={() => handleCardClick(item.id)}
@@ -133,12 +133,12 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
                     className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-gray-800 transition-opacity duration-500"
                   />
                   {/* Location and Nights - positioned on image */}
-                  <div className="absolute top-4 left-4 right-4 flex justify-between items-start z-20">
-                    <div className={`flex items-center gap-2 rounded-full px-3 py-1 font-medium font-inter text-white text-xs`}>
-                        <Image src="/luxufe-icon-location-pin-white.svg" alt="Map Pin" width={16} height={16} className="h-4 w-4" />
-                      <span>{item.location}</span>
+                  <div className="absolute top-2 md:top-4 left-2 md:left-4 right-2 md:right-4 flex justify-between items-start z-20">
+                    <div className={`flex items-center gap-1 md:gap-2 rounded-full px-2 md:px-3 py-1 font-medium font-inter text-white text-xs`}>
+                        <Image src="/luxufe-icon-location-pin-white.svg" alt="Map Pin" width={16} height={16} className="h-3 w-3 md:h-4 md:w-4" />
+                      <span className="text-xs md:text-xs">{item.location}</span>
                     </div>
-                    <div className={`rounded-full px-3 py-1 font-medium font-inter text-white text-xs`}>
+                    <div className={`rounded-full px-2 md:px-3 py-1 font-medium font-inter text-white text-xs`}>
                       {item.nights} Nights
                     </div>
                   </div>
@@ -146,42 +146,42 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
                   <div className={`
                     relative flex flex-col h-full text-center transition-all duration-500
                     ${selectedCard === item.id
-                      ? 'p-6 text-gray-800 bg-white'
-                      : 'p-6 text-white'
+                      ? 'p-4 md:p-6 text-gray-800 bg-white'
+                      : 'p-4 md:p-6 text-white'
                     }
                   `}>
                     {/* Main Content */}
                     <div className={`space-y-3 ${selectedCard === item.id ? 'mt-3' : 'mt-auto'}`}>
                       {/* Title */}
-                      <h3 className={`font-medium leading-tight font-arpona ${selectedCard === item.id ? 'text-xl mb-3 text-gray-900' : 'text-2xl'}`}>
+                      <h3 className={`font-medium leading-tight font-arpona ${selectedCard === item.id ? 'text-lg md:text-xl mb-3 text-gray-900' : 'text-xl md:text-2xl'}`}>
                         {item.name}
                       </h3>
                       {/* Description - only for expanded state */}
                       {selectedCard === item.id && (
-                        <p className="text-sm text-gray-600 mb-6 text-bold leading-relaxed line-clamp-4 font-inter transition-opacity duration-500 opacity-100">
+                        <p className="text-xs md:text-sm text-gray-600 mb-4 md:mb-6 text-bold leading-relaxed line-clamp-4 font-inter transition-opacity duration-500 opacity-100">
                           {item.description}
                         </p>
                       )}
                       {/* Flights Included */}
-                      <div className={`flex items-center gap-3 font-bold font-inter text-sm justify-center`}>
-                        <Image src={selectedCard === item.id ? "/luxufe-icon-flights-dark.svg" : "/luxufe-icon-dummy-plane.svg"} alt="Plane" width={16} height={16} className="h-4 w-4" />
+                      <div className={`flex items-center gap-2 md:gap-3 font-bold font-inter text-xs md:text-sm justify-center`}>
+                        <Image src={selectedCard === item.id ? "/luxufe-icon-flights-dark.svg" : "/luxufe-icon-dummy-plane.svg"} alt="Plane" width={16} height={16} className="h-3 w-3 md:h-4 md:w-4" />
                         <span>Flights Included</span>
                       </div>
                       {/* Price */}
                       {item.price && (
-                        <div className={`flex items-center gap-3 font-inter ${selectedCard === item.id ? 'text-sm justify-center' : 'font-semibold text-lg justify-center'}`}>
-                          {selectedCard === item.id && <Image src="/luxufe-icon-cost-dark.svg" alt="Wallet" width={16} height={16} className="h-4 w-4" />}
-                          {selectedCard !== item.id && <Image src="/luxufe-icon-dummy-cost.svg" alt="Wallet" width={16} height={16} className="h-4 w-4" />}
-                          <p className={selectedCard === item.id ? "text-sm font-bold" : "font-bold text-lg"}>
+                        <div className={`flex items-center gap-2 md:gap-3 font-inter ${selectedCard === item.id ? 'text-xs md:text-sm justify-center' : 'font-semibold text-base md:text-lg justify-center'}`}>
+                          {selectedCard === item.id && <Image src="/luxufe-icon-cost-dark.svg" alt="Wallet" width={16} height={16} className="h-3 w-3 md:h-4 md:w-4" />}
+                          {selectedCard !== item.id && <Image src="/luxufe-icon-dummy-cost.svg" alt="Wallet" width={16} height={16} className="h-3 w-3 md:h-4 md:w-4" />}
+                          <p className={selectedCard === item.id ? "text-xs md:text-sm font-bold" : "font-bold text-base md:text-lg"}>
                             {selectedCard === item.id ? 'From ' : ''}USD {item.price.toLocaleString()} per person
                           </p>
                         </div>
                       )}
                       {/* More Information Button - only for expanded state */}
                       {selectedCard === item.id && (
-                        <button className="border-t-2 border-gray-300 w-full py-4 flex items-center justify-center font-inter font-bold text-sm text-gray-400 gap-2 mt-4 group opacity-100">
+                        <button className="border-t-2 border-gray-300 w-full py-3 md:py-4 flex items-center justify-center font-inter font-bold text-xs md:text-sm text-gray-400 gap-2 mt-3 md:mt-4 group opacity-100">
                           MORE INFORMATION
-                          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow Right" width={16} height={16} className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow Right" width={16} height={16} className="h-3 w-3 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
                         </button>
                       )}
                     </div>
@@ -193,21 +193,21 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
         </div>
         <button
           onClick={scrollPrev}
-          className="absolute top-1/2 left-35 -translate-y-1/2 bg-white rounded-full p-7 shadow-md hover:bg-white z-0 transition-colors"
+          className="absolute top-1/2 left-2 md:left-35 -translate-y-1/2 bg-white rounded-full p-4 md:p-7 shadow-md hover:bg-white z-0 transition-colors"
         >
-          <Image src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow Left" width={34} height={34} className="h-9 w-9 text-gray-800" />
+          <Image src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow Left" width={34} height={34} className="h-6 w-6 md:h-9 md:w-9 text-gray-800" />
         </button>
         <button
           onClick={scrollNext}
-          className="absolute top-1/2 right-35 -translate-y-1/2 bg-white rounded-full p-7 shadow-md hover:bg-white z-0 transition-colors"
+          className="absolute top-1/2 right-2 md:right-35 -translate-y-1/2 bg-white rounded-full p-4 md:p-7 shadow-md hover:bg-white z-0 transition-colors"
         >
-          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow Right" width={34} height={34} className="h-9 w-9 text-gray-800" />
+          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow Right" width={34} height={34} className="h-6 w-6 md:h-9 md:w-9 text-gray-800" />
         </button>
       </div>
-      <div className="text-center mt-16 flex justify-center">
-        <button className="border-2 border-gray-300 text-gray-800 px-6 py-5 hover:bg-gray-800 hover:text-white transition font-inter font-bold text-xs flex items-center justify-center gap-2">
+      <div className="text-center mt-12 md:mt-16 flex justify-center">
+        <button className="border-2 border-gray-300 text-gray-800 px-4 md:px-6 py-3 md:py-5 hover:bg-gray-800 hover:text-white transition font-inter font-bold text-xs flex items-center justify-center gap-2">
           <span className="font-bold">{displayButtonText}</span>
-          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow Right" width={16} height={16} className="w-4 h-4 ml-2" />
+          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow Right" width={16} height={16} className="w-3 h-3 md:w-4 md:h-4 ml-2" />
         </button>
       </div>
     </section>
