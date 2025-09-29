@@ -58,8 +58,6 @@ interface TailorMadeProcessProps {
 }
 
 export default function TailorMadeProcess({ data }: TailorMadeProcessProps) {
-  const [currentStep, setCurrentStep] = useState(0);
-
   // Use data from CMS if available, otherwise fall back to hardcoded content
   const displayTitle = data?.title || "The Tailor-made Process";
   const displayDescription = data?.description || "Thoughtful planning, perfectly paced; here's how we bring your journey to life";
@@ -78,7 +76,7 @@ export default function TailorMadeProcess({ data }: TailorMadeProcessProps) {
     <section className="w-full bg-[#23263a] py-24 px-4">
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-5xl md:text-6xl font-arpona text-white mb-4">{displayTitle}</h2>
-        <p className="text-md text-white/80 font-inter font-bold my-10 max-w-2/7 mx-auto">
+        <p className="text-md text-white/80 font-inter font-bold my-10 md:max-w-2/7 mx-auto">
           {displayDescription}
         </p>
         <div className="flex flex-col md:flex-row justify-center items-start gap-10 md:gap-0 mb-16 relative">
@@ -94,7 +92,7 @@ export default function TailorMadeProcess({ data }: TailorMadeProcessProps) {
                 {idx < steps.length - 1 && (
                   <div className="hidden md:block absolute top-1/2 right-0 w-[calc(100%+80px)] h-0.5">
                     <svg width="150%" height="8" className="absolute left-full top-1/2 -translate-y-1/2" style={{ minWidth: 80 }}>
-                      <line x1="0" y1="4" x2="70" y2="4" stroke="#F9FAFB" strokeDasharray="4,6" strokeWidth="2" />
+                      <line x1="0" y1="4" x2="70" y2="4" stroke="#E5E7EB" strokeDasharray="4,6" strokeWidth="2" />
                     </svg>
                   </div>
                 )}
