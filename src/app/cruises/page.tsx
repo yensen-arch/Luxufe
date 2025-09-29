@@ -15,11 +15,19 @@ const Page = () => {
     <main>
       <Navbar />
       <CruisesHero />
-      <CuratedForYou />
-      <TravelTheWorld />
+      <div id="curated-for-you">
+        <CuratedForYou />
+      </div>
+      <div id="travel-the-world">
+        <TravelTheWorld />
+      </div>
       <CruiseWithConfidence />
-      <TrustedCruisePartners />
-      <SetSailWithLuxufe />
+      <div id="trusted-cruise-partners">
+        <TrustedCruisePartners />
+      </div>
+      <div id="set-sail-with-luxufe">
+        <SetSailWithLuxufe />
+      </div>
       <FAQs />
       <Testimonials/>
       <ExploreMore />
