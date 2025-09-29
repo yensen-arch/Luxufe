@@ -31,8 +31,8 @@ export default function SetSailWithLuxufe() {
   return (
     <section className="py-24 bg-[#23263a]">
       <div className="max-w-7xl mx-auto px-4 text-center">
-        <h2 className="text-5xl md:text-6xl font-arpona font-bold text-white mb-6">Set Sail with Luxufe</h2>
-        <p className="text-lg md:text-md font-inter font-bold text-white mb-16">Simple steps. Tailored service. Your perfect cruise awaits.</p>
+        <h2 className="text-5xl md:text-6xl font-arpona font-bold text-white mb-10">Set Sail with Luxufe</h2>
+        <p className="text-lg md:text-md font-inter font-bold text-white mb-26">Simple steps. Tailored service. Your perfect cruise awaits.</p>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
           {steps.map((step, idx) => (
             <div key={idx} className="flex flex-col items-center text-center relative">
