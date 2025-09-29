@@ -15,11 +15,11 @@ const Page = () => {
     <main>
       <Navbar />
       <CruisesHero />
-      <div id="curated-for-you">
-        <CuratedForYou />
-      </div>
       <div id="travel-the-world">
         <TravelTheWorld />
+      </div>
+      <div id="curated-for-you">
+        <CuratedForYou />
       </div>
       <CruiseWithConfidence />
       <div id="trusted-cruise-partners">

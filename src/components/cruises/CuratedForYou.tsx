@@ -71,7 +71,7 @@ export default function CuratedForYou() {
 
   return (
     <section className="py-12 md:py-20 my-20 md:my-40 bg-white text-gray-800 relative overflow-hidden">
-      <div className="absolute top-30 left-10 -translate-y-1/2 -translate-x-1/2 opacity-30">
+      <div className="absolute top-40 left-10 -translate-y-1/2 -translate-x-1/2 opacity-30">
         <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[150px] md:w-[300px] h-auto" />
       </div>
       <div className="container mx-auto px-4 text-center">

@@ -50,12 +50,11 @@ export default function CruisesHero() {
         {/* Breadcrumb and Image Credit */}
         <div className="absolute bottom-0 left-0 w-full flex justify-between items-end px-4 md:px-8 pb-4 md:pb-6 text-white text-xs font-inter">
           <div className="text-xs md:text-xs">Home &gt; Journeys &gt; Travel Type: Cruises</div>
-          <div className="text-xs md:text-xs">Image: details for the featured image here</div>
         </div>
       </section>
 
-      {/* Tab Navigation */}
-      <div className="w-full bg-white border-t border-gray-200">
+      {/* Tab Navigation - Hidden on mobile */}
+      <div className="hidden md:block w-full bg-white border-t border-gray-200">
         <div className="max-w-5xl mx-auto">
           <div className="flex overflow-x-auto md:overflow-x-visible">
             {tabs.map((tab) => (
@@ -64,7 +63,7 @@ export default function CruisesHero() {
                 onClick={() => handleTabClick(tab.id, tab.sectionId)}
                 className={`flex-shrink-0 md:flex-1 py-3 md:py-3 px-3 md:px-6 text-sm md:text-base rounded-t-xl mt-3 font-inter font-bold transition-all duration-200${
                   activeTab === tab.id
-                    ? "bg-[#a8d1cf] text-[#23263a]"
+                    ? "bg-[#a8d1cf] text-[#23263a] border-b-4 border-[#a8d1cf]"
                     : "bg-white text-[#23263a] hover:bg-[#a8d1cf]"
                 }`}
               >
