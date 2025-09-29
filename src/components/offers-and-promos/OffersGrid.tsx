@@ -50,21 +50,21 @@ export default function OffersGrid() {
   return (
     <section className="flex-1 bg-gray-100 min-h-screen">
       {/* Search */}
-      <div className="border-b-2 border-gray-300 px-30  py-6">
-        <h3 className="text-xs font-inter font-bold text-gray-700  tracking-widest">SEARCH</h3>
-        <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-2">
+      <div className="border-b-2 border-gray-300 px-4 lg:px-30 py-4 lg:py-6">
+        <h3 className="text-xs font-inter font-bold text-gray-700 tracking-widest">SEARCH</h3>
+        <div className="flex items-center bg-white border border-gray-200 rounded-full px-3 lg:px-4 py-2">
           <input
             type="text"
             placeholder="What are you looking for?"
             className="flex-1 bg-transparent outline-none text-xs font-inter font-bold text-gray-400"
           />
-          <button className="ml-2 bg-gray-700 text-white rounded-full p-2 flex items-center justify-center">
-          <Image src="/luxufe-icon-ai-send-arrow-light.svg" alt="Search" width={16} height={16} className="w-4 h-4 text-gray-400" />
+          <button className="ml-2 bg-gray-700 text-white rounded-full p-1.5 lg:p-2 flex items-center justify-center">
+          <Image src="/luxufe-icon-ai-send-arrow-light.svg" alt="Search" width={16} height={16} className="w-3 h-3 lg:w-4 lg:h-4 text-gray-400" />
           </button>
         </div>
       </div>
-      <div className="mb-6 text-gray-400 text-sm font-inter font-bold px-30 py-6">Showing {resultsPerPage} of {totalResults} Results</div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16 px-30">
+      <div className="mb-4 lg:mb-6 text-gray-400 text-sm font-inter font-bold px-4 lg:px-30 py-4 lg:py-6">Showing {resultsPerPage} of {totalResults} Results</div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mb-8 lg:mb-16 px-4 lg:px-30">
         {offers.map((offer, idx) => (
           <OfferCard
             key={idx}
@@ -76,7 +76,7 @@ export default function OffersGrid() {
         ))}
       </div>
       {/* Pagination - Testimonials Style */}
-      <div className="flex justify-center items-center gap-2 my-18 text-xs font-inter w-60 mx-auto">
+      <div className="flex justify-center items-center gap-2 my-8 lg:my-18 text-xs font-inter w-60 mx-auto px-4">
         {/* Previous Button */}
         <button 
           onClick={handlePrevious}
