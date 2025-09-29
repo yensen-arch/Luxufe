@@ -44,7 +44,7 @@ const defaultTestimonialsData = [
 
 const TestimonialCard = ({ quote, author, location, isActive }: { quote: string, author: string, location: string, isActive: boolean }) => {
   return (
-    <div className={`transition-all duration-500 p-6 sm:p-8 lg:p-12 mx-2 sm:mx-4 ${isActive ? 'shadow-xl' : 'shadow-lg'} min-h-[300px] sm:min-h-[350px] lg:min-h-[360px] flex flex-col justify-center`}>
+    <div className={`transition-all bg-white duration-500 p-6 sm:p-8 lg:p-12 mx-2 sm:mx-4 ${isActive ? 'shadow-xl' : 'shadow-lg'} min-h-[300px] sm:min-h-[350px] lg:min-h-[360px] flex flex-col justify-center`}>
       <div className="flex justify-center mb-4 sm:mb-6 lg:mb-8">
         {[...Array(5)].map((_, i) => (
           <img src="/luxufe-icon-star-ratings-solid-grey.svg" alt="Star" key={i} className="h-4 w-4 sm:h-4 sm:w-4 lg:h-5 lg:w-5 mx-1 text-gray-300 fill-current" />
@@ -91,7 +91,7 @@ export default function Testimonials({ data }: TestimonialsProps) {
   }, [emblaApi, updateSelectedIndex]);
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20">
+    <section className="py-12 sm:py-16 lg:py-20 bg-gray-100">
       <div className="container  mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start mb-12 sm:mb-16 lg:mb-20 max-w-7xl mx-auto">

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 
 const items = [
   {
@@ -55,33 +56,15 @@ export default function FAQs() {
               </span>
               {/* Icon */}
               <span className="ml-4 text-gray-500 group-hover:text-gray-800">
-                {openIndex === idx ? (
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 32 32"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="md:w-8 md:h-8"
-                  >
-                    <line x1="8" y1="8" x2="24" y2="24" />
-                    <line x1="24" y1="8" x2="8" y2="24" />
-                  </svg>
-                ) : (
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 32 32"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="md:w-8 md:h-8"
-                  >
-                    <line x1="16" y1="8" x2="16" y2="24" />
-                    <line x1="8" y1="16" x2="24" y2="16" />
-                  </svg>
-                )}
+                <Image
+                  src="/luxufe-icon-close-dark.svg"
+                  alt={openIndex === idx ? "Close" : "Open"}
+                  width={24}
+                  height={24}
+                  className={`md:w-6 md:h-6 transition-transform duration-300 ease-in-out ${
+                    openIndex === idx ? "rotate-0" : "rotate-45"
+                  }`}
+                />
               </span>
             </button>
 
@@ -92,7 +75,7 @@ export default function FAQs() {
               }`}
               style={{ overflow: "hidden" }}
             >
-              <p className="font-inter text-slate-600 text-sm md:text-md font-bold max-w-4xl">
+              <p className="font-inter text-slate-600 text-sm md:text-lg font-bold max-w-4xl">
                 {item.content}
               </p>
             </div>

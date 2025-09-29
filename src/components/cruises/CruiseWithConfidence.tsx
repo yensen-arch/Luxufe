@@ -26,7 +26,7 @@ export default function CruiseWithConfidence() {
     <section className="py-24 bg-white">
       <div className="max-w-5xl mx-auto px-4 text-center">
         <h3 className="font-bellarina text-3xl md:text-4xl text-[#23263a] mb-4">Cruise with confidence</h3>
-        <h2 className="w-4/5 mx-auto text-3xl md:text-4xl font-arpona font-medium text-[#23263a] mb-12">
+        <h2 className="w-8/12 mx-auto text-3xl md:text-4xl font-arpona font-medium text-[#23263a] mb-12">
           Effortless luxury, expert guidance, and exclusive advantages—every step of the way.
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16">
