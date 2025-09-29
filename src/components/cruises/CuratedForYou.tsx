@@ -69,21 +69,21 @@ export default function CuratedForYou() {
   }, [emblaApi, selectedCard, itineraries])
 
   return (
-    <section className="py-12 md:py-20 my-20 md:my-40 bg-white text-gray-800 relative overflow-hidden">
+    <section className="py-8 md:py-20 my-12 md:my-40 bg-white text-gray-800 relative overflow-hidden">
       <div className="absolute top-40 left-10 -translate-y-1/2 -translate-x-1/2 opacity-30">
         <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[150px] md:w-[300px] h-auto" />
       </div>
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl md:text-6xl font-arpona font-bold">Luxufe Selected Favorites</h2>
-        <p className="md:max-w-1/4 text-black mx-auto my-8 md:my-12 font-inter font-bold text-sm md:text-base">
+        <h2 className="text-3xl md:text-6xl font-arpona font-bold">Luxufe Selected Favorites</h2>
+        <p className="md:max-w-1/4 text-black mx-auto my-6 md:my-12 font-inter font-bold text-sm md:text-base">
           Discover crafted cruise itineraries that blend elegance, adventure, and ease.
         </p>
       </div>
 
-      <div className="relative py-6 md:py-10">
+      <div className="relative py-4 md:py-10">
         {loading ? (
-          <div className="flex justify-center items-center py-20">
-            <div className="text-lg font-inter">Loading featured cruise itineraries...</div>
+          <div className="flex justify-center items-center py-12 md:py-20">
+            <div className="text-base md:text-lg font-inter">Loading featured cruise itineraries...</div>
           </div>
         ) : itineraries.length > 0 ? (
           <div ref={emblaRef}>
@@ -123,23 +123,23 @@ export default function CuratedForYou() {
         )}
         <button
           onClick={scrollPrev}
-          className="absolute top-1/2 left-2 md:left-25 -translate-y-1/2 bg-white rounded-full p-3 md:p-7 shadow-md hover:bg-white z-0 transition-colors"
+          className="absolute top-1/2 left-1 md:left-25 -translate-y-1/2 bg-white rounded-full p-2 md:p-7 shadow-md hover:bg-white z-10 transition-colors"
         >
-          <Image src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" width={24} height={24} className="h-4 w-4 md:h-7 md:w-7 text-gray-800" />
+          <Image src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" width={24} height={24} className="h-3 w-3 md:h-7 md:w-7 text-gray-800" />
         </button>
         <button
           onClick={scrollNext}
-          className="absolute top-1/2 right-2 md:right-25 -translate-y-1/2 bg-white rounded-full p-3 md:p-7 shadow-md hover:bg-white z-0 transition-colors"
+          className="absolute top-1/2 right-1 md:right-25 -translate-y-1/2 bg-white rounded-full p-2 md:p-7 shadow-md hover:bg-white z-10 transition-colors"
         >
           <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="h-4 w-4 md:h-7 md:w-7 text-gray-800" />
         </button>
       </div>
 
-      <div className="text-center mt-12 md:mt-16 flex flex-col md:flex-row justify-center gap-4 px-4 md:px-0">
-        <button className="border border-gray-800 text-gray-800 px-4 md:px-6 py-2 md:py-3 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-xs">
+      <div className="text-center mt-8 md:mt-16 flex flex-col md:flex-row justify-center gap-3 md:gap-4 px-4 md:px-0">
+        <button className="border border-gray-800 text-gray-800 px-3 md:px-6 py-2 md:py-3 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-xs">
           JOURNEYS & TOURS <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="h-3 w-3 md:h-4 md:w-4" />
         </button>
-        <button className="border border-gray-800 text-gray-800 px-4 md:px-6 py-2 md:py-3 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-xs">
+        <button className="border border-gray-800 text-gray-800 px-3 md:px-6 py-2 md:py-3 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-xs">
           MORE WAYS TO TRAVEL <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="h-3 w-3 md:h-4 md:w-4" />
         </button>
       </div>
