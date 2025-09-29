@@ -90,10 +90,10 @@ export default function Inspiration({ data }: InspirationProps) {
 
   return (
     <section className="my-12 sm:my-16 lg:my-24 min-h-screen lg:h-screen">
-      <div className="container mx-auto h-full px-4 sm:px-6 lg:px-0">
+      <div className="w-full lg:container mx-auto h-full px-0 lg:px-0">
         <div className="grid grid-cols-1 lg:grid-cols-12 h-full items-center relative">
           {/* Left Content Section */}
-          <div className="lg:col-span-8 h-full text-center lg:text-left p-6 sm:p-8 lg:p-24 bg-gray-50 flex items-center">
+          <div className="lg:col-span-8 h-full text-center lg:text-left px-6 py-12 sm:px-8 sm:py-16 lg:p-24 bg-gray-50 flex items-center">
             <div className="w-full lg:w-3/5">
               <h3 className="text-2xl sm:text-3xl lg:text-5xl font-medium text-gray-600 italic mb-2 font-bellarina">
                 Stories & insights
@@ -111,15 +111,31 @@ export default function Inspiration({ data }: InspirationProps) {
             </div>
           </div>
 
-          {/* Right Carousel Section - Mobile: Stacked, Desktop: Overlapping */}
-          <div className="lg:col-span-7 lg:col-start-7 lg:absolute lg:right-0 lg:top-0 h-auto lg:h-full flex items-center relative mt-8 lg:mt-0">
-            <div className="overflow-hidden w-full">
+          {/* Right Carousel Section - Mobile: Simple stack, Desktop: Overlapping carousel */}
+          <div className="lg:col-span-7 lg:col-start-7 lg:absolute lg:right-0 lg:top-0 h-auto lg:h-full flex items-center relative">
+            {/* Mobile: Stack all cards */}
+            <div className="lg:hidden w-full px-6 py-8 space-y-6">
+              {sectionData.blogPosts.map((post, index) => (
+                <BlogCard 
+                  key={index}
+                  category={post.category}
+                  title={post.title}
+                  description={post.description}
+                  imageUrl={post.image.url}
+                  buttonText={post.buttonText}
+                  buttonLink={post.buttonLink}
+                />
+              ))}
+            </div>
+
+            {/* Desktop: Carousel with overlapping effect */}
+            <div className="hidden lg:block overflow-hidden w-full">
               <div 
                 className="flex transition-transform duration-500 ease-in-out m-4 sm:m-6 lg:m-10 gap-4 sm:gap-6 lg:gap-10"
-                style={{ transform: `translateX(-${currentIndex * (isMobile ? 100 : 50)}%)` }}
+                style={{ transform: `translateX(-${currentIndex * 50}%)` }}
               >
                 {sectionData.blogPosts.map((post, index) => (
-                  <div className={`flex-[0_0_${isMobile ? '100%' : '70%'}]`} key={index}>
+                  <div className="flex-[0_0_70%]" key={index}>
                     <BlogCard 
                       category={post.category}
                       title={post.title}
@@ -133,7 +149,7 @@ export default function Inspiration({ data }: InspirationProps) {
               </div>
             </div>
             
-            {/* Navigation Buttons - Hidden on mobile for cleaner look */}
+            {/* Navigation Buttons - Desktop only */}
             <div className="hidden lg:flex absolute flex-col gap-6 top-1/2 left-3/4 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10">
               <button 
                 onClick={scrollPrev} 
@@ -147,19 +163,6 @@ export default function Inspiration({ data }: InspirationProps) {
               >
                 <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-6 w-6 text-gray-800" />
               </button>
-            </div>
-
-            {/* Mobile Navigation Dots */}
-            <div className="lg:hidden flex justify-center gap-2 mt-4">
-              {sectionData.blogPosts.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    index === currentIndex ? 'bg-gray-800' : 'bg-gray-300'
-                  }`}
-                />
-              ))}
             </div>
           </div>
         </div>
