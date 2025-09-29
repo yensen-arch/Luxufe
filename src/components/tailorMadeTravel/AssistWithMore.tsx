@@ -19,19 +19,12 @@ const defaultAssistItems = [
   },
 ];
 
-const slideLeft = {
-  animation: 'slideLeft 0.2s forwards',
-  opacity: 0,
-  transform: 'translateX(-40px)'
+const fadeIn = {
+  animation: 'fadeIn 0.3s ease-in-out forwards',
+  opacity: 0
 };
-const slideRight = {
-  animation: 'slideRight 0.2s forwards',
-  opacity: 0,
-  transform: 'translateX(40px)'
-};
-const slideReset = {
-  opacity: 1,
-  transform: 'translateX(0)'
+const fadeReset = {
+  opacity: 1
 };
 
 interface AssistWithMoreProps {
@@ -60,7 +53,6 @@ interface AssistWithMoreProps {
 
 export default function AssistWithMore({ data }: AssistWithMoreProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [animDirection, setAnimDirection] = useState <'left' | 'right' | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
 
   // Use data from CMS if available, otherwise fall back to hardcoded content
@@ -77,43 +69,30 @@ export default function AssistWithMore({ data }: AssistWithMoreProps) {
 
   const handleAnimationEnd = () => {
     setIsAnimating(false);
-    setAnimDirection(null);
   };
 
   const scrollPrev = useCallback(() => {
     if (isAnimating) return;
-    setAnimDirection('left');
     setIsAnimating(true);
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev === 0 ? assistItems.length - 1 : prev - 1));
-    }, 200);
+    setCurrentIndex((prev) => (prev === 0 ? assistItems.length - 1 : prev - 1));
   }, [isAnimating, assistItems.length]);
 
   const scrollNext = useCallback(() => {
     if (isAnimating) return;
-    setAnimDirection('right');
     setIsAnimating(true);
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev === assistItems.length - 1 ? 0 : prev + 1));
-    }, 200);
+    setCurrentIndex((prev) => (prev === assistItems.length - 1 ? 0 : prev + 1));
   }, [isAnimating, assistItems.length]);
 
-  // Inline animation style
+  // Simple fade animation style
   const getAnimStyle = () => {
-    if (!animDirection) return slideReset;
-    if (animDirection === 'left') return slideLeft;
-    if (animDirection === 'right') return slideRight;
-    return slideReset;
+    return isAnimating ? fadeIn : fadeReset;
   };
 
   return (
     <>
       <style>{`
-        @keyframes slideLeft {
-          to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes slideRight {
-          to { opacity: 1; transform: translateX(0); }
+        @keyframes fadeIn {
+          to { opacity: 1; }
         }
       `}</style>
       <section className="w-full my-12 md:my-24 relative">
