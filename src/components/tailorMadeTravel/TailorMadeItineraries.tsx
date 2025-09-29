@@ -128,12 +128,9 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
                     `}
                     style={{ backgroundImage: `url(${item.imageUrl})` }}
                   />
-                  {/* Overlay - only for collapsed state */}
+                  {/* Overlay - always visible */}
                   <div
-                    className={`
-                      absolute inset-0 bg-gradient-to-t from-black via-transparent to-black transition-opacity duration-500
-                      ${selectedCard === item.id ? 'opacity-0' : 'opacity-100'}
-                    `}
+                    className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-gray-800 transition-opacity duration-500"
                   />
                   {/* Content Container */}
                   <div className={`
@@ -146,7 +143,7 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
                     {/* Top Section - Location and Nights */}
                     <div className={`flex justify-between items-start ${selectedCard === item.id ? 'relative' : ''}`}>
                       <div className={`flex items-center gap-2 rounded-full px-3 py-1 font-medium font-inter ${selectedCard === item.id ? 'text-xs text-white absolute top-4 left-4' : 'text-sm'}`}>
-                        <Image src="/luxufe-icon-location-pin-white.svg" alt="Map Pin" width={16} height={16} className={selectedCard === item.id ? "h-3 w-3" : "h-4 w-4"} />
+                        {selectedCard !== item.id && <Image src="/luxufe-icon-location-pin-white.svg" alt="Map Pin" width={16} height={16} className="h-4 w-4" />}
                         <span>{item.location}</span>
                       </div>
                       <div className={`rounded-full px-3 py-1 font-medium font-inter ${selectedCard === item.id ? 'text-xs text-white absolute top-4 right-4' : 'text-sm'}`}>
@@ -167,13 +164,14 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
                       )}
                       {/* Flights Included */}
                       <div className={`flex items-center gap-3 font-bold font-inter text-sm justify-center`}>
-                        <Image src="/luxufe-icon-flights-dark.svg" alt="Plane" width={16} height={16} className="h-4 w-4" />
+                        <Image src={selectedCard === item.id ? "/luxufe-icon-flights-dark.svg" : "/luxufe-icon-dummy-plane.svg"} alt="Plane" width={16} height={16} className="h-4 w-4" />
                         <span>Flights Included</span>
                       </div>
                       {/* Price */}
                       {item.price && (
                         <div className={`flex items-center gap-3 font-inter ${selectedCard === item.id ? 'text-sm justify-center' : 'font-semibold text-lg justify-center'}`}>
                           {selectedCard === item.id && <Image src="/luxufe-icon-cost-dark.svg" alt="Wallet" width={16} height={16} className="h-4 w-4" />}
+                          {selectedCard !== item.id && <Image src="/luxufe-icon-dummy-cost.svg" alt="Wallet" width={16} height={16} className="h-4 w-4" />}
                           <p className={selectedCard === item.id ? "text-sm font-bold" : "font-bold text-lg"}>
                             {selectedCard === item.id ? 'From ' : ''}USD {item.price.toLocaleString()} per person
                           </p>
