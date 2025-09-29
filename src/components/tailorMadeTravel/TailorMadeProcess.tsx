@@ -1,5 +1,5 @@
-"use client"
-import React, { useState } from "react";
+import React from "react";
+import Image from "next/image";
 
 const defaultSteps = [
   {
@@ -104,10 +104,10 @@ export default function TailorMadeProcess({ data }: TailorMadeProcessProps) {
         </div>
         <div className="flex flex-col md:flex-row gap-6 justify-center mt-8">
           <button className="border-2 border-gray-400 text-white px-8 py-4 bg-transparent hover:bg-white hover:text-[#23263a] transition font-inter font-bold text-xs flex items-center justify-center gap-2 tracking-widest">
-            {displayAppointmentButtonText} <span className="ml-2">→</span>
+            {displayAppointmentButtonText} <Image src="/luxufe-icon-button-arrow-light.svg" alt="arrow right" width={20} height={20} className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5" />
           </button>
           <button className="border-2 border-gray-400 text-white px-8 py-4 bg-transparent hover:bg-white hover:text-[#23263a] transition font-inter font-bold text-xs flex items-center justify-center gap-2 tracking-widest">
-            {displayWizardButtonText} <span className="ml-2">→</span>
+            {displayWizardButtonText} <Image src="/luxufe-icon-button-arrow-light.svg" alt="arrow right" width={20} height={20} className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5" />
           </button>
         </div>
       </div>
