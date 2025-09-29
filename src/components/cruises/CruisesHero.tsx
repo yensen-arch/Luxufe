@@ -10,7 +10,7 @@ const tabs = [
 
 export default function CruisesHero() {
   return (
-    <section className="relative w-full h-screen shadow-lg flex flex-col justify-end">
+    <section className="relative w-full h-[110vh] shadow-lg flex flex-col justify-end">
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
         <img
