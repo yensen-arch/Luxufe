@@ -32,7 +32,7 @@ const itineraries = [
     imageUrl: "https://picsum.photos/seed/greece2/800/1000",
     name: "Islands of the Aegean",
     description:
-      "Sail through the Greek islands and immerse yourself in Mediterranean charm.",
+      "Sail through the Greek islands and immerse yourself in Mediterranean charm.Sail through the Greek islands and immerse yourself in Mediterranean charm.",
     price: 19756,
   },
   {
@@ -132,6 +132,16 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
                   <div
                     className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-gray-800 transition-opacity duration-500"
                   />
+                  {/* Location and Nights - positioned on image */}
+                  <div className="absolute top-4 left-4 right-4 flex justify-between items-start z-20">
+                    <div className={`flex items-center gap-2 rounded-full px-3 py-1 font-medium font-inter text-white text-xs`}>
+                        <Image src="/luxufe-icon-location-pin-white.svg" alt="Map Pin" width={16} height={16} className="h-4 w-4" />
+                      <span>{item.location}</span>
+                    </div>
+                    <div className={`rounded-full px-3 py-1 font-medium font-inter text-white text-xs`}>
+                      {item.nights} Nights
+                    </div>
+                  </div>
                   {/* Content Container */}
                   <div className={`
                     relative flex flex-col h-full text-center transition-all duration-500
@@ -140,16 +150,6 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
                       : 'p-6 text-white'
                     }
                   `}>
-                    {/* Top Section - Location and Nights */}
-                    <div className={`flex justify-between items-start ${selectedCard === item.id ? 'relative' : ''}`}>
-                      <div className={`flex items-center gap-2 rounded-full px-3 py-1 font-medium font-inter ${selectedCard === item.id ? 'text-xs text-white absolute top-4 left-4' : 'text-sm'}`}>
-                        {selectedCard !== item.id && <Image src="/luxufe-icon-location-pin-white.svg" alt="Map Pin" width={16} height={16} className="h-4 w-4" />}
-                        <span>{item.location}</span>
-                      </div>
-                      <div className={`rounded-full px-3 py-1 font-medium font-inter ${selectedCard === item.id ? 'text-xs text-white absolute top-4 right-4' : 'text-sm'}`}>
-                        {item.nights} Nights
-                      </div>
-                    </div>
                     {/* Main Content */}
                     <div className={`space-y-3 ${selectedCard === item.id ? 'mt-3' : 'mt-auto'}`}>
                       {/* Title */}
