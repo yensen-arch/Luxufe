@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 interface ExploreTogetherHeroProps {
   data?: {
@@ -37,16 +37,16 @@ export default function ExploreTogetherHero({ data }: ExploreTogetherHeroProps) 
       <div className="absolute inset-0 bg-black/40 z-10" />
       {/* Content */}
       <div className="relative z-20 flex flex-col items-center justify-center w-full px-4 text-center">
-        <h1 className="text-white text-4xl md:text-6xl font-arpona font-medium mb-8 leading-tight">
+        <h1 className="w-xl text-white text-4xl md:text-6xl font-arpona font-medium mb-8 leading-tight">
           {displayTitle}
         </h1>
         <p className="text-white text-md md:text-lg font-bold font-inter mb-10 max-w-lg mx-auto">
           {displayDescription}
         </p>
         <button
-          className="border border-gray-300 text-white px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition font-inter font-bold text-xs flex items-center justify-center gap-2 tracking-widest"
+          className="border border-gray-400 text-white px-8 py-5 bg-transparent hover:bg-white hover:text-gray-900 transition font-inter font-bold text-xs flex items-center justify-center gap-2 tracking-widest"
         >
-          {displayButtonText} <ArrowRight className="w-4 h-4 ml-2" />
+          {displayButtonText} <Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={24} height={24} className="w-5 h-5 ml-2" />
         </button>
       </div>
     </section>

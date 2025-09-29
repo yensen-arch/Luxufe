@@ -205,7 +205,7 @@ export default function TailorMadeItineraries({ data }: TailorMadeItinerariesPro
         </button>
       </div>
       <div className="text-center mt-16 flex justify-center">
-        <button className="border-2 border-gray-300 text-gray-800 px-6 py-4 hover:bg-gray-800 hover:text-white transition font-inter font-bold text-xs flex items-center justify-center gap-2">
+        <button className="border-2 border-gray-300 text-gray-800 px-6 py-5 hover:bg-gray-800 hover:text-white transition font-inter font-bold text-xs flex items-center justify-center gap-2">
           <span className="font-bold">{displayButtonText}</span>
           <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow Right" width={16} height={16} className="w-4 h-4 ml-2" />
         </button>
