@@ -12,7 +12,7 @@ import SetSailWithLuxufe from "@/components/cruises/SetSailWithLuxufe";
 
 const Page = () => {
   return (
-    <main>
+    <main className="overflow-hidden">
       <Navbar />
       <CruisesHero />
       <div id="travel-the-world">
