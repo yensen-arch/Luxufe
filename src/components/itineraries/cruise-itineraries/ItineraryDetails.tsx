@@ -8,12 +8,12 @@ export default function ItineraryDetails() {
         <aside className="md:w-1/4 w-full bg-[#f5f6f7]">
         <div className="border-b-2 border-gray-300 w-full">
           <h2 className="text-2xl md:text-3xl px-4 md:px-8 pt-6 md:pt-8 font-arpona font-bold text-black mb-3 md:mb-4">Delightful Douro</h2></div>
-          <nav className="flex flex-col gap-3 md:gap-4 mb-6 md:mb-8 text-sm font-inter font-bold px-4 md:px-8 pt-6 md:pt-8">
-            <a href="#" className="hover:underline">Trip Overview</a>
+          <nav className="flex flex-col gap-3 md:gap-4 mb-6 md:mb-8 text-md font-inter font-bold px-4 md:px-8 pt-6 md:pt-8">
+            <a href="#" className="hover:underline font-inter font-bold">Trip Overview</a>
             <a href="#" className="hover:underline">Map & Highlights</a>
-            <a href="#" className="hover:underline">Daily Itinerary</a>
-            <a href="#" className="hover:underline">Pricing & Options</a>
-            <a href="#" className="hover:underline">The Ship</a>
+            <a href="#" className="hover:underline font-inter">Daily Itinerary</a>
+            <a href="#" className="hover:underline font-inter">Pricing & Options</a>
+            <a href="#" className="hover:underline font-inter">The Ship</a>
             <a href="#" className="hover:underline">Good to know</a>
           </nav>
           <div className="flex flex-col gap-3 md:gap-4 mb-6 md:mb-8 px-4 md:px-8 pt-6 md:pt-8">
@@ -21,14 +21,14 @@ export default function ItineraryDetails() {
             <button className="w-full border-2 border-gray-300 text-xs py-2 md:py-3 font-inter font-bold text-gray-800 flex items-center justify-center gap-2 hover:bg-gray-800 hover:text-white transition">CONTACT US <span><img src="/luxufe-icon-button-arrow-dark.svg" alt="arrow-right" className="w-4 h-4" /></span></button>
             <button className="w-full border-2 border-gray-300 text-xs py-2 md:py-3 font-inter font-bold text-gray-800 flex items-center justify-center gap-2 hover:bg-gray-800 hover:text-white transition">SEND TO A FRIEND <span><img src="/luxufe-icon-button-arrow-dark.svg" alt="arrow-right" className="w-4 h-4" /></span></button>
           </div>
-          <div className="text-xs max-w-4/6 mt-8 md:mt-12 mx-auto text-center font-inter font-bold text-gray-700 px-4 md:px-0">
+          <div className="text-xs max-w-1/2 mt-8 md:mt-12 mx-auto text-center font-inter font-bold text-gray-700 px-4 md:px-0">
             For questions or booking inquiries, call <a href="tel:1-800-642-2861" className="text-orange-800 hover:underline">1-800-642-2861</a> or <a href="#" className="underline">contact us.</a>
           </div>
         </aside>
         {/* Main Content */}
         <div className="md:w-3/4 p-6 md:p-20 border-l-2 border-gray-300">
           <h1 className="text-3xl md:text-5xl font-arpona font-bold text-gray-900 mb-4 md:mb-6">The soul of Portugal</h1>
-          <p className="text-sm md:text-md w-full md:w-4/5 font-inter font-bold mb-6 md:mb-8">From windswept seaside meanderings to the astonishing beauty of the Douro Valley, this is a journey of contemplation and elegance. In Porto, board the luxurious Scenic Azure, which will transport you through the hidden gem that is the Douro Valley. Days will be spent immersed in the proud history and culture of a unique land that still retains many of its centuries-old traditions.</p>
+          <p className="text-sm md:text-lg w-full md:w-4/5 font-inter font-bold mb-6 md:mb-8">From windswept seaside meanderings to the astonishing beauty of the Douro Valley, this is a journey of contemplation and elegance. In Porto, board the luxurious Scenic Azure, which will transport you through the hidden gem that is the Douro Valley. Days will be spent immersed in the proud history and culture of a unique land that still retains many of its centuries-old traditions.</p>
           {/* Special Offer Box */}
           <div className="flex flex-col md:flex-row w-full md:w-4/5 items-start md:items-center bg-[#E3EFF1] border border-[#A5C8CE] p-4 md:p-6 mb-8 md:mb-10">
             <div className="flex-1 mb-4 md:mb-0">
@@ -38,7 +38,7 @@ export default function ItineraryDetails() {
               </div>
               <div className="text-gray-500 text-xs md:text-sm font-inter font-bold">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo.</div>
             </div>
-            <button className="md:ml-6 border-2 text-xs border-gray-400 px-4 md:px-6 py-2 md:py-3 font-inter font-bold text-gray-700 flex items-center gap-2 hover:bg-gray-800 hover:text-white transition w-full md:w-auto justify-center">VIEW DETAILS <span><img src="/luxufe-icon-button-arrow-dark.svg" alt="arrow-right" className="w-4 h-4" /></span></button>
+            <button className="md:ml-6 border-2 text-xs border-gray-400 px-4 md:px-6 py-2 md:py-2 font-inter font-bold text-gray-700 flex items-center gap-2 hover:bg-gray-800 hover:text-white transition w-full md:w-auto justify-center">VIEW DETAILS <span><img src="/luxufe-icon-button-arrow-dark.svg" alt="arrow-right" className="w-4 h-4 md:w-6 md:h-6" /></span></button>
           </div>
           {/* Journey at a Glance */}
           <h2 className="text-2xl md:text-3xl w-full md:w-4/5 font-arpona font-bold text-gray-900 mb-3 md:mb-4">Your journey at a glance</h2>
@@ -53,7 +53,7 @@ export default function ItineraryDetails() {
             {[1,2,3,4].map((i) => (
               <div key={i} className="flex items-start gap-3 md:gap-4">
                   <img src="/luxufe-icon-star-ratings-solid-teal.svg" alt="bullet-point" className="w-4 h-4 md:w-5 md:h-5 text-[#A5C8CE] mt-1" />                
-                  <span className="text-gray-800 font-inter font-bold text-sm md:text-md">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore</span>
+                  <span className="text-gray-800 font-inter font-bold text-sm md:text-lg">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore</span>
               </div>
             ))}
           </div>

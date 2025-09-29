@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { MapPin } from "lucide-react";
+import Image from "next/image";
 
 const EXTENSION_TABS = [
   { label: "PRE-CRUISE EXTENSIONS", key: "pre" },
@@ -66,7 +66,7 @@ export default function TripExtensions() {
             </button>
           ))}
         </div>
-      <div className="bg-[#f5f6f7] px-6 py-4 rounded-md">
+      <div className="bg-gray-100 px-6 py-4 rounded-md">
         <div className="grid grid-cols-2 gap-4">
           {extensions.map((ext: any, idx: number) => (
             <div key={idx} className="bg-white rounded shadow overflow-hidden flex flex-col">
@@ -75,8 +75,8 @@ export default function TripExtensions() {
                 <img src={ext.img} alt={ext.title} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent" />
               </div>
-                <div className="absolute top-3 left-3 text-white font-bold text-xs font-inter px-3 py-1 flex items-center gap-1">
-                  <MapPin className="h-4 w-4" /> {ext.location}
+                <div className="absolute top-3 left-3 text-white font-bold text-xs font-inter uppercase px-3 py-1 flex items-center gap-1">
+                  <Image src="/luxufe-icon-location-pin-white.svg" alt="map-pin" width={14} height={14} /> {ext.location}
                 </div>
                 <div className="absolute top-3 right-3 text-white text-xs font-inter px-3 py-1 ">
                   {ext.days} days
@@ -88,7 +88,7 @@ export default function TripExtensions() {
                 <hr className="my-2 border-gray-300" />
                 <div className="text-gray-700 font-inter text-sm mb-6 flex-1">{ext.desc}</div>
                 <button className="mt-auto px-6 py-2 text-xs border border-gray-300 font-inter font-bold text-gray-900 flex items-center gap-2 hover:bg-gray-100 transition w-full justify-between">
-                  INCLUSIONS & EXCLUSIONS <span className="text-xl">&rarr;</span>
+                  INCLUSIONS & EXCLUSIONS <span className="text-xl"><Image src="/luxufe-icon-button-arrow-dark.svg" alt="arrow-right" width={24} height={24} /></span>
                 </button>
               </div>
             </div>

@@ -45,21 +45,21 @@ export default function PricingOptions() {
         {years.map((year) => (
           <button
             key={year}
-            className={`px-3 py-1 rounded font-inter font-bold text-lg transition-colors duration-300 ${selectedYear === year ? "bg-gray-50" : "bg-white"}`}
+            className={`px-3 py-1 rounded font-inter font-bold text-lg transition-colors duration-300 ${selectedYear === year ? "bg-gray-100" : "bg-white"}`}
             onClick={() => handleYear(year)}
           >
             {year}
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-4 gap-2 mb-6 bg-gray-50 p-4">
+      <div className="grid grid-cols-4 gap-2 mb-6 bg-gray-100 p-4">
         {months.map((month) => {
           const isAvailable = monthsAvailable.includes(month);
           const isSelected = selectedMonth === month;
           return (
             <button
               key={month}
-              className={`px-3 py-1 rounded-full text-xs font-inter font-bold border transition-all duration-300 ${isSelected ? "border-black bg-[#A5C8CE] text-black" : isAvailable ? "border-black bg-gray-200 text-gray-700" : "border-gray-100 bg-gray-100 text-gray-400"}`}
+              className={`px-3 py-1 rounded-full text-xs font-inter font-bold border transition-all duration-300 ${isSelected ? "border-black bg-[#A5C8CE] text-black" : isAvailable ? "border-black bg-gray-200 text-gray-700" : "border-gray-100 bg-gray-200 text-gray-400"}`}
               onClick={() => handleMonth(month, isAvailable)}
               disabled={!isAvailable}
             >

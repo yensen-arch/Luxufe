@@ -2,6 +2,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import Image from "next/image";
 
 const vesselImages = [
   {
@@ -35,12 +36,10 @@ export default function VesselView() {
     <div className="w-full max-w-4xl px-4 md:px-12 py-8 md:py-12">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 md:mb-12">
-        <h2 className="text-2xl md:text-3xl font-arpona font-bold text-gray-900 mb-4 md:mb-0">The Journey</h2>
-        <button className="border border-gray-300 px-4 md:px-6 py-2 md:py-3 font-inter font-bold text-gray-900 flex items-center gap-2 hover:bg-gray-100 transition text-xs md:text-sm w-fit">
-          MORE ABOUT THIS JOURNEY 
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+        <h2 className="text-2xl md:text-3xl font-arpona font-bold text-gray-900 mb-4 md:mb-0">The Ship: Scenic Azure</h2>
+        <button className="border-2 border-gray-300 px-4 md:px-6 py-2 md:py-3 font-inter font-bold text-gray-900 flex items-center gap-2 hover:bg-gray-100 transition text-xs md:text-xs w-fit">
+          MORE ABOUT THIS SHIP 
+          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="arrow-right" width={24} height={24} />
         </button>
       </div>
 
