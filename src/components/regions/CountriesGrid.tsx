@@ -71,11 +71,8 @@ const CountriesGrid = ({ continentName, countriesData }: CountriesGridProps) => 
   };
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 md:px-8">
-      <h2 className="text-4xl md:text-5xl font-arpona font-bold text-[#23263a] text-center mb-12">
-        Explore {continentName}
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+    <section className="w-full max-w-8xl mx-auto px-4 md:px-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         {visibleCountries.map((country) => (
           <CountryCard key={country.name} {...country} />
         ))}

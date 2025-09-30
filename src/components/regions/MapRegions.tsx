@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import Map, { Marker, Popup, NavigationControl } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { MapPin, Search, ArrowRight } from "lucide-react";
+import {  Search } from "lucide-react";
+import Image from "next/image";
 
 interface MapRegionsProps {
   continentName: string;
@@ -120,9 +121,10 @@ export default function MapRegions({ continentName, continentData, countriesData
 
   return (
     <section className="py-20">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-8xl mx-auto md:px-10 px-4">
         <h2 className="text-4xl md:text-5xl font-arpona font-bold text-[#23263a] text-center mb-8">Luxufe in {continentName}</h2>
         <p className="text-md font-inter text-[#23263a] text-center font-bold mb-10">Discover regions where our deep knowledge and trusted partners create<br />something truly exceptional in {continentName}</p>
+        <button className="flex items-center gap-2 border-2 border-gray-300 px-5 mx-auto py-4 text-[#23263a] font-inter font-bold text-xs tracking-widest hover:bg-gray-100 transition-all w-fit mb-10" >EXPLORE AFRICA JOURNEYS <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow Right" width={16} height={16} className="w-5 h-5 ml-2" /></button>
         <div className="w-full h-[650px] mt-20 overflow-hidden shadow-lg relative">
           <Map
             initialViewState={viewState}
