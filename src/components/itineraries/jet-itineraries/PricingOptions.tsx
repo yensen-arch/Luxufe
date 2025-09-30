@@ -63,16 +63,16 @@ export default function PricingOptions() {
     <div className="w-full max-w-4xl px-4 md:px-12">
       {/* Header */}
       <h2 className="text-2xl md:text-3xl font-arpona font-bold text-gray-900 mb-2">Pricing & Options</h2>
-      <div className="text-gray-600 font-inter text-sm mb-6">Select year & month. Unavailable dates are greyed out</div>
+      <div className="text-gray-600 font-inter font-bold text-sm mb-6">Select year & month. Unavailable dates are greyed out</div>
       
       {/* Year Selection */}
       <div className="flex">
         {years.map((year) => (
           <button
             key={year}
-            className={`px-6 md:px-8 py-2 md:py-3  font-inter font-bold text-base md:text-lg transition-colors duration-300 ${
+            className={`px-6 md:px-8 py-2 md:py-3  font-inter font-bold text-base md:text-sm transition-colors duration-300 ${
               selectedYear === year 
-                ? "bg-[#f5f6f7] text-gray-900" 
+                ? "bg-gray-100 text-gray-900" 
                 : "bg-white text-gray-900 cursor-pointer"
             }`}
             onClick={() => handleYear(year)}
@@ -81,7 +81,7 @@ export default function PricingOptions() {
           </button>
         ))}
       </div>
-      <div className="bg-[#f5f6f7] p-4 mb-6">
+      <div className="bg-gray-100 mb-6">
       {/* Month Selection */}
       <div className="flex flex-wrap gap-2 mb-6 p-4">
         {months.map((month) => {
@@ -90,9 +90,9 @@ export default function PricingOptions() {
           return (
             <button
               key={month}
-              className={`px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-inter font-bold transition-all duration-300 ${
+              className={`px-3 md:px-4 py-1 rounded-full text-xs md:text-sm font-inter font-bold transition-all duration-300 ${
                 isSelected 
-                  ? "bg-[#A5C8CE] text-white" 
+                  ? "bg-[#A5C8CE] text-black border border-black" 
                   : isAvailable 
                     ? "bg-gray-200 text-gray-700 hover:bg-gray-300" 
                     : "bg-gray-100 text-gray-400 cursor-not-allowed"
@@ -107,7 +107,7 @@ export default function PricingOptions() {
       </div>
 
       {/* Available Departure Dates */}
-      <div className="mb-8">
+      <div className="mb-8 border-t-2 border-gray-300 p-4">
         <div className="text-gray-900 font-inter font-bold text-sm mb-3">Available departure dates:</div>
         <div className="flex flex-wrap gap-2">
         {dates.length === 0 ? (
@@ -116,10 +116,10 @@ export default function PricingOptions() {
             dates.map((date: string) => (
             <button
               key={date}
-                className={`px-4 md:px-6 py-2 md:py-3 rounded-full border font-inter font-bold text-sm transition-all duration-300 ${
+                className={`px-4 md:px-6 py-1 md:py-1 rounded-full border font-inter font-bold text-sm transition-all duration-300 ${
                   selectedDate === date
-                    ? "bg-white text-[#A5C8CE] border-[#A5C8CE]"
-                    : "bg-white text-gray-700 border-gray-300 hover:border-gray-400"
+                    ? "btext-black border-black bg-[#A5C8CE]"
+                    : "bg-gray-200 text-gray-500 border-gray-600 hover:border-gray-400"
                 }`}
                 onClick={() => setSelectedDate(date)}
             >
