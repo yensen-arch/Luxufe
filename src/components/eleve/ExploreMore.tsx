@@ -62,18 +62,18 @@ export default function ExploreMore({ data }: ExploreMoreProps) {
   const exploreData = data || fallbackData
 
   return (
-    <section className="bg-white relative mt-40 md:mt-50 lg:mt-60">
-      <div className="relative -top-20 z-10 max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-arpona font-bold text-[#23263a] text-center mb-4 md:mb-5 lg:mb-6 absolute md:static">{exploreData.title}</h2>
-        <p className="text-sm md:text-base lg:text-md font-inter font-bold text-[#23263a] text-center mb-8 md:mb-12 lg:mb-16">{exploreData.subtitle}</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+    <section className="bg-white relative mt-20 md:mt-40 lg:mt-50 xl:mt-60">
+      <div className="relative -top-10 md:-top-20 z-10 max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-arpona font-bold text-[#23263a] text-center mb-3 md:mb-4 lg:mb-5 xl:mb-6 absolute md:static">{exploreData.title}</h2>
+        <p className="hidden md:block text-xs md:text-sm lg:text-base xl:text-md font-inter font-bold text-[#23263a] text-center mb-6 md:mb-8 lg:mb-12 xl:mb-16">{exploreData.subtitle}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6 xl:gap-8">
           {exploreData?.cards?.map((card: any) => (
-            <div key={card.title} className="bg-white shadow-xl border border-slate-200 overflow-hidden flex flex-col h-[60vh] md:h-[70vh] lg:h-[90vh]">
-              <Image src={card?.image?.url} alt={card?.image?.alt} className="w-full h-60 md:h-80 lg:h-110 object-cover" width={24} height={24} />
-              <div className="p-4 md:p-6 lg:p-8 flex flex-col flex-1">
-                <h3 className="text-lg md:text-xl lg:text-2xl font-arpona font-bold text-[#23263a] mb-2 md:mb-3 lg:mb-4">{card.title}</h3>
-                <p className="font-inter font-bold text-slate-500 text-xs md:text-sm lg:text-base mb-4 md:mb-6 lg:mb-8 flex-1">{card.description}</p>
-                <a href={card.href} className="font-inter font-bold text-xs md:text-sm tracking-wider flex items-center gap-1 md:gap-2 text-[#23263a] hover:underline mt-auto">
+            <div key={card.title} className="bg-white shadow-xl border border-slate-200 overflow-hidden flex flex-col h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[90vh]">
+              <Image src={card?.image?.url} alt={card?.image?.alt} className="w-full h-48 md:h-60 lg:h-80 xl:h-110 object-cover" width={24} height={24} />
+              <div className="p-3 md:p-4 lg:p-6 xl:p-8 flex flex-col flex-1">
+                <h3 className="text-base md:text-lg lg:text-xl xl:text-2xl font-arpona font-bold text-[#23263a] mb-2 md:mb-2 lg:mb-3 xl:mb-4">{card.title}</h3>
+                <p className="font-inter font-bold text-slate-500 text-xs md:text-xs lg:text-sm xl:text-base mb-3 md:mb-4 lg:mb-6 xl:mb-8 flex-1">{card.description}</p>
+                <a href={card.href} className="font-inter font-bold text-xs md:text-xs lg:text-sm xl:text-sm tracking-wider flex items-center gap-1 md:gap-1 lg:gap-2 text-[#23263a] hover:underline mt-auto">
                   {card.cta}
                   <span className="inline-block transform transition-transform group-hover:translate-x-1">
                     <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} />
