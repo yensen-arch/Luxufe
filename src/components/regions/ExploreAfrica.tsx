@@ -1,7 +1,6 @@
 'use client'
-
+import Image from 'next/image';
 import React, { useCallback, useState } from 'react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 import BlogCard from './BlogCard';
 
 const blogPosts = [
@@ -31,7 +30,7 @@ export default function ExploreAfrica() {
   }, []);
 
   return (
-    <section className="my-24 h-screen">
+    <section className="my-24 h-[120vh]">
       <div className="container mx-auto h-full">
         <div className="grid grid-cols-12 h-full items-center relative">
           {/* Left Content Section */}
@@ -43,15 +42,21 @@ export default function ExploreAfrica() {
               <h2 className="text-5xl font-arpona font-bold text-gray-800 my-6">
                 Inspiration for the discerning traveller
               </h2>
-              <p className="mb-10 lg:w-5/6 font-inter font-bold">
-                Explore expert insights, curated guides, and insider tips to elevate your travel experiences. 
-                Discover the world's finest destinations, luxury stays, and bespoke journeys, all designed to 
-                inspire your next adventure.
-              </p>
-              <button className="group flex items-center gap-2 text-sm font-inter font-bold tracking-widest border border-gray-400 justify-center py-4 px-8 hover:bg-gray-800 hover:text-white transition-colors mx-auto lg:mx-0">
-                FIND INSPIRATION
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              {/* Navigation Buttons */}
+            <div className="absolute flex flex-row gap-6  pointer-events-none z-10">
+              <button 
+                onClick={scrollPrev} 
+                className="bg-white border border-gray-300 rounded-full p-7 shadow-lg hover:bg-white transition pointer-events-auto "
+              >
+                <Image src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" width={20} height={20} className="w-3 h-3 md:w-7 md:h-7 lg:w-7 lg:h-7 text-gray-800" />
               </button>
+              <button 
+                onClick={scrollNext} 
+                className="bg-white border border-gray-300 rounded-full p-7 shadow-lg hover:bg-white transition pointer-events-auto"
+              >
+                <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="w-3 h-3 md:w-7 md:h-7 lg:w-7 lg:h-7 text-gray-800" />
+              </button>
+            </div>
             </div>
           </div>
 
@@ -68,22 +73,6 @@ export default function ExploreAfrica() {
                   </div>
                 ))}
               </div>
-            </div>
-            
-            {/* Navigation Buttons */}
-            <div className="absolute flex flex-col gap-6 top-1/2 left-3/4 -translate-x-1/2 -translate-y-1/2  pointer-events-none z-10">
-              <button 
-                onClick={scrollPrev} 
-                className="bg-white rounded-full p-6 shadow-md hover:bg-white transition pointer-events-auto "
-              >
-                <ArrowLeft className="h-6 w-6 text-gray-800" />
-              </button>
-              <button 
-                onClick={scrollNext} 
-                className="bg-white rounded-full p-6 shadow-md hover:bg-white transition pointer-events-auto"
-              >
-                <ArrowRight className="h-6 w-6 text-gray-800" />
-              </button>
             </div>
           </div>
         </div>
