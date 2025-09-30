@@ -1,5 +1,4 @@
 import React from "react";
-import { MapPin, Building2, BookOpen } from "lucide-react";
 import Image from "next/image";
 
 const navLinks = [
@@ -42,39 +41,39 @@ const HeroRegions = ({ continentName, continentData }: HeroRegionsProps) => {
       {/* Content */}
       <div className="relative z-20 flex items-center justify-between h-full w-full max-w-7xl mx-auto px-8">
         <div className="flex-1">
-          <div className="mt-24">
-            <div className="text-white text-sm mb-4 font-inter opacity-80">
+          <div>
+            <div className="text-white text-xs font-bold mb-4 font-inter">
               Home &gt; Destinations &gt; Regions &gt; {continentName}
             </div>
-            <h1 className="text-5xl md:text-7xl font-arpona text-white font-bold mb-4 flex items-center gap-4">
-              Discover <span className="font-bellarina text-5xl md:text-7xl">{continentName}</span>
+            <h1 className="text-5xl md:text-7xl font-arpona text-white mb-4 flex items-center gap-4">
+              <span className="font-bold">Discover </span><span className="font-bellarina text-5xl md:text-7xl"> {continentName}</span>
             </h1>
-            <p className="text-lg md:text-2xl text-white font-inter mb-8 max-w-2xl">
+            <p className="text-lg md:text-md font-bold text-white font-inter mb-8 max-w-xl">
               From iconic landscapes to legendary hospitality, {continentName} redefines luxury through experience
             </p>
             {/* Stats Row */}
             <div className="flex items-center gap-8 text-white text-base md:text-lg font-inter font-semibold mb-2">
               <span className="flex items-center gap-2">
-                <MapPin className="w-5 h-5" /> {continentData?.countryCount || 0} Countries
+                <Image src="/luxufe-icon-location-pin-white.svg" alt="Country" width={15} height={15} /> {continentData?.countryCount || 0} Countries
               </span>
               <span className="flex items-center gap-2">
-                <Building2 className="w-5 h-5" /> {continentData?.hotelCount || 0} Properties
+                <Image src="/luxufe-icon-destination-properties-white.svg" alt="Property" width={18} height={18} /> {continentData?.hotelCount || 0} Properties
               </span>
               <span className="flex items-center gap-2">
-                <BookOpen className="w-5 h-5" /> 0 Itineraries
+                <Image src="/luxufe-icon-destinations-itineraries-white.svg" alt="Itinerary" width={18} height={18} /> 0 Itineraries
               </span>
             </div>
           </div>
         </div>
         {/* Continent SVG */}
         {continentSVG && (
-          <div className="flex-1 flex justify-center items-center">
+          <div className="">
             <Image
               src={continentSVG}
               alt={`${continentName} outline`}
               width={400}
               height={500}
-              className="opacity-90"
+              className="opacity-50"
             />
           </div>
         )}
