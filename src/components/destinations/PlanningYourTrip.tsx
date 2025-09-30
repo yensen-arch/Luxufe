@@ -34,8 +34,8 @@ export default function PlanningYourTrip() {
 
           {/* Desktop: Original Layout */}
           <div className="hidden md:block">
-            {/* Overlapping Heading/Subheading */}
-            <div className="absolute md:static ml-20 z-20 mt-30">
+              {/* Overlapping Heading/Subheading */}
+              <div className="relative ml-20 z-20 mt-30 -mr-[45%]">
               <h3 className="font-bellarina text-3xl md:text-5xl text-[#23263a] mb-4">Planning your Trip</h3>
               <h2 className="text-4xl md:text-6xl font-arpona text-[#23263a] font-bold leading-tight mb-6">
                 Let us refine your ideas into a<br />seamless, bespoke experience
