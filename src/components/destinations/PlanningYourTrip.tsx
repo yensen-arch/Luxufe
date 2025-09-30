@@ -1,5 +1,4 @@
-
-import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
 export default function PlanningYourTrip() {
@@ -10,9 +9,9 @@ export default function PlanningYourTrip() {
         {/* Left: Content */}
         <div className="relative w-6/8 bg-[#f5f6f7] flex flex-col mr-auto px-8 py-12 md:pl-16 md:pr-20">
           {/* Overlapping Heading/Subheading */}
-          <div className="absolute md:static ml-20 z-20 mt-20">
+          <div className="absolute md:static ml-20 z-20 mt-30">
             <h3 className="font-bellarina text-3xl md:text-5xl text-[#23263a] mb-4">Planning your Trip</h3>
-            <h2 className="text-4xl md:text-5xl font-arpona text-[#23263a] font-bold leading-tight mb-6">
+            <h2 className="text-4xl md:text-6xl font-arpona text-[#23263a] font-bold leading-tight mb-6">
               Let us refine your ideas into a<br />seamless, bespoke experience
             </h2>
           </div>
@@ -22,11 +21,11 @@ export default function PlanningYourTrip() {
             More than just a travel service, we are curators of experience, ensuring that each trip is tailored with precision, care, and an uncompromising commitment to excellence.<br/>
             </p>
             
-            <button className="flex items-center gap-2 border border-gray-400 px-8 py-4 bg-[#f7f7f8] text-[#23263a] font-inter font-bold text-xs tracking-widest hover:bg-gray-100 transition-all w-fit"> MAKE AN ENQUIRY <ArrowRight className="w-5 h-5 ml-2" /> </button>
+            <button className="flex items-center gap-2 border-2 border-gray-300 px-8 py-4 bg-[#f7f7f8] text-[#23263a] font-inter font-bold text-xs tracking-widest hover:bg-gray-100 transition-all w-fit"> MAKE AN ENQUIRY <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="w-5 h-5 ml-2" /> </button>
           </div>
         </div>
         {/* Right: Image */}
-        <div className="w-[40%] translate-y-1/2 mr-20 z-10 absolute h-[70vh] right-0">
+        <div className="w-[45%] translate-y-1/2 mr-20 z-10 absolute h-[80vh] -top-40 right-0">
           <img
             src="https://picsum.photos/seed/resort-pool/1000/1200"
             alt="Effortless Travel"

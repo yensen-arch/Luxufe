@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Map, { Marker, Popup, NavigationControl } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { MapPin, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const LOCATIONS = [
@@ -43,9 +43,9 @@ export default function MapDestinations({ hotelCounts }: MapDestinationsProps) {
   return (
     <section className="my-10">
       <div className="max-w-8xl mx-auto p-14 ">
-        <div className="flex flex-col w-3/5 mx-auto items-center justify-center text-center text-3xl md:text-3xl font-arpona font-semibold text-gray-500 mb-10">Whether it's a country you've always dreamed of or a region you return to again and again, Luxufe helps you experience it in a way that's deeply personal.
+        <div className="flex flex-col w-5/9 mx-auto items-center justify-center text-center text-3xl md:text-3xl font-arpona font-semibold text-gray-600 mb-10">Whether it's a country you've always dreamed of or a region you return to again and again, Luxufe helps you experience it in a way that's deeply personal.
         </div>
-        <p className="text-md font-inter text-[#23263a] text-center font-bold mb-10">Discover regions where our deep knowledge and trusted partners create<br />something truly exceptional</p>
+        <p className="text-md font-inter text-[#23263a] text-center font-bold mb-14">Discover regions where our deep knowledge and trusted partners create<br />something truly exceptional</p>
         <div className="w-full h-[650px] overflow-hidden shadow-lg relative">
           <Map
             initialViewState={{ longitude: 20, latitude: 20, zoom: 1.1 }}

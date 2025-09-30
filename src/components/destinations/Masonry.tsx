@@ -112,7 +112,7 @@ export default function Masonry({ continentStats }: MasonryProps) {
 
   return (
     <section className="w-full max-w-8xl mx-auto px-14 mb-20">
-      <h2 className="text-4xl md:text-5xl font-arpona font-bold text-[#23263a] mb-24">Discover Destinations</h2>
+      <h2 className="text-4xl md:text-6xl font-arpona font-bold text-[#23263a] mb-24">Discover Destinations</h2>
       <div className="flex flex-col gap-6">
         {/* Row 1: Flexible layout based on available continents */}
         {firstRowContinents.length > 0 && (
