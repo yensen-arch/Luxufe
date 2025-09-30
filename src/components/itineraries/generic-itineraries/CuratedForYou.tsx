@@ -167,14 +167,8 @@ export default function CuratedForYou() {
 
   return (
     <section className="py-8 md:py-20 my-12 md:my-40 bg-white text-gray-800 relative overflow-hidden">
-      <div className="absolute top-40 left-10 -translate-y-1/2 -translate-x-1/2 opacity-30">
-        <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[150px] md:w-[300px] h-auto" />
-      </div>
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl md:text-6xl font-arpona font-bold">Luxufe Selected Favorites</h2>
-        <p className="md:max-w-1/4 text-black mx-auto my-6 md:my-12 font-inter font-bold text-sm md:text-base">
-          Discover crafted cruise itineraries that blend elegance, adventure, and ease.
-        </p>
+        <h2 className="text-3xl md:text-6xl font-arpona font-bold">Other trips like this</h2>
       </div>
 
       <div className="relative py-4 md:py-10">
