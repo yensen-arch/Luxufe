@@ -11,9 +11,9 @@ export default function PricingSection() {
         </div>
         <div className="md:w-3/4 w-full p-6 md:p-12 ">
           <PricingOptions />
-          <TripView />
           <Accommodation />
           <GoodToKnowAccordion />
+          <TripView />
          </div>
       </div>
     </section>
