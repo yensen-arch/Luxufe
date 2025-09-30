@@ -1,10 +1,9 @@
 "use client"
 import { useState } from "react";
-
+import Image from "next/image";
 const departures = [
   { label: "OCTOBER DEPARTURE" },
   { label: "JANUARY 2026 DEPARTURE" },
-  { label: "ANOTHER DEPARTURE" },
 ];
 
 const itinerary = [
@@ -40,7 +39,7 @@ export default function ItineraryOptions() {
 
   return (
     <div className="w-full md:w-4/5">
-      <h2 className="text-2xl md:text-3xl font-arpona font-bold text-black mb-4 md:mb-6 px-4 md:px-0">Itinerary Options</h2>
+      <h2 className="text-2xl md:text-3xl font-arpona font-bold text-black mb-4 md:mb-6 px-4 md:px-0">Daily Itinerary</h2>
       {/* Tabs */}
       <div className="flex flex-col md:flex-row overflow-x-auto md:overflow-visible">
         {departures.map((dep, idx) => (
@@ -48,7 +47,7 @@ export default function ItineraryOptions() {
             key={dep.label}
             className={`px-4 md:px-8 py-3 md:py-4 text-sm md:text-sm font-inter font-bold tracking-widest uppercase focus:outline-none transition whitespace-nowrap md:whitespace-normal ${
               selectedTab === idx
-                ? "bg-[#f5f6f7] text-black font-bold text-xs"
+                ? "bg-gray-100 text-black font-bold text-xs"
                 : "border-transparent bg-white text-gray-500 hover:text-black font-bold text-xs"
             }`}
             onClick={() => setSelectedTab(idx)}
@@ -58,7 +57,7 @@ export default function ItineraryOptions() {
         ))}
       </div>
       {/* Accordion */}
-      <div className="bg-[#f5f6f7] divide-y divide-gray-600 mt-4 md:mt-0">
+      <div className="bg-gray-100 divide-y divide-gray-600 mt-4 md:mt-0">
         {itinerary.map((item, idx) => {
           const isOpen = openIndex === idx;
           return (
@@ -74,11 +73,7 @@ export default function ItineraryOptions() {
                   </div>
                 </div>
                 <span className={`ml-auto transition-transform duration-300 flex-shrink-0 ${isOpen ? "rotate-45" : "rotate-0"}`}>
-                  {isOpen ? (
-                    <svg width="24" height="24" className="md:w-9 md:h-9" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="10" y1="10" x2="26" y2="26" stroke="black" strokeWidth="2"/><line x1="26" y1="10" x2="10" y2="26" stroke="black" strokeWidth="2"/></svg>
-                  ) : (
-                    <svg width="24" height="24" className="md:w-9 md:h-9" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="18" y1="10" x2="18" y2="26" stroke="black" strokeWidth="2"/><line x1="10" y1="18" x2="26" y2="18" stroke="black" strokeWidth="2"/></svg>
-                  )}
+                  <Image src="/luxufe-icon-dropdown-icon-dark.svg" alt="arrow-down" width={24} height={24} className="md:w-9 md:h-9" />
                 </span>
               </div>
               <div
