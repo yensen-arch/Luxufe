@@ -69,7 +69,7 @@ const Page = async ({ params }: PageProps) => {
         continentName={continentName}
         countriesData={countriesData}
       />
-      <WaysToExplore />
+      <WaysToExplore continentName={continentName} />
       <LuxuryBuilt />
       <ExploreAfrica />
       <ContactUs />
