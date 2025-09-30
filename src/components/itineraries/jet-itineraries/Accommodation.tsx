@@ -2,7 +2,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-
+import Image from "next/image";
 const hotels = [
   {
     name: "The Fullerton Bay Hotel",
@@ -61,7 +61,9 @@ export default function Accommodation() {
               <div key={index} className="flex-[0_0_300px] md:flex-[0_0_400px] min-w-0">
                 <div className="relative group cursor-pointer">
                   {/* Hotel Image */}
-                  <img
+                  <Image
+                    width={1000}
+                    height={1000}
                     src={hotel.image}
                     alt={hotel.alt}
                     className="w-full h-[200px] md:h-[480px] object-cover"
@@ -71,7 +73,7 @@ export default function Accommodation() {
                   <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300">
                     {/* View This Hotel Button */}
                     <div className="absolute top-4 left-4">
-                      <button className="text-gray-900 font-inter font-bold text-xs px-3 py-1">
+                      <button className="text-white font-inter font-bold text-xs px-3 py-1">
                         VIEW THIS HOTEL
                       </button>
                     </div>
@@ -94,19 +96,19 @@ export default function Accommodation() {
 
         {/* Navigation Arrows */}
         <button
-          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-90 hover:bg-opacity-100 shadow-lg rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center border border-gray-200 hover:border-gray-300 transition-all duration-300"
+          className="absolute left-2 md:-left-10 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-90 hover:bg-opacity-100 shadow-lg rounded-full w-10 h-10 md:w-20 md:h-20 flex items-center justify-center border border-gray-200 hover:border-gray-300 transition-all duration-300"
           onClick={scrollPrev}
           aria-label="Previous hotel"
         >
-          <ChevronLeft className="h-5 w-5 text-gray-700" />
+          <Image src="/luxufe-icon-slider-arrow-dark.svg" alt="arrow-left" width={24} height={24} />
         </button>
         
         <button
-          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-90 hover:bg-opacity-100 shadow-lg rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center border border-gray-200 hover:border-gray-300 transition-all duration-300"
+          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-90 hover:bg-opacity-100 shadow-lg rounded-full w-10 h-10 md:w-20 md:h-20 flex items-center justify-center border border-gray-200 hover:border-gray-300 transition-all duration-300"
           onClick={scrollNext}
           aria-label="Next hotel"
         >
-          <ChevronRight className="h-5 w-5 text-gray-700" />
+          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="arrow-right" width={24} height={24} />
         </button>
       </div>
     </div>

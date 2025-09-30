@@ -29,8 +29,6 @@ const availableDates: Record<string, Record<string, string[]>> = {
 const inclusions = [
   "Food and beverages",
   "Butler service",
-  "Expedition Gear",
-  "Shore Excursions with Zodiacs",
 ];
 
 const benefits = ["Charter flights", "Hotel"];
@@ -70,7 +68,7 @@ export default function PricingOptions() {
   };
 
   return (
-    <div className="w-full max-w-4xl px-4 md:px-12">
+    <div className="w-full max-w-4xl px-4 md:px-12  border-b-2 border-gray-300 pb-8">
       {/* Header */}
       <h2 className="text-2xl md:text-3xl font-arpona font-bold text-gray-900 mb-2">
         Pricing & Options
@@ -188,7 +186,7 @@ export default function PricingOptions() {
           </div>
 
           {/* Inclusions & Benefits */}
-          <div className="mt-6 border-t border-gray-200 pt-6">
+          <div className="mt-6 border-t-2 border-gray-300 pt-6">
             <div
               className="flex items-center justify-between cursor-pointer"
               onClick={() => setInclusionsOpen(!inclusionsOpen)}
@@ -196,22 +194,7 @@ export default function PricingOptions() {
               <h4 className="text-gray-900 font-inter font-bold text-sm uppercase">
                 INCLUSIONS & BENEFITS
               </h4>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={`transition-transform duration-300 ${inclusionsOpen ? "rotate-180" : ""}`}
-              >
-                <path
-                  d="M6 9L12 15L18 9"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <Image src="/luxufe-icon-dropdown-icon-dark.svg" alt="dropdown" width={24} height={24} className={`transition-transform duration-300 ${inclusionsOpen ? "rotate-45" : ""}`} />
             </div>
 
             {inclusionsOpen && (
@@ -219,22 +202,8 @@ export default function PricingOptions() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <div className="flex items-center gap-2 mb-3">
-                      <div className="w-4 h-4 bg-[#A5C8CE]  flex items-center justify-center">
-                        <svg
-                          width="8"
-                          height="8"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M20 6L9 17L4 12"
-                            stroke="white"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                      <div className="w-4 h-4 flex items-center justify-center">
+                        <Image src="/luxufe-icon-star-ratings-solid-grey.svg" alt="star" width={24} height={24} />
                       </div>
                       <span className="text-gray-900 font-inter font-bold text-sm">
                         Inclusions
@@ -253,20 +222,8 @@ export default function PricingOptions() {
                   </div>
                   <div>
                     <div className="flex items-center gap-2 mb-3">
-                      <div className="w-4 h-4 bg-[#A5C8CE] rounded-full flex items-center justify-center">
-                        <svg
-                          width="8"
-                          height="8"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M6 9H4.5A2.5 2.5 0 0 1 2 6.5v-1A2.5 2.5 0 0 1 4.5 3h1A2.5 2.5 0 0 1 8 5.5v1A2.5 2.5 0 0 1 5.5 9H6zm0 0h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z"
-                            stroke="white"
-                            strokeWidth="1.5"
-                          />
-                        </svg>
+                      <div className="w-4 h-4 flex items-center justify-center">
+                        <Image src="/luxufe-icon-metro-trophy.svg" alt="star" width={24} height={24} />
                       </div>
                       <span className="text-gray-900 font-inter font-bold text-sm">
                         Benefits
@@ -289,7 +246,7 @@ export default function PricingOptions() {
           </div>
 
           {/* Cancellation Policy */}
-          <div className="mt-4 border-t border-gray-200 pt-4">
+          <div className="mt-4 border-t-2 border-gray-300 pt-4">
             <div
               className="flex items-center justify-between cursor-pointer"
               onClick={() => setCancellationOpen(!cancellationOpen)}
@@ -329,48 +286,41 @@ export default function PricingOptions() {
 
         {/* Second Fare Section (Duplicate) */}
         <div className="bg-[#f5f6f7] p-6">
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
             <div className="flex-1 mb-4 md:mb-0">
               <h3 className="text-xl md:text-2xl font-arpona font-bold text-gray-900 mb-2">
                 Port-to-Port
               </h3>
-              <div className="text-gray-500 font-inter text-xs md:text-sm font-bold uppercase mb-3">
+              <div className="text-gray-900 font-inter text-xs md:text-xs font-bold uppercase mb-6">
                 FLEXIBILITY - ALL INCLUSIVE
               </div>
-              <p className="text-gray-700 font-inter text-sm md:text-base leading-relaxed">
+              <p className="text-gray-700 font-inter font-bold text-sm md:text-sm leading-relaxed">
                 For those who prefer to manage their own airfare and transfers,
                 but still want included shore excursions, this fare is for you.
               </p>
             </div>
-            <div className="text-right">
+            <div className="text-right flex flex-col gap-2">
               <div className="text-2xl md:text-3xl font-arpona font-bold text-gray-900">
-                $25,650
+                $25,650{" "}
+                <span className="text-gray-500 font-inter text-xs">
+                  Per Guest
+                </span>
+                <div className="text-gray-400 font-inter text-xs font-bold mt-1">
+                  *Payment non-refundable
+                </div>
               </div>
-              <div className="text-gray-500 font-inter text-sm">Per Guest</div>
-              <div className="text-gray-400 font-inter text-xs italic mt-1">
-                *Payment non-refundable
-              </div>
-            </div>
-          </div>
 
-          <button className="w-full md:w-auto px-6 py-3 border border-gray-300 bg-white text-gray-900 font-inter font-bold text-sm hover:bg-gray-50 transition-colors duration-300 flex items-center justify-center gap-2">
-            BOOK WITH THIS FARE
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5 12H19M19 12L12 5M19 12L12 19"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
+              <button className="w-full mt-3 md:w-auto px-6 py-4 border-2 border-gray-300 text-gray-900 font-inter font-bold text-xs hover:bg-gray-50 transition-colors duration-300 flex items-center justify-center gap-2">
+                BOOK WITH THIS FARE
+                <Image
+                  src="/luxufe-icon-button-arrow-dark.svg"
+                  alt="arrow-right"
+                  width={24}
+                  height={24}
+                />
+              </button>
+            </div>{" "}
+          </div>
 
           {/* Inclusions & Benefits (Collapsed) */}
           <div className="mt-6 border-t border-gray-200 pt-6">
@@ -431,7 +381,7 @@ export default function PricingOptions() {
       </div>
 
       {/* Footer Disclaimer */}
-      <div className="mt-8 text-gray-500 font-inter text-xs leading-relaxed">
+      <div className="mt-8 text-gray-400 font-inter font-bold text-xs leading-relaxed">
         All prices and fares are quoted in US dollars and subject to change.
         Transportation by private Boeing 757 and other conveyance, as noted in
         the itinerary, is included in the expedition cost. Airfare to Singapore
