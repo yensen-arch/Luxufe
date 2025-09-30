@@ -31,7 +31,7 @@ const HeroRegions = ({ continentName, continentData }: HeroRegionsProps) => {
   const continentSVG = getContinentSVG(continentName);
 
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden mb-10">
+    <section className="relative w-full h-[110vh] flex items-center justify-center overflow-hidden mb-10 shadow-lg">
       {/* Background Image */}
       <img
         src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80"
@@ -80,12 +80,12 @@ const HeroRegions = ({ continentName, continentData }: HeroRegionsProps) => {
       </div>
       {/* Bottom Navigation Row */}
       <nav className="absolute left-1/2 -translate-x-1/2 bottom-0 w-full z-30 ">
-        <div className="bg-white flex justify-center items-center gap-8 py-3 shadow-lg">
+        <div className="bg-white flex justify-center items-center gap-8 py-6 shadow-lg font-bold">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-[#23263a] font-inter font-semibold text-sm px-2 transition-colors hover:text-[#6c6f7b]"
+              className="text-[#23263a] font-inter text-md px-2 transition-colors hover:text-[#6c6f7b]"
             >
               {link.label}
             </a>
