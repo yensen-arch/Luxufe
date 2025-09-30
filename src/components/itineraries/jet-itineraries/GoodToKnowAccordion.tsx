@@ -29,7 +29,7 @@ export default function GoodToKnowAccordion() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
-    <div className="w-4/5 py-12 px-12">
+    <div className="w-full md:w-4/5 py-12 md:px-12">
       <h2 className="text-3xl font-arpona font-bold text-gray-900 mb-8">Good to know</h2>
       <div className="divide-y divide-gray-600">
         {ITEMS.map((item, idx) => {
