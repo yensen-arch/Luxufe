@@ -1,6 +1,6 @@
 "use client";
-import { useState, useRef } from "react";
-
+import { useState } from "react";
+import Image from "next/image";
 const ITEMS = [
   {
     title: "When to visit South Africa - weather & seasons",
@@ -43,19 +43,7 @@ export default function GoodToKnowAccordion() {
               >
                 <span className="text-xl font-arpona text-gray-900 font-bold">{item.title}</span>
                 <span className={`ml-4 transition-transform duration-300 ${isOpen ? "rotate-45" : "rotate-0"}`}>
-                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                    {isOpen ? (
-                      <>
-                        <line x1="10" y1="10" x2="30" y2="30" stroke="#23263B" strokeWidth="2" />
-                        <line x1="30" y1="10" x2="10" y2="30" stroke="#23263B" strokeWidth="2" />
-                      </>
-                    ) : (
-                      <>
-                        <line x1="20" y1="10" x2="20" y2="30" stroke="#23263B" strokeWidth="2" />
-                        <line x1="10" y1="20" x2="30" y2="20" stroke="#23263B" strokeWidth="2" />
-                      </>
-                    )}
-                  </svg>
+                  <Image src="/luxufe-icon-dropdown-icon-dark.svg" alt="dropdown" width={40} height={40} />
                 </span>
               </button>
               <div
