@@ -16,13 +16,13 @@ export default function LuxuryBuilt() {
             />
           </div>
           {/* Right: Text */}
-          <div className="md:w-1/2 w-full flex flex-col justify-center my-auto ml-10">
+          <div className="md:w-1/2 w-full flex flex-col justify-center my-auto md:ml-10">
             <h3 className="text-2xl md:text-6xl font-arpona font-bold text-[#23263a] mb-6">
               Built on Luxury
             </h3>
-            <h4 className="text-4xl md:text-2xl w-8xl font-arpona font-bold text-[#23263a] mb-6"> Luxury Built for You</h4>
-            <p className="font-inter text-[#23263a] font-bold md:text-md mb-4 md:w-5/7">
-              At Luxufe, we ensure that every detail is meticulously arranged, from visa requirements to cultural etiquette, allowing you to travel with confidence and ease.
+            <h4 className="text-4xl md:text-3xl w-full md:w-8xl font-arpona font-bold text-gray-600 mb-6"> Luxury Built for You</h4>
+            <p className="font-inter text-[#23236a] w-full md:w-5/7 font-bold md:text-md mb-4 md:w-5/7">
+              At Luxufe, we ensure that every detail is meticulously arranged.
             </p>
             <p className="font-inter text-[#23263a] font-bold md:text-md w-5/7">
               With expert guidance, thoughtful preparation, and seamless execution, we help you prepare for the ultimate luxury experience so you can focus on what truly matters: immersing yourself in the journey.
