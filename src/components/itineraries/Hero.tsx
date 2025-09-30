@@ -22,9 +22,6 @@ export default function Hero() {
       <div className="absolute left-6 bottom-6 z-30 text-white text-xs font-inter">
         Home &gt; Travel by Destination
       </div>
-      <div className="absolute right-6 bottom-6 z-30 text-white text-xs font-inter">
-        Image: details for the featured image here
-      </div>
     </section>
   );
 } 

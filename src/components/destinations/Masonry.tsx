@@ -72,23 +72,23 @@ function ContinentCard({ continent, stats, className = "" }: {
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
-      <div className="absolute inset-0 flex flex-col justify-between p-6">
+      <div className="absolute inset-0 flex flex-col justify-between p-3 md:p-6">
         <div className="flex flex-col justify-end h-full">
-          <h3 className="text-white text-xl md:text-2xl font-arpona font-bold mb-4">{continent.displayName}</h3>
+          <h3 className="text-white text-lg md:text-xl lg:text-2xl font-arpona font-bold mb-2 md:mb-4">{continent.displayName}</h3>
           
           {/* Statistics */}
-          <div className="flex items-center gap-6 mb-4 text-white">
-            <div className="flex items-center gap-2">
-              <Building className="w-4 h-4" />
-              <span className="font-inter text-sm font-bold">{stats.hotelCount} Properties</span>
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-6 mb-2 md:mb-4 text-white">
+            <div className="flex items-center gap-1 md:gap-2">
+              <Building className="w-3 h-3 md:w-4 md:h-4" />
+              <span className="font-inter text-xs md:text-sm font-bold">{stats.hotelCount} Properties</span>
             </div>
-            <div className="flex items-center gap-2">
-              <List className="w-4 h-4" />
-              <span className="font-inter text-sm font-bold">0 Itineraries</span>
+            <div className="flex items-center gap-1 md:gap-2">
+              <List className="w-3 h-3 md:w-4 md:h-4" />
+              <span className="font-inter text-xs md:text-sm font-bold">0 Itineraries</span>
             </div>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4" />
-              <span className="font-inter text-sm font-bold">{stats.countryCount} Countries</span>
+            <div className="flex items-center gap-1 md:gap-2">
+              <MapPin className="w-3 h-3 md:w-4 md:h-4" />
+              <span className="font-inter text-xs md:text-sm font-bold">{stats.countryCount} Countries</span>
             </div>
           </div>
         </div>
@@ -111,14 +111,14 @@ export default function Masonry({ continentStats }: MasonryProps) {
   const secondRowContinents = continentsWithData.slice(3); // Remaining continents
 
   return (
-    <section className="w-full max-w-8xl mx-auto px-14 mb-20">
-      <h2 className="text-4xl md:text-6xl font-arpona font-bold text-[#23263a] mb-24">Discover Destinations</h2>
-      <div className="flex flex-col gap-6">
+    <section className="w-full max-w-8xl mx-auto px-4 md:px-14 mb-10 md:mb-20">
+      <h2 className="text-2xl md:text-4xl lg:text-6xl font-arpona font-bold text-[#23263a] mb-12 md:mb-24">Discover Destinations</h2>
+      <div className="flex flex-col gap-4 md:gap-6">
         {/* Row 1: Flexible layout based on available continents */}
         {firstRowContinents.length > 0 && (
-          <div className="flex gap-6 h-[800px]">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-6 h-[400px] md:h-[800px]">
             {/* First continent - large */}
-            <div className="flex flex-col gap-6 w-1/2 h-full">
+            <div className="flex flex-col gap-4 md:gap-6 w-full md:w-1/2 h-1/2 md:h-full">
               <div className="h-full w-full">
                 <ContinentCard 
                   continent={firstRowContinents[0]} 
@@ -128,7 +128,7 @@ export default function Masonry({ continentStats }: MasonryProps) {
               </div>
             </div>
             {/* Remaining continents in right column */}
-            <div className="flex flex-col gap-6 w-1/2 h-full">
+            <div className="flex flex-col gap-4 md:gap-6 w-full md:w-1/2 h-1/2 md:h-full">
               {firstRowContinents.slice(1).map((continent, index) => (
                 <div key={continent.name} className="h-1/2 w-full">
                   <ContinentCard 
@@ -144,7 +144,7 @@ export default function Masonry({ continentStats }: MasonryProps) {
         
         {/* Row 2: Grid layout for remaining continents */}
         {secondRowContinents.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-[550px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 h-[300px] md:h-[550px]">
             {secondRowContinents.map((continent) => (
               <ContinentCard 
                 key={continent.name}
