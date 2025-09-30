@@ -148,8 +148,8 @@ export default function PricingOptions() {
       {/* Port-to-Port Fare Sections */}
       <div className="space-y-6">
         {/* First Fare Section */}
-        <div className="bg-gray-100 p-6">
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
+        <div className="bg-gray-100">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6 p-6">
             <div className="flex-1 mb-4 md:mb-0">
               <h3 className="text-xl md:text-2xl font-arpona font-bold text-gray-900 mb-2">
                 Port-to-Port
@@ -186,7 +186,7 @@ export default function PricingOptions() {
           </div>
 
           {/* Inclusions & Benefits */}
-          <div className="mt-6 border-t-2 border-gray-300 pt-6">
+          <div className="mt-6 border-t-2 border-gray-300 p-6">
             <div
               className="flex items-center justify-between cursor-pointer"
               onClick={() => setInclusionsOpen(!inclusionsOpen)}
@@ -246,7 +246,7 @@ export default function PricingOptions() {
           </div>
 
           {/* Cancellation Policy */}
-          <div className="mt-4 border-t-2 border-gray-300 pt-4">
+          <div className="mt-4 border-t-2 border-gray-300 p-6">
             <div
               className="flex items-center justify-between cursor-pointer"
               onClick={() => setCancellationOpen(!cancellationOpen)}
@@ -285,9 +285,9 @@ export default function PricingOptions() {
         </div>
 
         {/* Second Fare Section (Duplicate) */}
-        <div className="bg-[#f5f6f7] p-6">
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
-            <div className="flex-1 mb-4 md:mb-0">
+        <div className="bg-gray-100">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6 p-6">
+            <div className="flex-1 mb-4 md:mb-0 ">
               <h3 className="text-xl md:text-2xl font-arpona font-bold text-gray-900 mb-2">
                 Port-to-Port
               </h3>
@@ -323,7 +323,7 @@ export default function PricingOptions() {
           </div>
 
           {/* Inclusions & Benefits (Collapsed) */}
-          <div className="mt-6 border-t border-gray-200 pt-6">
+          <div className="mt-6 border-t-2 border-gray-300 p-6">
             <div
               className="flex items-center justify-between cursor-pointer"
               onClick={() => setInclusionsOpen(!inclusionsOpen)}
@@ -351,7 +351,7 @@ export default function PricingOptions() {
           </div>
 
           {/* Cancellation Policy (Collapsed) */}
-          <div className="mt-4 border-t border-gray-200 pt-4">
+          <div className="mt-4 border-t-2 border-gray-300 p-6">
             <div
               className="flex items-center justify-between cursor-pointer"
               onClick={() => setCancellationOpen(!cancellationOpen)}
