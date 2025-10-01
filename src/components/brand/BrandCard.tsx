@@ -42,15 +42,11 @@ export default function BrandCard({ name, location, logo, description, brand }: 
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        console.log('🎯 BrandCard: Fetching gallery for hotel name:', name);
-        
         // Fetch gallery images and card images in parallel
         const [images, cardImagesData] = await Promise.all([
           getHotelGallery(name),
           getHotelCardImages(name)
         ]);
-        
-        console.log('🎯 BrandCard: Gallery images received:', images.length, 'images');
         setGalleryImages(images);
         setCardImages(cardImagesData);
         
@@ -243,7 +239,7 @@ export default function BrandCard({ name, location, logo, description, brand }: 
         ) : (
           <button onClick={handleCardClick} className="cursor-pointer w-full border border-gray-800 bg-white text-gray-800 font-inter font-bold text-xs py-3 px-4 flex items-center justify-center gap-2 hover:bg-gray-50 transition">
             EXPLORE HOTEL
-            <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="w-3 h-3 md:w-7 md:h-7 opacity-50" />
+            <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="w-6 h-6 md:w-7 md:h-7 opacity-50" />
           </button>
         )}
       </div>

@@ -50,7 +50,7 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
   }
 
   return (
-    <section className="flex-1 bg-gray-100 max-h-[250vh]">
+    <section className="flex-1 bg-gray-100 max-h-[370vh]">
       {/* Selected Filters - Always visible */}
       <div className="border-b-2 border-gray-300 px-8 py-4 h-30">
         <div className="flex items-center gap-4">
@@ -114,7 +114,7 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 px-16 pb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:px-16 px-4 pb-8">
           {currentHotels.map((hotel, index) => (
             <BrandCard
               key={hotel.id}
@@ -130,7 +130,7 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
 
       {/* Pagination Component */}
       {totalPages > 1 && (
-        <div className="flex justify-center items-center gap-2 mt-12 md:mt-16 lg:mt-24 w-auto max-w-md mx-auto">
+        <div className="flex justify-center items-center gap-2 mt-12 md:mt-16 lg:mt-24 mb-4 w-auto max-w-md mx-auto">
           {/* First half of pages */}
           {Array.from({ length: Math.ceil(totalPages / 2) }, (_, i) => i + 1).map((page) => (
             <button
