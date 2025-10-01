@@ -1,5 +1,7 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
+import ItineraryCard from "./ItineraryCard";
 
 interface ItinerariesGridProps {
   data?: {
@@ -15,7 +17,7 @@ const journeys = [
     title: "Luxury Cruises",
     description: "Stay in handpicked luxury hotels offering exceptional service, world-class amenities, and breathtaking locations, from private retreats to iconic city landmarks.",
     button: "INDULGE",
-    highlight: true,
+    highlight: false,
   },
   {
     image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
@@ -54,42 +56,39 @@ const journeys = [
 ];
 
 export default function ItinerariesGrid({ data }: ItinerariesGridProps) {
+  const [selectedCard, setSelectedCard] = useState<number | null>(null); // No card selected by default
+  
   // Use data from CMS if available, otherwise fall back to hardcoded content
   const displayTitle = data?.title || "Ways to Travel with Luxufe";
 
+  const handleCardClick = (index: number) => {
+    setSelectedCard(selectedCard === index ? null : index);
+  };
+
   return (
-    <section className="bg-white py-24 flex flex-col items-center">
+    <section className="bg-white py-12 lg:py-24 flex flex-col items-center">
       {/* Heading Section */}
-      <div className="mb-16 text-center">
-        <div className="text-2xl md:text-3xl font-arpona text-gray-600 font-bold mb-30 md:max-w-2/4 mx-auto px-4">
+      <div className="mb-8 lg:mb-16 text-center px-4 lg:px-0">
+        <div className="text-2xl lg:text-3xl xl:text-4xl font-arpona mb-2 text-gray-600 font-bold mb-30 md:max-w-2/4 mx-auto">
             From iconic destinations to once-in-a-lifetime adventures, every Luxufe journey
             is crafted to match your pace, preferences, and passions. Whether you seek cultural immersion,
             luxury cruising, or private escapes, your next extraordinary journey starts here.
         </div>
-        <h2 className="text-4xl md:text-5xl font-arpona font-bold my-6">{displayTitle}</h2>
+        <h2 className="text-3xl lg:text-5xl xl:text-6xl font-arpona font-bold mb-4 lg:mb-6">{displayTitle}</h2>
       </div>
       {/* Grid Section */}
-      <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="w-full max-w-8xl px-4 lg:px-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
         {journeys.map((j, idx) => (
-          <div
+          <ItineraryCard
             key={idx}
-            className={`flex flex-col bg-white shadow-lg overflow-hidden transition-all duration-300 ${j.highlight ? "border-t-8 border-[#17696A]" : ""}`}
-          >
-            {/* Image + Overlay */}
-            <div className="relative h-80 w-full">
-              <img src={j.image} alt={j.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0  h-full flex flex-col items-center justify-center bg-black/20">
-              </div>
-            </div>
-            {/* Lower Section */}
-            <div className={`flex flex-col flex-1 p-8 ${j.highlight ? "bg-[#17696A] text-white" : "bg-white text-[#23263a]"}`}>
-              <h3 className="text-3xl font-arpona font-normal mb-4">{j.title}</h3>
-              <p className="text-sm font-inter font-bold mb-8 text-gray-500">{j.description}</p>
-              <button className={`flex items-center gap-2 text-md font-inter font-bold tracking-widest ${j.highlight ? "text-white" : "text-[#17696A]"}`}>
-                {j.button} <span className="ml-2">&rarr;</span>
-              </button>
-            </div>
-          </div>
+            image={j.image}
+            title={j.title}
+            description={j.description}
+            button={j.button}
+            highlight={j.highlight}
+            isSelected={selectedCard === idx}
+            onClick={() => handleCardClick(idx)}
+          />
         ))}
       </div>
       
