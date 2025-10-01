@@ -52,7 +52,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, type, bed, image, image
   const finalImages = displayImages.length > 0 ? displayImages : [getPlaceholderImage(0)];
 
   return (
-    <div className="relative rounded-none overflow-hidden shadow-lg h-[500px] flex flex-col justify-between group cursor-pointer">
+    <div className="max-w-8xl relative rounded-none overflow-hidden shadow-lg h-[550px] flex flex-col justify-between group cursor-pointer">
       {/* Image Carousel */}
       <div className="absolute inset-0 z-0">
         <div ref={emblaRef} className="overflow-hidden h-full">
@@ -114,9 +114,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, type, bed, image, image
       </div>
       
       {/* Bottom Section - Room Info and Button */}
-      <div className="relative z-20 p-6">
+      <div className="relative z-20 px-6">
+        <div className="flex flex-row gap-2 justify-between items-center">
+          <div>
         {/* Room Name */}
-        <h3 className="text-white text-2xl font-arpona font-normal mb-2 drop-shadow-lg">
+        <h3 className="text-white text-2xl font-arpona font-bold mb-2 drop-shadow-lg">
           {name}
         </h3>
         
@@ -124,11 +126,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, type, bed, image, image
         <div className="flex items-center gap-2 text-white text-xs font-inter mb-4 font-bold">
           <span>SLEEPS 2 ADULTS</span>
         </div>
-        
+        </div>
+
         {/* Action Button */}
         <button className="cursor-pointer bg-white text-black font-inter font-semibold px-6 py-3 text-xs rounded-none shadow hover:bg-gray-100 transition-all tracking-widest">
           READ MORE
         </button>
+        </div>
       </div>
     </div>
   );

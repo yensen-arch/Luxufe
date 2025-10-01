@@ -113,7 +113,7 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
   );
 
   return (
-    <section className="w-full py-20 bg-gradient-to-b from-blue-50 to-gray-100">
+    <section className="w-full py-20 bg-gray-100">
       <style dangerouslySetInnerHTML={{ __html: swiperStyles }} />
       <div className="mx-auto px-0">
         {/* Section Title */}
@@ -125,7 +125,7 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
         {isLoading ? (
           <CarouselSkeleton />
         ) : (
-          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px]">
+          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[600px]">
             <Swiper
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;

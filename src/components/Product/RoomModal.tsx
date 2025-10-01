@@ -73,7 +73,7 @@ const RoomModal = ({ room, images, isOpen, onClose }: RoomModalProps) => {
                   <div className="relative">
                     <button
                       onClick={onClose}
-                      className="absolute top-4 right-4 z-10 cursor-pointer p-4"
+                      className="absolute top-4 right-4 z-10 cursor-pointer p-4 bg-white rounded-full"
                     >
                       <Image
                         src="/luxufe-icon-close-dark.svg"

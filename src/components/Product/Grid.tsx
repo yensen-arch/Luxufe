@@ -126,7 +126,7 @@ const ProductGrid = ({ hotel }: ProductGridProps) => {
 
   // Skeleton component for loading state
   const RoomSkeleton = () => (
-    <div className="relative rounded-none overflow-hidden shadow-lg h-[500px] bg-gray-200 animate-pulse">
+    <div className="max-w-8xl relative rounded-none overflow-hidden shadow-lg h-[500px] bg-gray-200 animate-pulse">
       <div className="absolute inset-0 bg-gray-300"></div>
       <div className="absolute bottom-0 left-0 right-0 p-6">
         <div className="h-6 bg-gray-400 rounded w-3/4 mb-2"></div>
@@ -144,7 +144,7 @@ const ProductGrid = ({ hotel }: ProductGridProps) => {
 
   return (
     <>
-      <section className="w-full max-w-7xl mx-auto px-4 md:px-8 py-10">
+      <section className="w-full max-w-8xl mx-auto px-4 md:px-8 py-10">
         <h2 className="text-5xl text-center text-slate-700 font-arpona font-bold mb-14">Rooms & Suites</h2>
         
         {isLoading ? (
@@ -179,7 +179,7 @@ const ProductGrid = ({ hotel }: ProductGridProps) => {
         )}
         
         <div className="flex justify-center mb-10">
-          <button className="text-[#23263a] font-inter font-semibold text-sm px-6 py-2 bg-transparent border-none hover:underline tracking-widest">LOAD MORE +</button>
+          <button className="text-gray-500 font-inter font-semibold text-xs px-6 py-2 bg-transparent border-none hover:underline tracking-widest">LOAD MORE +</button>
         </div>
       </section>
 
