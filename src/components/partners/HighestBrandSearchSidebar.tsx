@@ -1,7 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import { Calendar, Filter, X } from "lucide-react";
-
+import Image from "next/image";
 interface HighestBrandSearchSidebarProps {
   onFiltersChange: (filters: {
     search: string;
@@ -77,7 +76,7 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="bg-[#23263a] text-white p-3 rounded-full shadow-lg"
         >
-          {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Filter className="w-5 h-5" />}
+          {isMobileMenuOpen ? <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={20} height={20} className="w-5 h-5" /> : <Image src="/luxufe-icon-filter-dark.svg" alt="Filter" width={20} height={20} className="w-5 h-5" />}
         </button>
       </div>
 
@@ -89,7 +88,7 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
         />
       )}
 
-      <aside className={`w-full min-h-[170vh] max-w-md bg-[#f5f6f7] border-r-2 border-gray-300 flex flex-col transition-transform duration-300 ease-in-out ${
+      <aside className={`w-full min-h-[170vh] max-w-md bg-gray-100 border-r-2 border-gray-300 flex flex-col transition-transform duration-300 ease-in-out ${
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
       } lg:translate-x-0 lg:relative fixed lg:static top-0 left-0 h-full z-50`}>
         
@@ -99,29 +98,29 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-gray-600 hover:text-gray-800"
           >
-            <X className="w-6 h-6" />
+            <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={24} height={24} className="w-6 h-6" />
           </button>
         </div>
 
         {/* Travel Dates */}
         <div className="border-b-2 border-gray-300 p-4 md:p-6">
-          <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">TRAVEL DATES</h3>
+          <h3 className="text-xs font-inter font-bold text-gray-900 mb-2 tracking-widest">TRAVEL DATES</h3>
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mb-2">
-            <button className="flex items-center justify-center gap-2 bg-white border border-gray-200 rounded-full px-3 py-2 text-xs font-inter font-bold text-gray-400">
-              <Calendar className="w-3 h-3 md:w-4 md:h-4" /> Departure
+            <button className="flex items-center justify-center gap-2 bg-white rounded-full px-5 py-3 text-xs font-inter font-bold text-gray-400">
+              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={20} height={20} className="w-3 h-3 md:w-3 md:h-3 opacity-50" /> Departure
             </button>
-            <span className="text-gray-400 flex items-center justify-center">→</span>
-            <button className="flex items-center justify-center gap-2 bg-white border border-gray-200 rounded-full px-3 py-2 text-xs font-inter font-bold text-gray-400">
-              <Calendar className="w-3 h-3 md:w-4 md:h-4" /> Arrival
+            <span className="text-gray-400 flex items-center justify-center"><Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="w-3 h-3 md:w-5 md:h-5 opacity-50" /></span>
+            <button className="flex items-center justify-center gap-2 bg-white rounded-full px-5 py-3 text-xs font-inter font-bold text-gray-400">
+              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={20} height={20} className="w-3 h-3 md:w-3 md:h-3 opacity-50" /> Arrival
             </button>
           </div>
         </div>
 
         {/* Travel Type */}
         <div className="border-b-2 border-gray-300 p-4 md:p-6">
-          <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">TRAVEL TYPE</h3>
+          <h3 className="text-xs font-inter font-bold text-gray-900 mb-2 tracking-widest">TRAVEL TYPE</h3>
           <select 
-            className="w-full bg-white border border-gray-200 rounded-full px-3 md:px-4 py-2 text-xs font-inter font-bold text-gray-400"
+            className="w-full bg-gray-200 border border-gray-200 rounded-full px-3 md:px-4 py-2 text-xs font-inter font-bold text-gray-400"
             value={travelType}
             onChange={(e) => {
               const newTravelType = e.target.value;
@@ -153,7 +152,7 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
         {/* Cruise Line - Only show for cruises */}
         {travelType === 'cruises' && (
           <div className="border-b-2 border-gray-300 p-4 md:p-6">
-            <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">CRUISE LINE</h3>
+            <h3 className="text-xs font-inter font-bold text-gray-900 mb-2 tracking-widest">CRUISE LINE</h3>
             <select 
               className="w-full bg-white border border-gray-200 rounded-full px-3 md:px-4 py-2 text-xs font-inter font-bold text-gray-400"
               value={cruiseLine}
@@ -170,7 +169,7 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
         {/* Ship Name - Only show for cruises */}
         {travelType === 'cruises' && (
           <div className="border-b-2 border-gray-300 p-4 md:p-6">
-            <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">SHIP NAME</h3>
+            <h3 className="text-xs font-inter font-bold text-gray-900 mb-2 tracking-widest">SHIP NAME</h3>
             <select 
               className="w-full bg-white border border-gray-200 rounded-full px-3 md:px-4 py-2 text-xs font-inter font-bold text-gray-400"
               value={shipName}
@@ -186,7 +185,7 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
 
         {/* Destination */}
         <div className="border-b-2 border-gray-300 p-4 md:p-6">
-          <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">DESTINATION</h3>
+          <h3 className="text-xs font-inter font-bold text-gray-900 mb-2 tracking-widest">DESTINATION</h3>
           <div className="flex flex-wrap gap-2">
             {destinationOptions.map((dest) => (
               <button 
@@ -195,7 +194,7 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
                 className={`px-2 md:px-4 py-1 md:py-2 rounded-full text-xs font-inter font-bold transition cursor-pointer ${
                   selectedDestinations.includes(dest)
                     ? 'bg-[#23263a] text-white'
-                    : 'bg-white border border-gray-200 text-gray-400 hover:bg-gray-50'
+                    : 'bg-gray-200 border border-gray-200 text-gray-400 hover:bg-gray-50'
                 }`}
               >
                 {dest}
@@ -207,7 +206,7 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
 
         {/* Experience */}
         <div className="border-b-2 border-gray-300 p-4 md:p-6">
-          <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">EXPERIENCE</h3>
+          <h3 className="text-xs font-inter font-bold text-gray-900 mb-2 tracking-widest">EXPERIENCE</h3>
           <div className="flex flex-wrap gap-2">
             {experienceOptions.map((exp) => (
               <button 
@@ -216,7 +215,7 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
                 className={`px-2 md:px-4 py-1 md:py-2 rounded-full text-xs font-inter font-bold transition cursor-pointer ${
                   selectedExperiences.includes(exp)
                     ? 'bg-[#23263a] text-white'
-                    : 'bg-white border border-gray-200 text-gray-400 hover:bg-gray-50'
+                    : 'bg-gray-200 border border-gray-200 text-gray-400 hover:bg-gray-50'
                 }`}
               >
                 {exp}
@@ -227,7 +226,7 @@ export default function HighestBrandSearchSidebar({ onFiltersChange, loading }: 
 
         {/* Special Offers */}
         <div className="p-4 md:p-6">
-          <h3 className="text-xs font-inter font-bold text-gray-500 mb-2 tracking-widest">SPECIAL OFFERS</h3>
+          <h3 className="text-xs font-inter font-bold text-gray-900 mb-2 tracking-widest">SPECIAL OFFERS</h3>
           <div className="flex items-center gap-2">
             <span className="text-xs font-inter font-bold text-gray-400">Trips that offer exceptional value or discounted rates</span>
             <input 
