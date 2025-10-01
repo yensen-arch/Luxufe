@@ -1,5 +1,6 @@
 import React from "react";
 import { getImageUrl } from "@/lib/sanity/brandPage";
+import Image from "next/image";
 
 interface BrandPhilosophyProps {
   data?: {
@@ -20,9 +21,11 @@ export default function BrandPhilosophy({ data }: BrandPhilosophyProps) {
       {/* Brand Image/Logo */}
       <div className="mb-10 flex flex-col items-center">
         {image ? (
-          <img 
+          <Image 
             src={image} 
             alt="Brand Philosophy" 
+            width={100}
+            height={100}
             className="max-w-xs h-auto"
           />
         ) : (
@@ -46,7 +49,7 @@ export default function BrandPhilosophy({ data }: BrandPhilosophyProps) {
         className="mt-4 px-3 py-4 border-2 border-gray-300 font-inter font-bold text-[#23263a] text-xs flex items-center justify-center gap-2 tracking-widest hover:bg-gray-100 transition-all"
       >
         EXPLORE HOTELS
-        <span className="ml-2">→</span>
+        <span className="ml-2"><Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="w-3 h-3 md:w-7 md:h-7 opacity-50" /></span>
       </a>
     </section>
   );

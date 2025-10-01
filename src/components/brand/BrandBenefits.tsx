@@ -1,11 +1,9 @@
 import React from "react";
-
+import Image from "next/image";
 // Star icon SVG (outline style)
 function StarIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M14 4l3.09 6.26L24 11.27l-5 4.87L20.18 22 14 18.27 7.82 22 9 16.14l-5-4.87 6.91-1.01L14 4z" stroke="#6B7280" strokeWidth="1.5" fill="none"/>
-    </svg>
+    <Image src="/luxufe-icon-star-grey.svg" alt="Star" width={20} height={20} className="w-7 h-7 opacity-50" />
   );
 }
 
@@ -24,7 +22,6 @@ interface BrandBenefitsProps {
 export default function BrandBenefits({ data }: BrandBenefitsProps) {
   // Fallback content if no data is provided
   const heading = data?.heading || "Seamless upgrades and insider access";
-  const description = data?.description || "";
   const benefits = data?.benefits || [
     { title: "Complimentary Upgrades*" },
     { title: "Daily à la carte breakfast for two" },
@@ -50,7 +47,7 @@ export default function BrandBenefits({ data }: BrandBenefitsProps) {
       {/* Benefits Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-16 mb-16 w-full max-w-5xl px-4">
         {benefits.map((benefit, i) => (
-          <div key={i} className="flex items-center justify-center gap-3 text-[#6B7280] font-inter text-sm font-bold">
+          <div key={i} className="flex items-center justify-start gap-3 text-[#6B7280] font-inter text-sm font-bold">
             <StarIcon className="w-7 h-7" />
             <span>{benefit.title || benefit.description}</span>
           </div>
@@ -63,7 +60,7 @@ export default function BrandBenefits({ data }: BrandBenefitsProps) {
         className="mt-4 px-4 py-5 border-2 border-gray-300 font-inter font-bold text-[#23263a] text-xs flex items-center justify-center gap-2 tracking-widest hover:bg-gray-100 transition-all"
       >
         ENQUIRE FOR MORE INFO
-        <span className="ml-2">→</span>
+        <span className="ml-2"><Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="w-3 h-3 md:w-7 md:h-7 opacity-50" /></span>
       </a>
     </section>
   );
