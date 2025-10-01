@@ -121,8 +121,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, type, bed, image, image
         </h3>
         
         {/* Sleep Capacity */}
-        <div className="flex items-center gap-2 text-white text-xs font-inter mb-4">
-          <Image src="/luxufe-icon-users-solid-white.svg" alt="Users" width={16} height={16} />
+        <div className="flex items-center gap-2 text-white text-xs font-inter mb-4 font-bold">
           <span>SLEEPS 2 ADULTS</span>
         </div>
         
