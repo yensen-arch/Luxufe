@@ -61,7 +61,7 @@ export default function PrivacyPolicyHero({ data, contentData }: PrivacyPolicyHe
   return (
     <section className="w-full">
       {/* Hero Section */}
-      <div className="relative w-full h-[48vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
+      <div className="relative w-full h-[48vh] md:h-[90vh] flex items-center justify-center overflow-hidden">
         <img
           src={displayBackgroundImage}
           alt="Privacy Policy Hero"
@@ -69,7 +69,7 @@ export default function PrivacyPolicyHero({ data, contentData }: PrivacyPolicyHe
         />
         <div className="absolute inset-0 bg-black/20 z-10" />
         <div className="relative z-20 flex flex-col items-center justify-center w-full px-4 text-center">
-          <h1 className="text-white text-5xl md:text-6xl font-arpona font-medium">{displayTitle}</h1>
+          <h1 className="text-white text-5xl md:text-6xl font-arpona font-bold">{displayTitle}</h1>
         </div>
       </div>
       {/* Text Section */}
