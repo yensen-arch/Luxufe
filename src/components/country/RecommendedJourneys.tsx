@@ -85,7 +85,7 @@ export default function CuratedForYou() {
   }, [emblaApi, selectedCard])
 
   return (
-    <section className="py-8 md:py-20 my-12 md:my-40 bg-white text-gray-800 relative overflow-hidden">
+    <section className="py-8 md:py-20 my-12 md:my-20 bg-white text-gray-800 relative overflow-hidden">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl md:text-6xl font-bold font-arpona">Recommended Journeys</h2>
         <p className="md:max-w-1/4 text-black mx-auto my-6 md:my-12 font-inter font-bold text-sm md:text-base">
@@ -126,7 +126,7 @@ export default function CuratedForYou() {
       </div>
 
       <div className="text-center mt-8 md:mt-16 flex flex-col md:flex-row justify-center gap-3 md:gap-4 px-4 md:px-0">
-        <button className="border-2 border-gray-400 text-gray-800 px-3 md:px-6 py-2 md:py-3 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-xs">
+        <button className="border-2 border-gray-300 text-gray-800 px-3 md:px-7 py-2 md:py-4 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-xs">
           JOURNEYS & TOURS <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="h-3 w-3 md:h-4 md:w-4" />
         </button>
       </div>
