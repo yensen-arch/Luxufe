@@ -60,18 +60,26 @@ const Page = async ({ params }: PageProps) => {
         continentName={continentName}
         continentData={continentData}
       />
-      <MapRegions 
-        continentName={continentName}
-        continentData={continentData}
-        countriesData={countriesData}
-      />
-      <CountriesGrid 
-        continentName={continentName}
-        countriesData={countriesData}
-      />
-      <WaysToExplore continentName={continentName} />
-      <LuxuryBuilt />
-      <ExploreAfrica />
+      <div id="overview-section">
+        <MapRegions 
+          continentName={continentName}
+          continentData={continentData}
+          countriesData={countriesData}
+        />
+      </div>
+      <div id="countries-section">
+        <CountriesGrid 
+          continentName={continentName}
+          countriesData={countriesData}
+        />
+      </div>
+      <div id="ways-to-travel-section">
+        <WaysToExplore continentName={continentName} />
+      </div>
+      <div id="information-section">
+        <LuxuryBuilt />
+        <ExploreAfrica />
+      </div>
       <ContactUs />
       <Footer />
     </main>

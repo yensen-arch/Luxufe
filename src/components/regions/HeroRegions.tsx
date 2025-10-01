@@ -1,11 +1,12 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 
 const navLinks = [
-  { label: "Overview", href: "#" },
-  { label: "Countries", href: "#" },
-  { label: "Ways to travel", href: "#" },
-  { label: "Information", href: "#" },
+  { id: "overview", label: "Overview", sectionId: "overview-section" },
+  { id: "countries", label: "Countries", sectionId: "countries-section" },
+  { id: "ways-to-travel", label: "Ways to travel", sectionId: "ways-to-travel-section" },
+  { id: "information", label: "Information", sectionId: "information-section" },
 ];
 
 interface HeroRegionsProps {
@@ -17,6 +18,21 @@ interface HeroRegionsProps {
 }
 
 const HeroRegions = ({ continentName, continentData }: HeroRegionsProps) => {
+  const [activeTab, setActiveTab] = useState("overview");
+
+  const handleTabClick = (tabId: string, sectionId: string) => {
+    setActiveTab(tabId);
+    
+    // Scroll to the corresponding section
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   // Get the appropriate SVG based on continent name
   const getContinentSVG = (continent: string) => {
     const continentLower = continent.toLowerCase();
@@ -78,18 +94,26 @@ const HeroRegions = ({ continentName, continentData }: HeroRegionsProps) => {
           </div>
         )}
       </div>
-      {/* Bottom Navigation Row */}
+      {/* Bottom Navigation Row - Hidden on mobile */}
       <nav className="absolute hidden md:block left-1/2 -translate-x-1/2 bottom-0 w-full z-30">
-        <div className="bg-white flex flex-row justify-center items-center gap-4 md:gap-8 py-4 md:py-6 shadow-lg font-bold overflow-x-auto">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-[#23263a] font-inter text-sm md:text-md px-2 transition-colors hover:text-[#6c6f7b] whitespace-nowrap"
-            >
-              {link.label}
-            </a>
-          ))}
+        <div className="bg-white border-t border-gray-200">
+          <div className="max-w-5xl mx-auto">
+            <div className="flex overflow-x-auto md:overflow-x-visible">
+              {navLinks.map((link) => (
+                <button
+                  key={link.id}
+                  onClick={() => handleTabClick(link.id, link.sectionId)}
+                  className={`cursor-pointer flex-shrink-0 md:flex-1 py-3 md:py-3 px-3 md:px-6 text-sm md:text-base rounded-t-xl mt-3 font-inter font-bold transition-all duration-200 ${
+                    activeTab === link.id
+                      ? "bg-[#a8d1cf] text-[#23263a] border-b-4 border-[#a8d1cf]"
+                      : "bg-white text-[#23263a]"
+                  }`}
+                >
+                  {link.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </nav>
     </section>
