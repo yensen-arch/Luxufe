@@ -254,32 +254,35 @@ export default function HighestBrandSearchGrid({
 
         {/* Pagination Component */}
         {totalPages > 1 && (
-          <div className="flex justify-center items-center gap-4 md:gap-8 my-4 md:my-8 text-gray-500 font-inter font-bold text-xs">
-            <button 
-              onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-              disabled={currentPage === 1}
-              className={`hover:underline ${currentPage === 1 ? 'text-gray-300 cursor-not-allowed' : 'cursor-pointer'}`}
-            >
-              &lt; Previous
-            </button>
-            
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button 
-                key={page} 
+          <div className="flex justify-center items-center gap-2 mt-12 md:mt-16 lg:mt-24 w-auto max-w-md mx-auto">
+            {/* First half of pages */}
+            {Array.from({ length: Math.ceil(totalPages / 2) }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
                 onClick={() => handlePageChange(page)}
-                className={`px-2 ${page === currentPage ? "text-[#23263a] font-bold" : "cursor-pointer"}`}
+                className={`text-xs font-inter cursor-pointer transition-colors ${
+                  page === currentPage ? 'text-[#23263a] font-bold' : 'text-gray-400 font-light hover:text-gray-600'
+                }`}
               >
                 {String(page).padStart(2, "0")}
               </button>
             ))}
             
-            <button 
-              onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
-              disabled={currentPage === totalPages}
-              className={`hover:underline ${currentPage === totalPages ? 'text-gray-300 cursor-not-allowed' : 'cursor-pointer'}`}
-            >
-              Next &gt;
-            </button>
+            {/* Line separator */}
+            <div className="flex-1 h-px bg-gray-400 mx-2 min-w-[40px] max-w-[120px]" />
+            
+            {/* Second half of pages */}
+            {Array.from({ length: Math.floor(totalPages / 2) }, (_, i) => Math.ceil(totalPages / 2) + i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`text-xs font-inter cursor-pointer transition-colors ${
+                  page === currentPage ? 'text-[#23263a] font-bold' : 'text-gray-400 font-light hover:text-gray-600'
+                }`}
+              >
+                {String(page).padStart(2, "0")}
+              </button>
+            ))}
           </div>
         )}
       </div>

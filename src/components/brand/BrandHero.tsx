@@ -60,11 +60,11 @@ export default function BrandHero({ data, brandName, brandData }: BrandHeroProps
       </div>
       
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center w-full h-full pt-32 pb-24 text-white text-center px-4">
-        <h1 className="text-4xl md:text-6xl font-arpona leading-tight mb-6 max-w-4xl">
-          {heading} <span className="font-bellarina">{brandName || 'Luxury'}</span>
+      <div className="relative z-10 flex flex-col items-center justify-center w-full h-full pt-2 pb-24 text-white text-center px-4">
+        <h1 className="text-4xl md:text-6xl font-arpona font-bold leading-tight mb-6 max-w-4xl">
+          {heading} <span className="font-bellarina font-light">{brandName || 'Luxury'}</span>
         </h1>
-        <p className="text-lg font-inter font-bold md:text-xl mb-8 max-w-2xl opacity-90">
+        <p className="text-lg font-inter font-bold md:text-lg mb-8 max-w-2xl opacity-90">
           {description}
         </p>
       </div>
