@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Hotel } from "@/lib/database";
 import { getHotelHeroImage } from "@/lib/database";
+import Image from "next/image";
 
 interface RecommendedStaysProps {
   hotels: Hotel[];
@@ -50,7 +51,7 @@ const RecommendedStays = ({ hotels }: RecommendedStaysProps) => {
   const countryName = hotels.length > 0 ? hotels[0].country : "Country";
   
   // Show first 9 hotels
-  const displayHotels = hotels.slice(0, 9);
+  const displayHotels = hotels.slice(0, 6);
   return (
     <section className="w-full max-w-7xl mx-auto py-20 px-4 text-center">
       <h2 className="text-4xl md:text-5xl font-arpona text-[#23263a] font-normal mb-12">Recommended Stays</h2>
@@ -84,7 +85,7 @@ const RecommendedStays = ({ hotels }: RecommendedStaysProps) => {
                 className="absolute inset-0 w-full h-full object-cover object-center z-0 group-hover:scale-105 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent z-10" />
-              <span className="absolute top-6 left-6 z-20 text-xs font-inter text-white tracking-widest opacity-90">VIEW THIS HOTEL</span>
+              <span className="absolute top-6 left-6 z-20 text-xs border-b border-gray-300 font-inter text-white tracking-widest opacity-90">VIEW THIS HOTEL</span>
               <div className="relative z-20 p-6 text-left">
                 <h3 className="text-white text-2xl font-arpona font-normal mb-1 drop-shadow-lg">{hotel.hotel_name}</h3>
                 <p className="text-white text-xs font-inter font-bold">{hotel.city.toUpperCase()}, {hotel.country.toUpperCase()}</p>
@@ -97,7 +98,7 @@ const RecommendedStays = ({ hotels }: RecommendedStaysProps) => {
       {displayHotels.length > 0 && (
         <div className="flex justify-center mt-8">
           <button className="border border-gray-400 px-8 py-4 bg-white text-[#23263a] font-inter font-semibold text-xs tracking-widest hover:bg-gray-100 transition-all">
-            ALL ACCOMMODATIONS IN {countryName.toUpperCase()} &rarr;
+            ALL ACCOMMODATIONS IN {countryName.toUpperCase()} <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="h-3 w-3 md:h-4 md:w-4" />
           </button>
         </div>
       )}
