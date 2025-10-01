@@ -54,11 +54,11 @@ export default function SetSail() {
   const currentVoyage = voyageData[currentIndex];
 
   return (
-    <section className="py-24 overflow-hidden">
-      <div className="container mx-auto">
-        <div className="relative flex flex-col lg:flex-row items-center lg:justify-start min-h-[650px]">
+    <section className="py-12 md:py-16 lg:py-24 overflow-hidden">
+      <div className="container mx-auto px-4 lg:px-0">
+        <div className="relative flex flex-col lg:flex-row items-center lg:justify-start min-h-[400px] md:min-h-[500px] lg:min-h-[650px]">
           {/* Image Section */}
-          <div className="w-3/6 h-full z-10 ml-20">
+          <div className="w-full lg:w-3/6 h-full z-10 lg:ml-20">
             <div className="relative overflow-hidden shadow-2xl">
               <Image
                 src={
@@ -68,7 +68,7 @@ export default function SetSail() {
                 width={1200}
                 height={900}
                 alt={currentVoyage.titlePart1}
-                className={`w-full h-[600px] object-cover transition-all duration-700 ease-in-out ${
+                className={`w-full h-[300px] md:h-[400px] lg:h-[600px] object-cover transition-all duration-700 ease-in-out ${
                   isTransitioning
                     ? "opacity-0 scale-105"
                     : "opacity-100 scale-100"
@@ -77,7 +77,7 @@ export default function SetSail() {
             </div>
           </div>
 
-          {/* Navigation Arrows */}
+          {/* Navigation Arrows - Desktop */}
           <div className="absolute left-10 top-1/2 -translate-y-1/2 flex flex-col gap-8 z-10 hidden lg:flex">
             <button
               onClick={goToPrevious}
@@ -107,8 +107,38 @@ export default function SetSail() {
             </button>
           </div>
 
+          {/* Navigation Arrows - Mobile */}
+          <div className="flex lg:hidden justify-center gap-4 mt-4 mb-4">
+            <button
+              onClick={goToPrevious}
+              className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+              disabled={isTransitioning}
+            >
+              <Image
+                src="/luxufe-icon-slider-arrow-dark.svg"
+                alt="Arrow left"
+                width={24}
+                height={24}
+                className="h-4 w-4 text-gray-800"
+              />
+            </button>
+            <button
+              onClick={goToNext}
+              className="bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+              disabled={isTransitioning}
+            >
+              <Image
+                src="/luxufe-icon-button-arrow-dark.svg"
+                alt="Arrow right"
+                width={24}
+                height={24}
+                className="h-4 w-4 text-gray-800"
+              />
+            </button>
+          </div>
+
           {/* Content Section */}
-          <div className="bg-gray-100 w-6/8 mt-8 h-[120vh] lg:mt-0 lg:absolute lg:right-0 p-12">
+          <div className="bg-gray-100 w-full lg:w-6/8 mt-0 lg:mt-8 h-auto lg:h-[120vh] lg:mt-0 lg:absolute lg:right-0 p-6 md:p-8 lg:p-12">
             <div
               className={`transition-all duration-700 ease-in-out  ${
                 isTransitioning
@@ -116,28 +146,28 @@ export default function SetSail() {
                   : "opacity-100 translate-y-0"
               }`}
             >
-              <div className="w-1/2 ml-auto md:mt-40">
-                <div className="inline-flex bg-white items-center justify-center shadow-lg w-18 h-18 border border-gray-300 rounded-full mb-8">
+              <div className="w-full lg:w-1/2 lg:ml-auto mt-8 md:mt-12 lg:mt-40">
+                <div className="inline-flex bg-white items-center justify-center shadow-lg w-14 h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 border border-gray-300 rounded-full mb-6 md:mb-8">
                   <Image
                     src="/luxufe-travel-style-cruises.svg"
                     alt="Cruises"
                     width={28}
                     height={28}
-                    className="h-8 w-8 text-gray-600"
+                    className="h-6 w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-gray-600"
                   />
                 </div>
 
-                <h2 className="text-4xl ml-auto lg:text-4xl font-bold leading-tight mb-8 text-gray-900 font-arpona">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-6 md:mb-8 text-gray-900 font-arpona">
                   {currentVoyage.titlePart1}
                   <br />
                   unparalleled
                 </h2>
 
-                <p className="text-lg leading-relaxed mb-10 max-w-lg font-inter font-bold">
+                <p className="text-sm md:text-base lg:text-lg leading-relaxed mb-8 md:mb-10 max-w-lg font-inter font-bold">
                   {currentVoyage.description}
                 </p>
 
-                <button className="group inline-flex items-center gap-3 text-xs font-semibold tracking-widest border-2 border-gray-300 px-8 py-4 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 font-inter font-bold">
+                <button className="group inline-flex items-center gap-2 md:gap-3 text-xs font-semibold tracking-widest border-2 border-gray-300 px-6 md:px-8 py-3 md:py-4 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 font-inter font-bold">
                   {currentVoyage.buttonText}
                   <Image
                     src="/luxufe-icon-button-arrow-dark.svg"
