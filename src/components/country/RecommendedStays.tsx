@@ -96,8 +96,8 @@ const RecommendedStays = ({ hotels }: RecommendedStaysProps) => {
       </div>
       
       {displayHotels.length > 0 && (
-        <div className="flex justify-center mt-8">
-          <button className="border border-gray-400 px-8 py-4 bg-white text-[#23263a] font-inter font-semibold text-xs tracking-widest hover:bg-gray-100 transition-all">
+        <div className="flex items-center gap-2 justify-center mt-8">
+          <button className="border-2 border-gray-300 px-8 py-4 bg-white text-[#23263a] font-inter font-semibold text-xs tracking-widest hover:bg-gray-100 transition-all flex items-center justify-center gap-2">
             ALL ACCOMMODATIONS IN {countryName.toUpperCase()} <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="h-3 w-3 md:h-4 md:w-4" />
           </button>
         </div>
