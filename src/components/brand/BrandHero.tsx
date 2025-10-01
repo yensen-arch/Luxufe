@@ -75,22 +75,24 @@ export default function BrandHero({ data, brandName, brandData }: BrandHeroProps
         <div>Image: {brandName || 'Luxury'} Brand</div>
       </div>
       
-      {/* Tab Bar */}
-      <div className="absolute bottom-0 pt-4 left-0 w-full bg-white flex justify-center items-center border-t border-gray-200">
-        <div className="flex w-full max-w-5xl mx-auto">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => handleTabClick(tab.id)}
-              className={`flex-1 py-3 cursor-pointer text-sm rounded-t-xl font-inter font-bold transition-colors ${
-                activeTab === tab.id 
-                  ? "bg-[#a8d1cf]/60 text-[#23263a]" 
-                  : "bg-white text-[#23263a] hover:bg-gray-100"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+      {/* Tab Bar - Hidden on mobile */}
+      <div className="absolute hidden md:block bottom-0 left-0 w-full bg-white border-t border-gray-200 z-30">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex overflow-x-auto md:overflow-x-visible">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => handleTabClick(tab.id)}
+                className={`cursor-pointer flex-shrink-0 md:flex-1 py-3 md:py-3 px-3 md:px-6 text-sm md:text-base rounded-t-xl mt-3 font-inter font-bold transition-all duration-200 ${
+                  activeTab === tab.id
+                    ? "bg-[#a8d1cf] text-[#23263a] border-b-4 border-[#a8d1cf]"
+                    : "bg-white text-[#23263a]"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>
