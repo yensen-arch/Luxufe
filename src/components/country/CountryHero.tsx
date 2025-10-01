@@ -55,7 +55,7 @@ export default function CountryHero({
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-arpona text-white font-bold mb-4 md:mb-4 flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4">
               <span>Discover</span>{" "}
-              <span className="font-bellarina text-4xl md:text-5xl lg:text-7xl">
+              <span className="font-bellarina font-medium text-4xl md:text-5xl lg:text-7xl">
                 {countryName}
               </span>
             </h1>
