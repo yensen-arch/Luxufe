@@ -1,7 +1,6 @@
 'use client'
 import React, { useCallback, useState } from 'react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-
+import Image from "next/image";
 const defaultImages = [
   {
     id: 1,
@@ -58,7 +57,7 @@ export default function WhatToDoHere() {
         <div className="grid grid-cols-1 lg:grid-cols-12 h-full items-center relative">
           {/* Left Content Section */}
           <div 
-            className="bg-[#F8F8F8] w-5/7 bg-cover bg-center lg:col-span-12 h-[50vh] md:h-[50vh] lg:h-full text-center lg:text-left p-6 md:p-12 lg:p-24 flex items-center order-2 lg:order-1"
+            className="bg-gray-100 w-full md:w-5/7 bg-cover bg-center lg:col-span-12 h-[50vh] md:h-[50vh] lg:h-full text-center lg:text-left p-6 md:p-12 lg:p-24 flex items-center order-2 lg:order-1"
           >
             <div className=" w-full flex flex-col items-center lg:items-start justify-center">
                 <h1 className="text-3xl md:text-4xl lg:text-6xl lg:w-sm font-bellarina text-[#212121] my-4 md:my-3 lg:my-4">Experiences</h1>
@@ -72,15 +71,15 @@ export default function WhatToDoHere() {
               <div className="flex gap-4 md:gap-5 lg:gap-6 mt-6 md:mt-7 lg:mt-8 mx-auto lg:mx-0">
                 <button 
                   onClick={scrollPrev} 
-                  className="bg-white border border-gray-300 rounded-full p-4 md:p-5 lg:p-7 shadow-md hover:bg-white transition"
+                  className="bg-white border border-gray-300 rounded-full p-4 md:p-5 lg:p-7 shadow-lg hover:bg-white transition"
                 >
-                  <ArrowLeft className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
+                  <Image src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" width={24} height={24} className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
                 </button>
                 <button 
                   onClick={scrollNext} 
-                  className="bg-white border border-gray-300 rounded-full p-4 md:p-5 lg:p-7 shadow-md hover:bg-white transition"
+                  className="bg-white border border-gray-300 rounded-full p-4 md:p-5 lg:p-7 shadow-lg hover:bg-white transition"
                 >
-                  <ArrowRight className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
+                  <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gray-800" />
                 </button>
               </div>
             </div>
