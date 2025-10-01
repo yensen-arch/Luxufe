@@ -3,7 +3,7 @@
 import { useCallback, useState, useEffect } from "react"
 import useEmblaCarousel from "embla-carousel-react"
 import ItineraryCard from "./ItineraryCard"
-import { ArrowLeft, ArrowRight, Star } from "lucide-react"
+import Image from "next/image"
 
 
 const itineraries = [
@@ -85,15 +85,15 @@ export default function CuratedForYou() {
   }, [emblaApi, selectedCard])
 
   return (
-    <section className="py-20 my-40 bg-white text-gray-800 relative overflow-hidden">
+    <section className="py-8 md:py-20 my-12 md:my-40 bg-white text-gray-800 relative overflow-hidden">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-5xl font-bold font-arpona ">Recommended Journeys</h2>
-        <p className="max-w-xl text-black mx-auto my-6 font-inter font-bold">
+        <h2 className="text-3xl md:text-6xl font-bold font-arpona">Recommended Journeys</h2>
+        <p className="md:max-w-1/4 text-black mx-auto my-6 md:my-12 font-inter font-bold text-sm md:text-base">
           From iconic landmarks to hidden retreats
         </p>
       </div>
 
-      <div className="relative py-10">
+      <div className="relative py-4 md:py-10">
         <div ref={emblaRef}>
           <div className="flex">
             {itineraries.map((item, index) => (
@@ -109,21 +109,21 @@ export default function CuratedForYou() {
         </div>
         <button
           onClick={scrollPrev}
-          className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/80 rounded-full p-5 shadow-md hover:bg-white z-0 transition-colors"
+          className="absolute top-1/2 left-1 md:left-25 -translate-y-1/2 bg-white rounded-full p-2 md:p-7 shadow-md hover:bg-white z-10 transition-colors"
         >
-          <ArrowLeft className="h-6 w-6 text-gray-800" />
+          <Image src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" width={24} height={24} className="h-3 w-3 md:h-7 md:w-7 text-gray-800" />
         </button>
         <button
           onClick={scrollNext}
-          className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/80 rounded-full p-5 shadow-md hover:bg-white z-0 transition-colors"
+          className="absolute top-1/2 right-1 md:right-25 -translate-y-1/2 bg-white rounded-full p-2 md:p-7 shadow-md hover:bg-white z-10 transition-colors"
         >
-          <ArrowRight className="h-6 w-6 text-gray-800" />
+          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="h-4 w-4 md:h-7 md:w-7 text-gray-800" />
         </button>
       </div>
 
-      <div className="text-center mt-16 flex justify-center gap-4">
-        <button className=" text-xs border border-gray-800 text-gray-800 px-6 py-3 hover:bg-gray-800 hover:text-white transition flex items-center gap-2">
-          JOURNEYS & TOURS <ArrowRight className="h-4 w-4" />
+      <div className="text-center mt-8 md:mt-16 flex flex-col md:flex-row justify-center gap-3 md:gap-4 px-4 md:px-0">
+        <button className="border-2 border-gray-400 text-gray-800 px-3 md:px-6 py-2 md:py-3 hover:bg-gray-800 hover:text-white transition flex items-center justify-center gap-2 text-xs">
+          JOURNEYS & TOURS <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="h-3 w-3 md:h-4 md:w-4" />
         </button>
       </div>
     </section>
