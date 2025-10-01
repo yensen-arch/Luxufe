@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 import { getHotelGallery, getHotelHeroImage } from "@/lib/database";
@@ -26,18 +26,22 @@ const ProductHero = ({ hotel }: ProductHeroProps) => {
       try {
         const [heroImage, galleryImages] = await Promise.all([
           getHotelHeroImage(hotel.hotel_name),
-          getHotelGallery(hotel.hotel_name)
+          getHotelGallery(hotel.hotel_name),
         ]);
-        
+
         // Use hero image if available, otherwise fall back to first gallery image
-        const image = heroImage || (galleryImages.length > 0 
-          ? galleryImages[0] 
-          : "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80");
-        
+        const image =
+          heroImage ||
+          (galleryImages.length > 0
+            ? galleryImages[0]
+            : "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80");
+
         setBackgroundImage(image);
       } catch (error) {
-        console.error('Error fetching images:', error);
-        setBackgroundImage("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80");
+        console.error("Error fetching images:", error);
+        setBackgroundImage(
+          "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80"
+        );
       }
     };
 
@@ -46,44 +50,44 @@ const ProductHero = ({ hotel }: ProductHeroProps) => {
 
   const handleTabClick = (tabId: string) => {
     setActiveTab(tabId);
-    
+
     // Smooth scroll to the relevant section
     const element = document.getElementById(tabId);
     if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
       });
     }
   };
 
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative w-full h-[110vh] shadow-lg flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <img
         src={backgroundImage}
         alt={`${hotel.hotel_name} - ${hotel.city}, ${hotel.country}`}
         className="absolute inset-0 w-full h-full object-cover object-center z-0"
       />
-      
+
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black/35 z-10" />
-      
+
       {/* Content */}
       <div className="relative z-20 flex flex-col items-center justify-center w-full md:px-4 text-center md:mb-20">
-        <span className="font-bellarina text-3xl md:text-5xl text-white mb-4 block">
-          {hotel.city}, {hotel.country}
-        </span>
         <h1 className="md:w-3/5 text-white text-4xl md:text-5xl lg:text-6xl font-arpona font-light mb-0 leading-tight">
           {hotel.hotel_name}
         </h1>
+        <span className="font-inter font-bold uppercase text-sm md:text-md text-white mb-4 block">
+          {hotel.city}, {hotel.country}
+        </span>
       </div>
-      
+
       {/* Breadcrumb and image credit */}
-      <div className="absolute left-6 bottom-6 z-30 text-white text-xs md:text-xs font-inter">
+      <div className="absolute left-10 bottom-30 z-30 text-white text-xs md:text-xs font-bold font-inter">
         Home &gt; Hotels &gt; {hotel.brand} &gt; {hotel.hotel_name}
       </div>
-      
+
       {/* Tab Bar - Hidden on mobile */}
       <div className="absolute hidden md:block bottom-0 left-0 w-full bg-white border-t border-gray-200 z-30">
         <div className="max-w-5xl mx-auto">
@@ -108,4 +112,4 @@ const ProductHero = ({ hotel }: ProductHeroProps) => {
   );
 };
 
-export default ProductHero; 
+export default ProductHero;
