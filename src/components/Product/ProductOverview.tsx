@@ -1,11 +1,9 @@
 import React from "react";
 import { Hotel, Brand } from "@/lib/database";
-
+import Image from "next/image";
 function StarIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M14 4l3.09 6.26L24 11.27l-5 4.87L20.18 22 14 18.27 7.82 22 9 16.14l-5-4.87 6.91-1.01L14 4z" stroke="#6B7280" strokeWidth="1.5" fill="none"/>
-    </svg>
+    <Image src="/luxufe-icon-star-grey.svg" alt="Star" width={28} height={28} className={className} />
   );
 }
 
@@ -36,31 +34,31 @@ export default function ProductOverview({ hotel, brand }: ProductOverviewProps) 
   return (
     <section className="w-full flex flex-col items-center justify-center py-24 bg-white">
       {/* Main Heading - Hotel description limited to 7 lines */}
-      <h2 className="text-3xl md:text-4xl font-arpona text-[#23263a] font-medium text-center max-w-4xl mb-6 line-clamp-7">
+      <h2 className="text-3xl md:text-3xl font-arpona text-[#23263a] font-bold text-center max-w-4xl mb-6 line-clamp-7 px-4">
         {hotelDescription}
       </h2>
       {/* Subheading - Brand description */}
-      <p className="font-inter text-lg md:text-md text-[#23263a] font-bold text-center max-w-2xl mb-10">
+      <p className="font-inter text-lg md:text-md text-[#23263a] font-bold text-center max-w-2xl mb-10 px-4">
         {brandDescription}
       </p>
       {/* Divider */}
-      <hr className="w-1/2 border-gray-300 my-16" />
+      <hr className="md:w-3/7 border-1.5 border-gray-400 my-16" />
       {/* At a glance */}
-      <h3 className="text-2xl font-arpona text-[#23263a] font-medium text-center mb-12">
+      <h3 className="text-2xl md:text-3xl font-arpona text-[#23263a] font-bold text-center mb-12">
         {hotel?.hotel_name || "Hotel"} at a glance
       </h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-16 w-full max-w-5xl mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-16 w-full max-w-5xl mb-10 px-4">
         {features.slice(0, 3).map((feature: string, i: number) => (
           <div key={i} className="flex items-center gap-3 text-[#6B7280] font-inter text-md font-bold">
-            <StarIcon className="w-7 h-7" />
+            <StarIcon className="w-7 h-7 opacity-50" />
             <span>{feature}</span>
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-16 w-full max-w-5xl">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-16 w-full max-w-5xl px-4">
         {features.slice(3, 6).map((feature: string, i: number) => (
           <div key={i} className="flex items-center gap-3 text-[#6B7280] font-inter text-md font-bold">
-            <StarIcon className="w-7 h-7" />
+            <StarIcon className="w-7 h-7 opacity-50" />
             <span>{feature}</span>
           </div>
         ))}
