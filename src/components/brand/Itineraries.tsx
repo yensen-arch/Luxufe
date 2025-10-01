@@ -90,7 +90,7 @@ export default function Itineraries({ data }: ItinerariesProps) {
 
   // Fallback content if no data is provided
   const heading = data?.heading || "Your Journeys, Your Way"
-  const description = data?.description || "From iconic landmarks to hidden retreats."
+  const description = data?.description || "From iconic landmarks to hidden retreats"
 
   return (
     <section className="py-8 md:py-20 my-12 md:my-40 bg-white text-gray-800 relative overflow-hidden">

@@ -39,15 +39,29 @@ export default async function ProductPage({ params }: PageProps) {
     <main className="overflow-y-hidden">
       <Navbar />
       <ProductHero hotel={hotel} />
-      <ProductOverview hotel={hotel} brand={brand} />
-      <WhatToDoHere />
-      <ProductGrid hotel={hotel} />
-      <HotelCarousel hotel={hotel} />
-      <MapProduct hotel={hotel} />
-      <Itineraries />
-      <OtherAmanHotels hotel={hotel} />
+      <div id="overview">
+        <ProductOverview hotel={hotel} brand={brand} />
+      </div>
+      <div id="what-to-do">
+        <WhatToDoHere />
+      </div>
+      <div id="rooms-and-suites">
+        <ProductGrid hotel={hotel} />
+       </div>
+       <div id="gallery">
+        <HotelCarousel hotel={hotel} />
+      </div>
+      <div id="location">
+        <MapProduct hotel={hotel} />
+      </div>
+      <div id="itineraries">
+        <Itineraries />
+        <OtherAmanHotels hotel={hotel} />
+      </div>
       <Testimonials />
-      <ContactUs />
+      <div id="contact">
+        <ContactUs />
+      </div>
       <Footer />
     </main>
   );

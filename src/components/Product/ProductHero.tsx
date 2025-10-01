@@ -1,34 +1,64 @@
-import React from "react";
-import { MapPin, Building2, BookOpen } from "lucide-react";
+'use client'
+
+import React, { useState } from "react";
 import { getHotelGallery, getHotelHeroImage } from "@/lib/database";
-
-const navLinks = [
-  { label: "Overview", href: "#" },
-  { label: "Countries", href: "#" },
-  { label: "Ways to travel", href: "#" },
-  { label: "Information", href: "#" },
-];
-
 import { Hotel } from "@/lib/database";
 
 interface ProductHeroProps {
   hotel: Hotel;
 }
 
-const ProductHero = async ({ hotel }: ProductHeroProps) => {
-  // Fetch hotel hero image and gallery images
-  const [heroImage, galleryImages] = await Promise.all([
-    getHotelHeroImage(hotel.hotel_name),
-    getHotelGallery(hotel.hotel_name)
-  ]);
-  
-  // Use hero image if available, otherwise fall back to first gallery image
-  const backgroundImage = heroImage || (galleryImages.length > 0 
-    ? galleryImages[0] 
-    : "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80");
+const tabs = [
+  { label: "Overview", id: "overview" },
+  { label: "Activities", id: "what-to-do" },
+  { label: "Rooms & Suites", id: "rooms-and-suites" },
+  { label: "Gallery", id: "gallery" },
+  { label: "Itineraries", id: "itineraries" },
+];
+
+const ProductHero = ({ hotel }: ProductHeroProps) => {
+  const [activeTab, setActiveTab] = useState("overview");
+  const [backgroundImage, setBackgroundImage] = React.useState<string>("");
+
+  // Fetch images on component mount
+  React.useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const [heroImage, galleryImages] = await Promise.all([
+          getHotelHeroImage(hotel.hotel_name),
+          getHotelGallery(hotel.hotel_name)
+        ]);
+        
+        // Use hero image if available, otherwise fall back to first gallery image
+        const image = heroImage || (galleryImages.length > 0 
+          ? galleryImages[0] 
+          : "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80");
+        
+        setBackgroundImage(image);
+      } catch (error) {
+        console.error('Error fetching images:', error);
+        setBackgroundImage("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80");
+      }
+    };
+
+    fetchImages();
+  }, [hotel.hotel_name]);
+
+  const handleTabClick = (tabId: string) => {
+    setActiveTab(tabId);
+    
+    // Smooth scroll to the relevant section
+    const element = document.getElementById(tabId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden mb-6 sm:mb-8 md:mb-10">
+    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <img
         src={backgroundImage}
@@ -37,41 +67,43 @@ const ProductHero = async ({ hotel }: ProductHeroProps) => {
       />
       
       {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/30 z-10"></div>
+      <div className="absolute inset-0 bg-black/35 z-10" />
       
       {/* Content */}
-      <div className="relative z-20 flex flex-col items-center justify-center h-full w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-        <div className="text-center w-full max-w-4xl">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-arpona text-white font-bold mb-4 sm:mb-6 md:mb-8 leading-tight px-2">
-            {hotel.hotel_name}
-          </h1>
-          <p className="text-sm sm:text-base md:text-lg uppercase text-white font-bold font-inter mb-8 sm:mb-10 md:mb-12 max-w-2xl mx-auto px-4 tracking-wide">
-            {hotel.city}, {hotel.country}
-          </p>
-          
-          {/* Buttons - Responsive layout */}
-          {/* <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-8 px-4">
-            <button className="w-full sm:w-auto border border-white text-white font-inter font-bold px-6 sm:px-8 py-3 sm:py-4 bg-transparent hover:bg-white hover:text-gray-900 transition-all duration-300 text-xs sm:text-sm flex items-center justify-center gap-2 tracking-widest rounded-none">
-              ADD TO MY JOURNEY <span className="ml-2">→</span>
-            </button>
-          </div> */}
-        </div>
+      <div className="relative z-20 flex flex-col items-center justify-center w-full md:px-4 text-center md:mb-20">
+        <span className="font-bellarina text-3xl md:text-5xl text-white mb-4 block">
+          {hotel.city}, {hotel.country}
+        </span>
+        <h1 className="md:w-3/5 text-white text-4xl md:text-5xl lg:text-6xl font-arpona font-light mb-0 leading-tight">
+          {hotel.hotel_name}
+        </h1>
       </div>
       
-      {/* Bottom Navigation Row */}
-      {/* <nav className="absolute left-1/2 -translate-x-1/2 bottom-0 w-full z-30 ">
-        <div className="bg-white flex justify-center items-center gap-8 py-3 shadow-lg">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-[#23263a] font-inter font-semibold text-sm px-2 transition-colors hover:text-[#6c6f7b]"
-            >
-              {link.label}
-            </a>
-          ))}
+      {/* Breadcrumb and image credit */}
+      <div className="absolute left-6 bottom-6 z-30 text-white text-xs md:text-xs font-inter">
+        Home &gt; Hotels &gt; {hotel.brand} &gt; {hotel.hotel_name}
+      </div>
+      
+      {/* Tab Bar - Hidden on mobile */}
+      <div className="absolute hidden md:block bottom-0 left-0 w-full bg-white border-t border-gray-200 z-30">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex overflow-x-auto md:overflow-x-visible">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => handleTabClick(tab.id)}
+                className={`cursor-pointer flex-shrink-0 md:flex-1 py-3 md:py-3 px-3 md:px-6 text-sm md:text-base rounded-t-xl mt-3 font-inter font-bold transition-all duration-200 ${
+                  activeTab === tab.id
+                    ? "bg-[#a8d1cf] text-[#23263a] border-b-4 border-[#a8d1cf]"
+                    : "bg-white text-[#23263a]"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
-      </nav> */}
+      </div>
     </section>
   );
 };
