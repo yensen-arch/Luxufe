@@ -241,7 +241,7 @@ export default function BrandCard({ name, location, logo, description, brand }: 
         {isLoading ? (
           <div className="w-full h-12 bg-gray-200 animate-pulse rounded"></div>
         ) : (
-          <button onClick={handleCardClick} className="cursor-pointer w-full border border-gray-800 bg-white text-gray-800 font-inter font-bold text-sm py-3 px-4 flex items-center justify-center gap-2 hover:bg-gray-50 transition">
+          <button onClick={handleCardClick} className="cursor-pointer w-full border border-gray-800 bg-white text-gray-800 font-inter font-bold text-xs py-3 px-4 flex items-center justify-center gap-2 hover:bg-gray-50 transition">
             EXPLORE HOTEL
             <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="w-3 h-3 md:w-7 md:h-7 opacity-50" />
           </button>
