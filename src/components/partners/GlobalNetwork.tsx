@@ -47,7 +47,7 @@ export default function GlobalNetwork({ data }: GlobalNetworkProps) {
           </div>
           {/* Watermark */}
           <div className="absolute -bottom-8 md:-bottom-18 -right-8 md:-right-20">
-            <Image src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[120px] md:w-[235px] h-auto" width={120} height={235} />
+            <Image src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[120px] md:w-[255px] h-auto opacity-50 -rotate-22" width={120} height={235} />
           </div>
         </div>
       </div>
