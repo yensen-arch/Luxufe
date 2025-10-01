@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Hotel } from "@/lib/database";
 import { getHotelsWithFiltersAndGallery, getHotelGallery } from "@/lib/database";
 import Link from "next/link";
+import Image from "next/image";
 
 interface OtherAmanHotelsProps {
   hotel: Hotel;
@@ -19,9 +20,7 @@ function StarRow() {
   return (
     <div className="flex gap-1 mb-2">
       {[...Array(5)].map((_, i) => (
-        <svg key={i} width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M14 4l3.09 6.26L24 11.27l-5 4.87L20.18 22 14 18.27 7.82 22 9 16.14l-5-4.87 6.91-1.01L14 4z" stroke="#fff" strokeWidth="1.5" fill="none"/>
-        </svg>
+        <Image src="/luxufe-icon-star-ratings-solid-white.svg" alt="Star" width={20} height={20} />
       ))}
     </div>
   );
@@ -154,10 +153,10 @@ export default function OtherAmanHotels({ hotel }: OtherAmanHotelsProps) {
   );
 
   return (
-    <section className="w-full bg-[#f7f7fa] py-24 flex flex-col items-center justify-center">
+    <section className="w-full bg-gray-100 py-24 flex flex-col items-center justify-center">
       {/* Script Heading */}
       <div className="mb-2">
-        <span className="font-bellarina text-4xl text-[#23263a]">Keep exploring</span>
+        <span className="font-bellarina md:text-5xl text-3xl text-[#23263a]">Keep exploring</span>
       </div>
       {/* Main Heading */}
       <h2 className="text-5xl md:text-6xl font-arpona text-[#23263a] font-medium text-center mb-16">Other {hotel.brand} Hotels</h2>
@@ -179,9 +178,9 @@ export default function OtherAmanHotels({ hotel }: OtherAmanHotelsProps) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 z-10" />
               <div className="relative z-20 p-6 w-full text-center flex flex-col items-center justify-end">
-                <StarRow />
+                {/* <StarRow /> */}
                 <h3 className="text-white text-2xl font-arpona font-normal mb-1 drop-shadow-lg">{hotelData.hotel_name}</h3>
-                <p className="text-white text-sm font-inter opacity-90">{hotelData.city}, {hotelData.country}</p>
+                <p className="text-white text-xs font-inter font-bold">{hotelData.city}, {hotelData.country}</p>
               </div>
               </Link>
             </div>
@@ -197,7 +196,7 @@ export default function OtherAmanHotels({ hotel }: OtherAmanHotelsProps) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 z-10" />
               <div className="relative z-20 p-6 w-full text-center flex flex-col items-center justify-end">
-                <StarRow />
+                {/* <StarRow /> */}
                 <h3 className="text-white text-2xl font-arpona font-normal mb-1 drop-shadow-lg">More {hotel.brand.toUpperCase()} Hotels</h3>
                 <p className="text-white text-sm font-inter opacity-90">Coming Soon</p>
               </div>
@@ -212,7 +211,7 @@ export default function OtherAmanHotels({ hotel }: OtherAmanHotelsProps) {
         className="mt-4 px-12 py-5 cursor-pointer border-2 border-gray-300 font-inter font-bold text-[#23263a] text-xs flex items-center justify-center gap-2 tracking-widest hover:bg-gray-100 transition-all" 
         style={{ minWidth: 320 }}
       >
-        EXPLORE ALL {hotel.brand.toUpperCase()} HOTELS <span className="ml-2">→</span>
+        EXPLORE ALL {hotel.brand.toUpperCase()} HOTELS <span className="ml-2"><Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} /></span>
       </Link>
     </section>
   );

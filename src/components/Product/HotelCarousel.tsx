@@ -73,13 +73,18 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
   }, [hotel.hotel_name]);
 
   // Create image objects from gallery data
-  const images: HotelImage[] = galleryImages.length > 0 
-    ? galleryImages.map((src, index) => ({
-        id: index + 1,
-        src,
-        alt: `${hotel.hotel_name} - Image ${index + 1}`
-      }))
-    : [
+  const createImages = (imageArray: string[]): HotelImage[] => {
+    return imageArray.map((src, index) => ({
+      id: index + 1,
+      src,
+      alt: `${hotel.hotel_name} - Image ${index + 1}`
+    }));
+  };
+
+  // Ensure we have enough images for proper looping
+  const ensureMinimumImages = (images: HotelImage[]): HotelImage[] => {
+    if (images.length === 0) {
+      return [
         {
           id: 1,
           src: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
@@ -96,6 +101,26 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
           alt: "Hotel interior with mountain views"
         }
       ];
+    }
+    
+    // If we have only 1-2 images, duplicate them to ensure smooth looping
+    if (images.length <= 2) {
+      // Create unique IDs for duplicated images
+      const duplicatedImages = [...images, ...images, ...images].map((img, index) => ({
+        ...img,
+        id: index + 1
+      }));
+      return duplicatedImages;
+    }
+    
+    return images;
+  };
+
+  const images: HotelImage[] = ensureMinimumImages(
+    galleryImages.length > 0 
+      ? createImages(galleryImages)
+      : []
+  );
 
   // Skeleton component for loading state
   const CarouselSkeleton = () => (
@@ -143,6 +168,8 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
                 slideShadows: false,
               }}
               loop={true}
+              loopAdditionalSlides={2}
+              initialSlide={0}
               modules={[EffectCoverflow]}
               className="w-full h-full"
               breakpoints={{
@@ -170,7 +197,12 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
 
             {/* Custom Navigation Arrows - Positioned on sides of central image */}
             <button
-              onClick={() => swiperRef.current?.slidePrev()}
+              onClick={() => {
+                console.log('Prev button clicked, swiper ref:', swiperRef.current);
+                if (swiperRef.current) {
+                  swiperRef.current.slidePrev();
+                }
+              }}
               className="absolute left-4 sm:left-[calc(50%-400px)] top-1/2 -translate-y-1/2 w-12 h-12 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center shadow-sm transition-all duration-300 z-10 group hover:bg-gray-50"
               aria-label="Previous image"
             >
@@ -178,7 +210,12 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
             </button>
             
             <button
-              onClick={() => swiperRef.current?.slideNext()}
+              onClick={() => {
+                console.log('Next button clicked, swiper ref:', swiperRef.current);
+                if (swiperRef.current) {
+                  swiperRef.current.slideNext();
+                }
+              }}
               className="absolute right-4 sm:right-[calc(50%-400px)] top-1/2 -translate-y-1/2 w-12 h-12 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center shadow-sm transition-all duration-300 z-10 group hover:bg-gray-50"
               aria-label="Next image"
             >
