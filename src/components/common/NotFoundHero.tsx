@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-
+import Image from "next/image";
 interface NotFoundHeroProps {
   data?: {
     backgroundImage: {
@@ -46,17 +46,19 @@ export default function NotFoundHero({ data }: NotFoundHeroProps) {
   return (
     <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Background Image */}
-      <img
-        src={displayBackgroundImage}
+      <Image
+        src={displayBackgroundImage || "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80"}
         alt="404 background"
         className="absolute inset-0 w-full h-full object-cover object-center z-0"
+        width={1920}
+        height={1080}
       />
       {/* Overlay for readability (optional, can be removed if not needed) */}
       <div className="absolute inset-0 bg-black/30 z-10" />
       {/* Content */}
       <div className="relative z-20 flex flex-col items-center justify-center w-full px-4 text-center">
         <span className="font-bellarina text-6xl text-white mb-4 block">{displaySubtitle}</span>
-        <h1 className="text-white text-5xl md:text-6xl font-arpona font-medium mb-8 leading-tight">
+        <h1 className="w-4/6 text-white text-5xl md:text-6xl font-arpona font-medium mb-8 leading-tight">
           {displayTitle}
         </h1>
         <p className="text-white text-md md:text-md font-inter font-bold mb-10 max-w-xl mx-auto">
@@ -65,14 +67,14 @@ export default function NotFoundHero({ data }: NotFoundHeroProps) {
         <div className="flex flex-col md:flex-row gap-6 justify-center items-center mt-4">
           <Link href={homeButtonLink} className="border-2 border-gray-500 text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest min-w-[220px] text-center">
             {homeButtonText}
-            <span className="ml-2">→</span>
+            <span className="ml-2"><Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={24} height={24} /></span>
           </Link>
           <Link href={waysToTravelButtonLink} className="border-2 border-gray-500 text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest min-w-[220px] text-center">
             {waysToTravelButtonText}
-            <span className="ml-2">→</span>
+            <span className="ml-2"><Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={24} height={24} /></span>
           </Link>
           <a href={contactButtonLink} className="border-2 border-gray-500 text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest min-w-[220px] text-center">
-            {contactButtonText} <span className="ml-2">→</span>
+            {contactButtonText} <span className="ml-2"><Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={24} height={24} /></span>
           </a>
         </div>
       </div>
