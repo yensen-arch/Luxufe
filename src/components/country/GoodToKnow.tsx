@@ -57,7 +57,7 @@ export default function GoodToKnow() {
             />
           </div>
           {/* Right: Text */}
-          <div className="md:w-1/2 w-full flex flex-col justify-center my-auto ml-10">
+          <div className="md:w-1/2 w-full flex flex-col justify-center my-auto md:ml-10">
             <h3 className="text-2xl md:text-3xl font-arpona font-bold text-[#23263a] mb-6">
               Every journey begins long<br />before takeoff.
             </h3>
@@ -72,7 +72,7 @@ export default function GoodToKnow() {
       </div>
 
 
-      <section className="max-w-6xl mx-auto my-24">
+      <section className="max-w-7xl mx-auto my-24">
       <div className="divide-y divide-gray-600 border-t border-b border-gray-600">
         {items.map((item, idx) => (
           <div key={item.title} className="relative overflow-hidden transition-all duration-500">
@@ -87,10 +87,15 @@ export default function GoodToKnow() {
                 {item.title}
               </span>
               {/* Icon */}
-              <span className="ml-4 text-gray-500 group-hover:text-gray-800">
-                {openIndex === idx ? (
-                 
-              </span> */}
+              <span className="ml-4 transition-transform duration-300">
+                <Image 
+                  src="/luxufe-icon-dropdown-icon-dark.svg" 
+                  alt="Toggle" 
+                  width={20} 
+                  height={20} 
+                  className={`h-8 w-8 transition-transform duration-300 ${openIndex === idx ? 'rotate-45' : 'rotate-0'}`}
+                />
+              </span>
             </button>
 
             {/* Expandable panel */}
