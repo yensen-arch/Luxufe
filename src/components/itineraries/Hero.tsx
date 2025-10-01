@@ -19,7 +19,7 @@ export default function Hero() {
         </h1>
       </div>
       {/* Breadcrumb and image credit */}
-      <div className="absolute left-6 bottom-6 z-30 text-white text-xs font-inter">
+      <div className="absolute left-6 bottom-6 z-30 text-white text-xs font-inter font-bold">
         Home &gt; Travel by Destination
       </div>
     </section>

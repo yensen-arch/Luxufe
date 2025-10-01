@@ -61,7 +61,7 @@ export default function ItinerariesGrid({ data }: ItinerariesGridProps) {
     <section className="bg-white py-24 flex flex-col items-center">
       {/* Heading Section */}
       <div className="mb-16 text-center">
-        <div className="text-2xl md:text-3xl font-arpona text-gray-600 font-bold mb-30 max-w-2/4 mx-auto">
+        <div className="text-2xl md:text-3xl font-arpona text-gray-600 font-bold mb-30 md:max-w-2/4 mx-auto px-4">
             From iconic destinations to once-in-a-lifetime adventures, every Luxufe journey
             is crafted to match your pace, preferences, and passions. Whether you seek cultural immersion,
             luxury cruising, or private escapes, your next extraordinary journey starts here.
