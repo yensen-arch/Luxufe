@@ -57,23 +57,23 @@ export default function NotFoundHero({ data }: NotFoundHeroProps) {
       <div className="absolute inset-0 bg-black/30 z-10" />
       {/* Content */}
       <div className="relative z-20 flex flex-col items-center justify-center w-full px-4 text-center">
-        <span className="font-bellarina text-6xl text-white mb-4 block">{displaySubtitle}</span>
-        <h1 className="w-4/6 text-white text-5xl md:text-6xl font-arpona font-medium mb-8 leading-tight">
+        <span className="font-bellarina text-4xl sm:text-6xl text-white mb-4 block">{displaySubtitle}</span>
+        <h1 className="w-5/6 sm:w-4/6 text-white text-3xl sm:text-5xl md:text-6xl font-arpona font-medium mb-8 leading-tight">
           {displayTitle}
         </h1>
-        <p className="text-white text-md md:text-md font-inter font-bold mb-10 max-w-xl mx-auto">
+        <p className="text-white text-md sm:text-md md:text-lg font-inter font-bold mb-10 max-w-lg sm:max-w-xl mx-auto px-2 sm:px-0">
           {displayDescription}
         </p>
-        <div className="flex flex-col md:flex-row gap-6 justify-center items-center mt-4">
-          <Link href={homeButtonLink} className="border-2 border-gray-500 text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest min-w-[220px] text-center">
+        <div className="flex flex-col md:flex-row gap-4 sm:gap-6 justify-center items-center mt-4 w-full max-w-md sm:max-w-none">
+          <Link href={homeButtonLink} className="border-2 border-gray-500 text-white font-inter font-bold px-6 sm:px-8 py-3 sm:py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest w-full sm:w-auto sm:min-w-[220px] text-center">
             {homeButtonText}
             <span className="ml-2"><Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={24} height={24} /></span>
           </Link>
-          <Link href={waysToTravelButtonLink} className="border-2 border-gray-500 text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest min-w-[220px] text-center">
+          <Link href={waysToTravelButtonLink} className="border-2 border-gray-500 text-white font-inter font-bold px-6 sm:px-8 py-3 sm:py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest w-full sm:w-auto sm:min-w-[220px] text-center">
             {waysToTravelButtonText}
             <span className="ml-2"><Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={24} height={24} /></span>
           </Link>
-          <a href={contactButtonLink} className="border-2 border-gray-500 text-white font-inter font-bold px-8 py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest min-w-[220px] text-center">
+          <a href={contactButtonLink} className="border-2 border-gray-500 text-white font-inter font-bold px-6 sm:px-8 py-3 sm:py-4 bg-transparent hover:bg-white hover:text-gray-900 transition text-xs flex items-center justify-center gap-2 tracking-widest w-full sm:w-auto sm:min-w-[220px] text-center">
             {contactButtonText} <span className="ml-2"><Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={24} height={24} /></span>
           </a>
         </div>
