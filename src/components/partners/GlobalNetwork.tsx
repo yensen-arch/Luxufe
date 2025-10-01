@@ -33,13 +33,13 @@ export default function GlobalNetwork({ data }: GlobalNetworkProps) {
         {/* Right: Content */}
         <div className="relative w-full md:w-6/8 bg-[#f5f6f7] flex flex-col ml-auto px-4 md:px-8 py-8 md:py-12 md:pl-16 md:pr-20">
           {/* Overlapping Heading/Subheading */}
-          <div className="absolute md:static ml-60 z-10 mt-16 md:mt-20">
-            <h2 className="text-2xl md:text-4xl lg:text-6xl font-arpona text-[#23263a] text-start mr-4 md:w-4/5 font-bold leading-tight mb-4 md:mb-6">
+          <div className="relative md:absolute md:static ml-0 md:ml-60 z-10 mt-4 md:mt-16 lg:mt-20">
+            <h2 className="text-xl md:text-4xl lg:text-6xl font-arpona text-[#23263a] text-start mr-2 md:mr-4 w-full md:w-4/5 font-bold leading-tight mb-3 md:mb-4 lg:mb-6">
               {heading}
             </h2>
           </div>
           {/* Body Text */}
-          <div className="mt-32 md:mt-44 lg:mt-0 w-full md:w-3/7 z-10 ml-auto mr-4 md:mr-20">
+          <div className="mt-32 md:mt-44 lg:mt-10 w-full md:w-3/7 z-10 ml-auto mr-4 md:mr-20">
             <p className="text-sm md:text-base lg:text-md font-inter text-[#23263a] font-bold leading-relaxed mb-4">
               {description}
             </p>
