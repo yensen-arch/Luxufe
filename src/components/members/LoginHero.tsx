@@ -1,5 +1,5 @@
 import React from "react";
-
+import Image from "next/image";
 interface LoginHeroProps {
   data?: {
     leftImage?: {
@@ -41,10 +41,12 @@ const LoginHero: React.FC<LoginHeroProps> = ({ data }) => {
     <section className="w-full min-h-screen flex flex-col md:flex-row">
       {/* Left image */}
       <div className="w-full md:w-1/2 h-screen md:h-auto relative">
-        <img
-          src={d.leftImage.url}
+        <Image
+          src={d.leftImage.url || "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"  }
           alt={d.leftImage.alt || "Login visual"}
           className="w-full h-full object-cover object-center"
+          width={1000}
+          height={1000}
         />
         <div className="absolute inset-0 bg-black/10 pointer-events-none" />
       </div>
@@ -52,33 +54,33 @@ const LoginHero: React.FC<LoginHeroProps> = ({ data }) => {
       <div className="w-full md:w-1/2 bg-[#23263a] flex flex-col justify-center items-center px-6 md:px-16 py-16 md:py-0">
         <div className="w-full max-w-xl mx-auto text-center">
           <span className="font-bellarina text-4xl md:text-5xl text-white mb-6 block italic">{d.scriptText}</span>
-          <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-arpona font-normal mb-8 leading-tight">
+          <h1 className="text-white text-3xl md:text-3xl lg:text-3xl font-arpona font-bold mb-8 leading-tight">
             {d.heading}
           </h1>
-          <p className="text-white text-base md:text-lg font-inter font-normal mb-10">
+          <p className="text-white text-base md:text-md w-4/5 mx-auto font-inter font-normal mb-10">
             {d.description}
           </p>
           <form className="flex flex-col md:flex-row gap-4 mb-8 w-full">
             <input
               type="email"
               placeholder={d.emailPlaceholder}
-              className="flex-1 px-6 py-4 bg-transparent border border-gray-400 text-white placeholder-gray-300 font-inter font-bold text-base focus:outline-none focus:ring-2 focus:ring-[#a8d1cf]"
+              className="flex-1 px-6 py-4 bg-transparent border border-gray-400 text-white placeholder-white font-inter font-bold text-xs focus:outline-none focus:ring-2 focus:ring-[#a8d1cf]"
               autoComplete="email"
             />
             <input
               type="password"
               placeholder={d.passwordPlaceholder}
-              className="flex-1 px-6 py-4 bg-transparent border border-gray-400 text-white placeholder-gray-300 font-inter font-bold text-base focus:outline-none focus:ring-2 focus:ring-[#a8d1cf]"
+              className="flex-1 px-6 py-4 bg-transparent border border-gray-400 text-white placeholder-white font-inter font-bold text-xs focus:outline-none focus:ring-2 focus:ring-[#a8d1cf]"
               autoComplete="current-password"
             />
           </form>
           <button
             type="submit"
-            className="w-full bg-[#a8d1cf] text-[#23263a] font-inter font-bold py-4 text-lg tracking-widest transition-colors duration-200 hover:bg-[#7bb7b3] mb-6"
+            className="w-full bg-[#a8d1cf] text-black font-inter font-bold py-4 text-xs tracking-widest transition-colors duration-200 hover:bg-[#7bb7b3] mb-6"
           >
             {d.buttonText}
           </button>
-          <p className="text-white text-sm font-inter font-normal">
+          <p className="text-white text-xs font-inter font-bold">
             {d.belowText}
             <a href={d.contactLinkHref} className="underline font-bold ml-1">
               {d.contactLinkText}
