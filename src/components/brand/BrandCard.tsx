@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { getHotelGallery, getBrandByName, getHotelCardImages } from "@/lib/database";
+import Image from "next/image";
 
 interface BrandCardProps {
   name: string;
@@ -128,9 +128,11 @@ export default function BrandCard({ name, location, logo, description, brand }: 
           {isLoading ? (
             <ImageSkeleton className="w-full h-full" />
           ) : !imageError.top ? (
-            <img 
+            <Image 
               src={getImageUrl('top', "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80")} 
               alt={`${name} main view`} 
+              width={500}
+              height={500}
               className="w-full h-full object-cover"
               onLoad={() => handleImageLoad('top')}
               onError={() => handleImageError('top')}
@@ -148,9 +150,11 @@ export default function BrandCard({ name, location, logo, description, brand }: 
             {isLoading ? (
               <ImageSkeleton className="w-full h-full" />
             ) : !imageError.bottomLeft ? (
-              <img 
+              <Image 
                 src={getImageUrl('left', "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80")} 
                 alt={`${name} view 1`} 
+                width={500}
+                height={500}
                 className="w-full h-full object-cover"
                 onLoad={() => handleImageLoad('bottomLeft')}
                 onError={() => handleImageError('bottomLeft')}
@@ -165,9 +169,11 @@ export default function BrandCard({ name, location, logo, description, brand }: 
             {isLoading ? (
               <ImageSkeleton className="w-full h-full" />
             ) : !imageError.bottomRight ? (
-              <img 
+              <Image 
                 src={getImageUrl('right', "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80")} 
                 alt={`${name} view 2`}
+                width={500}
+                height={500}
                 className="w-full h-full object-cover"
                 onLoad={() => handleImageLoad('bottomRight')}
                 onError={() => handleImageError('bottomRight')}
@@ -204,9 +210,11 @@ export default function BrandCard({ name, location, logo, description, brand }: 
           {isLoading ? (
             <div className="h-8 w-16 bg-gray-200 animate-pulse rounded"></div>
           ) : (
-            <img 
+            <Image 
               src={brandLogo} 
               alt={`${brand || name} Logo`} 
+              width={100}
+              height={100}
               className="h-8 object-contain"
             />
           )}
@@ -235,7 +243,7 @@ export default function BrandCard({ name, location, logo, description, brand }: 
         ) : (
           <button onClick={handleCardClick} className="cursor-pointer w-full border border-gray-800 bg-white text-gray-800 font-inter font-bold text-sm py-3 px-4 flex items-center justify-center gap-2 hover:bg-gray-50 transition">
             EXPLORE HOTEL
-            <ArrowRight className="w-4 h-4" />
+            <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="w-3 h-3 md:w-7 md:h-7 opacity-50" />
           </button>
         )}
       </div>

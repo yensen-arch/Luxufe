@@ -130,54 +130,35 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
 
       {/* Pagination Component */}
       {totalPages > 1 && (
-        <div className="flex justify-center items-center py-12">
-          <div className="flex items-center gap-8">
-            {/* Previous Link */}
-            <button 
-              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-              disabled={currentPage === 1}
-              className={`font-inter text-sm transition ${
-                currentPage === 1 
-                  ? 'text-gray-300 cursor-not-allowed' 
-                  : 'text-gray-500 hover:text-gray-700'
+        <div className="flex justify-center items-center gap-2 mt-12 md:mt-16 lg:mt-24 w-auto max-w-md mx-auto">
+          {/* First half of pages */}
+          {Array.from({ length: Math.ceil(totalPages / 2) }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`text-xs font-inter cursor-pointer transition-colors ${
+                page === currentPage ? 'text-[#23263a] font-bold' : 'text-gray-400 font-light hover:text-gray-600'
               }`}
             >
-              &lt; Previous
+              {String(page).padStart(2, "0")}
             </button>
-            
-            {/* Page Numbers */}
-            <div className="flex items-center gap-4">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-                <button
-                  key={pageNum}
-                  onClick={() => setCurrentPage(pageNum)}
-                  className={`flex flex-col items-center ${
-                    pageNum === currentPage ? 'text-gray-800' : 'text-gray-500 hover:text-gray-700'
-                  }`}
-                >
-                  <span className={`font-inter text-sm ${pageNum === currentPage ? 'font-medium' : ''}`}>
-                    {pageNum.toString().padStart(2, '0')}
-                  </span>
-                  {pageNum === currentPage && (
-                    <div className="w-full h-0.5 bg-gray-500 mt-1"></div>
-                  )}
-                </button>
-              ))}
-            </div>
-            
-            {/* Next Link */}
-            <button 
-              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-              disabled={currentPage === totalPages}
-              className={`font-inter text-sm transition ${
-                currentPage === totalPages 
-                  ? 'text-gray-300 cursor-not-allowed' 
-                  : 'text-gray-800 hover:text-gray-600'
+          ))}
+          
+          {/* Line separator */}
+          <div className="flex-1 h-px bg-gray-400 mx-2 min-w-[40px] max-w-[120px]" />
+          
+          {/* Second half of pages */}
+          {Array.from({ length: Math.floor(totalPages / 2) }, (_, i) => Math.ceil(totalPages / 2) + i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`text-xs font-inter cursor-pointer transition-colors ${
+                page === currentPage ? 'text-[#23263a] font-bold' : 'text-gray-400 font-light hover:text-gray-600'
               }`}
             >
-              Next &gt;
+              {String(page).padStart(2, "0")}
             </button>
-          </div>
+          ))}
         </div>
       )}
     </section>
