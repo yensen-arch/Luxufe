@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 interface PartnerHighlightProps {
@@ -25,7 +26,7 @@ export default function PartnerHighlight({ data }: PartnerHighlightProps) {
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         {/* Heading */}
-        <h2 className="text-4xl md:text-5xl font-arpona text-[#23263a] font-bold text-start mb-16">
+        <h2 className="text-4xl md:text-6xl font-arpona text-gray-700 font-bold text-start mb-16">
           {heading}
         </h2>
         {/* Content Row */}
@@ -57,7 +58,7 @@ export default function PartnerHighlight({ data }: PartnerHighlightProps) {
             </p>
             {/* Button */}
             <button className="w-fit border-2 border-gray-300 text-xs py-3 px-6 font-inter font-bold text-gray-800 flex items-center justify-center gap-2 hover:bg-gray-800 hover:text-white transition text-left">
-              MORE FROM THIS BRAND <span>&rarr;</span>
+              MORE FROM THIS BRAND <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="w-5 h-5 ml-2" />
             </button>
           </div>
         </div>
