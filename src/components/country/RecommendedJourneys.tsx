@@ -102,6 +102,10 @@ export default function CuratedForYou() {
                   {...item}
                   isExpanded={selectedCard === item.id}
                   onClick={() => handleCardClick(item.id)}
+                  onMoreInfoClick={() => {
+                    // Navigate to individual itinerary page
+                    window.location.href = `/itineraries/${item.id}`;
+                  }}
                 />
               </div>
             ))}
