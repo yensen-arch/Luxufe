@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { getHotelGallery, getHotelHeroImage } from "@/lib/database";
 import { Hotel } from "@/lib/database";
-
+import Image from "next/image";
 interface ProductHeroProps {
   hotel: Hotel;
 }
@@ -18,12 +18,16 @@ const tabs = [
 
 const ProductHero = ({ hotel }: ProductHeroProps) => {
   const [activeTab, setActiveTab] = useState("overview");
-  const [backgroundImage, setBackgroundImage] = React.useState<string>("");
+  const [backgroundImage, setBackgroundImage] = React.useState<string>(
+    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80"
+  );
+  const [isLoading, setIsLoading] = React.useState(true);
 
   // Fetch images on component mount
   React.useEffect(() => {
     const fetchImages = async () => {
       try {
+        setIsLoading(true);
         const [heroImage, galleryImages] = await Promise.all([
           getHotelHeroImage(hotel.hotel_name),
           getHotelGallery(hotel.hotel_name),
@@ -42,6 +46,8 @@ const ProductHero = ({ hotel }: ProductHeroProps) => {
         setBackgroundImage(
           "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80"
         );
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -64,11 +70,21 @@ const ProductHero = ({ hotel }: ProductHeroProps) => {
   return (
     <section className="relative w-full h-[110vh] shadow-lg flex items-center justify-center overflow-hidden">
       {/* Background Image */}
-      <img
-        src={backgroundImage}
-        alt={`${hotel.hotel_name} - ${hotel.city}, ${hotel.country}`}
-        className="absolute inset-0 w-full h-full object-cover object-center z-0"
-      />
+      {!isLoading && backgroundImage && (
+        <Image
+          src={backgroundImage}
+          alt={`${hotel.hotel_name} - ${hotel.city}, ${hotel.country}`}
+          className="absolute inset-0 w-full h-full object-cover object-center z-0"
+          width={1000}
+          height={1000}
+          priority
+        />
+      )}
+      
+      {/* Loading placeholder */}
+      {isLoading && (
+        <div className="absolute inset-0 w-full h-full bg-gray-200 z-0 animate-pulse" />
+      )}
 
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black/35 z-10" />

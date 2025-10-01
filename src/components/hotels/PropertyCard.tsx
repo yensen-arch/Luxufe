@@ -1,5 +1,5 @@
 import React from "react";
-
+import Image from "next/image";
 interface PropertyCardProps {
   name: string;
   location: string;
@@ -18,9 +18,11 @@ export default function PropertyCard({
   return (
     <div className={`relative overflow-hidden group cursor-pointer transition-transform duration-300 hover:scale-105 ${className}`}>
       {/* Background Image */}
-      <img 
+      <Image 
         src={image} 
         alt={name}
+        width={1000}
+        height={1000}
         className="w-full h-full object-cover"
       />
       
@@ -32,10 +34,12 @@ export default function PropertyCard({
         {/* Star Rating */}
         <div className="flex justify-center mb-2 md:mb-3">
           {[...Array(rating)].map((_, index) => (
-            <img 
+            <Image 
               key={index} 
               src="/luxufe-icon-star-ratings-solid-white.svg" 
               alt="Star" 
+              width={16}
+              height={16}
               className="w-4 h-3 md:w-5 md:h-4 text-white" 
             />
           ))}
