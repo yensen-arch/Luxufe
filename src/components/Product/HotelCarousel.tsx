@@ -101,7 +101,7 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
   const CarouselSkeleton = () => (
     <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px]">
       <div className="flex justify-center items-center h-full">
-        <div className="grid grid-cols-3 gap-8 w-full max-w-4xl">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 w-full max-w-4xl px-4 sm:px-0">
           {[...Array(3)].map((_, i) => (
             <div key={i} className="bg-gray-200 animate-pulse rounded-lg h-full">
               <div className="w-full h-full bg-gray-300 rounded-lg"></div>
@@ -113,11 +113,11 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
   );
 
   return (
-    <section className="w-full py-20 bg-gray-100">
+    <section className="w-full py-12 sm:py-20 bg-gray-100">
       <style dangerouslySetInnerHTML={{ __html: swiperStyles }} />
-      <div className="mx-auto px-0">
+      <div className="mx-auto px-4 sm:px-0">
         {/* Section Title */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-arpona font-bold text-[#212121] text-center mb-12 sm:mb-16">
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-arpona font-bold text-[#212121] text-center mb-8 sm:mb-16">
           Your stay, frame-by-frame
         </h2>
         
@@ -133,8 +133,8 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
               effect={'coverflow'}
               grabCursor={true}
               centeredSlides={true}
-              slidesPerView={2}
-              spaceBetween={100}
+              slidesPerView={1}
+              spaceBetween={20}
               coverflowEffect={{
                 rotate: 0,
                 stretch: 0,
@@ -145,6 +145,12 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
               loop={true}
               modules={[EffectCoverflow]}
               className="w-full h-full"
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 100,
+                },
+              }}
             >
               {images.map((image) => (
                 <SwiperSlide 
@@ -165,18 +171,18 @@ const HotelCarousel: React.FC<HotelCarouselProps> = ({ hotel }) => {
             {/* Custom Navigation Arrows - Positioned on sides of central image */}
             <button
               onClick={() => swiperRef.current?.slidePrev()}
-              className="absolute left-[calc(50%-400px)] top-1/2 -translate-y-1/2 w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-sm transition-all duration-300 z-10 group hover:bg-gray-50"
+              className="absolute left-4 sm:left-[calc(50%-400px)] top-1/2 -translate-y-1/2 w-12 h-12 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center shadow-sm transition-all duration-300 z-10 group hover:bg-gray-50"
               aria-label="Previous image"
             >
-              <ChevronLeft className="w-5 h-5 text-black" />
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
             </button>
             
             <button
               onClick={() => swiperRef.current?.slideNext()}
-              className="absolute right-[calc(50%-400px)] top-1/2 -translate-y-1/2 w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-sm transition-all duration-300 z-10 group hover:bg-gray-50"
+              className="absolute right-4 sm:right-[calc(50%-400px)] top-1/2 -translate-y-1/2 w-12 h-12 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center shadow-sm transition-all duration-300 z-10 group hover:bg-gray-50"
               aria-label="Next image"
             >
-              <ChevronRight className="w-5 h-5 text-black" />
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
             </button>
           </div>
         )}
