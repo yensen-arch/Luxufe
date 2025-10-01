@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
-import { Building, MapPin, List } from "lucide-react";
 import { useRouter } from "next/navigation";
-
+import Image from "next/image";
 // Continent data with images and display order
 const CONTINENTS = [
   {
@@ -79,15 +78,15 @@ function ContinentCard({ continent, stats, className = "" }: {
           {/* Statistics */}
           <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-6 mb-2 md:mb-4 text-white">
             <div className="flex items-center gap-1 md:gap-2">
-              <Building className="w-3 h-3 md:w-4 md:h-4" />
+              <Image src="/luxufe-icon-destination-properties-white.svg" alt="Building" width={16} height={16} />
               <span className="font-inter text-xs md:text-sm font-bold">{stats.hotelCount} Properties</span>
             </div>
             <div className="flex items-center gap-1 md:gap-2">
-              <List className="w-3 h-3 md:w-4 md:h-4" />
+              <Image src="/luxufe-icon-destinations-itineraries-white.svg" alt="List" width={16} height={16} />
               <span className="font-inter text-xs md:text-sm font-bold">0 Itineraries</span>
             </div>
             <div className="flex items-center gap-1 md:gap-2">
-              <MapPin className="w-3 h-3 md:w-4 md:h-4" />
+              <Image src="/luxufe-icon-location-pin-white.svg" alt="Map Pin" width={14} height={14} />
               <span className="font-inter text-xs md:text-sm font-bold">{stats.countryCount} Countries</span>
             </div>
           </div>
