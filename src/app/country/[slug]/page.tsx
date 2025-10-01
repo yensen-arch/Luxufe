@@ -38,7 +38,7 @@ const Page = async ({ params }: PageProps) => {
   }
 
   return (
-    <main>
+    <main className="overflow-x-hidden">
       <Navbar />
       <CountryHero 
         countryName={countryName}
