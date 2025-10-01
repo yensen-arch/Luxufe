@@ -4,23 +4,6 @@ import HighestBrandSearchSidebar from "@/components/partners/HighestBrandSearchS
 import HighestBrandSearchGrid from "@/components/partners/HighestBrandSearchGrid";
 import { fetchBrands, fetchHotelCounts, dummyCruiseBrands, dummyPrivateJetBrands, Brand } from "@/lib/database";
 
-// Debounce hook for search optimization
-const useDebounce = (value: any, delay: number) => {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-
-  return debouncedValue;
-};
-
 interface HighestBrandSearchProps {
   data?: {
     heading?: string;
