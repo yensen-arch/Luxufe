@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface GlobalNetworkProps {
   data?: {
@@ -21,17 +22,19 @@ export default function GlobalNetwork({ data }: GlobalNetworkProps) {
       <div className="flex flex-col md:flex-row w-full mx-auto h-full relative ">
         {/* Left: Image */}
         <div className="w-full md:w-[56%] z-10 absolute md:-top-30 top-0 h-full md:h-[120vh]">
-          <img
+          <Image
             src={data?.backgroundImage ? `https://picsum.photos/seed/global-network/1000/1200` : "https://picsum.photos/seed/resort-pool/1000/1200"}
             alt="Effortless Travel"
             className="w-full h-full object-cover"
+            width={1000}
+            height={1200}
           />
         </div>
         {/* Right: Content */}
         <div className="relative w-full md:w-6/8 bg-[#f5f6f7] flex flex-col ml-auto px-4 md:px-8 py-8 md:py-12 md:pl-16 md:pr-20">
           {/* Overlapping Heading/Subheading */}
-          <div className="absolute md:static ml-auto z-10 mt-16 md:mt-20">
-            <h2 className="text-2xl md:text-4xl lg:text-6xl font-arpona text-[#23263a] text-start mr-4 md:mr-40 font-bold leading-tight mb-4 md:mb-6">
+          <div className="absolute md:static ml-60 z-10 mt-16 md:mt-20">
+            <h2 className="text-2xl md:text-4xl lg:text-6xl font-arpona text-[#23263a] text-start mr-4 md:w-4/5 font-bold leading-tight mb-4 md:mb-6">
               {heading}
             </h2>
           </div>
@@ -40,11 +43,11 @@ export default function GlobalNetwork({ data }: GlobalNetworkProps) {
             <p className="text-sm md:text-base lg:text-md font-inter text-[#23263a] font-bold leading-relaxed mb-4">
               {description}
             </p>
-            <button className="w-fit border-2 border-gray-300 text-xs py-3 md:py-4 px-4 md:px-6 mt-6 md:mt-10 font-inter font-bold text-gray-800 flex items-center justify-center gap-2 hover:bg-gray-800 hover:text-white transition text-left">{ctaText} <span>&rarr;</span></button>
+            <button className="w-fit border-2 border-gray-300 text-xs py-3 md:py-4 px-4 md:px-6 mt-6 md:mt-10 font-inter font-bold text-gray-800 flex items-center justify-center gap-2 hover:bg-gray-800 hover:text-white transition text-left">{ctaText} <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="w-5 h-5 ml-2" /></button>
           </div>
           {/* Watermark */}
           <div className="absolute -bottom-8 md:-bottom-18 -right-8 md:-right-20">
-            <img src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[120px] md:w-[235px] h-auto" />
+            <Image src="https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png" alt="Luxufe Badge" className="w-[120px] md:w-[235px] h-auto" width={120} height={235} />
           </div>
         </div>
       </div>
