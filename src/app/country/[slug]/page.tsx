@@ -44,16 +44,24 @@ const Page = async ({ params }: PageProps) => {
         countryName={countryName}
         countryStats={countryStats}
       />
-      <ExploreCountry 
-        countryName={countryName}
-        hotels={hotels}
-      />
-      <RecommendedJourneys />
-      <SetSail />
-      <RecommendedStays 
-        hotels={hotels}
-      />
-      <GoodToKnow />
+      <div id="overview-section">
+        <ExploreCountry 
+          countryName={countryName}
+          hotels={hotels}
+        />
+      </div>
+      <div id="itineraries-section">
+        <RecommendedJourneys />
+        <SetSail />
+      </div>
+      <div id="hotels-section">
+        <RecommendedStays 
+          hotels={hotels}
+        />
+      </div>
+      <div id="information-section">
+        <GoodToKnow />
+      </div>
       <Testimonials />
       <ContactUs />
       <Footer />

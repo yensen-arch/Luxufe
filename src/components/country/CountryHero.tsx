@@ -1,10 +1,12 @@
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
+
 const tabs = [
-  { label: "Overview", active: true },
-  { label: "Itineraries" },
-  { label: "Cruise Partners" },
-  { label: "Cruise Destinations" },
-  { label: "Book a Cruise" },
+  { id: "overview", label: "Overview", sectionId: "overview-section" },
+  { id: "itineraries", label: "Itineraries", sectionId: "itineraries-section" },
+  { id: "hotels", label: "Hotels", sectionId: "hotels-section" },
+  { id: "information", label: "Information", sectionId: "information-section" },
 ];
 
 interface CountryHeroProps {
@@ -20,6 +22,21 @@ export default function CountryHero({
   countryName,
   countryStats,
 }: CountryHeroProps) {
+  const [activeTab, setActiveTab] = useState("overview");
+
+  const handleTabClick = (tabId: string, sectionId: string) => {
+    setActiveTab(tabId);
+    
+    // Scroll to the corresponding section
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <section className="relative w-full h-[100vh] md:h-[110vh] shadow-lg flex flex-col justify-end mb-6 md:mb-10">
       {/* Background Image */}
@@ -82,17 +99,24 @@ export default function CountryHero({
           </div>
         </div>
       </div>
-      {/* Tab Bar */}
-      <div className="absolute hidden md:block bottom-0 pt-4 left-0 w-full bg-white flex justify-center items-center border-t border-gray-200">
-        <div className="flex w-full max-w-5xl mx-auto">
-          {tabs.map((tab, idx) => (
-            <button
-              key={tab.label}
-              className={`flex-1 py-3 text-sm rounded-t-xl font-inter font-bold transition-colors ${tab.active ? "bg-[#a8d1cf]/60 text-[#23263a]" : "bg-white text-[#23263a] hover:bg-gray-100"}`}
-            >
-              {tab.label}
-            </button>
-          ))}
+      {/* Tab Bar - Hidden on mobile */}
+      <div className="absolute hidden md:block bottom-0 left-0 w-full bg-white border-t border-gray-200 z-30">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex overflow-x-auto md:overflow-x-visible">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => handleTabClick(tab.id, tab.sectionId)}
+                className={`cursor-pointer flex-shrink-0 md:flex-1 py-3 md:py-3 px-3 md:px-6 text-sm md:text-base rounded-t-xl mt-3 font-inter font-bold transition-all duration-200 ${
+                  activeTab === tab.id
+                    ? "bg-[#a8d1cf] text-[#23263a] border-b-4 border-[#a8d1cf]"
+                    : "bg-white text-[#23263a]"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>
