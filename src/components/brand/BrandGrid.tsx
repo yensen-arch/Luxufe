@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from "react";
-import { X } from "lucide-react";
+import React, { useState } from "react";
 import BrandCard from "./BrandCard";
 import { Hotel } from "@/lib/database";
+import Image from "next/image";
 
 interface BrandGridProps {
   hotels: Hotel[];
@@ -41,17 +41,16 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
   // Loading state
   if (loading) {
     return (
-      <section className="flex-1 bg-[#f7f7fa] min-h-screen flex items-center justify-center">
+      <section className="flex-1 bg-gray-100 min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#a8d1cf] mx-auto mb-4"></div>
-          <p className="text-gray-600 font-inter">Loading hotels...</p>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="flex-1 bg-[#f7f7fa] max-h-[250vh]">
+    <section className="flex-1 bg-gray-100 max-h-[250vh]">
       {/* Selected Filters - Always visible */}
       <div className="border-b-2 border-gray-300 px-8 py-4 h-30">
         <div className="flex items-center gap-4">
@@ -66,7 +65,7 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
                   onClick={() => onClearFilter('typeOfTravel', type)}
                   className="hover:text-gray-900"
                 >
-                  <X className="w-3 h-3" />
+                  <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={20} height={20} className="w-3 h-3" />
                 </button>
               </span>
             ))}
@@ -80,7 +79,7 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
                   onClick={() => onClearFilter('region', region)}
                   className="hover:text-gray-900"
                 >
-                  <X className="w-3 h-3" />
+                  <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={20} height={20} className="w-3 h-3" />
                 </button>
               </span>
             ))}
@@ -100,8 +99,8 @@ export default function BrandGrid({ hotels, loading, filters, onClearFilter, onC
       </div>
 
       {/* Results Count */}
-      <div className="px-8 py-6">
-        <p className="text-sm font-inter font-bold text-gray-500">
+      <div className="px-16 py-6">
+        <p className="text-xs font-inter font-bold text-gray-400 ">
           Showing {startIndex + 1}-{Math.min(endIndex, hotelsArray.length)} of {hotelsArray.length} Results
         </p>
       </div>

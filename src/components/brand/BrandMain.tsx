@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import BrandSidebar from "@/components/brand/BrandSidebar";
 import BrandGrid from "@/components/brand/BrandGrid";
 import { getHotelsWithFiltersAndGallery, getBrandCountries } from "@/lib/database";
@@ -132,7 +132,7 @@ const BrandMain = ({ data, brandName }: BrandMainProps) => {
           <h2 className="text-4xl md:text-6xl font-arpona text-[#23263a] font-bold mb-6">
             {heading}
           </h2>
-          <p className="text-lg md:text-xl text-[#23263a] font-inter font-bold">
+          <p className="text-lg md:text-lg text-[#23263a] font-inter font-bold">
             {description}
           </p>
         </div>
