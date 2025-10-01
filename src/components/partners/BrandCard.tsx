@@ -1,7 +1,7 @@
 import React from "react";
-import { Bed, Lock, Plane, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { brandNameToSlug } from "@/lib/utils";
+import Image from "next/image";
 
 interface BrandCardProps {
   brand: {
@@ -51,7 +51,7 @@ export default function BrandCard({ brand, travelType, index, hotelCounts, loadi
         return (
           <div className="flex justify-center gap-4 md:gap-8 w-full border-t border-gray-200 pt-4 md:pt-6">
             <div className="flex items-center gap-1 md:gap-2 text-gray-700 font-inter font-bold text-sm md:text-base">
-              <Bed className="w-4 h-4 md:w-5 md:h-5 mr-1" />
+              <Image src="/luxufe-icon-suites-beds-dark.svg" alt="Bed" width={20} height={20} className="w-4 h-4 md:w-5 md:h-5 mr-1" />
               {loadingHotelCounts ? (
                 <div className="animate-pulse bg-gray-200 h-4 w-16 rounded"></div>
               ) : (
@@ -59,7 +59,7 @@ export default function BrandCard({ brand, travelType, index, hotelCounts, loadi
               )}
             </div>
             <div className="flex items-center gap-1 md:gap-2 text-gray-700 font-inter font-bold text-sm md:text-base">
-              <MapPin className="w-4 h-4 md:w-5 md:h-5 mr-1" />
+              <Image src="/luxufe-map-icon-large-location-pin-dark.svg" alt="Location pin" width={20} height={20} className="w-4 h-4 md:w-5 md:h-5 mr-1" />
               {brand.location || 'Worldwide'}
             </div>
           </div>
@@ -68,11 +68,11 @@ export default function BrandCard({ brand, travelType, index, hotelCounts, loadi
         return (
           <div className="flex justify-center gap-4 md:gap-8 w-full border-t border-gray-200 pt-4 md:pt-6">
             <div className="flex items-center gap-1 md:gap-2 text-gray-700 font-inter font-bold text-sm md:text-base">
-              <Bed className="w-4 h-4 md:w-5 md:h-5 mr-1" />
+              <Image src="/luxufe-icon-suites-beds-dark.svg" alt="Bed" width={20} height={20} className="w-4 h-4 md:w-5 md:h-5 mr-1" />
               {brand.suites || 50} suites
             </div>
             <div className="flex items-center gap-1 md:gap-2 text-gray-700 font-inter font-bold text-sm md:text-base">
-              <Lock className="w-4 h-4 md:w-5 md:h-5 mr-1" />
+              <Image src="/luxufe-icon-itineraries-dark.svg" alt="Lock" width={20} height={20} className="w-4 h-4 md:w-5 md:h-5 mr-1" />
               {brand.itineraries || 12} itineraries
             </div>
           </div>
@@ -81,11 +81,11 @@ export default function BrandCard({ brand, travelType, index, hotelCounts, loadi
         return (
           <div className="flex justify-center gap-4 md:gap-8 w-full border-t border-gray-200 pt-4 md:pt-6">
             <div className="flex items-center gap-1 md:gap-2 text-gray-700 font-inter font-bold text-sm md:text-base">
-              <Plane className="w-4 h-4 md:w-5 md:h-5 mr-1" />
+              <Image src="/luxufe-icon-flights-dark.svg" alt="Plane" width={20} height={20} className="w-4 h-4 md:w-5 md:h-5 mr-1" />
               {brand.aircraft || 25} aircraft
             </div>
             <div className="flex items-center gap-1 md:gap-2 text-gray-700 font-inter font-bold text-sm md:text-base">
-              <MapPin className="w-4 h-4 md:w-5 md:h-5 mr-1" />
+              <Image src="/luxufe-map-icon-large-location-pin-dark.svg" alt="Location pin" width={20} height={20} className="w-4 h-4 md:w-5 md:h-5 mr-1" />
               {brand.destinations || 200} destinations
             </div>
           </div>

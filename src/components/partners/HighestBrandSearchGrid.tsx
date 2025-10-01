@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Search, X } from "lucide-react";
 import BrandCard from "./BrandCard";
+import Image from "next/image";
 
 interface Brand {
   id: number;
@@ -146,8 +146,8 @@ export default function HighestBrandSearchGrid({
   return (
     <section className="flex-1 bg-[#f5f6f7] max-h-[170vh] py-3 md:py-5">
       {/* Search Bar - Always visible */}
-      <p className="text-gray-500 font-inter font-bold text-xs mx-4 mb-2">SEARCH</p>
-      <form onSubmit={handleSearchSubmit} className="flex items-center mb-2 bg-white border border-gray-200 rounded-full px-4 md:px-6 py-2 text-sm font-inter font-bold text-gray-500 mx-4 placeholder:text-gray-500">
+      <p className="text-gray-900 font-inter font-bold text-xs mx-4 mb-3">SEARCH</p>
+      <form onSubmit={handleSearchSubmit} className="flex items-center mb-1.5 bg-white border border-gray-200 rounded-full px-4 md:px-6 py-2 text-sm font-inter font-bold text-gray-500 mx-4 placeholder:text-gray-500">
         <input
           type="text"
           placeholder="What are you looking for?"
@@ -158,9 +158,9 @@ export default function HighestBrandSearchGrid({
         />
         <button 
           type="submit"
-          className="bg-[#23263a] text-white rounded-full p-1 flex items-center justify-center"
+          className="bg-[#23263a] text-white rounded-full p-2 flex items-center justify-center"
         >
-          <Search className="w-4 h-4 md:w-5 md:h-5" />
+          <Image src="/luxufe-icon-ai-send-arrow-light.svg" alt="Search" width={20} height={20} className="w-4 h-4 md:w-4 md:h-4" />
         </button>
       </form>
 
@@ -178,7 +178,7 @@ export default function HighestBrandSearchGrid({
                   onClick={() => onClearFilter('destinations', destination)}
                   className="hover:text-gray-900"
                 >
-                  <X className="w-3 h-3" />
+                  <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={20} height={20} className="w-3 h-3" />
                 </button>
               </span>
             ))}
@@ -192,7 +192,7 @@ export default function HighestBrandSearchGrid({
                   onClick={() => onClearFilter('experiences', experience)}
                   className="hover:text-gray-900"
                 >
-                  <X className="w-3 h-3" />
+                  <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={20} height={20} className="w-3 h-3" />
                 </button>
               </span>
             ))}
