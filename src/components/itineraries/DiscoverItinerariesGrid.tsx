@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ItineraryCard from "@/components/itineraries/ItineraryCard";
+import DiscoverItineraryCard from "@/components/itineraries/DiscoverItineraryCard";
 import Image from "next/image";
 interface DiscoverItinerariesGridProps {
   filters: {
@@ -152,9 +152,6 @@ export default function DiscoverItinerariesGrid({ filters, onFiltersChange, onCl
   const endIndex = startIndex + cardsPerPage;
   const currentItineraries = filteredItineraries.slice(startIndex, endIndex);
 
-  // Get all active filters for display
-  const allSelectedFilters = [...filters.destinations, ...filters.experiences];
-
   const handleSearch = () => {
     onFiltersChange({
       ...filters,
@@ -168,9 +165,9 @@ export default function DiscoverItinerariesGrid({ filters, onFiltersChange, onCl
   }, [filters]);
 
   return (
-    <section className="flex-1 max-h-[250vh] bg-white">
+    <section className="flex-1 max-h-[250vh] bg-gray-100">
       {/* Search Section */}
-      <div className="px-8 py-6 bg-white border-b border-gray-200">
+      <div className="px-8 py-6 border-b border-gray-200">
         <h2 className="text-2xl font-arpona font-bold text-gray-700 mb-4">SEARCH</h2>
         <div className="flex items-center gap-4">
           <div className="flex-1 relative">
@@ -209,15 +206,15 @@ export default function DiscoverItinerariesGrid({ filters, onFiltersChange, onCl
       ) : (
         <div className="grid grid-cols-1 gap-8 px-8 pb-8">
           {currentItineraries.map((itinerary) => (
-            <ItineraryCard
+            <DiscoverItineraryCard
               key={itinerary.id}
               image={itinerary.image}
+              location={itinerary.location}
+              duration={itinerary.duration}
               title={itinerary.title}
               description={itinerary.description}
-              button="EXPLORE"
-              highlight={false}
-              isSelected={false}
-              onClick={() => {}}
+              flightsIncluded={itinerary.flightsIncluded}
+              price={itinerary.price}
             />
           ))}
         </div>
