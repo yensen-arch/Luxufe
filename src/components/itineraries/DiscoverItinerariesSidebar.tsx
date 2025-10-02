@@ -164,7 +164,7 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
                 className="w-full px-3 py-2 pl-8 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm bg-gray-200"
                 placeholder="Arrival"
               />
-              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={14} height={14} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 opacity-50" />
+              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={14} height={14} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3 h-3 opacity-50" />
             </div>
           </div>
         </div>
@@ -178,7 +178,7 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
             <select
               value={filters.cruiseLine}
               onChange={(e) => handleCruiseLineChange(e.target.value)}
-              className="w-full px-3 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm appearance-none bg-gray-200"
+              className="w-full px-3 py-2 rounded-full  focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm appearance-none bg-gray-200"
             >
               <option value="">Select a brand...</option>
               {cruiseLineOptions.map((line) => (
@@ -187,7 +187,7 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
                 </option>
               ))}
             </select>
-            <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow down" width={14} height={14} className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+            <Image src="/luxufe-icon-simple-arrow-dark.svg" alt="Arrow down" width={14} height={14} className="rotate-90 absolute right-3 top-1/2 transform -translate-y-1/2 w-3 h-3 opacity-50 pointer-events-none" />
           </div>
         </div>
 
@@ -200,7 +200,7 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
             <select
               value={filters.shipName}
               onChange={(e) => handleShipNameChange(e.target.value)}
-              className="w-full px-3 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm appearance-none bg-gray-200"
+              className="w-full px-3 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm appearance-none bg-gray-200"
             >
               <option value="">Select a ship...</option>
               {shipNameOptions.map((ship) => (
@@ -209,7 +209,7 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
                 </option>
               ))}
             </select>
-            <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow down" width={14} height={14} className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+            <Image src="/luxufe-icon-simple-arrow-dark.svg" alt="Arrow down" width={14} height={14} className="rotate-90 absolute right-3 top-1/2 transform -translate-y-1/2 w-3 h-3 opacity-50 pointer-events-none" />
           </div>
         </div>
 
