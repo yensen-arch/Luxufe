@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import { MapPin, Plane, CreditCard, ArrowRight } from "lucide-react";
 
 interface DiscoverItineraryCardProps {
   image: string;
@@ -22,7 +21,7 @@ export default function DiscoverItineraryCard({
   price
 }: DiscoverItineraryCardProps) {
   return (
-    <div className="flex bg-white shadow-lg rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+    <div className="flex bg-white shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
       {/* Image Section */}
       <div className="w-1/2 relative">
         <Image 
@@ -45,7 +44,7 @@ export default function DiscoverItineraryCard({
         {/* Header with location and duration */}
         <div className="flex justify-between items-start mb-4">
           <div className="flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-black" />
+            <Image src="/luxufe-icon-map-pin.svg" alt="Map pin" width={14} height={14} className="w-4 h-4 text-black" />
             <span className="text-sm font-inter font-bold text-black">{location}</span>
           </div>
           <span className="text-sm font-inter font-bold text-black">{duration}</span>
@@ -64,20 +63,20 @@ export default function DiscoverItineraryCard({
         <div className="space-y-2 mb-6">
           {flightsIncluded && (
             <div className="flex items-center gap-2">
-              <Plane className="w-4 h-4 text-gray-600" />
+              <Image src="/luxufe-icon-plane.svg" alt="Plane" width={14} height={14} className="w-4 h-4 text-gray-600" />
               <span className="text-sm font-inter text-gray-600">Flights Included</span>
             </div>
           )}
           <div className="flex items-center gap-2">
-            <CreditCard className="w-4 h-4 text-gray-600" />
+            <Image src="/luxufe-icon-credit-card.svg" alt="Credit card" width={14} height={14} className="w-4 h-4 text-gray-600" />
             <span className="text-sm font-inter text-gray-600">{price}</span>
           </div>
         </div>
 
         {/* Explore Button */}
-        <button className="flex items-center gap-2 text-sm font-inter font-bold text-gray-700 border border-gray-300 px-4 py-2 rounded hover:bg-gray-50 transition-colors self-end">
+        <button className="flex items-center gap-2 text-xs font-inter font-bold text-gray-700 border-2 border-gray-300 px-6 py-4 hover:bg-gray-50 transition-colors self-end">
           EXPLORE ITINERARY
-          <ArrowRight className="w-4 h-4" />
+          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={14} height={14} className="w-4 h-4" />
         </button>
       </div>
     </div>
