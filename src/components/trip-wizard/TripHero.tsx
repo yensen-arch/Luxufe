@@ -37,17 +37,17 @@ export default function TripHero({ onBecomeMember, data }: TripHeroProps) {
         <div className="absolute top-0 left-0 w-full h-full bg-black/40"></div>
       </div>
       {/* Content */}
-      <div className="relative z-10 p-4 w-full max-w-5xl mx-auto flex flex-col items-center justify-center">
-        <p className="text-4xl md:text-5xl italic mb-4 font-bellarina">{heroData.subtitle}</p>
-        <h1 className="w-5xl text-5xl md:text-6xl font-arpona font-bold mb-8 leading-tight">
+      <div className="relative z-10 p-4 sm:p-6 md:p-8 w-full max-w-5xl mx-auto flex flex-col items-center justify-center">
+        <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl italic mb-3 sm:mb-4 font-bellarina leading-tight">{heroData.subtitle}</p>
+        <h1 className="w-full max-w-4xl text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-arpona font-bold mb-6 sm:mb-8 leading-tight">
           {heroData.title}
         </h1>
         <button
-          className="mt-6 px-10 py-4 border-2 border-slate-400 flex items-center justify-center gap-2 text-white font-inter font-bold bg-transparent hover:bg-white hover:text-black transition-all text-xs"
+          className="mt-4 sm:mt-6 px-6 sm:px-8 md:px-10 py-3 sm:py-4 border-2 border-slate-400 flex items-center justify-center gap-2 text-white font-inter font-bold bg-transparent hover:bg-white hover:text-black transition-all text-xs sm:text-sm"
           onClick={onBecomeMember || (() => {})}
         >
           {heroData.buttonText}
-          <Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={20} height={20} className="w-3 h-3 md:w-7 md:h-6 lg:w-8 lg:h-6" />
+          <Image src="/luxufe-icon-button-arrow-light.svg" alt="Arrow right" width={20} height={20} className="w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-5 lg:w-8 lg:h-6" />
         </button>
       </div>
     </section>

@@ -1,4 +1,4 @@
-import React from "react";
+import Image from 'next/image'
 
 interface SeamlessWayProps {
   data?: {
@@ -40,7 +40,7 @@ export default function SeamlessWay({ data }: SeamlessWayProps) {
       url: 'https://res.cloudinary.com/dqh2tacov/image/upload/v1750523100/LUXUFE_-_Badge_Logo_5_cgreed.png',
       alt: 'Luxufe Badge',
     },
-    buttonText: data?.buttonText || 'Get Started',
+    buttonText: data?.buttonText || 'FIND YOUR JOURNEY',
   };
 
   return (
@@ -48,9 +48,11 @@ export default function SeamlessWay({ data }: SeamlessWayProps) {
       <div className="flex flex-col md:flex-row w-full mx-auto h-full relative">
         {/* Left: Image */}
         <div className="w-[56%] z-10 absolute -top-30 h-[120vh]">
-          <img
+          <Image
             src={sectionData.image.url}
             alt={sectionData.image.alt}
+            width={1000}
+            height={1200}
             className="w-full h-full object-cover"
           />
         </div>
@@ -73,16 +75,11 @@ export default function SeamlessWay({ data }: SeamlessWayProps) {
             <p className="text-base md:text-md font-inter text-[#23263a] font-bold leading-relaxed">
               {sectionData.paragraph2}
             </p>
-            <button className="bg-[#23263a] text-white px-4 py-2 rounded-md">
+            <button className="mt-4 text-xs flex items-center gap-2 border-2 border-gray-300 text-[#23263a] px-4 py-4 sm:px-6 sm:py-4 md:px-8 md:py-4 lg:px-10 lg:py-4">
               {sectionData.buttonText}
+              <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-5 lg:w-6 lg:h-5" />
             </button>
           </div>
-          {/* Watermark */}
-          {sectionData.badgeImage && (
-            <div className="absolute -bottom-18 right-30 ">
-              <img src={sectionData.badgeImage.url} alt={sectionData.badgeImage.alt} className="w-[135px] h-auto" />
-            </div>
-          )}
         </div>
       </div>
     </section>

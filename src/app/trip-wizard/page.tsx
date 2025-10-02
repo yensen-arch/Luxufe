@@ -18,12 +18,12 @@ const TripWizardPage = async () => {
     <div>
       <Navbar />
       <TripHero />
+      <SeamlessWay />
       <TripWizardStepper
         question={wizardData?.stepper?.question || ''}
         options={wizardData?.stepper?.options || []}
         progress={wizardData?.stepper?.progress || 0}
       />
-      <SeamlessWay />
       <SpeakingJourneys />
       <NewsletterSignUp data={landingData?.newsletter} />
       <ExploreMore data={beforeTravelData?.exploreMore} />
