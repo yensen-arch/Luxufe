@@ -21,7 +21,7 @@ export default function DiscoverItineraryCard({
   price
 }: DiscoverItineraryCardProps) {
   return (
-    <div className="flex bg-white shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+    <div className="flex bg-white shadow-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl">
       {/* Image Section */}
       <div className="w-1/2 relative">
         <Image 
