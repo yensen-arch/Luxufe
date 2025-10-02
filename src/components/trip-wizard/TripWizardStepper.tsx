@@ -40,7 +40,7 @@ const TripWizardStepper: React.FC<TripWizardStepperProps> = ({
   const [selectedIdx, setSelectedIdx] = useState<number | null>(0);
 
   return (
-    <section className="w-full flex justify-center items-center py-16 bg-[#f5f6f7]">
+    <section className="w-full flex justify-center items-center py-16 bg-gray-100">
       <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
         <h2 className="text-3xl md:text-4xl font-arpona text-[#23263a] font-normal mb-12 text-center">
           {question}

@@ -68,7 +68,7 @@ export default function SpeakingJourneys({ data }: SpeakingJourneysProps) {
   }, [journeysData.testimonials.length]);
 
   return (
-    <section className="my-12 md:my-16 lg:my-24 h-auto md:h-screen">
+    <section className="my-12 md:my-0 lg:my-0 h-auto md:h-screen">
       <div className="container mx-auto h-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 h-full items-center relative">
           {/* Left Content Section */}
