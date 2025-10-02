@@ -167,8 +167,8 @@ export default function DiscoverItinerariesGrid({ filters, onFiltersChange, onCl
   return (
     <section className="flex-1 max-h-[250vh] bg-gray-100">
       {/* Search Section */}
-      <div className="px-8 py-6 border-b border-gray-200">
-        <h2 className="text-2xl font-arpona font-bold text-gray-700 mb-4">SEARCH</h2>
+      <div className="px-8 py-6 border-b-2 border-gray-300">
+        <h2 className="text-sm font-arpona font-bold text-gray-700 mb-4">SEARCH</h2>
         <div className="flex items-center gap-4">
           <div className="flex-1 relative">
             <input
@@ -176,15 +176,12 @@ export default function DiscoverItinerariesGrid({ filters, onFiltersChange, onCl
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="What are you looking for?"
-              className="w-full px-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-gray-700 placeholder-gray-400"
+              className="w-full px-4 py-2 pl-12 pr-12 rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 text-gray-700 placeholder-gray-400"
             />
+            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center">
+              <Image src="/luxufe-icon-ai-send-arrow-light.svg" alt="Search" width={20} height={20} className="w-4 h-4" />
+            </div>
           </div>
-          <button
-            onClick={handleSearch}
-            className="bg-gray-800 text-white p-3 rounded-full hover:bg-gray-700 transition-colors"
-          >
-            <Image src="/luxufe-icon-ai-send-arrow-light.svg" alt="Search" width={20} height={20} className="w-5 h-5" />
-          </button>
         </div>
       </div>
 

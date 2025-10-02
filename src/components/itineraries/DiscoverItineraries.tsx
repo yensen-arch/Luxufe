@@ -58,7 +58,7 @@ export default function DiscoverItineraries({ data }: DiscoverItinerariesProps) 
   };
 
   return (
-    <section className="bg-white py-0 border-b border-gray-300">
+    <section className="bg-white py-0 border-b-2 border-gray-300">
       {/* Heading Section */}
       <div className=" mx-auto px-4 text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-arpona text-[#23263a] font-bold mb-6">
