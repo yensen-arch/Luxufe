@@ -219,53 +219,41 @@ export default function DiscoverItinerariesGrid({ filters, onFiltersChange, onCl
 
       {/* Pagination Component */}
       {totalPages > 1 && (
-        <div className="flex justify-center items-center py-12">
-          <div className="flex items-center gap-8">
-            {/* Previous Link */}
-            <button 
-              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-              disabled={currentPage === 1}
-              className={`font-inter text-sm transition ${
-                currentPage === 1 
-                  ? 'text-gray-300 cursor-not-allowed' 
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              &lt; Previous
-            </button>
+        <div className="flex justify-center items-center py-8 md:py-12">
+          <div className="flex items-center gap-2 md:gap-4 w-60 mx-auto">
+            {/* Left numbers */}
+            {Array.from({ length: Math.min(totalPages, 4) }, (_, i) => i + 1).map((pageNum) => (
+              <button
+                key={pageNum}
+                onClick={() => setCurrentPage(pageNum)}
+                className={`text-xs font-inter ${
+                  pageNum === currentPage 
+                    ? 'text-[#23263a] font-bold' 
+                    : 'text-gray-400 font-light hover:text-gray-600'
+                }`}
+              >
+                {pageNum.toString().padStart(2, '0')}
+              </button>
+            ))}
             
-            {/* Page Numbers */}
-            <div className="flex items-center gap-4">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-                <button
-                  key={pageNum}
-                  onClick={() => setCurrentPage(pageNum)}
-                  className={`flex flex-col items-center ${
-                    pageNum === currentPage ? 'text-gray-800' : 'text-gray-500 hover:text-gray-700'
-                  }`}
-                >
-                  <span className={`font-inter text-sm ${pageNum === currentPage ? 'font-medium' : ''}`}>
-                    {pageNum.toString().padStart(2, '0')}
-                  </span>
-                  {pageNum === currentPage && (
-                    <div className="w-full h-0.5 bg-gray-500 mt-1"></div>
-                  )}
-                </button>
-              ))}
-            </div>
+            {/* Line */}
+            <div className="flex-1 h-px bg-gray-400 mx-2" />
             
-            {/* Next Link */}
-            <button 
-              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-              disabled={currentPage === totalPages}
-              className={`font-inter text-sm transition ${
-                currentPage === totalPages 
-                  ? 'text-gray-300 cursor-not-allowed' 
-                  : 'text-gray-800 hover:text-gray-600'
-              }`}
-            >
-              Next &gt;
-            </button>
+            {/* Right numbers */}
+            {totalPages > 4 && (
+              <>
+                <span className={`text-xs font-inter ${
+                  currentPage > 4 ? 'text-[#23263a] font-bold' : 'text-gray-400 font-light'
+                }`}>
+                  {Math.min(totalPages - 1, currentPage + 1).toString().padStart(2, '0')}
+                </span>
+                <span className={`text-xs font-inter ${
+                  currentPage === totalPages ? 'text-[#23263a] font-bold' : 'text-gray-400 font-light'
+                }`}>
+                  {totalPages.toString().padStart(2, '0')}
+                </span>
+              </>
+            )}
           </div>
         </div>
       )}

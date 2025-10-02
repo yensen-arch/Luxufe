@@ -140,11 +140,11 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
         </div>
 
         {/* Travel Dates Section */}
-        <div className="border-b-2 border-gray-300 p-6">
-          <h3 className="text-sm font-inter font-bold text-gray-700 mb-4">
+        <div className="border-b-2 border-gray-300 p-4 md:p-6">
+          <h3 className="text-sm font-inter font-bold text-gray-700 mb-3 md:mb-4">
             TRAVEL DATES
           </h3>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2">
             <div className="flex-1 relative">
               <input
                 type="text"
@@ -153,9 +153,11 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
                 className="w-full px-3 py-2 pl-8 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm bg-gray-200"
                 placeholder="Departure"
               />
-              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={14} height={14} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 opacity-50" />
+              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={14} height={14} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3 h-3 md:w-4 md:h-4 opacity-50" />
             </div>
-            <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={14} height={14} className="w-4 h-4 text-gray-400" />
+            <div className="flex justify-center md:block">
+              <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={14} height={14} className="w-3 h-3 md:w-4 md:h-4 text-gray-400 rotate-90 md:rotate-0" />
+            </div>
             <div className="flex-1 relative">
               <input
                 type="text"
@@ -164,21 +166,21 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
                 className="w-full px-3 py-2 pl-8 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm bg-gray-200"
                 placeholder="Arrival"
               />
-              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={14} height={14} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3 h-3 opacity-50" />
+              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={14} height={14} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3 h-3 md:w-4 md:h-4 opacity-50" />
             </div>
           </div>
         </div>
 
         {/* Cruise Line Section */}
-        <div className="border-b-2 border-gray-300 p-6">
-          <h3 className="text-sm font-inter font-bold text-gray-700 mb-4">
+        <div className="border-b-2 border-gray-300 p-4 md:p-6">
+          <h3 className="text-sm font-inter font-bold text-gray-700 mb-3 md:mb-4">
             CRUISE LINE
           </h3>
           <div className="relative">
             <select
               value={filters.cruiseLine}
               onChange={(e) => handleCruiseLineChange(e.target.value)}
-              className="w-full px-3 py-2 rounded-full  focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm appearance-none bg-gray-200"
+              className="w-full px-3 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm appearance-none bg-gray-200"
             >
               <option value="">Select a brand...</option>
               {cruiseLineOptions.map((line) => (
@@ -192,8 +194,8 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
         </div>
 
         {/* Ship Name Section */}
-        <div className="border-b-2 border-gray-300 p-6">
-          <h3 className="text-sm font-inter font-bold text-gray-700 mb-4">
+        <div className="border-b-2 border-gray-300 p-4 md:p-6">
+          <h3 className="text-sm font-inter font-bold text-gray-700 mb-3 md:mb-4">
             SHIP NAME
           </h3>
           <div className="relative">
@@ -214,11 +216,11 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
         </div>
 
         {/* Destinations Section */}
-        <div className="border-b-2 border-gray-300 p-6">
-          <h3 className="text-sm font-inter font-bold text-gray-700 mb-4">
+        <div className="border-b-2 border-gray-300 p-4 md:p-6">
+          <h3 className="text-sm font-inter font-bold text-gray-700 mb-3 md:mb-4">
             DESTINATIONS
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
             {destinationOptions.map((destination) => (
               <button
                 key={destination}
@@ -239,11 +241,11 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
         </div>
 
         {/* Experience Section */}
-        <div className="border-b-2 border-gray-300 p-6">
-          <h3 className="text-sm font-inter font-bold text-gray-700 mb-4">
+        <div className="border-b-2 border-gray-300 p-4 md:p-6">
+          <h3 className="text-sm font-inter font-bold text-gray-700 mb-3 md:mb-4">
             EXPERIENCE
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
             {experienceOptions.map((experience) => (
               <button
                 key={experience}
@@ -261,17 +263,17 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
         </div>
 
         {/* Special Offers Section */}
-        <div className="p-6">
-          <h3 className="text-sm font-inter font-bold text-gray-700 mb-4">
+        <div className="p-4 md:p-6">
+          <h3 className="text-sm font-inter font-bold text-gray-700 mb-3 md:mb-4">
             SPECIAL OFFERS
           </h3>
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-inter text-gray-600">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <p className="text-xs md:text-sm font-inter text-gray-600">
               Trips that offer exceptional value or discounted rates
             </p>
             <button
               onClick={handleSpecialOffersToggle}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors self-start md:self-auto ${
                 filters.specialOffers ? 'bg-[#23263a]' : 'bg-gray-200'
               }`}
             >
