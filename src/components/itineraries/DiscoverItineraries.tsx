@@ -20,6 +20,12 @@ export default function DiscoverItineraries({ data }: DiscoverItinerariesProps) 
     destinations: [] as string[],
     experiences: [] as string[],
     specialOffers: false,
+    travelDates: {
+      departure: "",
+      arrival: "",
+    },
+    cruiseLine: "",
+    shipName: "",
   });
 
   // Handle filter changes
@@ -42,6 +48,12 @@ export default function DiscoverItineraries({ data }: DiscoverItinerariesProps) 
       destinations: [],
       experiences: [],
       specialOffers: false,
+      travelDates: {
+        departure: "",
+        arrival: "",
+      },
+      cruiseLine: "",
+      shipName: "",
     });
   };
 
@@ -62,6 +74,7 @@ export default function DiscoverItineraries({ data }: DiscoverItinerariesProps) 
         />
         <DiscoverItinerariesGrid 
           filters={filters}
+          onFiltersChange={handleFiltersChange}
           onClearFilter={handleClearFilter}
           onClearAllFilters={handleClearAllFilters}
         />

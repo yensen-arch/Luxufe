@@ -94,7 +94,7 @@ export default function ItinerariesGrid({ data }: ItinerariesGridProps) {
       
       {/* Centered Button */}
       <div className="w-full flex items-center justify-center mt-8">
-        <button className="flex items-center justify-center gap-2 text-xs font-inter border-2 border-gray-300 text-gray-600 px-2 my-8 py-3 hover:bg-black hover:text-white transition font-bold tracking-widest">
+        <button className="flex items-center justify-center gap-2 text-xs font-inter border-2 border-gray-300 text-gray-600 px-2 my-8 py-3 md:py-5 md:px-6 hover:bg-black hover:text-white transition font-bold tracking-widest">
             MORE WAYS TO JOURNEY WITH LUXUFE <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={24} height={24} className="h-4 w-4" />
         </button>
       </div>

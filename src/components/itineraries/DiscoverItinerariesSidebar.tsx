@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from "react";
-import { Search, Send, Filter, X } from "lucide-react";
+import { Search, Send, Filter, X, Calendar, ChevronDown, ArrowRight } from "lucide-react";
 
 interface DiscoverItinerariesSidebarProps {
   onFiltersChange: (filters: {
@@ -8,12 +8,24 @@ interface DiscoverItinerariesSidebarProps {
     destinations: string[];
     experiences: string[];
     specialOffers: boolean;
+    travelDates: {
+      departure: string;
+      arrival: string;
+    };
+    cruiseLine: string;
+    shipName: string;
   }) => void;
   filters: {
     search: string;
     destinations: string[];
     experiences: string[];
     specialOffers: boolean;
+    travelDates: {
+      departure: string;
+      arrival: string;
+    };
+    cruiseLine: string;
+    shipName: string;
   };
 }
 
@@ -27,14 +39,40 @@ const experienceOptions = [
   "Safari & Wilderness", "Ski Resorts", "Sport & Hobbies", "Hotels"
 ];
 
+const cruiseLineOptions = [
+  "Crystal Cruises", "Regent Seven Seas", "Seabourn", "Silversea", 
+  "Oceania Cruises", "Azamara", "Viking Ocean", "Windstar Cruises"
+];
+
+const shipNameOptions = [
+  "Crystal Symphony", "Regent Seven Seas Explorer", "Seabourn Quest", 
+  "Silver Muse", "Oceania Marina", "Azamara Quest", "Viking Star", "Wind Surf"
+];
+
 export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }: DiscoverItinerariesSidebarProps) {
-  const [searchTerm, setSearchTerm] = useState(filters.search);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleSearch = () => {
+  const handleTravelDateChange = (field: 'departure' | 'arrival', value: string) => {
     onFiltersChange({
       ...filters,
-      search: searchTerm
+      travelDates: {
+        ...filters.travelDates,
+        [field]: value
+      }
+    });
+  };
+
+  const handleCruiseLineChange = (cruiseLine: string) => {
+    onFiltersChange({
+      ...filters,
+      cruiseLine
+    });
+  };
+
+  const handleShipNameChange = (shipName: string) => {
+    onFiltersChange({
+      ...filters,
+      shipName
     });
   };
 
@@ -100,24 +138,80 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
             <X className="w-6 h-6" />
           </button>
         </div>
-        
-        {/* Search Section */}
+
+        {/* Travel Dates Section */}
         <div className="border-b-2 border-gray-300 p-6">
-          <div className="flex items-center bg-white border border-gray-200 rounded-full px-4 py-3 shadow-xl">
-            <input
-              type="text"
-              placeholder="What are you looking for?"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              className="flex-1 bg-transparent outline-none text-sm font-inter text-gray-700 placeholder:text-gray-400 font-bold"
-            />
-            <button 
-              onClick={handleSearch}
-              className="ml-2 bg-[#23263a] text-white rounded-full p-3 flex items-center justify-center hover:bg-black transition"
+          <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4">
+            TRAVEL DATES
+          </h3>
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-gray-500" />
+              <input
+                type="date"
+                value={filters.travelDates.departure}
+                onChange={(e) => handleTravelDateChange('departure', e.target.value)}
+                className="flex-1 px-3 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm"
+                placeholder="Departure"
+              />
+            </div>
+            <div className="flex items-center justify-center">
+              <ArrowRight className="w-4 h-4 text-gray-400" />
+            </div>
+            <div className="flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-gray-500" />
+              <input
+                type="date"
+                value={filters.travelDates.arrival}
+                onChange={(e) => handleTravelDateChange('arrival', e.target.value)}
+                className="flex-1 px-3 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm"
+                placeholder="Arrival"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Cruise Line Section */}
+        <div className="border-b-2 border-gray-300 p-6">
+          <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4">
+            CRUISE LINE
+          </h3>
+          <div className="relative">
+            <select
+              value={filters.cruiseLine}
+              onChange={(e) => handleCruiseLineChange(e.target.value)}
+              className="w-full px-3 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm appearance-none bg-white"
             >
-              <Send className="w-5 h-5" />
-            </button>
+              <option value="">Select a brand...</option>
+              {cruiseLineOptions.map((line) => (
+                <option key={line} value={line}>
+                  {line}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+          </div>
+        </div>
+
+        {/* Ship Name Section */}
+        <div className="border-b-2 border-gray-300 p-6">
+          <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4">
+            SHIP NAME
+          </h3>
+          <div className="relative">
+            <select
+              value={filters.shipName}
+              onChange={(e) => handleShipNameChange(e.target.value)}
+              className="w-full px-3 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm appearance-none bg-white"
+            >
+              <option value="">Select a ship...</option>
+              {shipNameOptions.map((ship) => (
+                <option key={ship} value={ship}>
+                  {ship}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
           </div>
         </div>
 

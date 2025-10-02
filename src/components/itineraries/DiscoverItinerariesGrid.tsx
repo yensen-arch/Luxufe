@@ -1,13 +1,31 @@
 import React, { useState } from "react";
 import ItineraryCard from "@/components/itineraries/ItineraryCard";
-
+import Image from "next/image";
 interface DiscoverItinerariesGridProps {
   filters: {
     search: string;
     destinations: string[];
     experiences: string[];
     specialOffers: boolean;
+    travelDates: {
+      departure: string;
+      arrival: string;
+    };
+    cruiseLine: string;
+    shipName: string;
   };
+  onFiltersChange: (filters: {
+    search: string;
+    destinations: string[];
+    experiences: string[];
+    specialOffers: boolean;
+    travelDates: {
+      departure: string;
+      arrival: string;
+    };
+    cruiseLine: string;
+    shipName: string;
+  }) => void;
   onClearFilter: (filterType: 'destinations' | 'experiences', value: string) => void;
   onClearAllFilters: () => void;
 }
@@ -116,8 +134,9 @@ const mockItineraries = [
   }
 ];
 
-export default function DiscoverItinerariesGrid({ filters, onClearFilter, onClearAllFilters }: DiscoverItinerariesGridProps) {
+export default function DiscoverItinerariesGrid({ filters, onFiltersChange, onClearFilter, onClearAllFilters }: DiscoverItinerariesGridProps) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState(filters.search);
   const cardsPerPage = 3; // Show 3 cards per page as in the image
   
   // Filter itineraries based on active filters
@@ -135,7 +154,13 @@ export default function DiscoverItinerariesGrid({ filters, onClearFilter, onClea
 
   // Get all active filters for display
   const allSelectedFilters = [...filters.destinations, ...filters.experiences];
-  const hasFilters = allSelectedFilters.length > 0 || filters.specialOffers;
+
+  const handleSearch = () => {
+    onFiltersChange({
+      ...filters,
+      search: searchTerm
+    });
+  };
 
   // Reset to first page when filters change
   React.useEffect(() => {
@@ -143,7 +168,29 @@ export default function DiscoverItinerariesGrid({ filters, onClearFilter, onClea
   }, [filters]);
 
   return (
-    <section className="flex-1 max-h-[250vh] bg-[#f7f7fa]">
+    <section className="flex-1 max-h-[250vh] bg-white">
+      {/* Search Section */}
+      <div className="px-8 py-6 bg-white border-b border-gray-200">
+        <h2 className="text-2xl font-arpona font-bold text-gray-700 mb-4">SEARCH</h2>
+        <div className="flex items-center gap-4">
+          <div className="flex-1 relative">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="What are you looking for?"
+              className="w-full px-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-gray-700 placeholder-gray-400"
+            />
+          </div>
+          <button
+            onClick={handleSearch}
+            className="bg-gray-800 text-white p-3 rounded-full hover:bg-gray-700 transition-colors"
+          >
+            <Image src="/luxufe-icon-ai-send-arrow-light.svg" alt="Search" width={20} height={20} className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+
       {/* Results Count */}
       <div className="px-8 py-6">
         <p className="text-sm font-inter font-bold text-gray-500">
@@ -165,12 +212,12 @@ export default function DiscoverItinerariesGrid({ filters, onClearFilter, onClea
             <ItineraryCard
               key={itinerary.id}
               image={itinerary.image}
-              location={itinerary.location}
-              duration={itinerary.duration}
               title={itinerary.title}
               description={itinerary.description}
-              flightsIncluded={itinerary.flightsIncluded}
-              price={itinerary.price}
+              button="EXPLORE"
+              highlight={false}
+              isSelected={false}
+              onClick={() => {}}
             />
           ))}
         </div>
