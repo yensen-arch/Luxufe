@@ -16,15 +16,15 @@ interface OtherHotel {
   image: string;
 }
 
-function StarRow() {
-  return (
-    <div className="flex gap-1 mb-2">
-      {[...Array(5)].map((_, i) => (
-        <Image src="/luxufe-icon-star-ratings-solid-white.svg" alt="Star" width={20} height={20} />
-      ))}
-    </div>
-  );
-}
+// function StarRow() {
+//   return (
+//     <div className="flex gap-1 mb-2">
+//       {[...Array(5)].map((_, i) => (
+//         <Image src="/luxufe-icon-star-ratings-solid-white.svg" alt="Star" width={20} height={20} />
+//       ))}
+//     </div>
+//   );
+// }
 
 // Convert brand name to slug format
 function brandNameToSlug(brandName: string): string {
