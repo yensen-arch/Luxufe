@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from "react";
-
+import Image from 'next/image'
 interface Option {
   label: string;
   iconUrl?: string;
@@ -40,8 +40,8 @@ const TripWizardStepper: React.FC<TripWizardStepperProps> = ({
   const [selectedIdx, setSelectedIdx] = useState<number | null>(0);
 
   return (
-    <section className="w-full flex justify-center items-center py-16 bg-gray-100">
-      <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
+    <section className="max-w-7xl md:mb-30 flex justify-center items-center mx-auto p-16 bg-gray-100">
+      <div className="w-full  mx-auto flex flex-col items-center">
         <h2 className="text-3xl md:text-4xl font-arpona text-[#23263a] font-normal mb-12 text-center">
           {question}
         </h2>
@@ -54,12 +54,8 @@ const TripWizardStepper: React.FC<TripWizardStepperProps> = ({
               }`}
               onClick={() => setSelectedIdx(idx)}
             >
-              <span className="mb-6 flex items-center justify-center">
-                {/* Placeholder icon, replace with real icon if available */}
-                <svg width="48" height="48" fill="none" viewBox="0 0 48 48">
-                  <circle cx="24" cy="24" r="22" stroke="#e5e7eb" strokeWidth="3" fill="#fff" />
-                  <path d="M24 16l6 12h-12l6-12z" fill="#e5e7eb" />
-                </svg>
+              <span className="mb-6 flex items-center justify-center rounded-full p-4 border-2 border-gray-200 shadow-lg">
+                <Image src="/luxufe-travel-style-cruises.svg" alt="Ship Icon" width={20} height={20} className="md:w-7 md:h-7 lg:w-9 lg:h-9" />
               </span>
               <span className="text-center font-inter font-semibold text-lg">
                 {option.label}
@@ -68,15 +64,12 @@ const TripWizardStepper: React.FC<TripWizardStepperProps> = ({
           ))}
         </div>
         <button
-          className="mt-4 px-10 py-4 border border-gray-300 bg-white text-[#23263a] font-inter font-semibold text-base tracking-widest flex items-center gap-2 hover:bg-gray-100 transition-all"
+          className="mt-4 px-10 py-4 border-2 border-gray-300 text-[#23263a] font-inter font-semibold text-xs tracking-widest flex items-center gap-2 hover:bg-gray-100 transition-all"
           onClick={() => onNext?.(selectedIdx !== null ? gridOptions[selectedIdx] : null)}
         >
           NEXT QUESTION
           <span>
-            <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15 1L21 6L15 11" stroke="#23263a" strokeWidth="2"/>
-              <line x1="21" y1="6" x2="1" y2="6" stroke="#23263a" strokeWidth="2"/>
-            </svg>
+            <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-5 lg:w-6 lg:h-5" />
           </span>
         </button>
         <div className="w-full mt-12">
