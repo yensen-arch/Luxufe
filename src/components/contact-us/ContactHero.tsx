@@ -37,7 +37,7 @@ function ContactInfoSection({ data }: ContactInfoSectionProps) {
           {/* Call Us */}
           <div className="flex flex-col items-center text-center">
             <span className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 border border-gray-400 rounded-full bg-white shadow-md mb-4 md:mb-6">
-              <Image src="/luxufe-icon-call.svg" alt="Call" width={24} height={24} className="w-6 h-6 md:w-8 md:h-8 text-[#23263a]" />
+              <Image src="/luxufe-icon-call.svg" alt="Call" width={24} height={24} className="w-6 h-6 md:w-8 md:h-8 opacity-50" />
             </span>
             <h3 className="text-lg md:text-xl font-arpona font-medium mb-3 md:mb-4">{callUsTitle}</h3>
             <div className="text-xs font-inter font-bold text-[#23263a] mb-2">
@@ -47,7 +47,7 @@ function ContactInfoSection({ data }: ContactInfoSectionProps) {
           {/* Email Us */}
           <div className="flex flex-col items-center text-center">
             <span className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 border border-gray-400 rounded-full bg-white shadow-md mb-4 md:mb-6">
-              <Image src="/luxufe-icons-email-dark.svg" alt="Email" width={24} height={24} className="w-6 h-6 md:w-8 md:h-8 text-[#23263a]" />
+              <Image src="/luxufe-icons-email-dark.svg" alt="Email" width={24} height={24} className="w-6 h-6 md:w-8 md:h-8 opacity-50" />
             </span>
             <h3 className="text-lg md:text-xl font-arpona font-medium mb-3 md:mb-4">{emailUsTitle}</h3>
             <div className="text-xs font-inter font-bold text-[#23263a] mb-2">
@@ -58,7 +58,7 @@ function ContactInfoSection({ data }: ContactInfoSectionProps) {
           {/* Book a call */}
           <div className="flex flex-col items-center text-center">
             <span className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 border border-gray-400 rounded-full bg-white shadow-md mb-4 md:mb-6">
-              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={24} height={24} className="w-6 h-6 md:w-8 md:h-8 text-[#23263a]" />
+              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={24} height={24} className="w-6 h-6 md:w-8 md:h-8 opacity-50" />
             </span>
             <h3 className="text-lg md:text-xl font-arpona font-medium mb-3 md:mb-4">{bookACallTitle}</h3>
             <div className="text-xs font-inter font-bold text-[#23263a] mb-2">
