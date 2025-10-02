@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from "react";
-import { Search, Send, Filter, X, Calendar, ChevronDown, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 interface DiscoverItinerariesSidebarProps {
   onFiltersChange: (filters: {
@@ -113,7 +113,7 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="bg-[#23263a] text-white p-3 rounded-full shadow-lg"
         >
-          {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Filter className="w-5 h-5" />}
+          {isMobileMenuOpen ? <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={20} height={20} className="w-5 h-5" /> : <Image src="/luxufe-icon-filter-dark.svg" alt="Filter" width={20} height={20} className="w-5 h-5" />}
         </button>
       </div>
 
@@ -125,7 +125,7 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
         />
       )}
 
-      <aside className={`w-full min-h-[250vh] max-w-md bg-[#f7f7fa] border-r-2 border-gray-300 flex flex-col transition-transform duration-300 ease-in-out ${
+      <aside className={`w-full min-h-[250vh] max-w-md bg-gray-100 border-r-2 border-gray-300 flex flex-col transition-transform duration-300 ease-in-out ${
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
       } md:translate-x-0 md:relative fixed md:static top-0 left-0 h-full z-50`}>
         
@@ -135,18 +135,18 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-gray-600 hover:text-gray-800"
           >
-            <X className="w-6 h-6" />
+            <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={24} height={24} className="w-6 h-6" />
           </button>
         </div>
 
         {/* Travel Dates Section */}
         <div className="border-b-2 border-gray-300 p-6">
-          <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4">
+          <h3 className="text-sm font-inter font-bold text-gray-700 mb-4">
             TRAVEL DATES
           </h3>
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-gray-500" />
+              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={14} height={14} className="w-4 h-4 text-gray-500" />
               <input
                 type="date"
                 value={filters.travelDates.departure}
@@ -156,10 +156,10 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
               />
             </div>
             <div className="flex items-center justify-center">
-              <ArrowRight className="w-4 h-4 text-gray-400" />
+              <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={14} height={14} className="w-4 h-4 text-gray-400" />
             </div>
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-gray-500" />
+              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={14} height={14} className="w-4 h-4 text-gray-500" />
               <input
                 type="date"
                 value={filters.travelDates.arrival}
@@ -173,7 +173,7 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
 
         {/* Cruise Line Section */}
         <div className="border-b-2 border-gray-300 p-6">
-          <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4">
+          <h3 className="text-sm font-inter font-bold text-gray-700 mb-4">
             CRUISE LINE
           </h3>
           <div className="relative">
@@ -189,13 +189,13 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
                 </option>
               ))}
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+            <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow down" width={14} height={14} className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
           </div>
         </div>
 
         {/* Ship Name Section */}
         <div className="border-b-2 border-gray-300 p-6">
-          <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4">
+          <h3 className="text-sm font-inter font-bold text-gray-700 mb-4">
             SHIP NAME
           </h3>
           <div className="relative">
@@ -211,13 +211,13 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
                 </option>
               ))}
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+            <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow down" width={14} height={14} className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
           </div>
         </div>
 
         {/* Destinations Section */}
         <div className="border-b-2 border-gray-300 p-6">
-          <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4">
+          <h3 className="text-sm font-inter font-bold text-gray-700 mb-4">
             DESTINATIONS
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -225,15 +225,15 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
               <button
                 key={destination}
                 onClick={() => handleDestinationToggle(destination)}
-                className={`px-2 py-2 rounded-full text-xs font-inter font-bold transition cursor-pointer flex items-center justify-between ${
+                className={`px-2 py-2 rounded-full text-xs font-inter text-center font-bold transition cursor-pointer ${
                   filters.destinations.includes(destination)
                     ? 'bg-gray-400 text-white'
                     : 'bg-gray-200 text-gray-400 hover:bg-gray-300'
                 }`}
               >
-                <span>{destination}</span>
+                {destination}
                 {filters.destinations.includes(destination) && (
-                  <X className="w-3 h-3 ml-1" />
+                  <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={14} height={14} className="w-3 h-3 ml-1" />
                 )}
               </button>
             ))}
@@ -242,7 +242,7 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
 
         {/* Experience Section */}
         <div className="border-b-2 border-gray-300 p-6">
-          <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4">
+          <h3 className="text-sm font-inter font-bold text-gray-700 mb-4">
             EXPERIENCE
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -250,7 +250,7 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
               <button
                 key={experience}
                 onClick={() => handleExperienceToggle(experience)}
-                className={`px-2 py-2 rounded-full text-xs font-inter font-bold transition cursor-pointer ${
+                className={`px-2 py-2 rounded-full text-xs font-inter text-center font-bold transition cursor-pointer ${
                   filters.experiences.includes(experience)
                     ? 'bg-gray-400 text-white'
                     : 'bg-gray-200 text-gray-400 hover:bg-gray-300'
@@ -264,7 +264,7 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
 
         {/* Special Offers Section */}
         <div className="p-6">
-          <h3 className="text-2xl font-arpona font-bold text-gray-700 mb-4">
+          <h3 className="text-sm font-inter font-bold text-gray-700 mb-4">
             SPECIAL OFFERS
           </h3>
           <div className="flex items-center justify-between">
