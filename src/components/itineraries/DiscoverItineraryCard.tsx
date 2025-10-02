@@ -21,9 +21,9 @@ export default function DiscoverItineraryCard({
   price
 }: DiscoverItineraryCardProps) {
   return (
-    <div className="flex bg-white shadow-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl">
+    <div className="flex flex-col md:flex-row bg-white shadow-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl">
       {/* Image Section */}
-      <div className="w-1/2 relative">
+      <div className="w-full md:w-1/2 relative h-48 md:h-auto">
         <Image 
           src={image} 
           alt={title} 
@@ -40,7 +40,7 @@ export default function DiscoverItineraryCard({
       </div>
       
       {/* Content Section */}
-      <div className="w-1/2 p-6 flex flex-col justify-between">
+      <div className="w-full md:w-1/2 p-4 md:p-6 flex flex-col justify-between">
         {/* Header with location and duration */}
         <div className="flex justify-between items-start mb-4">
           <div className="flex items-center gap-2">
@@ -51,32 +51,32 @@ export default function DiscoverItineraryCard({
         </div>
 
         {/* Title and Description */}
-        <div className="mb-6">
-          <h3 className="text-xl font-arpona font-bold text-black mb-3">{title}</h3>
-          <p className="text-sm font-inter text-gray-600 leading-relaxed font-bold">{description}</p>
+        <div className="mb-4 md:mb-6">
+          <h3 className="text-lg md:text-xl font-arpona font-bold text-black mb-2 md:mb-3">{title}</h3>
+          <p className="text-xs md:text-sm font-inter text-gray-600 leading-relaxed font-bold">{description}</p>
         </div>
 
         {/* Separator line */}
-        <div className="border-t-2 border-gray-300 mb-4"></div>
+        <div className="border-t-2 border-gray-300 mb-3 md:mb-4"></div>
 
         {/* Inclusions and Price */}
-        <div className="space-y-2 mb-6">
+        <div className="space-y-1 md:space-y-2 mb-4 md:mb-6">
           {flightsIncluded && (
             <div className="flex items-center gap-2">
-              <Image src="/luxufe-icon-flights-dark.svg" alt="Plane" width={14} height={14} className="w-4 h-4 text-gray-600" />
-              <span className="text-sm font-inter text-gray-600 font-bold">Flights Included</span>
+              <Image src="/luxufe-icon-flights-dark.svg" alt="Plane" width={14} height={14} className="w-3 h-3 md:w-4 md:h-4 text-gray-600" />
+              <span className="text-xs md:text-sm font-inter text-gray-600 font-bold">Flights Included</span>
             </div>
           )}
           <div className="flex items-center gap-2">
-            <Image src="/luxufe-icon-cost-dark.svg" alt="Credit card" width={14} height={14} className="w-4 h-4 text-gray-600" />
-            <span className="text-sm font-inter text-gray-600 font-bold">{price}</span>
+            <Image src="/luxufe-icon-cost-dark.svg" alt="Credit card" width={14} height={14} className="w-3 h-3 md:w-4 md:h-4 text-gray-600" />
+            <span className="text-xs md:text-sm font-inter text-gray-600 font-bold">{price}</span>
           </div>
         </div>
 
         {/* Explore Button */}
-        <button className="flex items-center gap-2 text-xs font-inter font-bold text-gray-700 border-2 border-gray-300 px-6 py-4 hover:bg-gray-50 transition-colors self-end">
+        <button className="flex items-center gap-2 text-xs font-inter font-bold text-gray-700 border-2 border-gray-300 px-4 py-3 md:px-6 md:py-4 hover:bg-gray-50 transition-colors self-end">
           EXPLORE ITINERARY
-          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={14} height={14} className="w-4 h-4" />
+          <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={14} height={14} className="w-3 h-3 md:w-4 md:h-4" />
         </button>
       </div>
     </div>

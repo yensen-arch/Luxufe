@@ -167,41 +167,41 @@ export default function DiscoverItinerariesGrid({ filters, onFiltersChange, onCl
   return (
     <section className="flex-1 max-h-[250vh] bg-gray-100">
       {/* Search Section */}
-      <div className="px-8 py-6 md:px-10 md:w-5xl border-b-2 border-gray-300">
-        <h2 className="text-sm font-arpona font-bold text-gray-700 mb-4">SEARCH</h2>
-        <div className="flex items-center gap-4">
+      <div className="px-4 md:px-8 py-4 md:py-6 md:px-10 md:w-5xl border-b-2 border-gray-300">
+        <h2 className="text-sm font-arpona font-bold text-gray-700 mb-3 md:mb-4">SEARCH</h2>
+        <div className="flex items-center gap-2 md:gap-4">
           <div className="flex-1 relative">
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="What are you looking for?"
-              className="w-full px-4 py-2 pl-12 pr-12 rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 text-gray-700 placeholder-gray-400"
+              className="w-full px-3 md:px-4 py-2 pl-10 md:pl-12 pr-10 md:pr-12 rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 text-gray-700 placeholder-gray-400 text-sm"
             />
-            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center">
-              <Image src="/luxufe-icon-ai-send-arrow-light.svg" alt="Search" width={20} height={20} className="w-4 h-4" />
+            <div className="absolute right-2 md:right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 md:w-8 md:h-8 bg-gray-800 rounded-full flex items-center justify-center">
+              <Image src="/luxufe-icon-ai-send-arrow-light.svg" alt="Search" width={20} height={20} className="w-3 h-3 md:w-4 md:h-4" />
             </div>
           </div>
         </div>
       </div>
 
       {/* Results Count */}
-      <div className="px-8 py-6 md:px-10 md:w-5xl">
-        <p className="text-sm font-inter font-bold text-gray-500">
+      <div className="px-4 md:px-8 py-4 md:py-6 md:px-10 md:w-5xl">
+        <p className="text-xs md:text-sm font-inter font-bold text-gray-500">
           Showing {startIndex + 1}-{Math.min(endIndex, filteredItineraries.length)} of {filteredItineraries.length} Results
         </p>
       </div>
 
       {/* Itinerary Cards Grid */}
       {filteredItineraries.length === 0 ? (
-        <div className="flex items-center justify-center py-16">
+        <div className="flex items-center justify-center py-8 md:py-16">
           <div className="text-center">
-            <p className="text-gray-600 font-inter text-lg mb-2">No itineraries found</p>
-            <p className="text-gray-500 font-inter text-sm">Try adjusting your filters to see more results</p>
+            <p className="text-gray-600 font-inter text-base md:text-lg mb-2">No itineraries found</p>
+            <p className="text-gray-500 font-inter text-xs md:text-sm">Try adjusting your filters to see more results</p>
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-8 px-4 md:px-10 md:w-5xl pb-8">
+        <div className="grid grid-cols-1 gap-4 md:gap-8 px-4 md:px-10 md:w-5xl pb-8">
           {currentItineraries.map((itinerary) => (
             <DiscoverItineraryCard
               key={itinerary.id}
