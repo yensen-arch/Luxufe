@@ -77,16 +77,16 @@ export default function PropertyPicks({ data }: PropertyPicksProps) {
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
-          <p className="text-lg md:text-xl lg:text-5xl font-bellarina text-gray-600 mb-10 md:mb-12">
+          <p className="text-2xl md:text-3xl lg:text-5xl font-bellarina text-gray-600 mb-8 md:mb-8">
             {sectionData.tagline}
           </p>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-arpona font-bold text-gray-800">
+          <h2 className="text-3xl md:text-3xl lg:text-5xl xl:text-6xl font-arpona font-bold text-gray-800">
             {sectionData.title}
           </h2>
         </div>
 
         {/* Properties Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 mb-16 md:mb-20 lg:mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-4 lg:gap-6 mb-16 md:mb-20 lg:mb-24">
           {sectionData.properties.map((property, index) => (
             <div key={index} className="h-[200px] md:h-[250px] lg:h-[300px]">
               <PropertyCard

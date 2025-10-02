@@ -32,7 +32,7 @@ export default function PropertyCard({
       {/* Content Overlay */}
       <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-white">
         {/* Star Rating */}
-        <div className="flex justify-center mb-2 md:mb-3">
+        {/* <div className="flex justify-center mb-2 md:mb-3">
           {[...Array(rating)].map((_, index) => (
             <Image 
               key={index} 
@@ -43,10 +43,10 @@ export default function PropertyCard({
               className="w-4 h-3 md:w-5 md:h-4 text-white" 
             />
           ))}
-        </div>
+        </div> */}
         
         {/* Property Name */}
-        <h3 className="text-lg md:text-xl lg:text-xl font-arpona text-center mb-1 md:mb-2">
+        <h3 className="text-lg md:text-xl lg:text-xl font-arpona font-bold text-center mb-1 md:mb-2">
           {name}
         </h3>
         

@@ -108,7 +108,7 @@ export default function HotelBrands({ data }: HotelBrandsProps) {
       brandLogosApi.scrollNext();
     };
 
-    const interval = setInterval(autoScroll, 3000); // Scroll every 3 seconds
+    const interval = setInterval(autoScroll, 5000); // Scroll every 5 seconds
 
     return () => clearInterval(interval);
   }, [brandLogosApi]);
@@ -127,13 +127,13 @@ export default function HotelBrands({ data }: HotelBrandsProps) {
       <div className=" mx-auto ">
         {/* Text Content */}
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-arpona font-bold text-gray-800 mb-4 md:mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-arpona font-bold text-gray-800 mb-4 md:mb-8">
             {sectionData.title}
           </h2>
-          <h3 className="text-xl md:text-2xl lg:text-3xl max-w-xl mx-auto font-arpona font-bold text-gray-600 mb-6 md:mb-8">
+          <h3 className="text-xl md:text-2xl lg:text-3xl max-w-xl mx-auto font-arpona font-bold text-gray-600 mb-8 md:mb-10">
             {sectionData.subtitle}
           </h3>
-          <p className="max-w-xl mx-auto text-sm md:text-base lg:text-sm font-inter font-bold text-gray-700 leading-relaxed">
+          <p className="w-4/5 md:w-full md:max-w-xl mx-auto text-sm md:text-base lg:text-sm font-inter font-bold text-gray-700 leading-relaxed">
             {sectionData.description}
           </p>
         </div>
@@ -199,10 +199,10 @@ export default function HotelBrands({ data }: HotelBrandsProps) {
                         className="w-[300px] md:w-[400px] lg:w-[1000px] h-[200px] md:h-[250px] lg:h-[650px] object-cover"
                       />
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 md:p-6">
-                        <h4 className="text-white font-arpona text-lg md:text-xl lg:text-2xl mb-1">
+                        <h4 className="text-white font-arpona font-bold text-lg md:text-xl lg:text-2xl mb-1">
                           {destination.name}
                         </h4>
-                        <p className="text-white/90 font-inter text-sm md:text-base">
+                        <p className="text-white/90 font-inter font-bold text-sm md:text-base">
                           {destination.location}
                         </p>
                       </div>
@@ -216,13 +216,13 @@ export default function HotelBrands({ data }: HotelBrandsProps) {
           {/* Navigation Arrows */}
           <button
             onClick={scrollPrev}
-            className="absolute top-1/2 left-55 -translate-y-1/2 bg-white border border-gray-200 rounded-full p-3 md:p-8 shadow-lg hover:bg-white transition-colors z-10"
+            className="hidden md:block absolute top-1/2 left-55 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-3 md:p-8 shadow-lg hover:bg-white transition-colors z-10"
           >
             <img src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" className="h-4 w-4 md:h-7 md:w-7 text-gray-800" />
           </button>
           <button
             onClick={scrollNext}
-            className="absolute top-1/2 right-55 -translate-y-1/2 bg-white border border-gray-200 rounded-full p-3 md:p-8 shadow-lg hover:bg-white transition-colors z-10"
+            className="hidden md:block absolute top-1/2 right-55 -translate-y-1/2 bg-white border border-gray-200 rounded-full p-3 md:p-8 shadow-lg hover:bg-white transition-colors z-10"
           >
             <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-4 w-4 md:h-7 md:w-7 text-gray-800" />
           </button>
