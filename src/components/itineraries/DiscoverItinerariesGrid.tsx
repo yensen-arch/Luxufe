@@ -167,7 +167,7 @@ export default function DiscoverItinerariesGrid({ filters, onFiltersChange, onCl
   return (
     <section className="flex-1 max-h-[250vh] bg-gray-100">
       {/* Search Section */}
-      <div className="px-8 py-6 border-b-2 border-gray-300">
+      <div className="px-8 py-6 md:px-10 md:w-5xl border-b-2 border-gray-300">
         <h2 className="text-sm font-arpona font-bold text-gray-700 mb-4">SEARCH</h2>
         <div className="flex items-center gap-4">
           <div className="flex-1 relative">
@@ -186,7 +186,7 @@ export default function DiscoverItinerariesGrid({ filters, onFiltersChange, onCl
       </div>
 
       {/* Results Count */}
-      <div className="px-8 py-6">
+      <div className="px-8 py-6 md:px-10 md:w-5xl">
         <p className="text-sm font-inter font-bold text-gray-500">
           Showing {startIndex + 1}-{Math.min(endIndex, filteredItineraries.length)} of {filteredItineraries.length} Results
         </p>
@@ -201,7 +201,7 @@ export default function DiscoverItinerariesGrid({ filters, onFiltersChange, onCl
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-8 px-8 pb-8">
+        <div className="grid grid-cols-1 gap-8 px-4 md:px-10 md:w-5xl pb-8">
           {currentItineraries.map((itinerary) => (
             <DiscoverItineraryCard
               key={itinerary.id}
