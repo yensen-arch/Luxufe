@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Map, { Marker, Popup, NavigationControl } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { ZoomIn, ZoomOut } from "lucide-react";
+import {  ZoomIn, ZoomOut } from "lucide-react";
 
 const LOCATIONS = [
   { name: "CANADA", lng: -106.3468, lat: 56.1304 },
@@ -10,7 +10,7 @@ const LOCATIONS = [
   { name: "RUSSIA", lng: 105, lat: 61 },
 ];
 
-type Location = (typeof LOCATIONS)[number];
+type Location = typeof LOCATIONS[number];
 
 interface HotelMapProps {
   className?: string;
@@ -23,54 +23,16 @@ export default function HotelMap({ className = "" }: HotelMapProps) {
     <div className={`w-[85vw] h-130 md:h-screen z-10 relative ${className}`}>
       <Map
         initialViewState={{ longitude: 20, latitude: 20, zoom: 1.1 }}
-        mapStyle={{
-          version: 8,
-          sources: {
-            "carto-dark": {
-              type: "vector",
-              tiles: [
-                "https://basemaps.cartocdn.com/gl/dark-gl-style/{z}/{x}/{y}.pbf",
-              ],
-            },
-          },
-          layers: [
-            {
-              id: "background",
-              type: "background",
-              paint: { "background-color": "#f3f4f6" },
-            },
-            {
-              id: "water",
-              type: "fill",
-              source: "carto-dark",
-              "source-layer": "water",
-              paint: { "fill-color": "#f3f4f6" },
-            },
-            {
-              id: "land",
-              type: "fill",
-              source: "carto-dark",
-              "source-layer": "landcover",
-              paint: { "fill-color": "#3b82f6" },
-            },
-            {
-              id: "boundaries",
-              type: "line",
-              source: "carto-dark",
-              "source-layer": "boundary",
-              paint: { "line-color": "#1e40af", "line-width": 1 },
-            },
-          ],
-        }}
+        mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
         style={{ width: "100%", height: "100%" }}
         className="rounded-t-3xl"
       >
-        <NavigationControl
-          position="bottom-left"
+        <NavigationControl 
+          position="bottom-left" 
           showCompass={false}
           showZoom={false}
         />
-
+        
         {/* Custom Zoom Controls */}
         <div className="absolute bottom-4 left-4 z-10 flex flex-col gap-2">
           <button className="w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors">
@@ -83,11 +45,7 @@ export default function HotelMap({ className = "" }: HotelMapProps) {
 
         {/* Instructional Tooltip */}
         <div className="absolute top-8 left-6 z-10 bg-white shadow-lg px-3 md:px-4 py-2 md:py-3 border border-gray-200 flex items-center gap-2 md:gap-3">
-          <img
-            src="/luxufe-icon-pointer-dark.svg"
-            alt="Pointer"
-            className="w-3 h-3 md:w-4 md:h-4 text-gray-700"
-          />
+          <img src="/luxufe-icon-pointer-dark.svg" alt="Pointer" className="w-3 h-3 md:w-4 md:h-4 text-gray-700" />
           <span className="font-inter text-gray-700 text-xs font-bold">
             Click on a region to explore further
           </span>
@@ -102,21 +60,12 @@ export default function HotelMap({ className = "" }: HotelMapProps) {
 
         {/* Location Markers */}
         {LOCATIONS.map((loc) => (
-          <Marker
-            longitude={loc.lng}
-            latitude={loc.lat}
-            anchor="bottom"
-            key={loc.name}
-          >
+          <Marker longitude={loc.lng} latitude={loc.lat} anchor="bottom" key={loc.name}>
             <button
               className="bg-white px-3 md:px-4 py-1.5 md:py-2 rounded-full shadow-lg flex items-center gap-1 md:gap-2 font-inter text-xs md:text-sm font-bold text-gray-900 hover:bg-gray-100 border border-gray-200 transition-colors"
               onClick={() => setSelected(loc)}
             >
-              <img
-                src="/luxufe-map-icon-large-location-pin-dark.svg"
-                alt="Map pin"
-                className="w-3 h-3 md:w-4 md:h-4"
-              />
+              <img src="/luxufe-map-icon-large-location-pin-dark.svg" alt="Map pin" className="w-3 h-3 md:w-4 md:h-4" />
               <span>{loc.name}</span>
             </button>
             {selected && selected.name === loc.name && (
@@ -138,4 +87,4 @@ export default function HotelMap({ className = "" }: HotelMapProps) {
       </Map>
     </div>
   );
-}
+} 
