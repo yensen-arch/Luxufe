@@ -144,7 +144,7 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
           <h3 className="text-sm font-inter font-bold text-gray-700 mb-4">
             TRAVEL DATES
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             <div className="flex items-center gap-2">
               <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={14} height={14} className="w-4 h-4 text-gray-500" />
               <input
