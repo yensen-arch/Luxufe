@@ -44,32 +44,32 @@ export default function DiscoverItineraryCard({
         {/* Header with location and duration */}
         <div className="flex justify-between items-start mb-4">
           <div className="flex items-center gap-2">
-            <Image src="/luxufe-icon-map-pin.svg" alt="Map pin" width={14} height={14} className="w-4 h-4 text-black" />
+            <Image src="/luxufe-map-icon-large-location-pin-dark.svg" alt="Map pin" width={14} height={14} className="w-4 h-4 text-black" />
             <span className="text-sm font-inter font-bold text-black">{location}</span>
           </div>
-          <span className="text-sm font-inter font-bold text-black">{duration}</span>
+          <span className="text-xs font-inter font-bold text-gray-600">{duration}</span>
         </div>
 
         {/* Title and Description */}
         <div className="mb-6">
           <h3 className="text-xl font-arpona font-bold text-black mb-3">{title}</h3>
-          <p className="text-sm font-inter text-gray-600 leading-relaxed">{description}</p>
+          <p className="text-sm font-inter text-gray-600 leading-relaxed font-bold">{description}</p>
         </div>
 
         {/* Separator line */}
-        <div className="border-t border-gray-200 mb-4"></div>
+        <div className="border-t-2 border-gray-300 mb-4"></div>
 
         {/* Inclusions and Price */}
         <div className="space-y-2 mb-6">
           {flightsIncluded && (
             <div className="flex items-center gap-2">
-              <Image src="/luxufe-icon-plane.svg" alt="Plane" width={14} height={14} className="w-4 h-4 text-gray-600" />
-              <span className="text-sm font-inter text-gray-600">Flights Included</span>
+              <Image src="/luxufe-icon-flights-dark.svg" alt="Plane" width={14} height={14} className="w-4 h-4 text-gray-600" />
+              <span className="text-sm font-inter text-gray-600 font-bold">Flights Included</span>
             </div>
           )}
           <div className="flex items-center gap-2">
-            <Image src="/luxufe-icon-credit-card.svg" alt="Credit card" width={14} height={14} className="w-4 h-4 text-gray-600" />
-            <span className="text-sm font-inter text-gray-600">{price}</span>
+            <Image src="/luxufe-icon-cost-dark.svg" alt="Credit card" width={14} height={14} className="w-4 h-4 text-gray-600" />
+            <span className="text-sm font-inter text-gray-600 font-bold">{price}</span>
           </div>
         </div>
 
