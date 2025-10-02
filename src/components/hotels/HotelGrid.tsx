@@ -170,58 +170,66 @@ export default function BrandGrid({
 
       {/* Pagination Component */}
       {totalPages > 1 && (
-        <div className="flex justify-center items-center py-12">
-          <div className="flex items-center gap-8">
-            {/* Previous Link */}
-            <button 
-              onClick={() => onPageChange(Math.max(1, currentPage - 1))}
-              disabled={currentPage === 1}
-              className={`font-inter text-sm transition ${
-                currentPage === 1 
-                  ? 'text-gray-300 cursor-not-allowed' 
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              &lt; Previous
-            </button>
-            
-            {/* Page Numbers */}
-            <div className="flex items-center gap-4">
-              {visiblePages.map((pageNum) => (
-                <button
-                  key={pageNum}
-                  onClick={() => onPageChange(pageNum)}
-                  className={`flex flex-col items-center ${
-                    pageNum === currentPage ? 'text-gray-800' : 'text-gray-500 hover:text-gray-700'
-                  }`}
-                >
-                  <span className={`font-inter text-sm ${pageNum === currentPage ? 'font-medium' : ''}`}>
-                    {pageNum.toString().padStart(2, '0')}
-                  </span>
-                  {pageNum === currentPage && (
-                    <div className="w-full h-0.5 bg-gray-500 mt-1"></div>
-                  )}
-                </button>
-              ))}
+        <div className="flex justify-center items-center py-8 md:py-12">
+          <div className="flex items-center gap-2 md:gap-4 w-60 mx-auto">
+            {/* Show pages around current page */}
+            {(() => {
+              const pages = [];
+              const showAround = 2; // Show 2 pages before and after current
+              const startPage = Math.max(1, currentPage - showAround);
+              const endPage = Math.min(totalPages, currentPage + showAround);
               
-              {/* Show ellipsis if there are more pages */}
-              {visiblePages[visiblePages.length - 1] < totalPages && (
-                <span className="text-gray-400 font-inter text-sm">...</span>
-              )}
-            </div>
-            
-            {/* Next Link */}
-            <button 
-              onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
-              disabled={currentPage === totalPages}
-              className={`font-inter text-sm transition ${
-                currentPage === totalPages 
-                  ? 'text-gray-300 cursor-not-allowed' 
-                  : 'text-gray-800 hover:text-gray-600'
-              }`}
-            >
-              Next &gt;
-            </button>
+              // Always show first page if not in range
+              if (startPage > 1) {
+                pages.push(
+                  <button
+                    key={1}
+                    onClick={() => onPageChange(1)}
+                    className="text-xs font-inter text-gray-400 font-light hover:text-gray-600"
+                  >
+                    01
+                  </button>
+                );
+                if (startPage > 2) {
+                  pages.push(<div key="dots1" className="text-xs font-inter text-gray-400">...</div>);
+                }
+              }
+              
+              // Show pages around current
+              for (let i = startPage; i <= endPage; i++) {
+                pages.push(
+                  <button
+                    key={i}
+                    onClick={() => onPageChange(i)}
+                    className={`text-xs font-inter ${
+                      i === currentPage 
+                        ? 'text-[#23263a] font-bold' 
+                        : 'text-gray-400 font-light hover:text-gray-600'
+                    }`}
+                  >
+                    {i.toString().padStart(2, '0')}
+                  </button>
+                );
+              }
+              
+              // Always show last page if not in range
+              if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                  pages.push(<div key="dots2" className="text-xs font-inter text-gray-400">...</div>);
+                }
+                pages.push(
+                  <button
+                    key={totalPages}
+                    onClick={() => onPageChange(totalPages)}
+                    className="text-xs font-inter text-gray-400 font-light hover:text-gray-600"
+                  >
+                    {totalPages.toString().padStart(2, '0')}
+                  </button>
+                );
+              }
+              
+              return pages;
+            })()}
           </div>
         </div>
       )}
