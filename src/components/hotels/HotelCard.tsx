@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { getHotelGallery, getBrandByName } from "@/lib/database";
-
+import Image from "next/image";
 interface HotelCardProps {
   name: string;
   location: string;
@@ -215,7 +214,7 @@ export default function HotelCard({ name, location, logo, description, brand }: 
         ) : (
           <button className="w-full border border-gray-800 bg-white text-gray-800 font-inter font-bold text-sm py-3 px-4 flex items-center justify-center gap-2 hover:bg-gray-50 transition">
             EXPLORE HOTEL
-            <ArrowRight className="w-4 h-4" />
+            <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={20} height={20} className="w-4 h-4" />
           </button>
         )}
       </div>

@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import HotelSidebar from "@/components/hotels/HotelSidebar";
 import HotelGrid from "@/components/hotels/HotelGrid";
 import { getHotelsWithFiltersAndGallery, getBrandCountries, getBrands } from "@/lib/database";

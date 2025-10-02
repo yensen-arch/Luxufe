@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import { Send, Filter, X } from "lucide-react";
 import { Brand } from "@/lib/database";
+import Image from "next/image";
 
 interface HotelSidebarProps {
   onFiltersChange: (filters: {
@@ -140,7 +140,7 @@ export default function HotelSidebar({
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="bg-[#23263a] text-white p-3 rounded-full shadow-lg"
         >
-          {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Filter className="w-5 h-5" />}
+          {isMobileMenuOpen ? <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={20} height={20} className="w-5 h-5" /> : <Image src="/luxufe-icon-filter-dark.svg" alt="Filter" width={20} height={20} className="w-5 h-5" />}
         </button>
       </div>
 
@@ -152,7 +152,7 @@ export default function HotelSidebar({
         />
       )}
 
-      <aside className={`w-full min-h-[250vh] max-w-md bg-[#f7f7fa] border-r-2 border-gray-300 flex flex-col transition-transform duration-300 ease-in-out ${
+      <aside className={`w-full min-h-[250vh] max-w-md bg-gray-100 border-r-2 border-gray-300 flex flex-col transition-transform duration-300 ease-in-out ${
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
       } md:translate-x-0 md:relative fixed md:static top-0 left-0 h-full z-50`}>
       {/* Mobile Close Button */}
@@ -161,7 +161,7 @@ export default function HotelSidebar({
           onClick={() => setIsMobileMenuOpen(false)}
           className="text-gray-600 hover:text-gray-800"
         >
-          <X className="w-6 h-6" />
+          <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={20} height={20} className="w-6 h-6" />
         </button>
       </div>
       
@@ -184,7 +184,7 @@ export default function HotelSidebar({
             {loading ? (
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
             ) : (
-              <Send className="w-5 h-5" />
+              <Image src="/luxufe-icon-ai-send-arrow-light.svg" alt="Send" width={20} height={20} className="w-5 h-5" />
             )}
           </button>
         </div>
@@ -267,7 +267,7 @@ export default function HotelSidebar({
             {loading ? (
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
             ) : (
-              <Send className="w-5 h-5" />
+              <Image src="/luxufe-icon-ai-send-arrow-light.svg" alt="Send" width={20} height={20} className="w-5 h-5" />
             )}
           </button>
         </div>

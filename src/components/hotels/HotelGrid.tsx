@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from "react";
-import { X } from "lucide-react";
+import React from "react";
+import Image from "next/image";
 import HotelCard from "./HotelCard";
 import { Hotel } from "@/lib/database";
 
@@ -74,7 +74,7 @@ export default function BrandGrid({
   }
 
   return (
-    <section className="flex-1 bg-[#f7f7fa] max-h-[250vh]">
+    <section className="flex-1 bg-gray-100 max-h-[340vh]">
       {/* Selected Filters - Always visible */}
       <div className="border-b-2 border-gray-300 px-8 py-4 h-30">
         <div className="flex items-center gap-4">
@@ -87,7 +87,7 @@ export default function BrandGrid({
                   onClick={() => onClearFilter('brand', filters.brand)}
                   className="hover:text-gray-300"
                 >
-                  <X className="w-3 h-3" />
+                  <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={20} height={20} className="w-3 h-3" />
                 </button>
               </span>
             )}
@@ -103,7 +103,7 @@ export default function BrandGrid({
                   onClick={() => onClearFilter('typeOfTravel', type)}
                   className="hover:text-gray-900"
                 >
-                  <X className="w-3 h-3" />
+                  <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={20} height={20} className="w-3 h-3" />
                 </button>
               </span>
             ))}
@@ -119,7 +119,7 @@ export default function BrandGrid({
                   onClick={() => onClearFilter('region', region)}
                   className="hover:text-gray-900"
                 >
-                  <X className="w-3 h-3" />
+                  <Image src="/luxufe-icon-close-dark.svg" alt="Close" width={20} height={20} className="w-3 h-3" />
                 </button>
               </span>
             ))}
@@ -154,7 +154,7 @@ export default function BrandGrid({
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 px-16 pb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-16 md:px-16 md:pb-8 gap-4 px-4 pb-4">
           {hotels.map((hotel, index) => (
             <HotelCard
               key={hotel.id}
