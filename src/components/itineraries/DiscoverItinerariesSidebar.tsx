@@ -151,7 +151,7 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
                 type="text"
                 value={filters.travelDates.departure}
                 onChange={(e) => handleTravelDateChange('departure', e.target.value)}
-                className="flex-1 px-3 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm bg-gray-200"
+                className="w-full flex-1 px-3 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm bg-gray-200"
                 placeholder="Departure"
               />
             </div>
@@ -162,7 +162,7 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
                 type="text"
                 value={filters.travelDates.arrival}
                 onChange={(e) => handleTravelDateChange('arrival', e.target.value)}
-                className="flex-1 px-3 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm bg-gray-200"
+                className="w-full flex-1 px-3 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm bg-gray-200"
                 placeholder="Arrival"
               />
             </div>
