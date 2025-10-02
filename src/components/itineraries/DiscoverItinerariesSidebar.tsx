@@ -145,26 +145,26 @@ export default function DiscoverItinerariesSidebar({ onFiltersChange, filters }:
             TRAVEL DATES
           </h3>
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2 flex-1">
-              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={14} height={14} className="w-4 h-4 text-gray-500" />
+            <div className="flex-1 relative">
               <input
                 type="text"
                 value={filters.travelDates.departure}
                 onChange={(e) => handleTravelDateChange('departure', e.target.value)}
-                className="w-full flex-1 px-3 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm bg-gray-200"
+                className="w-full px-3 py-2 pl-8 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm bg-gray-200"
                 placeholder="Departure"
               />
+              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={14} height={14} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 opacity-50" />
             </div>
             <Image src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" width={14} height={14} className="w-4 h-4 text-gray-400" />
-            <div className="flex items-center gap-2 flex-1">
-              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={14} height={14} className="w-4 h-4 text-gray-500" />
+            <div className="flex-1 relative">
               <input
                 type="text"
                 value={filters.travelDates.arrival}
                 onChange={(e) => handleTravelDateChange('arrival', e.target.value)}
-                className="w-full flex-1 px-3 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm bg-gray-200"
+                className="w-full px-3 py-2 pl-8 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm bg-gray-200"
                 placeholder="Arrival"
               />
+              <Image src="/luxufe-icon-calendar.svg" alt="Calendar" width={14} height={14} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 opacity-50" />
             </div>
           </div>
         </div>
