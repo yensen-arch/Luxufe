@@ -94,7 +94,7 @@ export default function Inspiration({ data }: InspirationProps) {
         {/* Left Content Section - Absolute positioned */}
         <div className="absolute left-0 top-0 h-full w-full lg:w-[75%] text-center lg:text-left px-6 py-12 sm:px-8 sm:py-16 lg:p-24 bg-gray-100 flex items-center z-10">
           <div className="w-full lg:w-3/5 ml-10">
-            <h3 className="text-2xl sm:text-3xl lg:text-5xl font-medium text-gray-600 mb-2 font-bellarina">
+            <h3 className="text-3xl sm:text-3xl lg:text-5xl font-medium text-gray-600 mb-2 font-bellarina">
               Stories & insights
             </h3>
             <h2 className="text-2xl sm:text-4xl lg:text-6xl font-arpona font-bold text-gray-800 my-4 sm:my-6">
