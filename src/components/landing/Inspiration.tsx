@@ -131,7 +131,7 @@ export default function Inspiration({ data }: InspirationProps) {
     <section className="my-12 sm:my-16 lg:my-24 min-h-screen lg:h-[120vh] overflow-hidden">
       <div className="relative h-full">
         {/* Left Content Section - Absolute positioned */}
-        <div className="absolute left-0 top-0 h-full w-full lg:w-[55%] text-center lg:text-left px-6 py-12 sm:px-8 sm:py-16 lg:p-24 bg-gray-100 flex items-center z-10">
+        <div className="absolute left-0 top-0 h-full w-full lg:w-[75%] text-center lg:text-left px-6 py-12 sm:px-8 sm:py-16 lg:p-24 bg-gray-100 flex items-center z-10">
           <div className="w-full lg:w-3/5">
             <h3 className="text-2xl sm:text-3xl lg:text-5xl font-medium text-gray-600 italic mb-2 font-bellarina">
               Stories & insights
@@ -169,10 +169,10 @@ export default function Inspiration({ data }: InspirationProps) {
         {/* Desktop: Carousel positioned from center-right */}
         {!isMobile && (
           <>
-            <div className="hidden lg:block absolute left-[45%] top-1/2 -translate-y-1/2 overflow-visible z-20">
+            <div className="hidden lg:block absolute left-[55%] top-1/2 -translate-y-1/2 overflow-visible z-20">
               <div 
                 className="flex transition-transform duration-500 ease-in-out gap-4 sm:gap-6 lg:gap-10"
-                style={{ transform: `translateX(-${currentIndex * 10}%)` }}
+                style={{ transform: `translateX(-${currentIndex * 25}%)` }}
               >
                 {sectionData.blogPosts.map((post, index) => (
                   <BlogCard 
@@ -192,15 +192,15 @@ export default function Inspiration({ data }: InspirationProps) {
             <div className="hidden lg:flex absolute flex-col gap-6 top-1/2 right-40 -translate-y-1/2 z-30">
               <button 
                 onClick={scrollPrev} 
-                className="bg-white rounded-full p-7 shadow-lg hover:bg-white transition"
+                className="bg-white rounded-full p-7 shadow-lg hover:bg-white transition border border-gray-300"
               >
-                <img src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" className="h-8 w-8 text-gray-800" />
+                <img src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" className="h-7 w-7 text-gray-800" />
               </button>
               <button 
                 onClick={scrollNext} 
-                className="bg-white rounded-full p-7 shadow-lg hover:bg-white transition"
+                className="bg-white rounded-full p-7 shadow-lg hover:bg-white transition border border-gray-300"
               >
-                <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-8 w-8 text-gray-800" />
+                <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-7 w-7 text-gray-800" />
               </button>
             </div>
           </>
