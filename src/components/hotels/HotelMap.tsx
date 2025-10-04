@@ -23,7 +23,7 @@ export default function HotelMap({ className = "" }: HotelMapProps) {
     <div className={`w-[85vw] h-130 md:h-screen z-10 relative ${className}`}>
       <Map
         initialViewState={{ longitude: 20, latitude: 20, zoom: 1.1 }}
-        mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+        mapStyle="/map-styles/custom-green-blue-style.json"
         style={{ width: "100%", height: "100%" }}
         className="rounded-t-3xl"
       >
