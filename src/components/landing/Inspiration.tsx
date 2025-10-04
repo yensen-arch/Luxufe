@@ -89,7 +89,7 @@ export default function Inspiration({ data }: InspirationProps) {
   }, [sectionData.blogPosts.length]);
 
   return (
-    <section className="my-12 sm:my-16 lg:my-24 min-h-screen lg:h-screen">
+    <section className="my-12 sm:my-16 lg:my-24 min-h-screen lg:h-[120vh]">
       <div className="w-full lg:container mx-auto h-full px-0 lg:px-0">
         <div className="grid grid-cols-1 lg:grid-cols-12 h-full items-center relative">
           {/* Left Content Section */}
