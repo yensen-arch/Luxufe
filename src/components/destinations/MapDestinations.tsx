@@ -49,7 +49,7 @@ export default function MapDestinations({ hotelCounts }: MapDestinationsProps) {
         <div className="w-full h-[400px] md:h-[650px] overflow-hidden shadow-lg relative">
           <Map
             initialViewState={{ longitude: 20, latitude: 20, zoom: 1.1 }}
-            mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+            mapStyle="/map-styles/vector-green-blue-style.json"
             style={{ width: "100%", height: "100%" }}
           >
             <NavigationControl position="bottom-left" showCompass={false} />

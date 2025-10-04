@@ -109,7 +109,7 @@ export default function ItineraryMap({ mapData, itineraryName }: ItineraryMapPro
     <div className="w-full h-[400px] md:h-[500px] overflow-hidden shadow-lg relative">
       <Map
         initialViewState={getInitialViewState}
-        mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+        mapStyle="/map-styles/vector-green-blue-style.json"
         style={{ width: "100%", height: "100%" }}
         onLoad={() => {
           console.log('Map loaded successfully');

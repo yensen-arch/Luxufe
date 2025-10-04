@@ -41,7 +41,7 @@ export default function MapProduct({ hotel }: MapProductProps) {
         <div className="w-full h-[650px]  mt-20 overflow-hidden shadow-lg relative">
           <Map
             initialViewState={getInitialViewState()}
-            mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+            mapStyle="/map-styles/vector-green-blue-style.json"
             style={{ width: "100%", height: "100%" }}
           >
             <NavigationControl position="bottom-left" showCompass={false} />

@@ -128,7 +128,7 @@ export default function MapRegions({ continentName, continentData, countriesData
         <div className="w-full h-[650px] mt-20 overflow-hidden shadow-lg relative">
           <Map
             initialViewState={viewState}
-            mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+            mapStyle="/map-styles/vector-green-blue-style.json"
             style={{ width: "100%", height: "100%" }}
           >
             <NavigationControl position="bottom-left" showCompass={false} />
