@@ -93,7 +93,7 @@ export default function Inspiration({ data }: InspirationProps) {
       <div className="w-full lg:container mx-auto h-full px-0 lg:px-0">
         <div className="grid grid-cols-1 lg:grid-cols-12 h-full items-center relative">
           {/* Left Content Section */}
-          <div className="lg:col-span-8 h-full text-center lg:text-left px-6 py-12 sm:px-8 sm:py-16 lg:p-24 bg-gray-50 flex items-center">
+          <div className="lg:col-span-8 h-full text-center lg:text-left px-6 py-12 sm:px-8 sm:py-16 lg:p-24 bg-gray-100 flex items-center">
             <div className="w-full lg:w-3/5">
               <h3 className="text-2xl sm:text-3xl lg:text-5xl font-medium text-gray-600 italic mb-2 font-bellarina">
                 Stories & insights
