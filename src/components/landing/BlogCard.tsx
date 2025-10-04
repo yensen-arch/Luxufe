@@ -19,12 +19,12 @@ const BlogCard: React.FC<BlogCardProps> = ({
   buttonLink = "#",
 }) => {
   return (
-    <div className="w-full bg-blue-500 relative border border-gray-200 shadow-xl overflow-hidden">
+    <div className="w-103 max-h-170   bg-blue-500 relative border border-gray-200 shadow-xl overflow-hidden">
       {/* Image will occupy the full top space */}
       <img
         src={imageUrl}
         alt={title}
-        className="w-full h-48 sm:h-66 lg:h-120 object-cover"
+        className="w-122 h-48 sm:h-66 lg:h-170 object-cover"
       />
 
       <div
