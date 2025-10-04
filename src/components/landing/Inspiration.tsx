@@ -110,21 +110,43 @@ export default function Inspiration({ data }: InspirationProps) {
           </div>
         </div>
 
-        {/* Mobile: Stack all cards */}
+        {/* Mobile: Carousel */}
         {isMobile && (
           <div className="lg:hidden w-full px-4 sm:px-6 py-6 sm:py-8">
-            <div className="max-w-sm mx-auto space-y-6">
-              {sectionData.blogPosts.map((post, index) => (
-                <BlogCard 
-                  key={index}
-                  category={post.category}
-                  title={post.title}
-                  description={post.description}
-                  imageUrl={post.image.url}
-                  buttonText={post.buttonText}
-                  buttonLink={post.buttonLink}
-                />
-              ))}
+            <div className="relative overflow-hidden">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out gap-4"
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+              >
+                {sectionData.blogPosts.map((post, index) => (
+                  <div className="flex-[0_0_100%] px-2" key={index}>
+                    <BlogCard 
+                      category={post.category}
+                      title={post.title}
+                      description={post.description}
+                      imageUrl={post.image.url}
+                      buttonText={post.buttonText}
+                      buttonLink={post.buttonLink}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Mobile Navigation Buttons */}
+            <div className="flex justify-center gap-4 mt-6">
+              <button 
+                onClick={scrollPrev} 
+                className="bg-white rounded-full p-3 shadow-md hover:bg-gray-50 transition border border-gray-200"
+              >
+                <img src="/luxufe-icon-slider-arrow-dark.svg" alt="Arrow left" className="h-5 w-5 text-gray-800" />
+              </button>
+              <button 
+                onClick={scrollNext} 
+                className="bg-white rounded-full p-3 shadow-md hover:bg-gray-50 transition border border-gray-200"
+              >
+                <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-5 w-5 text-gray-800" />
+              </button>
             </div>
           </div>
         )}
