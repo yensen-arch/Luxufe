@@ -103,7 +103,7 @@ export default function Inspiration({ data }: InspirationProps) {
             <p className="mb-6 sm:mb-8 lg:mb-10 lg:w-4/6 font-inter font-bold text-sm sm:text-base">
               {sectionData.description}
             </p>
-            <button className="group flex items-center gap-2 text-xs sm:text-sm font-inter font-bold tracking-widest border border-gray-400 justify-center py-3 sm:py-4 px-6 sm:px-8 hover:bg-gray-800 hover:text-white transition-colors mx-auto lg:mx-0">
+            <button className="group flex items-center gap-2 text-xs sm:text-xs font-inter font-bold tracking-widest border-2 border-gray-300 justify-center py-4 sm:py-5 px-6 sm:px-8 hover:bg-gray-800 hover:text-white transition-colors mx-auto lg:mx-0">
               {sectionData.ctaText}
               <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
             </button>
