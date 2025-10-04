@@ -29,9 +29,9 @@ const BlogCard: React.FC<BlogCardProps> = ({
 
       <div
         className="absolute inset-x-0 bottom-0"
-        style={{ top: "calc(100% - 350px)", zIndex: 0 }}
+        style={{ top: "calc(100% - 350px)", zIndex: 0, left: 0, right: 0 }}
       >
-        <Image src="/white_region.png" alt="Curve" width={400} height={250} />
+        <Image src="/custom_curve.svg" alt="Curve" width={200} height={700} className="w-full h-full object-cover" />
       </div>
       <div className="relative p-4 sm:p-6 lg:p-10 text-left" style={{ zIndex: 20, marginTop: "-200px" }}>
         <p className="text-xs text-gray-500 tracking-widest uppercase font-inter font-bold">
