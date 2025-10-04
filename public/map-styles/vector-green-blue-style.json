@@ -1,0 +1,30 @@
+{
+  "version": 8,
+  "name": "Vector Green Land Grey Water",
+  "sources": {
+    "openmaptiles": {
+      "type": "vector",
+      "url": "https://api.maptiler.com/tiles/v3/tiles.json?key=rgGPik6wbpQ6MOMGD9zk"
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#b9d6d9"
+      }
+    },
+    {
+      "id": "water",
+      "type": "fill",
+      "source": "openmaptiles",
+      "source-layer": "water",
+      "paint": {
+        "fill-color": "#FAFAFA",
+        "fill-opacity": 0.8
+      }
+    }
+    
+  ]
+}
