@@ -26,7 +26,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
   const fallbackButtonText = buttonText || "READ MORE";
   const fallbackButtonLink = buttonLink || "#";
   return (
-    <div className="w-full max-w-sm sm:max-w-md lg:w-110 lg:h-170 relative border border-gray-200 shadow-xl overflow-hidden">
+    <div className="w-full max-w-sm sm:max-w-md lg:w-110 lg:h-170 h-100 relative border border-gray-200 shadow-xl overflow-hidden">
       {/* Image will occupy the full top space */}
       <img
         src={fallbackImageUrl}
@@ -40,7 +40,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
       >
         <Image src="/custom_curve.svg" alt="Curve" width={200} height={700} className="w-full h-full object-cover" />
       </div>
-      <div className="relative px-4 sm:px-5 lg:px-6 py-4 sm:py-5 lg:py-0 text-left -mt-4" >
+      <div className="relative px-4 sm:px-5 lg:px-6 py-4 sm:py-5 lg:py-0 text-left md:-mt-4" >
         <div className="lg:absolute lg:inset-x-0 lg:bottom-0 lg:px-4 lg:py-0">
           <p className="text-xs text-gray-500 tracking-widest uppercase font-inter font-bold">
             {fallbackCategory}
