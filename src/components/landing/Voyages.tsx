@@ -84,7 +84,7 @@ export default function Voyages({ data }: VoyagesProps) {
   const currentVoyage = sectionData.voyages[currentIndex]
 
   return (
-    <section className="overflow-hidden">
+    <section className="overflow-hidden my-12 sm:my-16 lg:my-24">
       <div className="container mx-auto px-4 lg:px-0 ">
         <div className="relative flex flex-col lg:flex-row items-center lg:justify-start min-h-[400px] lg:min-h-[850px]">
           {/* Image Section */}

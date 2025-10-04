@@ -89,21 +89,21 @@ export default function Inspiration({ data }: InspirationProps) {
   }, [sectionData.blogPosts.length]);
 
   return (
-    <section className="my-12 sm:my-16 lg:my-24 min-h-screen lg:h-[120vh] overflow-hidden">
+    <section className="my-8 sm:my-12 lg:my-24 min-h-screen lg:h-[120vh] overflow-hidden">
       <div className="relative h-full">
-        {/* Left Content Section - Absolute positioned */}
-        <div className="absolute left-0 top-0 h-full w-full lg:w-[75%] text-center lg:text-left px-6 py-12 sm:px-8 sm:py-16 lg:p-24 bg-gray-100 flex items-center z-10">
-          <div className="w-full lg:w-3/5 ml-10">
-            <h3 className="text-3xl sm:text-3xl lg:text-5xl font-medium text-gray-600 mb-2 font-bellarina">
+        {/* Left Content Section - Responsive layout */}
+        <div className="lg:absolute lg:left-0 lg:top-0 lg:h-full w-full lg:w-[75%] text-center lg:text-left px-4 sm:px-6 lg:px-8 xl:p-24 py-8 sm:py-12 lg:py-16 bg-gray-100 lg:flex lg:items-center z-10">
+          <div className="w-full lg:w-3/5 lg:ml-10">
+            <h3 className="text-2xl sm:text-3xl lg:text-5xl font-medium text-gray-600 mb-2 font-bellarina">
               Stories & insights
             </h3>
-            <h2 className="text-2xl sm:text-4xl lg:text-6xl font-arpona font-bold text-gray-800 my-4 sm:my-6">
+            <h2 className="text-xl sm:text-3xl lg:text-6xl font-arpona font-bold text-gray-800 my-3 sm:my-4 lg:my-6 leading-tight">
               {sectionData.heading}
             </h2>
-            <p className="mb-6 sm:mb-8 lg:mb-10 lg:w-4/6 font-inter font-bold text-sm sm:text-base">
+            <p className="mb-4 sm:mb-6 lg:mb-10 lg:w-4/6 font-inter font-bold text-sm sm:text-base leading-relaxed">
               {sectionData.description}
             </p>
-            <button className="group flex items-center gap-2 text-xs sm:text-xs font-inter font-bold tracking-widest border-2 border-gray-300 justify-center py-4 sm:py-5 px-6 sm:px-8 hover:bg-gray-800 hover:text-white transition-colors mx-auto lg:mx-0">
+            <button className="group flex items-center gap-2 text-xs font-inter font-bold tracking-widest border-2 border-gray-300 justify-center py-3 sm:py-4 lg:py-5 px-4 sm:px-6 lg:px-8 hover:bg-gray-800 hover:text-white transition-colors mx-auto lg:mx-0">
               {sectionData.ctaText}
               <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
             </button>
@@ -112,18 +112,20 @@ export default function Inspiration({ data }: InspirationProps) {
 
         {/* Mobile: Stack all cards */}
         {isMobile && (
-          <div className="lg:hidden w-full px-6 py-8 space-y-6 pt-96">
-            {sectionData.blogPosts.map((post, index) => (
-              <BlogCard 
-                key={index}
-                category={post.category}
-                title={post.title}
-                description={post.description}
-                imageUrl={post.image.url}
-                buttonText={post.buttonText}
-                buttonLink={post.buttonLink}
-              />
-            ))}
+          <div className="lg:hidden w-full px-4 sm:px-6 py-6 sm:py-8">
+            <div className="max-w-sm mx-auto space-y-6">
+              {sectionData.blogPosts.map((post, index) => (
+                <BlogCard 
+                  key={index}
+                  category={post.category}
+                  title={post.title}
+                  description={post.description}
+                  imageUrl={post.image.url}
+                  buttonText={post.buttonText}
+                  buttonLink={post.buttonLink}
+                />
+              ))}
+            </div>
           </div>
         )}
 

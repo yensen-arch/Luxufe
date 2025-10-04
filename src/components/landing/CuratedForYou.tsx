@@ -167,7 +167,7 @@ export default function CuratedForYou({ data }: CuratedForYouProps) {
         <div ref={emblaRef}>
           <div className="flex">
             {sectionData.itineraries.map((item, index) => (
-              <div className="flex-[0_0_auto] min-w-0 " key={item.id}>
+              <div className="flex-[0_0_auto] min-w-0" key={item.id}>
                 <ItineraryCard
                   {...item}
                   imageUrl={item.image.url}
