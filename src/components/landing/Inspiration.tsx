@@ -132,14 +132,14 @@ export default function Inspiration({ data }: InspirationProps) {
       <div className="relative h-full">
         {/* Left Content Section - Absolute positioned */}
         <div className="absolute left-0 top-0 h-full w-full lg:w-[75%] text-center lg:text-left px-6 py-12 sm:px-8 sm:py-16 lg:p-24 bg-gray-100 flex items-center z-10">
-          <div className="w-full lg:w-3/5">
-            <h3 className="text-2xl sm:text-3xl lg:text-5xl font-medium text-gray-600 italic mb-2 font-bellarina">
+          <div className="w-full lg:w-3/5 ml-10">
+            <h3 className="text-2xl sm:text-3xl lg:text-5xl font-medium text-gray-600 mb-2 font-bellarina">
               Stories & insights
             </h3>
-            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-arpona font-bold text-gray-800 my-4 sm:my-6">
+            <h2 className="text-2xl sm:text-4xl lg:text-6xl font-arpona font-bold text-gray-800 my-4 sm:my-6">
               {sectionData.heading}
             </h2>
-            <p className="mb-6 sm:mb-8 lg:mb-10 lg:w-5/6 font-inter font-bold text-sm sm:text-base">
+            <p className="mb-6 sm:mb-8 lg:mb-10 lg:w-4/6 font-inter font-bold text-sm sm:text-base">
               {sectionData.description}
             </p>
             <button className="group flex items-center gap-2 text-xs sm:text-sm font-inter font-bold tracking-widest border border-gray-400 justify-center py-3 sm:py-4 px-6 sm:px-8 hover:bg-gray-800 hover:text-white transition-colors mx-auto lg:mx-0">
