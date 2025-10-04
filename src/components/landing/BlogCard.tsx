@@ -2,10 +2,10 @@ import React from "react";
 import Image from "next/image";
 
 interface BlogCardProps {
-  category: string;
-  title: string;
-  description: string;
-  imageUrl: string;
+  category?: string;
+  title?: string;
+  description?: string;
+  imageUrl?: string;
   buttonText?: string;
   buttonLink?: string;
 }
@@ -18,12 +18,19 @@ const BlogCard: React.FC<BlogCardProps> = ({
   buttonText = "READ MORE",
   buttonLink = "#",
 }) => {
+  // Fallback/dummy values when data doesn't exist
+  const fallbackCategory = category || "TRAVEL";
+  const fallbackTitle = title || "Discover Amazing Destinations";
+  const fallbackDescription = description || "Explore the world's most beautiful places and create unforgettable memories with our curated travel experiences.";
+  const fallbackImageUrl = imageUrl || "/placeholder-blog.jpg";
+  const fallbackButtonText = buttonText || "READ MORE";
+  const fallbackButtonLink = buttonLink || "#";
   return (
-    <div className="w-103 max-h-170   bg-blue-500 relative border border-gray-200 shadow-xl overflow-hidden">
+    <div className="w-110 max-h-170   bg-blue-500 relative border border-gray-200 shadow-xl overflow-hidden">
       {/* Image will occupy the full top space */}
       <img
-        src={imageUrl}
-        alt={title}
+        src={fallbackImageUrl}
+        alt={fallbackTitle}
         className="w-122 h-48 sm:h-66 lg:h-170 object-cover"
       />
 
@@ -33,21 +40,21 @@ const BlogCard: React.FC<BlogCardProps> = ({
       >
         <Image src="/custom_curve.svg" alt="Curve" width={200} height={700} className="w-full h-full object-cover" />
       </div>
-      <div className="relative p-4 sm:p-6 lg:p-10 text-left" style={{ zIndex: 20, marginTop: "-200px" }}>
+      <div className="relative px-4 sm:px-6 lg:px-5 py-0 text-left" style={{ zIndex: 20, marginTop: "-380px" }}>
         <p className="text-xs text-gray-500 tracking-widest uppercase font-inter font-bold">
-          {category}
+          {fallbackCategory}
         </p>
-        <h3 className="text-lg sm:text-xl font-arpona font-bold text-gray-800 mt-2 mb-3 h-auto sm:h-16 w-full sm:w-2/4">
-          {title}
+        <h3 className="text-lg sm:text-xl font-arpona font-bold text-gray-800 mt-2 mb-6 h-auto sm:h-16 w-full sm:w-2/4">
+          {fallbackTitle}
         </h3>
-        <p className="text-xs sm:text-sm text-gray-600 w-full sm:w-3/4 leading-relaxed h-auto sm:h-24 font-inter font-bold mb-3 sm:mb-4">
-          {description}
+        <p className="text-[10px] sm:text-xs text-gray-500 w-full sm:w-3/4 leading-relaxed h-auto sm:h-24 font-inter font-bold mb-1 sm:mb-1">
+          {fallbackDescription}
         </p>
         <a
-          href={buttonLink}
+          href={fallbackButtonLink}
           className="mt-3 sm:mt-4 text-xs inline-flex items-center gap-1 sm:gap-2 font-inter font-bold text-gray-800 hover:underline"
         >
-          {buttonText}{" "}
+          {fallbackButtonText}{" "}
           <img
             src="/luxufe-icon-button-arrow-dark.svg"
             alt="Arrow right"

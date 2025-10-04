@@ -150,7 +150,7 @@ export default function Inspiration({ data }: InspirationProps) {
             </div>
             
             {/* Navigation Buttons - Desktop only */}
-            <div className="hidden lg:flex absolute flex-col gap-6 top-1/2 left-3/4 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10">
+            {/* <div className="hidden lg:flex absolute flex-col gap-6 top-1/2 left-3/4 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10">
               <button 
                 onClick={scrollPrev} 
                 className="bg-white rounded-full p-6 shadow-md hover:bg-white transition pointer-events-auto"
@@ -163,7 +163,7 @@ export default function Inspiration({ data }: InspirationProps) {
               >
                 <img src="/luxufe-icon-button-arrow-dark.svg" alt="Arrow right" className="h-6 w-6 text-gray-800" />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
