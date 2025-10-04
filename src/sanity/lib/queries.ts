@@ -138,15 +138,19 @@ export const landingPageQuery = groq`
     inspiration {
       heading,
       description,
+      ctaText,
+      ctaLink,
       blogPosts[] {
+        category,
         title,
-        excerpt,
-        slug,
+        description,
         image {
           "url": asset->url,
           "metadata": asset->metadata,
           alt
-        }
+        },
+        buttonText,
+        buttonLink
       }
     },
     newsletter {

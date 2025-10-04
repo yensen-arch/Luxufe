@@ -55,10 +55,12 @@ const BlogCard: React.FC<BlogCardProps> = ({
           className="mt-3 sm:mt-4 text-xs inline-flex items-center gap-1 sm:gap-2 font-inter font-bold text-gray-800 hover:underline"
         >
           {fallbackButtonText}{" "}
-          <img
+          <Image
             src="/luxufe-icon-button-arrow-dark.svg"
             alt="Arrow right"
-            className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0"
+            width={20}
+            height={20}
+            className="h-5 w-5 sm:h-5 sm:w-5 flex-shrink-0"
           />
         </a>
       </div>
